@@ -19,21 +19,59 @@
  *****************************************************************************/
 
 #import "VLCExtendedVideoView.h"
+#import "NSScreen_Additions.h"
 
-#import "VLCDetachableViewPlaceholder.h"
+#import "VLCFullscreenHUDWindowController.h"
+
+@interface VLCExtendedVideoView () <VLCFullscreenHUDWindowControllerDelegate>
+@end
 
 @implementation VLCExtendedVideoView
-@synthesize placeholder=_placeholder;
+@synthesize mediaPlayer=_mediaPlayer;
 
 - (BOOL)acceptsFirstResponder {
     return YES;
 }
 
+- (BOOL)fullscreen
+{
+    return _isFullscreen;
+}
+
+- (void)setFullscreen:(BOOL)fullscreen
+{
+    if (_isFullscreen == fullscreen) return;
+    _isFullscreen = fullscreen;
+    
+	if(_isFullscreen) {
+        NSAssert(!_fullscreenHUDWindowController, @"There should not be any controller");
+        _fullscreenHUDWindowController = [[VLCFullscreenHUDWindowController alloc] init];
+        [_fullscreenHUDWindowController setDelegate:self];
+		NSScreen * screen = [[self window] screen];
+		if ([screen isMainScreen])
+			[NSMenu setMenuBarVisible:NO];
+		
+		[self enterFullScreenMode:screen withOptions:nil];
+        [_fullscreenHUDWindowController activate];
+	}
+	else {
+        [_fullscreenHUDWindowController deactivate];
+        [_fullscreenHUDWindowController release];
+        _fullscreenHUDWindowController = nil;
+		[NSMenu setMenuBarVisible:YES];
+        [self exitFullScreenModeWithOptions:nil];
+	}
+}
+
+- (void)cancelOperation:(id)sender
+{
+    [self setFullscreen:![self fullscreen]];
+}
 
 - (void)mouseDown:(NSEvent *)event
 {
 	if ([event clickCount] == 2) {
-		[_placeholder toggleFullscreen];
+		[self setFullscreen:![self fullscreen]];
 	}
 }
 @end

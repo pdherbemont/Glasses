@@ -21,11 +21,14 @@
 #import <Cocoa/Cocoa.h>
 #import <VLCKit/VLCKit.h>
 
-@class VLCDetachableViewPlaceholder;
+@class VLCFullscreenHUDWindowController;
 
 @interface VLCExtendedVideoView : VLCVideoView {
-	VLCDetachableViewPlaceholder * _placeholder;
+	BOOL _isFullscreen;
+    VLCFullscreenHUDWindowController * _fullscreenHUDWindowController;
+    VLCMediaPlayer * _mediaPlayer;
 }
 
-@property (readwrite,assign) VLCDetachableViewPlaceholder * placeholder;
+@property (readwrite,assign) BOOL fullscreen;
+@property (readwrite,assign) VLCMediaPlayer * mediaPlayer;
 @end

@@ -39,8 +39,20 @@
         
         /* let the window sit on top of everything else and start out completely transparent */
         [self setLevel:NSFloatingWindowLevel];
-        [self center];
     }
     return self;
 }
+
+-(void)center
+{
+    /* user-defined screen */
+        
+    NSRect screenFrame = [[NSScreen mainScreen] frame];
+    NSRect windowFrame = [self frame];
+    NSPoint coordinate;
+    coordinate.x = (windowFrame.size.width - windowFrame.size.width) / 2 + screenFrame.origin.x;
+    coordinate.y = (windowFrame.size.height / 3) - windowFrame.size.height + screenFrame.origin.y;
+    [self setFrameTopLeftPoint:coordinate];
+}
+
 @end

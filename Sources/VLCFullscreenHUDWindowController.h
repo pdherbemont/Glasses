@@ -20,11 +20,22 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol VLCFullscreenHUDWindowControllerDelegate;
+@class VLCMediaPlayer;
 
 @interface VLCFullscreenHUDWindowController : NSWindowController {
-
+    id<VLCFullscreenHUDWindowControllerDelegate> _delegate;
 }
+
+@property (assign) id<VLCFullscreenHUDWindowControllerDelegate> delegate;
 
 - (void)activate;
 - (void)deactivate;
+@end
+
+@protocol VLCFullscreenHUDWindowControllerDelegate <NSObject>
+- (VLCMediaPlayer *)mediaPlayer;
+
+- (void)setFullscreen:(BOOL)fullscreen;
+- (BOOL)fullscreen;
 @end

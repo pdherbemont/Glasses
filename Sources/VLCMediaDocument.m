@@ -20,7 +20,7 @@
 
 #import "VLCMediaDocument.h"
 
-@interface VLCMediaDocument ()
+@interface VLCMediaDocument () <VLCFullscreenHUDWindowControllerDelegate>
 @property (readwrite,retain) VLCMediaPlayer * mediaPlayer;
 @end
 
@@ -48,15 +48,12 @@
 
 - (NSString *)windowNibName
 {
-    // Override returning the nib file name of the document
-    // If you need to use a subclass of NSWindowController or if your document supports multiple NSWindowControllers, you should remove this method and override -makeWindowControllers instead.
     return @"MediaDocument";
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *) aController
 {
     [super windowControllerDidLoadNib:aController];
-    // Add any code here that needs to be executed once the windowController has loaded the document's window.
 
 	NSRect frame;
 	NSWindow * window = [aController window];
@@ -67,12 +64,8 @@
 	[window setFrame:frame display:NO];
 	[window center];
 
-	_videoViewPlaceholder.mediaDocument = self;
-	_videoViewPlaceholder.videoView = [[[VLCExtendedVideoView alloc] initWithFrame:_videoViewPlaceholder.frame] autorelease];
-	self.mediaPlayer = [[[VLCMediaPlayer alloc] initWithVideoView:_videoViewPlaceholder.videoView] autorelease];
-
-    [_mediaPlayer addObserver:self forKeyPath:@"playing" options:(NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
-	
+	self.mediaPlayer = [[[VLCMediaPlayer alloc] initWithVideoView:_videoView] autorelease];
+	[_videoView setMediaPlayer:_mediaPlayer];
 	[_mediaPlayer setMedia:_media];
 	[_mediaPlayer play];
 }
@@ -94,35 +87,16 @@
 }
 
 #pragma mark -
-#pragma mark Observer
-- (VLCFullscreenHUDWindowController *)fullscreenHUDWindowController
+#pragma mark fullscreenHUDWindowControllerDelegate
+
+- (BOOL)fullscreen
 {
-	if(!_fullscreenHUDWindowController)
-		_fullscreenHUDWindowController = [[VLCFullscreenHUDWindowController alloc] init];
-	return [[_fullscreenHUDWindowController retain] autorelease];
+    return [_videoView fullscreen];
 }
 
-#pragma mark -
-#pragma mark Observer
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-					  ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context
+- (void)setFullscreen:(BOOL)fullscreen
 {
-    if ([keyPath isEqual:@"playing"]) {
-		if([object isPlaying]) {
-			[_playPauseButton setImage:[NSImage imageNamed:@"pause_embedded"]];
-			[_playPauseButton setAlternateImage:[NSImage imageNamed:@"pause_embedded_blue"]];
-		}
-		else {
-			[_playPauseButton setImage:[NSImage imageNamed:@"play_embedded"]];
-			[_playPauseButton setAlternateImage:[NSImage imageNamed:@"play_embedded_blue"]];
-		}
-		return;
-    }
-
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	[_videoView setFullscreen:fullscreen];
 }
 
 #pragma mark -
@@ -138,6 +112,6 @@
 
 - (IBAction)toggleFullscreen:(id)sender
 {
-	[_videoViewPlaceholder toggleFullscreen];
+	[self setFullscreen:![self fullscreen]];
 }
 @end

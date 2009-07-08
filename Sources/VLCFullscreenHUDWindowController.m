@@ -22,6 +22,8 @@
 
 
 @implementation VLCFullscreenHUDWindowController
+@synthesize delegate=_delegate;
+
 - (NSString *)windowNibName
 {
 	return @"FullscreenHUDWindow";

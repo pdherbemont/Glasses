@@ -22,12 +22,12 @@
 #import <Cocoa/Cocoa.h>
 #import <VLCKit/VLCKit.h>
 
-#import "VLCDetachableViewPlaceholder.h"
+#import "VLCExtendedVideoView.h"
 #import "VLCFullscreenHUDWindowController.h"
 
 @interface VLCMediaDocument : NSDocument
 {
-	IBOutlet VLCDetachableViewPlaceholder	* _videoViewPlaceholder;
+	IBOutlet VLCExtendedVideoView * _videoView;
 	IBOutlet NSButton * _playPauseButton;
 	
 	VLCMedia * _media;
@@ -36,7 +36,6 @@
 }
 
 @property (readonly,retain) VLCMediaPlayer * mediaPlayer;
-@property (readonly,retain) VLCFullscreenHUDWindowController * fullscreenHUDWindowController;
 
 - (IBAction)togglePlayPause:(id)sender;
 - (IBAction)toggleFullscreen:(id)sender;
