@@ -51,18 +51,15 @@
                             [NSString stringWithFormat:@"%@: %@\n\nBack trace has been printed to Console.\n\nWe will now wait for debugger connection...\n",
                                 [exception name], [exception reason]],
                             @"Quit", @"Wait Debugger", nil);
-    if( ret == NSOKButton )
-    {
+    if (ret == NSOKButton)
         [NSApp terminate:self];
-    }
     return YES;
 }
 
 - (void)printStackTrace:(NSException *)e
 {
     NSString *stack = [[e userInfo] objectForKey:NSStackTraceKey];
-    if (!stack)
-    {
+    if (!stack) {
         NSLog(@"No stack trace available.");
         return;
     }

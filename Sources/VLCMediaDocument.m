@@ -73,17 +73,15 @@
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
-    if ( outError != NULL ) {
+    if (outError)
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
 	return nil;
 }
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-    if ( outError != NULL ) {
+    if (outError)
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
-	}
     return YES;
 }
 

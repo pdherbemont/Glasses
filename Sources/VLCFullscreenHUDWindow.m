@@ -30,8 +30,7 @@
                   backing:(NSBackingStoreType)bufferingType 
                     defer:(BOOL)flag
 {
-    if( self = [super initWithContentRect:contentRect styleMask:NSTexturedBackgroundWindowMask backing:bufferingType defer:flag] )
-    {
+    if (self = [super initWithContentRect:contentRect styleMask:NSTexturedBackgroundWindowMask backing:bufferingType defer:flag]) {
         [self setOpaque:NO];
         [self setHasShadow: NO];
         [self setBackgroundColor:[NSColor clearColor]];

@@ -40,7 +40,8 @@
 
 - (void)setFullscreen:(BOOL)fullscreen
 {
-    if (_isFullscreen == fullscreen) return;
+    if (_isFullscreen == fullscreen)
+        return;
     _isFullscreen = fullscreen;
     
 	if(_isFullscreen) {
@@ -53,8 +54,7 @@
 		
 		[self enterFullScreenMode:screen withOptions:nil];
         [_fullscreenHUDWindowController activate];
-	}
-	else {
+	} else {
         [_fullscreenHUDWindowController deactivate];
         [_fullscreenHUDWindowController release];
         _fullscreenHUDWindowController = nil;
@@ -70,8 +70,7 @@
 
 - (void)mouseDown:(NSEvent *)event
 {
-	if ([event clickCount] == 2) {
+	if ([event clickCount] == 2)
 		[self setFullscreen:![self fullscreen]];
-	}
 }
 @end

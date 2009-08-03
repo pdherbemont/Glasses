@@ -14,11 +14,9 @@
 + (NSScreen *)screenWithDisplayID: (CGDirectDisplayID)displayID
 {
     int i;
-	
-    for( i = 0; i < [[NSScreen screens] count]; i++ )
-    {
+    for (i = 0; i < [[NSScreen screens] count]; i++) {
         NSScreen *screen = [[NSScreen screens] objectAtIndex: i];
-        if([screen displayID] == displayID)
+        if ([screen displayID] == displayID)
             return screen;
     }
     return nil;
@@ -26,12 +24,12 @@
 
 - (BOOL)isMainScreen
 {
-    return ([self displayID] == [[[NSScreen screens] objectAtIndex:0] displayID]);
+    return [self displayID] == [[[NSScreen screens] objectAtIndex:0] displayID];
 }
 
 - (BOOL)isScreen: (NSScreen*)screen
 {
-    return ([self displayID] == [screen displayID]);
+    return [self displayID] == [screen displayID];
 }
 
 - (CGDirectDisplayID)displayID
