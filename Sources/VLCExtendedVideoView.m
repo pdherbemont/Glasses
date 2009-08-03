@@ -29,7 +29,8 @@
 @implementation VLCExtendedVideoView
 @synthesize mediaPlayer=_mediaPlayer;
 
-- (BOOL)acceptsFirstResponder {
+- (BOOL)acceptsFirstResponder
+{
     return YES;
 }
 
