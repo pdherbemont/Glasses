@@ -39,6 +39,11 @@
     return _isFullscreen;
 }
 
+- (BOOL)mouseDownCanMoveWindow;
+{
+    return YES;
+}
+
 - (void)setFullscreen:(BOOL)fullscreen
 {
     if (_isFullscreen == fullscreen)

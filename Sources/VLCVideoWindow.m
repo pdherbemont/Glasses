@@ -32,6 +32,7 @@
     self = [super initWithContentRect:contentRect styleMask:windowStyle backing:bufferingType defer:deferCreation];
     if (!useTextured)
         [self setContentBorderThickness:31.0 forEdge:NSMinYEdge];
+    [self setMovableByWindowBackground:YES];
     return self;
 }
 @end
