@@ -2,6 +2,7 @@
  * Copyright (C) 2009 the VideoLAN team
  *
  * Authors: Pierre d'Herbemont
+ *          Felix Paul Kühne
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,10 +105,15 @@
 
 - (IBAction)togglePlayPause:(id)sender
 {
-	if([_mediaPlayer isPlaying])
+	if([_mediaPlayer isPlaying]) {
 		[_mediaPlayer pause];
-	else
+        [sender setImage: [NSImage imageNamed: @"play_embedded"]];
+        [sender setAlternateImage: [NSImage imageNamed: @"play_embedded_graphite"]];
+    } else {
 		[_mediaPlayer play];
+        [sender setImage: [NSImage imageNamed: @"pause_embedded"]];
+        [sender setAlternateImage: [NSImage imageNamed: @"pause_embedded_graphite"]];
+    }
 }
 
 - (IBAction)toggleFullscreen:(id)sender

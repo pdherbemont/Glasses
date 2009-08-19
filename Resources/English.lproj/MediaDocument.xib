@@ -77,7 +77,7 @@
 								</object>
 								<object class="NSCustomResource" key="NSAlternateImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">pause_embedded_blue</string>
+									<string key="NSResourceName">pause_embedded_graphite</string>
 								</object>
 								<string key="NSAlternateContents"/>
 								<string key="NSKeyEquivalent"/>
