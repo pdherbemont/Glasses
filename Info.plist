@@ -42,7 +42,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>audio.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>Monkey's Audio Lossless Audio Compression</string>
+			<string>Monkey&apos;s Audio Lossless Audio Compression</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -900,6 +900,8 @@
 	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>org.videolan.Glasses</string>
+	<key>SUFeedURL</key>
+	<string>http://jones.videolan.org/~videolan/fpk/sparkle/glasses.xml</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

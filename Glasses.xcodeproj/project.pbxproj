@@ -11,7 +11,6 @@
 		6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */; };
 		6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */; };
 		6311DA4F0FF85970004BC7D1 /* VLCMediaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */; };
-		6311DA580FF85980004BC7D1 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
 		6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */; };
 		6311DADB0FF85AC0004BC7D1 /* fs_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAAD0FF85AC0004BC7D1 /* fs_background.png */; };
 		6311DADC0FF85AC0004BC7D1 /* fs_exit_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAAE0FF85AC0004BC7D1 /* fs_exit_fullscreen.png */; };
@@ -62,7 +61,6 @@
 		6311DB150FF85AF0004BC7D1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB0D0FF85AF0004BC7D1 /* Credits.rtf */; };
 		6311DB160FF85AF0004BC7D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */; };
 		6311DB1C0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */; };
-		6311DB200FF85B58004BC7D1 /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DB1E0FF85B58004BC7D1 /* VLCVideoWindow.m */; };
 		6311DB2C0FF85BDB004BC7D1 /* display_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB270FF85BDB004BC7D1 /* display_left.png */; };
 		6311DB2D0FF85BDB004BC7D1 /* display_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB280FF85BDB004BC7D1 /* display_middle.png */; };
 		6311DB2E0FF85BDB004BC7D1 /* display_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB290FF85BDB004BC7D1 /* display_right.png */; };
@@ -77,7 +75,14 @@
 		63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
+		CC10A7AC103CA81900B4555A /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7AA103CA81900B4555A /* Preferences.xib */; };
+		CC10A7B0103CA96800B4555A /* VLCPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10A7AF103CA96800B4555A /* VLCPreferences.m */; };
+		CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
+		CC566421103C9F6300FEA1D3 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
+		CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9091103C95000000601C /* VLCVideoWindow.m */; };
+		CC5E909D103C96420000601C /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +102,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CC566421103C9F6300FEA1D3 /* Sparkle.framework in CopyFiles */,
 				631CA0E80FF864EE00CA511E /* VLCKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -186,8 +192,17 @@
 		63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Glasses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Glasses.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
+		CC10A7AB103CA81900B4555A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/Preferences.xib; sourceTree = "<group>"; };
+		CC10A7AE103CA96800B4555A /* VLCPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferences.h; path = Sources/VLCPreferences.h; sourceTree = "<group>"; };
+		CC10A7AF103CA96800B4555A /* VLCPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPreferences.m; path = Sources/VLCPreferences.m; sourceTree = "<group>"; };
+		CC56641D103C9F5900FEA1D3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMiscUIElements.m; path = Sources/VLCMiscUIElements.m; sourceTree = "<group>"; };
 		CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiscUIElements.h; path = Sources/VLCMiscUIElements.h; sourceTree = "<group>"; };
+		CC5E9090103C95000000601C /* VLCVideoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindow.h; path = Sources/VLCVideoWindow.h; sourceTree = "<group>"; };
+		CC5E9091103C95000000601C /* VLCVideoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindow.m; path = Sources/VLCVideoWindow.m; sourceTree = "<group>"; };
+		CC5E9093103C950B0000601C /* VLCExtendedVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExtendedVideoView.h; path = Sources/VLCExtendedVideoView.h; sourceTree = "<group>"; };
+		CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExtendedVideoView.m; path = Sources/VLCExtendedVideoView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +213,7 @@
 				631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */,
+				CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +223,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC56641D103C9F5900FEA1D3 /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 			);
 			name = "Linked Frameworks";
@@ -250,8 +267,9 @@
 				63EF25C60F90FD8B002A2E14 /* Internal */,
 				63EF25C70F90FD93002A2E14 /* Document */,
 				63EF25910F90F960002A2E14 /* Video */,
-				6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */,
-				6311DA5A0FF8598D004BC7D1 /* NSScreen_Additions.h */,
+				CC10A7B5103CA99000B4555A /* Generic code */,
+				CC10A7AE103CA96800B4555A /* VLCPreferences.h */,
+				CC10A7AF103CA96800B4555A /* VLCPreferences.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -274,6 +292,8 @@
 				6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */,
 				6311DAAC0FF85AC0004BC7D1 /* Images */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
+				CC10A7A5103CA66B00B4555A /* dsa_pub.pem */,
+				CC10A7AA103CA81900B4555A /* Preferences.xib */,
 				6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */,
 			);
 			name = Resources;
@@ -381,10 +401,12 @@
 		63EF25C70F90FD93002A2E14 /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */,
-				CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */,
 				6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */,
 				6311DA4E0FF85970004BC7D1 /* VLCMediaDocument.h */,
+				CC5E9090103C95000000601C /* VLCVideoWindow.h */,
+				CC5E9091103C95000000601C /* VLCVideoWindow.m */,
+				CC5E9093103C950B0000601C /* VLCExtendedVideoView.h */,
+				CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -398,6 +420,17 @@
 				6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */,
 			);
 			name = FullscreenHUD;
+			sourceTree = "<group>";
+		};
+		CC10A7B5103CA99000B4555A /* Generic code */ = {
+			isa = PBXGroup;
+			children = (
+				CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */,
+				CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */,
+				6311DA5A0FF8598D004BC7D1 /* NSScreen_Additions.h */,
+				6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */,
+			);
+			name = "Generic code";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -518,6 +551,8 @@
 				6311DB340FF85BE3004BC7D1 /* fullscreen_blue.png in Resources */,
 				63D441D0100469A60086772A /* MediaDocument.xib in Resources */,
 				63D441D2100469AD0086772A /* MainMenu.xib in Resources */,
+				CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */,
+				CC10A7AC103CA81900B4555A /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,13 +565,14 @@
 			files = (
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				6311DA470FF85941004BC7D1 /* VLCFullscreenHUDWindow.m in Sources */,
+				CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */,
+				CC5E909D103C96420000601C /* VLCExtendedVideoView.m in Sources */,
+				6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */,
+				CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */,
 				6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */,
 				6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */,
 				6311DA4F0FF85970004BC7D1 /* VLCMediaDocument.m in Sources */,
-				6311DA580FF85980004BC7D1 /* VLCExtendedVideoView.m in Sources */,
-				6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */,
-				6311DB200FF85B58004BC7D1 /* VLCVideoWindow.m in Sources */,
-				CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */,
+				CC10A7B0103CA96800B4555A /* VLCPreferences.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +621,14 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
+		CC10A7AA103CA81900B4555A /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC10A7AB103CA81900B4555A /* English */,
+			);
+			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -593,7 +637,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -611,7 +658,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = VLC_Prefix.pch;
