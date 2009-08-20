@@ -83,6 +83,9 @@
 		CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
 		CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9091103C95000000601C /* VLCVideoWindow.m */; };
 		CC5E909D103C96420000601C /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */; };
+		CC61B345103DDAD700D13C72 /* Open.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC61B343103DDAD700D13C72 /* Open.xib */; };
+		CC61B348103DDB9C00D13C72 /* VLCOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B346103DDB9C00D13C72 /* VLCOpen.m */; };
+		CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +206,11 @@
 		CC5E9091103C95000000601C /* VLCVideoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindow.m; path = Sources/VLCVideoWindow.m; sourceTree = "<group>"; };
 		CC5E9093103C950B0000601C /* VLCExtendedVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExtendedVideoView.h; path = Sources/VLCExtendedVideoView.h; sourceTree = "<group>"; };
 		CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExtendedVideoView.m; path = Sources/VLCExtendedVideoView.m; sourceTree = "<group>"; };
+		CC61B344103DDAD700D13C72 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/Open.xib; sourceTree = "<group>"; };
+		CC61B346103DDB9C00D13C72 /* VLCOpen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpen.m; path = Sources/VLCOpen.m; sourceTree = "<group>"; };
+		CC61B347103DDB9C00D13C72 /* VLCOpen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpen.h; path = Sources/VLCOpen.h; sourceTree = "<group>"; };
+		CC61B414103E088B00D13C72 /* VLCDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentController.h; path = Sources/VLCDocumentController.h; sourceTree = "<group>"; };
+		CC61B415103E088B00D13C72 /* VLCDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentController.m; path = Sources/VLCDocumentController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +264,7 @@
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
+				CC61B343103DDAD700D13C72 /* Open.xib */,
 			);
 			name = "VLC light";
 			sourceTree = "<group>";
@@ -268,8 +277,7 @@
 				63EF25C70F90FD93002A2E14 /* Document */,
 				63EF25910F90F960002A2E14 /* Video */,
 				CC10A7B5103CA99000B4555A /* Generic code */,
-				CC10A7AE103CA96800B4555A /* VLCPreferences.h */,
-				CC10A7AF103CA96800B4555A /* VLCPreferences.m */,
+				CC61B34C103DDBC000D13C72 /* Non-document windows */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -401,12 +409,14 @@
 		63EF25C70F90FD93002A2E14 /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */,
 				6311DA4E0FF85970004BC7D1 /* VLCMediaDocument.h */,
+				6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */,
 				CC5E9090103C95000000601C /* VLCVideoWindow.h */,
 				CC5E9091103C95000000601C /* VLCVideoWindow.m */,
 				CC5E9093103C950B0000601C /* VLCExtendedVideoView.h */,
 				CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */,
+				CC61B414103E088B00D13C72 /* VLCDocumentController.h */,
+				CC61B415103E088B00D13C72 /* VLCDocumentController.m */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -431,6 +441,17 @@
 				6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */,
 			);
 			name = "Generic code";
+			sourceTree = "<group>";
+		};
+		CC61B34C103DDBC000D13C72 /* Non-document windows */ = {
+			isa = PBXGroup;
+			children = (
+				CC10A7AE103CA96800B4555A /* VLCPreferences.h */,
+				CC10A7AF103CA96800B4555A /* VLCPreferences.m */,
+				CC61B346103DDB9C00D13C72 /* VLCOpen.m */,
+				CC61B347103DDB9C00D13C72 /* VLCOpen.h */,
+			);
+			name = "Non-document windows";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -553,6 +574,7 @@
 				63D441D2100469AD0086772A /* MainMenu.xib in Resources */,
 				CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */,
 				CC10A7AC103CA81900B4555A /* Preferences.xib in Resources */,
+				CC61B345103DDAD700D13C72 /* Open.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +595,8 @@
 				6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */,
 				6311DA4F0FF85970004BC7D1 /* VLCMediaDocument.m in Sources */,
 				CC10A7B0103CA96800B4555A /* VLCPreferences.m in Sources */,
+				CC61B348103DDB9C00D13C72 /* VLCOpen.m in Sources */,
+				CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,6 +651,14 @@
 				CC10A7AB103CA81900B4555A /* English */,
 			);
 			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
+		CC61B343103DDAD700D13C72 /* Open.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC61B344103DDAD700D13C72 /* English */,
+			);
+			name = Open.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

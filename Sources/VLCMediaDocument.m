@@ -87,6 +87,14 @@
     return YES;
 }
 
+- (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+{
+    if ( outError != NULL ) {
+		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
+	}
+    return YES;
+}
+
 #pragma mark -
 #pragma mark fullscreenHUDWindowControllerDelegate
 
