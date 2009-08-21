@@ -49,13 +49,13 @@ static VLCOpen *_o_sharedInstance = nil;
 - (IBAction)openNetworkStream:(id)sender {
     int i_returnValue = 0;
 
-    i_returnValue = [NSApp runModalForWindow: o_net_win];
-    [o_net_win orderOut: sender];
+    i_returnValue = [NSApp runModalForWindow: _net_win];
+    [_net_win orderOut: sender];
     if( i_returnValue ) {
-        NSDocument *tempDoc = [[VLCDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL URLWithString: [o_net_url_fld stringValue]] display: YES error: nil];
+        NSDocument *tempDoc = [[VLCDocumentController sharedDocumentController] openDocumentWithContentsOfURL:[NSURL URLWithString: [_net_url_fld stringValue]] display: YES error: nil];
         if( tempDoc ) {
             [[VLCDocumentController sharedDocumentController] addDocument: tempDoc];
-            [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL: [NSURL URLWithString: [o_net_url_fld stringValue]]];
+            [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL: [NSURL URLWithString: [_net_url_fld stringValue]]];
         }
     }
 }

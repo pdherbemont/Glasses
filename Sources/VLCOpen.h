@@ -24,10 +24,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface VLCOpen : NSObject {
-    IBOutlet NSTextField * o_net_url_fld;
-    IBOutlet NSPanel * o_net_win;
-    IBOutlet NSButton * o_net_cancel_btn;
-    IBOutlet NSButton * o_net_ok_btn;
+    IBOutlet NSTextField * _net_url_fld;
+    IBOutlet NSPanel * _net_win;
+    IBOutlet NSButton * _net_cancel_btn;
+    IBOutlet NSButton * _net_ok_btn;
 
     BOOL b_nib_loaded;
 }

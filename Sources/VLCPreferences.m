@@ -48,21 +48,21 @@ static VLCPreferences *_o_sharedInstance = nil;
 
 - (void)syncSettings {
     if( [[SUUpdater sharedUpdater] lastUpdateCheckDate] != NULL )
-        [o_lastCheckForUpdate_txt setStringValue: [NSString stringWithFormat: @"Last check on: %@", [[[SUUpdater sharedUpdater] lastUpdateCheckDate] descriptionWithLocale: [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]]]];
+        [_lastCheckForUpdate_txt setStringValue: [NSString stringWithFormat: @"Last check on: %@", [[[SUUpdater sharedUpdater] lastUpdateCheckDate] descriptionWithLocale: [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]]]];
     else
-        [o_lastCheckForUpdate_txt setStringValue: @"No check was performed yet."];
-    [o_checkForUpdates_ckb setIntValue: [[SUUpdater sharedUpdater] automaticallyChecksForUpdates]];
+        [_lastCheckForUpdate_txt setStringValue: @"No check was performed yet."];
+    [_checkForUpdates_ckb setIntValue: [[SUUpdater sharedUpdater] automaticallyChecksForUpdates]];
 }
 
 - (IBAction)showPreferences: (id)sender {
     [self syncSettings];
 
-    [o_prefs_win makeKeyAndOrderFront: nil];
+    [_prefs_win makeKeyAndOrderFront: nil];
 }
 
 - (IBAction)buttonAction: (id)sender {
     /* FIXME: this is ugly! However, using KVC with Sparkle will result in a crash on app launch */
-    [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates: [o_checkForUpdates_ckb intValue]];
+    [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates: [_checkForUpdates_ckb intValue]];
 }
 
 @end

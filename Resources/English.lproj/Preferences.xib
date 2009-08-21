@@ -130,36 +130,36 @@
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">o_prefs_win</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="885097391"/>
-					</object>
-					<int key="connectionID">9</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">o_lastCheckForUpdate_txt</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="912679882"/>
-					</object>
-					<int key="connectionID">10</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">o_checkForUpdates_ckb</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="734935445"/>
-					</object>
-					<int key="connectionID">14</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">buttonAction:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="734935445"/>
 					</object>
 					<int key="connectionID">15</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_prefs_win</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="885097391"/>
+					</object>
+					<int key="connectionID">23</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_lastCheckForUpdate_txt</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="912679882"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_checkForUpdates_ckb</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="734935445"/>
+					</object>
+					<int key="connectionID">25</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -302,7 +302,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">25</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -327,9 +327,9 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>o_checkForUpdates_ckb</string>
-							<string>o_lastCheckForUpdate_txt</string>
-							<string>o_prefs_win</string>
+							<string>_checkForUpdates_ckb</string>
+							<string>_lastCheckForUpdate_txt</string>
+							<string>_prefs_win</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>

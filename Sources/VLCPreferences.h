@@ -24,9 +24,9 @@
 #import <Cocoa/Cocoa.h>
 
 @interface VLCPreferences : NSObject {
-    IBOutlet NSTextField *o_lastCheckForUpdate_txt;
-    IBOutlet NSButton *o_checkForUpdates_ckb;
-    IBOutlet NSWindow *o_prefs_win;
+    IBOutlet NSTextField *_lastCheckForUpdate_txt;
+    IBOutlet NSButton *_checkForUpdates_ckb;
+    IBOutlet NSWindow *_prefs_win;
 
     BOOL b_nib_loaded;
 }

@@ -172,38 +172,6 @@ IGVudGVyIHRoZSBVUkwgaW4gdGhlIGZpZWxkIGFib3ZlLg</string>
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">o_net_win</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1005"/>
-					</object>
-					<int key="connectionID">17</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">o_net_url_fld</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="167752993"/>
-					</object>
-					<int key="connectionID">18</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">o_net_ok_btn</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="251020076"/>
-					</object>
-					<int key="connectionID">19</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">o_net_cancel_btn</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="488148966"/>
-					</object>
-					<int key="connectionID">20</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">networkPanelAction:</string>
 						<reference key="source" ref="1001"/>
@@ -218,6 +186,38 @@ IGVudGVyIHRoZSBVUkwgaW4gdGhlIGZpZWxkIGFib3ZlLg</string>
 						<reference key="destination" ref="488148966"/>
 					</object>
 					<int key="connectionID">22</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_net_cancel_btn</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="488148966"/>
+					</object>
+					<int key="connectionID">23</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_net_ok_btn</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="251020076"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_net_url_fld</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="167752993"/>
+					</object>
+					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_net_win</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1005"/>
+					</object>
+					<int key="connectionID">26</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -337,7 +337,6 @@ IGVudGVyIHRoZSBVUkwgaW4gdGhlIGZpZWxkIGFib3ZlLg</string>
 					<string>-2.IBPluginDependency</string>
 					<string>-3.IBPluginDependency</string>
 					<string>1.IBEditorWindowLastContentRect</string>
-					<string>1.IBPluginDependency</string>
 					<string>1.IBWindowTemplateEditedContentRect</string>
 					<string>1.NSWindowTemplate.visibleAtLaunch</string>
 					<string>1.WindowOrigin</string>
@@ -359,9 +358,8 @@ IGVudGVyIHRoZSBVUkwgaW4gdGhlIGZpZWxkIGFib3ZlLg</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{375, 458}, {528, 143}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{375, 458}, {528, 143}}</string>
+					<string>{{367, 380}, {528, 143}}</string>
+					<string>{{367, 380}, {528, 143}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{357, 418}, {480, 270}}</string>
@@ -398,7 +396,7 @@ IGVudGVyIHRoZSBVUkwgaW4gdGhlIGZpZWxkIGFib3ZlLg</string>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">26</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -423,10 +421,10 @@ IGVudGVyIHRoZSBVUkwgaW4gdGhlIGZpZWxkIGFib3ZlLg</string>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>o_net_cancel_btn</string>
-							<string>o_net_ok_btn</string>
-							<string>o_net_url_fld</string>
-							<string>o_net_win</string>
+							<string>_net_cancel_btn</string>
+							<string>_net_ok_btn</string>
+							<string>_net_url_fld</string>
+							<string>_net_win</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
