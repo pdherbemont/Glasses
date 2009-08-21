@@ -264,7 +264,6 @@
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
-				CC61B343103DDAD700D13C72 /* Open.xib */,
 			);
 			name = "VLC light";
 			sourceTree = "<group>";
@@ -294,6 +293,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CC61B343103DDAD700D13C72 /* Open.xib */,
 				63D441CF100469A60086772A /* MediaDocument.xib */,
 				63D441D1100469AD0086772A /* MainMenu.xib */,
 				6311DB0D0FF85AF0004BC7D1 /* Credits.rtf */,
