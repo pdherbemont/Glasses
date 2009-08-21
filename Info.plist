@@ -10,7 +10,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeName</key>
-			<string>DocumentType</string>
+			<string>VLCMediaDocument</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
@@ -35,6 +35,22 @@
 			<string>VLCMediaDocument</string>
 		</dict>
 		<dict>
+			<key>CFBundleTypeName</key>
+			<string>MyDocumentType</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>VLCMovieData</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<false/>
+			<key>NSDocumentClass</key>
+			<string>VLCMediaDocument</string>
+			<key>NSPersistentStoreTypeKey</key>
+			<string>Binary</string>
+		</dict>
+		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>ape</string>
@@ -42,7 +58,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>audio.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>Monkey&apos;s Audio Lossless Audio Compression</string>
+			<string>Monkey's Audio Lossless Audio Compression</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -900,8 +916,6 @@
 	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>org.videolan.Glasses</string>
-	<key>SUFeedURL</key>
-	<string>http://jones.videolan.org/~videolan/fpk/sparkle/glasses.xml</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -916,5 +930,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>SUFeedURL</key>
+	<string>http://jones.videolan.org/~videolan/fpk/sparkle/glasses.xml</string>
 </dict>
 </plist>
