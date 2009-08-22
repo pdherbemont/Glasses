@@ -50,11 +50,11 @@
         return;
     _isFullscreen = fullscreen;
     
-	if(_isFullscreen) {
+	if (_isFullscreen) {
         NSAssert(!_fullscreenHUDWindowController, @"There should not be any controller");
         _fullscreenHUDWindowController = [[VLCFullscreenHUDWindowController alloc] init];
         [_fullscreenHUDWindowController setDelegate:self];
-		NSScreen * screen = [[self window] screen];
+		NSScreen *screen = [[self window] screen];
 		if ([screen isMainScreen])
 			[NSMenu setMenuBarVisible:NO];
 		

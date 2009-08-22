@@ -27,15 +27,15 @@
 
 @interface VLCMediaDocument : NSDocument
 {
-	IBOutlet VLCExtendedVideoView * _videoView;
-	IBOutlet NSButton * _playPauseButton;
+	IBOutlet VLCExtendedVideoView *_videoView;
+	IBOutlet NSButton *_playPauseButton;
 	
-	VLCMedia * _media;
-	VLCMediaPlayer * _mediaPlayer;
+	VLCMedia *_media;
+	VLCMediaPlayer *_mediaPlayer;
 	VLCFullscreenHUDWindowController * _fullscreenHUDWindowController;
 }
 
-@property (readonly,retain) VLCMediaPlayer * mediaPlayer;
+@property (readonly,retain) VLCMediaPlayer *mediaPlayer;
 
 - (IBAction)togglePlayPause:(id)sender;
 - (IBAction)toggleFullscreen:(id)sender;

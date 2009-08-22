@@ -25,10 +25,10 @@
 
 @interface VLCExtendedVideoView : VLCVideoView {
 	BOOL _isFullscreen;
-    VLCFullscreenHUDWindowController * _fullscreenHUDWindowController;
-    VLCMediaPlayer * _mediaPlayer;
+    VLCFullscreenHUDWindowController *_fullscreenHUDWindowController;
+    VLCMediaPlayer *_mediaPlayer;
 }
 
 @property (readwrite,assign) BOOL fullscreen;
-@property (readwrite,assign) VLCMediaPlayer * mediaPlayer;
+@property (readwrite,assign) VLCMediaPlayer *mediaPlayer;
 @end

@@ -22,7 +22,7 @@
 
 
 @implementation VLCVideoWindow
-- (id)initWithContentRect:(NSRect)contentRect styleMask: (NSUInteger)windowStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)windowStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)deferCreation
 {
     BOOL useTextured = YES;
     if ([[NSWindow class] instancesRespondToSelector:@selector(setContentBorderThickness:forEdge:)]) {

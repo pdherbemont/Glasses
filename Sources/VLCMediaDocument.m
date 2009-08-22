@@ -39,7 +39,7 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_fullscreenHUDWindowController release];
 	[_media release];
 	[_mediaPlayer stop];
@@ -67,8 +67,8 @@
 	[window center];
 
 	self.mediaPlayer = [[[VLCMediaPlayer alloc] initWithVideoView:_videoView] autorelease];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerStateChanged:) name: VLCMediaPlayerStateChanged object: nil];
-    [self.mediaPlayer setDelegate: self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerStateChanged:) name:VLCMediaPlayerStateChanged object:nil];
+    [self.mediaPlayer setDelegate:self];
 	[_videoView setMediaPlayer:_mediaPlayer];
 	[_mediaPlayer setMedia:_media];
 	[_mediaPlayer play];
@@ -101,15 +101,15 @@
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     /* FIXME: VLCKit doesn't call this method correctly (neither as delegate or through notifications) */
-    if( [self.mediaPlayer state] == VLCMediaPlayerStateStopped || [self.mediaPlayer state] == VLCMediaPlayerStateEnded ) {
+    if ([self.mediaPlayer state] == VLCMediaPlayerStateStopped || [self.mediaPlayer state] == VLCMediaPlayerStateEnded) {
         /* stream is stopped, let's show the play icon */
         NSLog( @"stream ended or was stopped (%@)", [self.mediaPlayer state] );
-        [_playPauseButton setImage: [NSImage imageNamed: @"play_embedded"]];
-        [_playPauseButton setAlternateImage: [NSImage imageNamed: @"play_embedded_graphite"]];
-    } else if( [self.mediaPlayer state] == VLCMediaPlayerStateError ) {
+        [_playPauseButton setImage:[NSImage imageNamed:@"play_embedded"]];
+        [_playPauseButton setAlternateImage:[NSImage imageNamed:@"play_embedded_graphite"]];
+    } else if([self.mediaPlayer state] == VLCMediaPlayerStateError) {
         /* we've got an error here, unknown button set to display */
         NSAlert * alert;
-        alert = [NSAlert alertWithMessageText: @"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton: nil otherButton: nil informativeTextWithFormat: @"An unknown error occured when playing %@", [[self.mediaPlayer media] url]];
+        alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil informativeTextWithFormat:@"An unknown error occured when playing %@", [[self.mediaPlayer media] url]];
         [alert runModal];
     }
 }
@@ -134,12 +134,12 @@
 {
 	if([_mediaPlayer isPlaying]) {
 		[_mediaPlayer pause];
-        [sender setImage: [NSImage imageNamed: @"play_embedded"]];
-        [sender setAlternateImage: [NSImage imageNamed: @"play_embedded_graphite"]];
+        [sender setImage:[NSImage imageNamed:@"play_embedded"]];
+        [sender setAlternateImage:[NSImage imageNamed:@"play_embedded_graphite"]];
     } else {
 		[_mediaPlayer play];
-        [sender setImage: [NSImage imageNamed: @"pause_embedded"]];
-        [sender setAlternateImage: [NSImage imageNamed: @"pause_embedded_graphite"]];
+        [sender setImage:[NSImage imageNamed:@"pause_embedded"]];
+        [sender setAlternateImage:[NSImage imageNamed:@"pause_embedded_graphite"]];
     }
 }
 
