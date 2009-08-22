@@ -180,6 +180,10 @@
 #pragma mark -
 #pragma mark Tracking area
 
+// Because the NSWindow that contains our WebView might have a lot
+// of transparent area, we need to restrict click event in those area.
+// The transparent area might be present because of some drop shadow.
+
 - (void)mouseEntered:(NSEvent *)theEvent
 {
     [[self window] setIgnoresMouseEvents:NO];
@@ -209,6 +213,34 @@
     }
     
     [super updateTrackingAreas];
+}
+
+#pragma mark -
+#pragma mark Menu Item Action
+
+- (void)setStyleFromMenuItem:(id)sender
+{
+    NSAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
+    NSMenuItem *item = sender;
+
+    DOMHTMLElement *element = [self _htmlElementForId:@"style"];
+    NSAssert([element isKindOfClass:[DOMHTMLLinkElement class]], @"Element 'style' should be a link");
+    DOMHTMLLinkElement *link = (id)element;
+    if ([[item title] isEqualToString:@"Orange"])
+        link.href = @"orange.css";
+    else if ([[item title] isEqualToString:@"Black"])
+        link.href = @"black.css";
+    else
+        link.href = @"default.css";
+
+    [self performSelector:@selector(videoDidResize) withObject:nil afterDelay:0.];
+    [self performSelector:@selector(updateTrackingAreas) withObject:nil afterDelay:0.];
+    
+}
+
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
 }
 
 #pragma mark -

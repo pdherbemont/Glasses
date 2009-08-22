@@ -28,6 +28,8 @@
 		6301467A1040994C00534090 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 630146701040994C00534090 /* default.css */; };
 		6301467D1040995A00534090 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 6301467B1040995A00534090 /* template.html */; };
 		6301467E1040995A00534090 /* base.js in Resources */ = {isa = PBXBuildFile; fileRef = 6301467C1040995A00534090 /* base.js */; };
+		630148BF1040B7F100534090 /* orange.css in Resources */ = {isa = PBXBuildFile; fileRef = 630148BC1040B7F100534090 /* orange.css */; };
+		630148C01040B7F100534090 /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = 630148BE1040B7F100534090 /* black.css */; };
 		6304D91810405E1C0031C854 /* Coding Style.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6304D91710405E1C0031C854 /* Coding Style.txt */; };
 		6311DA470FF85941004BC7D1 /* VLCFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */; };
 		6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */; };
@@ -165,6 +167,8 @@
 		6301467B1040995A00534090 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = template.html; path = Resources/Style/template.html; sourceTree = "<group>"; };
 		6301467C1040995A00534090 /* base.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = base.js; path = Resources/Style/base.js; sourceTree = "<group>"; };
 		6301469F10409B4700534090 /* VLCVideoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindowController.h; path = Sources/VLCVideoWindowController.h; sourceTree = "<group>"; };
+		630148BC1040B7F100534090 /* orange.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = orange.css; sourceTree = "<group>"; };
+		630148BE1040B7F100534090 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = black.css; sourceTree = "<group>"; };
 		6304D91710405E1C0031C854 /* Coding Style.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Coding Style.txt"; sourceTree = "<group>"; };
 		6311DA430FF85941004BC7D1 /* VLCFullscreenHUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenHUDWindow.h; path = Sources/VLCFullscreenHUDWindow.h; sourceTree = "<group>"; };
 		6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenHUDWindow.m; path = Sources/VLCFullscreenHUDWindow.m; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 			children = (
 				6301467B1040995A00534090 /* template.html */,
 				6301467C1040995A00534090 /* base.js */,
+				630148BB1040B7F100534090 /* orange */,
+				630148BD1040B7F100534090 /* black */,
 				6301465F1040993F00534090 /* default */,
 			);
 			name = Style;
@@ -412,6 +418,24 @@
 			);
 			name = images;
 			path = Resources/Style/default/images;
+			sourceTree = "<group>";
+		};
+		630148BB1040B7F100534090 /* orange */ = {
+			isa = PBXGroup;
+			children = (
+				630148BC1040B7F100534090 /* orange.css */,
+			);
+			name = orange;
+			path = Resources/Style/orange;
+			sourceTree = "<group>";
+		};
+		630148BD1040B7F100534090 /* black */ = {
+			isa = PBXGroup;
+			children = (
+				630148BE1040B7F100534090 /* black.css */,
+			);
+			name = black;
+			path = Resources/Style/black;
 			sourceTree = "<group>";
 		};
 		6304D91C10405F330031C854 /* Styled Video Window */ = {
@@ -707,6 +731,8 @@
 				630146791040994C00534090 /* timeline_thumb.png in Resources */,
 				6301467A1040994C00534090 /* default.css in Resources */,
 				6301467D1040995A00534090 /* template.html in Resources */,
+				630148BF1040B7F100534090 /* orange.css in Resources */,
+				630148C01040B7F100534090 /* black.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
