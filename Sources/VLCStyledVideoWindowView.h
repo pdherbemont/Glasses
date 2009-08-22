@@ -18,19 +18,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-
 #import <Cocoa/Cocoa.h>
-#import <VLCKit/VLCKit.h>
+#import <WebKit/WebKit.h>
 
-#import "VLCExtendedVideoView.h"
-#import "VLCFullscreenHUDWindowController.h"
-
-@interface VLCMediaDocument : NSDocument {
-	VLCMedia *_media;
-	VLCMediaPlayer *_mediaPlayer;
-	VLCFullscreenHUDWindowController * _fullscreenHUDWindowController;
+@interface VLCStyledVideoWindowView : WebView
+{
+    BOOL _isFrameLoaded;
+    NSTrackingArea *_contentTracking;
 }
+- (void)setup;
 
-@property (readonly,retain) VLCMediaPlayer *mediaPlayer;
+- (void)setKeyWindow:(BOOL)isKeyWindow;
+- (void)setMainWindow:(BOOL)isMainWindow;
+- (void)setWindowTitle:(NSString *)title;
 
+@property (copy) NSString *ellapsedTime;
 @end

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="base.js"></script>
+	<link id="style" rel="stylesheet" type="text/css" href="default.css" />
+
+	<title>Template</title>
+</head>
+<body onload="windowController.init()" onresize="windowController.bodyResized()">
+<div id="content">
+    
+    <div class="window-decoration">
+        <div class="titlebar">
+            <button id="close" class="close">x</button>
+            <button id="miniaturize" class="miniaturize">-</button>
+            <button id="zoom" class="zoom">▢</button>
+            <div id="window-title" class="title">Window Title</div>
+        </div>
+    </div>
+
+    <div id="video">
+        <div id="video-view" class="view"></div>
+        <div class="controls">
+            
+            <button id="fullscreen" class="fullscreen"></button>
+            <button id="play" class="play"></button>
+            <div class="timeinfo">
+                <input type="range" id="timeline" class="timeline" max="1000">
+                <div id="ellapsed-time" class="ellapsed-time text">--:--</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="resize" id="resize"></div>
+</div>
+</body>
+</html>

@@ -18,19 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-
 #import <Cocoa/Cocoa.h>
-#import <VLCKit/VLCKit.h>
 
-#import "VLCExtendedVideoView.h"
-#import "VLCFullscreenHUDWindowController.h"
 
-@interface VLCMediaDocument : NSDocument {
-	VLCMedia *_media;
-	VLCMediaPlayer *_mediaPlayer;
-	VLCFullscreenHUDWindowController * _fullscreenHUDWindowController;
+@interface VLCStyledVideoWindow : NSWindow {
+    NSWindowController *_windowController;
 }
-
-@property (readonly,retain) VLCMediaPlayer *mediaPlayer;
 
 @end

@@ -7,6 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		630141D6104062B300534090 /* Common Settings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 630141D5104062B300534090 /* Common Settings.xcconfig */; };
+		6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
+		630143AB1040726600534090 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 630143AA1040726600534090 /* WebKit.framework */; };
+		6301464C104098C500534090 /* VLCVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464B104098C500534090 /* VLCVideoWindowController.m */; };
+		63014653104098D300534090 /* VLCStyledVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464E104098D300534090 /* VLCStyledVideoWindow.m */; };
+		63014654104098D300534090 /* VLCStyledVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014650104098D300534090 /* VLCStyledVideoWindowController.m */; };
+		63014655104098D300534090 /* VLCStyledVideoWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014652104098D300534090 /* VLCStyledVideoWindowView.m */; };
+		63014659104098F000534090 /* DOMElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014657104098F000534090 /* DOMElement_Additions.m */; };
+		6301465E1040992F00534090 /* StyledVideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6301465A1040991000534090 /* StyledVideoWindow.xib */; };
+		630146711040994C00534090 /* fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 630146671040994C00534090 /* fullscreen.png */; };
+		630146721040994C00534090 /* fullscreen_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 630146681040994C00534090 /* fullscreen_blue.png */; };
+		630146731040994C00534090 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 630146691040994C00534090 /* play.png */; };
+		630146741040994C00534090 /* play_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6301466A1040994C00534090 /* play_blue.png */; };
+		630146751040994C00534090 /* play_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6301466B1040994C00534090 /* play_graphite.png */; };
+		630146761040994C00534090 /* timeinfo_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 6301466C1040994C00534090 /* timeinfo_border.png */; };
+		630146771040994C00534090 /* timeinfo_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 6301466D1040994C00534090 /* timeinfo_middle.png */; };
+		630146781040994C00534090 /* timeline_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 6301466E1040994C00534090 /* timeline_border.png */; };
+		630146791040994C00534090 /* timeline_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 6301466F1040994C00534090 /* timeline_thumb.png */; };
+		6301467A1040994C00534090 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 630146701040994C00534090 /* default.css */; };
+		6301467D1040995A00534090 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 6301467B1040995A00534090 /* template.html */; };
+		6301467E1040995A00534090 /* base.js in Resources */ = {isa = PBXBuildFile; fileRef = 6301467C1040995A00534090 /* base.js */; };
 		6304D91810405E1C0031C854 /* Coding Style.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6304D91710405E1C0031C854 /* Coding Style.txt */; };
 		6311DA470FF85941004BC7D1 /* VLCFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */; };
 		6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */; };
@@ -71,7 +92,7 @@
 		6311DB340FF85BE3004BC7D1 /* fullscreen_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB320FF85BE3004BC7D1 /* fullscreen_blue.png */; };
 		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		631CA0E80FF864EE00CA511E /* VLCKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
-		63D441D0100469A60086772A /* MediaDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441CF100469A60086772A /* MediaDocument.xib */; };
+		63D441D0100469A60086772A /* VideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441CF100469A60086772A /* VideoWindow.xib */; };
 		63D441D2100469AD0086772A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441D1100469AD0086772A /* MainMenu.xib */; };
 		63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -83,7 +104,6 @@
 		CC566421103C9F6300FEA1D3 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
 		CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9091103C95000000601C /* VLCVideoWindow.m */; };
-		CC5E909D103C96420000601C /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */; };
 		CC61B345103DDAD700D13C72 /* Open.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC61B343103DDAD700D13C72 /* Open.xib */; };
 		CC61B348103DDB9C00D13C72 /* VLCOpen.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B346103DDB9C00D13C72 /* VLCOpen.m */; };
 		CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
@@ -119,6 +139,32 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		630141D5104062B300534090 /* Common Settings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Common Settings.xcconfig"; sourceTree = "<group>"; };
+		630143AA1040726600534090 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		6301464B104098C500534090 /* VLCVideoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindowController.m; path = Sources/VLCVideoWindowController.m; sourceTree = "<group>"; };
+		6301464D104098D300534090 /* VLCStyledVideoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledVideoWindow.h; path = Sources/VLCStyledVideoWindow.h; sourceTree = "<group>"; };
+		6301464E104098D300534090 /* VLCStyledVideoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledVideoWindow.m; path = Sources/VLCStyledVideoWindow.m; sourceTree = "<group>"; };
+		6301464F104098D300534090 /* VLCStyledVideoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledVideoWindowController.h; path = Sources/VLCStyledVideoWindowController.h; sourceTree = "<group>"; };
+		63014650104098D300534090 /* VLCStyledVideoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledVideoWindowController.m; path = Sources/VLCStyledVideoWindowController.m; sourceTree = "<group>"; };
+		63014651104098D300534090 /* VLCStyledVideoWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledVideoWindowView.h; path = Sources/VLCStyledVideoWindowView.h; sourceTree = "<group>"; };
+		63014652104098D300534090 /* VLCStyledVideoWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledVideoWindowView.m; path = Sources/VLCStyledVideoWindowView.m; sourceTree = "<group>"; };
+		63014656104098E200534090 /* VLCFeatures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFeatures.h; path = Sources/VLCFeatures.h; sourceTree = "<group>"; };
+		63014657104098F000534090 /* DOMElement_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DOMElement_Additions.m; path = Sources/DOMElement_Additions.m; sourceTree = "<group>"; };
+		63014658104098F000534090 /* DOMElement_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMElement_Additions.h; path = Sources/DOMElement_Additions.h; sourceTree = "<group>"; };
+		6301465A1040991000534090 /* StyledVideoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StyledVideoWindow.xib; path = Resources/StyledVideoWindow.xib; sourceTree = "<group>"; };
+		630146671040994C00534090 /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen.png; sourceTree = "<group>"; };
+		630146681040994C00534090 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_blue.png; sourceTree = "<group>"; };
+		630146691040994C00534090 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
+		6301466A1040994C00534090 /* play_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_blue.png; sourceTree = "<group>"; };
+		6301466B1040994C00534090 /* play_graphite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_graphite.png; sourceTree = "<group>"; };
+		6301466C1040994C00534090 /* timeinfo_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeinfo_border.png; sourceTree = "<group>"; };
+		6301466D1040994C00534090 /* timeinfo_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeinfo_middle.png; sourceTree = "<group>"; };
+		6301466E1040994C00534090 /* timeline_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeline_border.png; sourceTree = "<group>"; };
+		6301466F1040994C00534090 /* timeline_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeline_thumb.png; sourceTree = "<group>"; };
+		630146701040994C00534090 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/Style/default/default.css; sourceTree = "<group>"; };
+		6301467B1040995A00534090 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = template.html; path = Resources/Style/template.html; sourceTree = "<group>"; };
+		6301467C1040995A00534090 /* base.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = base.js; path = Resources/Style/base.js; sourceTree = "<group>"; };
+		6301469F10409B4700534090 /* VLCVideoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindowController.h; path = Sources/VLCVideoWindowController.h; sourceTree = "<group>"; };
 		6304D91710405E1C0031C854 /* Coding Style.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Coding Style.txt"; sourceTree = "<group>"; };
 		6311DA430FF85941004BC7D1 /* VLCFullscreenHUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenHUDWindow.h; path = Sources/VLCFullscreenHUDWindow.h; sourceTree = "<group>"; };
 		6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenHUDWindow.m; path = Sources/VLCFullscreenHUDWindow.m; sourceTree = "<group>"; };
@@ -182,8 +228,6 @@
 		6311DB0E0FF85AF0004BC7D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		6311DB100FF85AF0004BC7D1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		6311DB1B0FF85B1A004BC7D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/FullscreenHUDWindow.xib; sourceTree = "<group>"; };
-		6311DB1E0FF85B58004BC7D1 /* VLCVideoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindow.m; path = Sources/VLCVideoWindow.m; sourceTree = "<group>"; };
-		6311DB1F0FF85B58004BC7D1 /* VLCVideoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindow.h; path = Sources/VLCVideoWindow.h; sourceTree = "<group>"; };
 		6311DB270FF85BDB004BC7D1 /* display_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_left.png; sourceTree = "<group>"; };
 		6311DB280FF85BDB004BC7D1 /* display_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_middle.png; sourceTree = "<group>"; };
 		6311DB290FF85BDB004BC7D1 /* display_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_right.png; sourceTree = "<group>"; };
@@ -191,7 +235,7 @@
 		6311DB2B0FF85BDB004BC7D1 /* display_track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_track.png; sourceTree = "<group>"; };
 		6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_active.png; sourceTree = "<group>"; };
 		6311DB320FF85BE3004BC7D1 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_blue.png; sourceTree = "<group>"; };
-		63D441CB100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MediaDocument.xib; sourceTree = "<group>"; };
+		63D441CB100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/VideoWindow.xib; sourceTree = "<group>"; };
 		63D441CC100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = ../vlc/projects/macosx/framework/VLCKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
@@ -206,8 +250,6 @@
 		CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiscUIElements.h; path = Sources/VLCMiscUIElements.h; sourceTree = "<group>"; };
 		CC5E9090103C95000000601C /* VLCVideoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindow.h; path = Sources/VLCVideoWindow.h; sourceTree = "<group>"; };
 		CC5E9091103C95000000601C /* VLCVideoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindow.m; path = Sources/VLCVideoWindow.m; sourceTree = "<group>"; };
-		CC5E9093103C950B0000601C /* VLCExtendedVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExtendedVideoView.h; path = Sources/VLCExtendedVideoView.h; sourceTree = "<group>"; };
-		CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExtendedVideoView.m; path = Sources/VLCExtendedVideoView.m; sourceTree = "<group>"; };
 		CC61B344103DDAD700D13C72 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/Open.xib; sourceTree = "<group>"; };
 		CC61B346103DDB9C00D13C72 /* VLCOpen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpen.m; path = Sources/VLCOpen.m; sourceTree = "<group>"; };
 		CC61B347103DDB9C00D13C72 /* VLCOpen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpen.h; path = Sources/VLCOpen.h; sourceTree = "<group>"; };
@@ -224,6 +266,7 @@
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */,
 				CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */,
+				630143AB1040726600534090 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,9 +307,11 @@
 				63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				630141B11040629700534090 /* Configurations */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
 				19C28FB0FE9D524F11CA2CBB /* Products */,
+				630143AA1040726600534090 /* WebKit.framework */,
 			);
 			name = "VLC light";
 			sourceTree = "<group>";
@@ -274,12 +319,14 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				63EF26330F910219002A2E14 /* FullscreenHUD */,
-				63EF25C60F90FD8B002A2E14 /* Internal */,
 				63EF25C70F90FD93002A2E14 /* Document */,
+				6304D92E1040605E0031C854 /* Regular Video Window */,
+				6304D91C10405F330031C854 /* Styled Video Window */,
 				63EF25910F90F960002A2E14 /* Video */,
-				CC10A7B5103CA99000B4555A /* Generic code */,
+				63EF26330F910219002A2E14 /* FullscreenHUD */,
 				CC61B34C103DDBC000D13C72 /* Non-document windows */,
+				63EF25C60F90FD8B002A2E14 /* Internal */,
+				CC10A7B5103CA99000B4555A /* System Framework Addition */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -287,6 +334,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				63014656104098E200534090 /* VLCFeatures.h */,
 				6311DA5C0FF85993004BC7D1 /* VLC_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 			);
@@ -296,16 +344,18 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				630143B11040727F00534090 /* Style */,
+				6301465A1040991000534090 /* StyledVideoWindow.xib */,
+				CC10A7AA103CA81900B4555A /* Preferences.xib */,
+				6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */,
 				CC61B343103DDAD700D13C72 /* Open.xib */,
-				63D441CF100469A60086772A /* MediaDocument.xib */,
+				63D441CF100469A60086772A /* VideoWindow.xib */,
 				63D441D1100469AD0086772A /* MainMenu.xib */,
 				6311DB0D0FF85AF0004BC7D1 /* Credits.rtf */,
 				6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */,
 				6311DAAC0FF85AC0004BC7D1 /* Images */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				CC10A7A5103CA66B00B4555A /* dsa_pub.pem */,
-				CC10A7AA103CA81900B4555A /* Preferences.xib */,
-				6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -318,6 +368,74 @@
 				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		630141B11040629700534090 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				630141D5104062B300534090 /* Common Settings.xcconfig */,
+			);
+			name = Configurations;
+			sourceTree = "<group>";
+		};
+		630143B11040727F00534090 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				6301467B1040995A00534090 /* template.html */,
+				6301467C1040995A00534090 /* base.js */,
+				6301465F1040993F00534090 /* default */,
+			);
+			name = Style;
+			sourceTree = "<group>";
+		};
+		6301465F1040993F00534090 /* default */ = {
+			isa = PBXGroup;
+			children = (
+				630146661040994C00534090 /* images */,
+				630146701040994C00534090 /* default.css */,
+			);
+			name = default;
+			sourceTree = "<group>";
+		};
+		630146661040994C00534090 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				630146671040994C00534090 /* fullscreen.png */,
+				630146681040994C00534090 /* fullscreen_blue.png */,
+				630146691040994C00534090 /* play.png */,
+				6301466A1040994C00534090 /* play_blue.png */,
+				6301466B1040994C00534090 /* play_graphite.png */,
+				6301466C1040994C00534090 /* timeinfo_border.png */,
+				6301466D1040994C00534090 /* timeinfo_middle.png */,
+				6301466E1040994C00534090 /* timeline_border.png */,
+				6301466F1040994C00534090 /* timeline_thumb.png */,
+			);
+			name = images;
+			path = Resources/Style/default/images;
+			sourceTree = "<group>";
+		};
+		6304D91C10405F330031C854 /* Styled Video Window */ = {
+			isa = PBXGroup;
+			children = (
+				6301464D104098D300534090 /* VLCStyledVideoWindow.h */,
+				6301464E104098D300534090 /* VLCStyledVideoWindow.m */,
+				6301464F104098D300534090 /* VLCStyledVideoWindowController.h */,
+				63014650104098D300534090 /* VLCStyledVideoWindowController.m */,
+				63014651104098D300534090 /* VLCStyledVideoWindowView.h */,
+				63014652104098D300534090 /* VLCStyledVideoWindowView.m */,
+			);
+			name = "Styled Video Window";
+			sourceTree = "<group>";
+		};
+		6304D92E1040605E0031C854 /* Regular Video Window */ = {
+			isa = PBXGroup;
+			children = (
+				6301469F10409B4700534090 /* VLCVideoWindowController.h */,
+				6301464B104098C500534090 /* VLCVideoWindowController.m */,
+				CC5E9090103C95000000601C /* VLCVideoWindow.h */,
+				CC5E9091103C95000000601C /* VLCVideoWindow.m */,
+			);
+			name = "Regular Video Window";
 			sourceTree = "<group>";
 		};
 		6311DAAC0FF85AC0004BC7D1 /* Images */ = {
@@ -394,8 +512,6 @@
 			children = (
 				6311DA540FF85980004BC7D1 /* VLCExtendedVideoView.h */,
 				6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */,
-				6311DB1E0FF85B58004BC7D1 /* VLCVideoWindow.m */,
-				6311DB1F0FF85B58004BC7D1 /* VLCVideoWindow.h */,
 			);
 			name = Video;
 			sourceTree = "<group>";
@@ -414,10 +530,6 @@
 			children = (
 				6311DA4E0FF85970004BC7D1 /* VLCMediaDocument.h */,
 				6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */,
-				CC5E9090103C95000000601C /* VLCVideoWindow.h */,
-				CC5E9091103C95000000601C /* VLCVideoWindow.m */,
-				CC5E9093103C950B0000601C /* VLCExtendedVideoView.h */,
-				CC5E9094103C950B0000601C /* VLCExtendedVideoView.m */,
 				CC61B414103E088B00D13C72 /* VLCDocumentController.h */,
 				CC61B415103E088B00D13C72 /* VLCDocumentController.m */,
 			);
@@ -435,15 +547,17 @@
 			name = FullscreenHUD;
 			sourceTree = "<group>";
 		};
-		CC10A7B5103CA99000B4555A /* Generic code */ = {
+		CC10A7B5103CA99000B4555A /* System Framework Addition */ = {
 			isa = PBXGroup;
 			children = (
 				CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */,
 				CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */,
 				6311DA5A0FF8598D004BC7D1 /* NSScreen_Additions.h */,
 				6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */,
+				63014657104098F000534090 /* DOMElement_Additions.m */,
+				63014658104098F000534090 /* DOMElement_Additions.h */,
 			);
-			name = "Generic code";
+			name = "System Framework Addition";
 			sourceTree = "<group>";
 		};
 		CC61B34C103DDBC000D13C72 /* Non-document windows */ = {
@@ -517,6 +631,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6301467E1040995A00534090 /* base.js in Resources */,
 				6311DADB0FF85AC0004BC7D1 /* fs_background.png in Resources */,
 				6311DADC0FF85AC0004BC7D1 /* fs_exit_fullscreen.png in Resources */,
 				6311DADD0FF85AC0004BC7D1 /* fs_exit_fullscreen_highlight.png in Resources */,
@@ -573,12 +688,25 @@
 				6311DB300FF85BDB004BC7D1 /* display_track.png in Resources */,
 				6311DB330FF85BE3004BC7D1 /* fullscreen_active.png in Resources */,
 				6311DB340FF85BE3004BC7D1 /* fullscreen_blue.png in Resources */,
-				63D441D0100469A60086772A /* MediaDocument.xib in Resources */,
+				63D441D0100469A60086772A /* VideoWindow.xib in Resources */,
 				63D441D2100469AD0086772A /* MainMenu.xib in Resources */,
 				CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */,
 				CC10A7AC103CA81900B4555A /* Preferences.xib in Resources */,
 				CC61B345103DDAD700D13C72 /* Open.xib in Resources */,
 				6304D91810405E1C0031C854 /* Coding Style.txt in Resources */,
+				630141D6104062B300534090 /* Common Settings.xcconfig in Resources */,
+				6301465E1040992F00534090 /* StyledVideoWindow.xib in Resources */,
+				630146711040994C00534090 /* fullscreen.png in Resources */,
+				630146721040994C00534090 /* fullscreen_blue.png in Resources */,
+				630146731040994C00534090 /* play.png in Resources */,
+				630146741040994C00534090 /* play_blue.png in Resources */,
+				630146751040994C00534090 /* play_graphite.png in Resources */,
+				630146761040994C00534090 /* timeinfo_border.png in Resources */,
+				630146771040994C00534090 /* timeinfo_middle.png in Resources */,
+				630146781040994C00534090 /* timeline_border.png in Resources */,
+				630146791040994C00534090 /* timeline_thumb.png in Resources */,
+				6301467A1040994C00534090 /* default.css in Resources */,
+				6301467D1040995A00534090 /* template.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,10 +717,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				6311DA470FF85941004BC7D1 /* VLCFullscreenHUDWindow.m in Sources */,
 				CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */,
-				CC5E909D103C96420000601C /* VLCExtendedVideoView.m in Sources */,
 				6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */,
 				CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */,
 				6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */,
@@ -601,6 +729,11 @@
 				CC10A7B0103CA96800B4555A /* VLCPreferences.m in Sources */,
 				CC61B348103DDB9C00D13C72 /* VLCOpen.m in Sources */,
 				CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */,
+				6301464C104098C500534090 /* VLCVideoWindowController.m in Sources */,
+				63014653104098D300534090 /* VLCStyledVideoWindow.m in Sources */,
+				63014654104098D300534090 /* VLCStyledVideoWindowController.m in Sources */,
+				63014655104098D300534090 /* VLCStyledVideoWindowView.m in Sources */,
+				63014659104098F000534090 /* DOMElement_Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,12 +766,12 @@
 			name = FullscreenHUDWindow.xib;
 			sourceTree = "<group>";
 		};
-		63D441CF100469A60086772A /* MediaDocument.xib */ = {
+		63D441CF100469A60086772A /* VideoWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				63D441CB100469A10086772A /* English */,
 			);
-			name = MediaDocument.xib;
+			name = VideoWindow.xib;
 			sourceTree = "<group>";
 		};
 		63D441D1100469AD0086772A /* MainMenu.xib */ = {
@@ -670,6 +803,7 @@
 /* Begin XCBuildConfiguration section */
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
@@ -691,6 +825,7 @@
 		};
 		C05733C908A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

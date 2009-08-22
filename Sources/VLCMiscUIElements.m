@@ -29,7 +29,7 @@
  *****************************************************************************/
 @implementation MPSlider
 
-void _drawKnobInRect(NSRect knobRect)
+static void _drawKnobInRect(NSRect knobRect)
 {
     // Center knob in given rect
     knobRect.origin.x += (int)((float)(knobRect.size.width - 7)/2.0);
@@ -45,7 +45,7 @@ void _drawKnobInRect(NSRect knobRect)
     NSRectFillUsingOperation(NSMakeRect(knobRect.origin.x + 3, knobRect.origin.y + 0, 1, 1), NSCompositeSourceOver);
 }
 
-void _drawFrameInRect(NSRect frameRect)
+static void _drawFrameInRect(NSRect frameRect)
 {
     // Draw frame
     NSRectFillUsingOperation(NSMakeRect(frameRect.origin.x, frameRect.origin.y, frameRect.size.width, 1), NSCompositeSourceOver);

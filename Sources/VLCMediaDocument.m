@@ -20,6 +20,9 @@
  *****************************************************************************/
 
 #import "VLCMediaDocument.h"
+#import "VLCStyledVideoWindowController.h"
+#import "VLCVideoWindowController.h"
+#import "VLCFeatures.h"
 
 @interface VLCMediaDocument () <VLCFullscreenHUDWindowControllerDelegate>
 @property (readwrite,retain) VLCMediaPlayer * mediaPlayer;
@@ -39,7 +42,6 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[_fullscreenHUDWindowController release];
 	[_media release];
 	[_mediaPlayer stop];
@@ -48,30 +50,42 @@
 	[super dealloc];
 }
 
-- (NSString *)windowNibName
+- (void)close
 {
-    return @"MediaDocument";
+    self.mediaPlayer = nil;
+    [super close];
 }
 
-- (void)windowControllerDidLoadNib:(NSWindowController *) aController
+- (void)makeWindowControllers
 {
-    [super windowControllerDidLoadNib:aController];
+#if USE_STYLED_WINDOW
+    VLCStyledVideoWindowController *windowController = [[VLCStyledVideoWindowController alloc] init];
+#else
+    VLCVideoWindowController *windowController = [[VLCVideoWindowController alloc] init];
+#endif
+    [self addWindowController:windowController];
 
-	NSRect frame;
-	NSWindow * window = [aController window];
-	frame = [[window screen] frame];
-	frame.size.width = frame.size.width / 3;
-	frame.size.height = frame.size.height / 3;
-	
-	[window setFrame:frame display:NO];
-	[window center];
+    // Force the window controller to load its window
+    [windowController window];
 
-	self.mediaPlayer = [[[VLCMediaPlayer alloc] initWithVideoView:_videoView] autorelease];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerStateChanged:) name:VLCMediaPlayerStateChanged object:nil];
-    [self.mediaPlayer setDelegate:self];
-	[_videoView setMediaPlayer:_mediaPlayer];
-	[_mediaPlayer setMedia:_media];
-	[_mediaPlayer play];
+    VLCExtendedVideoView *videoView = windowController.videoView;
+    NSAssert(videoView, @"There should be a videoView at this point");
+
+    VLCMediaPlayer *mediaPlayer = [[VLCMediaPlayer alloc] initWithVideoView:videoView];
+    self.mediaPlayer = mediaPlayer;
+	[videoView setMediaPlayer:mediaPlayer];
+	[mediaPlayer setMedia:_media];
+    [mediaPlayer play];
+    [mediaPlayer release];
+
+    [windowController release];
+}
+
+- (void)windowControllerDidLoadNib:(NSWindowController *)windowController
+{
+    NSAssert(!self.mediaPlayer, @"There shouldn't be a media player still around");
+    
+    
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -96,55 +110,4 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark VLCMediaPlayer delegate
-- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
-{
-    /* FIXME: VLCKit doesn't call this method correctly (neither as delegate or through notifications) */
-    if ([self.mediaPlayer state] == VLCMediaPlayerStateStopped || [self.mediaPlayer state] == VLCMediaPlayerStateEnded) {
-        /* stream is stopped, let's show the play icon */
-        NSLog( @"stream ended or was stopped (%@)", [self.mediaPlayer state] );
-        [_playPauseButton setImage:[NSImage imageNamed:@"play_embedded"]];
-        [_playPauseButton setAlternateImage:[NSImage imageNamed:@"play_embedded_graphite"]];
-    } else if([self.mediaPlayer state] == VLCMediaPlayerStateError) {
-        /* we've got an error here, unknown button set to display */
-        NSAlert * alert;
-        alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil informativeTextWithFormat:@"An unknown error occured when playing %@", [[self.mediaPlayer media] url]];
-        [alert runModal];
-    }
-}
-
-#pragma mark -
-#pragma mark fullscreenHUDWindowControllerDelegate
-
-- (BOOL)fullscreen
-{
-    return [_videoView fullscreen];
-}
-
-- (void)setFullscreen:(BOOL)fullscreen
-{
-	[_videoView setFullscreen:fullscreen];
-}
-
-#pragma mark -
-#pragma mark IBAction
-
-- (IBAction)togglePlayPause:(id)sender
-{
-	if([_mediaPlayer isPlaying]) {
-		[_mediaPlayer pause];
-        [sender setImage:[NSImage imageNamed:@"play_embedded"]];
-        [sender setAlternateImage:[NSImage imageNamed:@"play_embedded_graphite"]];
-    } else {
-		[_mediaPlayer play];
-        [sender setImage:[NSImage imageNamed:@"pause_embedded"]];
-        [sender setAlternateImage:[NSImage imageNamed:@"pause_embedded_graphite"]];
-    }
-}
-
-- (IBAction)toggleFullscreen:(id)sender
-{
-	[self setFullscreen:![self fullscreen]];
-}
 @end

@@ -13,7 +13,7 @@
 
 + (NSScreen *)screenWithDisplayID: (CGDirectDisplayID)displayID
 {
-    int i;
+    unsigned i;
     for (i = 0; i < [[NSScreen screens] count]; i++) {
         NSScreen *screen = [[NSScreen screens] objectAtIndex: i];
         if ([screen displayID] == displayID)

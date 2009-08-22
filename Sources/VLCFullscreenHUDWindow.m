@@ -30,15 +30,16 @@
                   backing:(NSBackingStoreType)bufferingType 
                     defer:(BOOL)flag
 {
-    if (self = [super initWithContentRect:contentRect styleMask:NSTexturedBackgroundWindowMask backing:bufferingType defer:flag]) {
-        [self setOpaque:NO];
-        [self setHasShadow: NO];
-        [self setBackgroundColor:[NSColor clearColor]];
-		[self setHidesOnDeactivate:YES];
-        
-        /* let the window sit on top of everything else and start out completely transparent */
-        [self setLevel:NSFloatingWindowLevel];
-    }
+    self = [super initWithContentRect:contentRect styleMask:NSTexturedBackgroundWindowMask backing:bufferingType defer:flag];
+    if (!self)
+        return nil;
+    [self setOpaque:NO];
+    [self setHasShadow: NO];
+    [self setBackgroundColor:[NSColor clearColor]];
+    [self setHidesOnDeactivate:YES];
+    
+    /* let the window sit on top of everything else and start out completely transparent */
+    [self setLevel:NSFloatingWindowLevel];
     return self;
 }
 
