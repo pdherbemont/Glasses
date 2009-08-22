@@ -26,18 +26,26 @@
 
 @implementation VLCDocumentController
 
-- (BOOL) becomeFirstResponder {
+- (BOOL) becomeFirstResponder
+{
     return YES;
 }
 
-- (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError {
-    if( [[inAbsoluteURL scheme] isEqualToString:@"http"] || [[inAbsoluteURL scheme] isEqualToString:@"mms"] || [[inAbsoluteURL scheme] isEqualToString:@"ftp"] || [[inAbsoluteURL scheme] isEqualToString:@"rtsp"] || [[inAbsoluteURL scheme] isEqualToString:@"rtmp"] || [[inAbsoluteURL scheme] isEqualToString:@"udp"] || [[inAbsoluteURL scheme] isEqualToString:@"file"] )
+- (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError
+{
+    if ([[inAbsoluteURL scheme] isEqualToString:@"http"] || [[inAbsoluteURL scheme] isEqualToString:@"mms"]
+     || [[inAbsoluteURL scheme] isEqualToString:@"ftp"] || [[inAbsoluteURL scheme] isEqualToString:@"rtsp"]
+     || [[inAbsoluteURL scheme] isEqualToString:@"rtmp"] || [[inAbsoluteURL scheme] isEqualToString:@"udp"]
+     || [[inAbsoluteURL scheme] isEqualToString:@"file"])
+    {
         return @"VLCMediaDocument";
+    }
 
     return nil;
 }
 
-- (Class)documentClassForType:(NSString *)typeName {
+- (Class)documentClassForType:(NSString *)typeName
+{
     return [VLCMediaDocument class];
 }
 
