@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6304D91810405E1C0031C854 /* Coding Style.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6304D91710405E1C0031C854 /* Coding Style.txt */; };
 		6311DA470FF85941004BC7D1 /* VLCFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */; };
 		6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */; };
 		6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */; };
@@ -118,6 +119,7 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		6304D91710405E1C0031C854 /* Coding Style.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Coding Style.txt"; sourceTree = "<group>"; };
 		6311DA430FF85941004BC7D1 /* VLCFullscreenHUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenHUDWindow.h; path = Sources/VLCFullscreenHUDWindow.h; sourceTree = "<group>"; };
 		6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenHUDWindow.m; path = Sources/VLCFullscreenHUDWindow.m; sourceTree = "<group>"; };
 		6311DA450FF85941004BC7D1 /* VLCFullscreenHUDWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenHUDWindowController.h; path = Sources/VLCFullscreenHUDWindowController.h; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		2A37F4AAFDCFA73011CA2CEA /* VLC light */ = {
 			isa = PBXGroup;
 			children = (
+				6304D91710405E1C0031C854 /* Coding Style.txt */,
 				63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
@@ -575,6 +578,7 @@
 				CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */,
 				CC10A7AC103CA81900B4555A /* Preferences.xib in Resources */,
 				CC61B345103DDAD700D13C72 /* Open.xib in Resources */,
+				6304D91810405E1C0031C854 /* Coding Style.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

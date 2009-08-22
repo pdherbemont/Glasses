@@ -1,0 +1,55 @@
+Coding Rule:
+
+- Cocoa coding style for the naming.
+- Pointer * must be preceded with a space and with no space after ie
+RIGHT
+void *variable name
+
+- if, switch, and other keyword that are not function but takes parameter should have a space before ()
+RIGHT
+if (a) {
+  ...
+}
+function();
+
+WRONG
+if( a )
+if ( a )
+if(a)
+function ();
+
+- {} usage
+RIGHT
+if (a) {
+   ...
+}
+while (a) {
+   ...
+}
+void function()
+{
+   ...
+}
+- (void)functionWithParameter:(BOOL)parameter
+{
+   ...
+}
+WRONG
+- (void)function {
+   ...
+}
+if (a)
+{
+   ...
+}
+
+- Prefer early return ie:
+PREFER
+if (!a)
+    return;
+
+OVER
+if (a) {
+  ...
+  ...
+}
