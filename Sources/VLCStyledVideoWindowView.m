@@ -243,6 +243,9 @@
     [[self window] performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.25];
 }
 
+#pragma mark -
+#pragma mark View methods
+
 - (BOOL)acceptsFirstResponder
 {
     return YES;
