@@ -23,6 +23,7 @@
 #import "VLCStyledVideoWindowView.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCExtendedVideoView.h"
+#import "VLCStyledVideoWindow.h"
 #import "DOMElement_Additions.h"
 
 @interface  VLCStyledVideoWindowView ()
@@ -200,7 +201,11 @@
         [super updateTrackingAreas];
         return;
     }
-    
+
+    // Don't track ignored mouseEvents in debug window
+   if ([VLCStyledVideoWindow debugStyledWindow])
+       return;
+
     DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:@"content"];
     NSAssert(element, @"No content element in this style");
     NSRect frame = [element frameInView:self];
@@ -231,11 +236,7 @@
     else if ([[item title] isEqualToString:@"Black"])
         link.href = @"black.css";
     else
-        link.href = @"default.css";
-
-    [self performSelector:@selector(videoDidResize) withObject:nil afterDelay:0.];
-    [self performSelector:@selector(updateTrackingAreas) withObject:nil afterDelay:0.];
-    
+        link.href = @"default.css";    
 }
 
 - (BOOL)acceptsFirstResponder

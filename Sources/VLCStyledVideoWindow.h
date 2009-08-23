@@ -20,9 +20,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-
 @interface VLCStyledVideoWindow : NSWindow {
     NSWindowController *_windowController;
 }
-
++ (BOOL)debugStyledWindow;
 @end

@@ -97,14 +97,12 @@ windowController.mouseDownForWindowDrag = function(event) {
 	// This could probaby be refined
 	if (event.srcElement.nodeName != "DIV" || event.srcElement.className.indexOf("resize") != -1)
 		return;
-    window.PlatformWindow.willStartLiveResize();
     windowController.saveMouseDownInfo(event);
 	document.addEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
 	document.addEventListener('mousemove', windowController.mouseDraggedForWindowDrag, false);
 }
 
 windowController.mouseUpForWindowDrag = function(event) {
-    window.PlatformWindow.didEndLiveResize();
 	document.removeEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowDrag, false);
 }
@@ -124,6 +122,8 @@ windowController.mouseDownForWindowResize = function(event) {
 
     windowController.saveMouseDownInfo(event);
 
+    window.PlatformWindow.willStartLiveResize();
+        
 	document.addEventListener('mouseup', windowController.mouseUpForWindowResize, false);
 	document.addEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
 }
@@ -131,6 +131,8 @@ windowController.mouseDownForWindowResize = function(event) {
 windowController.mouseUpForWindowResize = function(event) {
 	document.removeEventListener('mouseup', windowController.mouseUpForWindowResize, false);
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
+
+    window.PlatformWindow.didEndLiveResize();
 }
 
 windowController.mouseDraggedForWindowResize = function(event) {

@@ -20,17 +20,21 @@
 
 #import "VLCStyledVideoWindow.h"
 
-//#define DEBUG_STYLED_WINDOW
+#define DEBUG_STYLED_WINDOW
 
 static inline BOOL debugStyledWindow(void)
+{
+    return [VLCStyledVideoWindow debugStyledWindow];
+}
+
+@implementation VLCStyledVideoWindow
++ (BOOL)debugStyledWindow
 {
 #ifdef DEBUG_STYLED_WINDOW
     return YES;
 #endif
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"DebugStyledWindow"];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"DebugStyledWindow"];    
 }
-
-@implementation VLCStyledVideoWindow
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag;
 {
     if (!debugStyledWindow())
