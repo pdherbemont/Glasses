@@ -107,6 +107,9 @@ body {
 }
 
 .title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     position: absolute;
     padding-top: 1px;
     top: 0px;
