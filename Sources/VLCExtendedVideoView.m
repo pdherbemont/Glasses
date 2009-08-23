@@ -44,6 +44,11 @@
     return YES;
 }
 
+- (BOOL)isOpaque
+{
+    return YES;
+}
+
 - (void)setFullscreen:(BOOL)fullscreen
 {
     if (_isFullscreen == fullscreen)

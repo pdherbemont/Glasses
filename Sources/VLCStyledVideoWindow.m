@@ -20,7 +20,7 @@
 
 #import "VLCStyledVideoWindow.h"
 
-#define DEBUG_STYLED_WINDOW
+//#define DEBUG_STYLED_WINDOW
 
 static inline BOOL debugStyledWindow(void)
 {
@@ -48,7 +48,7 @@ static inline BOOL debugStyledWindow(void)
         [self setOpaque:NO];
         [self setBackgroundColor:[NSColor clearColor]];
     }
-    
+    [self setHasShadow:YES];
     [self setAcceptsMouseMovedEvents:YES];
     [self setIgnoresMouseEvents:NO];
     return self;

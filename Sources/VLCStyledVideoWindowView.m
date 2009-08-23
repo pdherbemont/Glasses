@@ -114,7 +114,6 @@
 
 - (void)setPosition:(float)position
 {
-    NSLog(@"%f", position);
     [[self mediaPlayer] setPosition:position];
 }
 
@@ -176,6 +175,8 @@
     [self setMainWindow:[[self window] isMainWindow]];
     [self setWindowTitle:[[self window] title]];
     [self updateTrackingAreas];
+
+    [[self window] performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
 }
 
 #pragma mark -
@@ -236,7 +237,10 @@
     else if ([[item title] isEqualToString:@"Black"])
         link.href = @"black.css";
     else
-        link.href = @"default.css";    
+        link.href = @"default.css";
+
+    // Hack: Reload the full page for style change, this will help
+    [[self window] performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.25];
 }
 
 - (BOOL)acceptsFirstResponder
