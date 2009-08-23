@@ -248,6 +248,26 @@
     return YES;
 }
 
+- (NSView *)hitTest:(NSPoint)point
+{
+    // Hit test function that ignores the videoView and forward everything
+    // to the webview. This allows a full control over the behaviour of event
+    // in the video view by the style.
+
+    NSView *videoView = [[[self window] windowController] videoView];
+    for (NSView *subview in [self subviews])
+    {
+        if (subview == videoView)
+            continue;
+        NSPoint localPoint = [subview convertPoint:point fromView:self];
+        NSView *result = [subview hitTest:localPoint];
+        if (result)
+            return result;
+    }
+
+    return NSPointInRect(point, [self bounds]) ? self : nil;
+}
+
 #pragma mark -
 #pragma mark Private
 
