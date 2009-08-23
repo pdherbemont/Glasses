@@ -81,13 +81,6 @@
     [windowController release];
 }
 
-- (void)windowControllerDidLoadNib:(NSWindowController *)windowController
-{
-    NSAssert(!self.mediaPlayer, @"There shouldn't be a media player still around");
-    
-    
-}
-
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
     if (outError)
