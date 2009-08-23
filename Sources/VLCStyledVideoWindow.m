@@ -104,6 +104,16 @@ static inline BOOL debugStyledWindow(void)
     return [self frame].size.width;
 }
 
+- (void)willStartLiveResize
+{
+    [[self contentView] viewWillStartLiveResize];
+}
+
+- (void)didEndLiveResize
+{
+    [[self contentView] viewDidEndLiveResize];
+}
+
 - (void)setFrame:(float)x :(float)y :(float)width :(float)height
 {
     NSRect frame = [self frame];
@@ -133,6 +143,10 @@ static inline BOOL debugStyledWindow(void)
     if (sel == @selector(frameSizeHeight))
         return NO;
     if (sel == @selector(frameSizeWidth))
+        return NO;
+    if (sel == @selector(willStartLiveResize))
+        return NO;
+    if (sel == @selector(didEndLiveResize))
         return NO;
     
     return YES;

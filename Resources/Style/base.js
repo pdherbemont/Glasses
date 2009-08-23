@@ -97,12 +97,14 @@ windowController.mouseDownForWindowDrag = function(event) {
 	// This could probaby be refined
 	if (event.srcElement.nodeName != "DIV" || event.srcElement.className.indexOf("resize") != -1)
 		return;
+    window.PlatformWindow.willStartLiveResize();
     windowController.saveMouseDownInfo(event);
 	document.addEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
 	document.addEventListener('mousemove', windowController.mouseDraggedForWindowDrag, false);
 }
 
 windowController.mouseUpForWindowDrag = function(event) {
+    window.PlatformWindow.didEndLiveResize();
 	document.removeEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowDrag, false);
 }
