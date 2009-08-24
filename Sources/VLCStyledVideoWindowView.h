@@ -24,7 +24,11 @@
 @interface VLCStyledVideoWindowView : WebView
 {
     BOOL _isFrameLoaded;
+    BOOL _isChangingPositionOnFrame;
     NSTrackingArea *_contentTracking;
+    float _viewedPosition;
+    BOOL _wasPlayingBeforeChangingPosition;
+    BOOL _isUserChangingPosition;
 }
 - (void)setup;
 

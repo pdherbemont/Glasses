@@ -104,6 +104,20 @@
     return _isFrameLoaded ? [self _htmlElementForId:@"ellapsed-time"].innerText : @"";
 }
 
+- (void)setViewedPosition:(float)position
+{
+    if (!_isFrameLoaded)
+        return;
+    DOMHTMLElement *element = [self _htmlElementForId:@"timeline"];
+    [element setAttribute:@"value" value:[NSString stringWithFormat:@"%.0f", position * 1000]];
+    _viewedPosition = position;
+}
+
+- (float)viewedPosition
+{
+    return _viewedPosition;
+}
+
 - (VLCMediaPlayer *)mediaPlayer
 {
     return [[[self window] windowController] mediaPlayer];
