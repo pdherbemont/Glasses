@@ -33,7 +33,7 @@
 
 - (VLCMediaPlayer *)mediaPlayer
 {
-    return [self mediaDocument].mediaPlayer;
+    return [self mediaDocument].mediaListPlayer.mediaPlayer;
 }
 
 - (NSString *)windowNibName
@@ -46,7 +46,7 @@
     [super windowDidLoad];
 	NSWindow * window = [self window];
     [window setDelegate:self];
-    [[self mediaPlayer] bind:@"time.stringValue" toObject:_styledWindowView withKeyPath:@"remainingTime" options:nil];
+    [_styledWindowView bind:@"ellapsedTime" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.time.stringValue" options:nil];
 }
 
 #pragma mark -

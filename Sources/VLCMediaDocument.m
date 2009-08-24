@@ -25,17 +25,17 @@
 #import "VLCFeatures.h"
 
 @interface VLCMediaDocument () <VLCFullscreenHUDWindowControllerDelegate>
-@property (readwrite,retain) VLCMediaPlayer * mediaPlayer;
+@property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;
 @end
 
 @implementation VLCMediaDocument
-@synthesize mediaPlayer=_mediaPlayer;
+@synthesize mediaListPlayer=_mediaListPlayer;
 
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
     self = [super initWithContentsOfURL:absoluteURL ofType:typeName error:outError];
 	if(!self)
-        return nil
+        return nil;
     _media = [[VLCMedia mediaWithURL:absoluteURL] retain];
 	return self;
 }
@@ -45,15 +45,15 @@
 	[_fullscreenHUDWindowController release];
 	[_media release];
 
-    NSAssert(!_mediaPlayer, @"The current media player should be removed in -close");
+    NSAssert(!_mediaListPlayer, @"The current media player should be removed in -close");
 
 	[super dealloc];
 }
 
 - (void)close
 {
-    [_mediaPlayer stop];
-    self.mediaPlayer = nil;
+    [_mediaListPlayer stop];
+    self.mediaListPlayer = nil;
     [super close];
 }
 
@@ -72,12 +72,13 @@
     VLCExtendedVideoView *videoView = windowController.videoView;
     NSAssert(videoView, @"There should be a videoView at this point");
 
-    VLCMediaPlayer *mediaPlayer = [[VLCMediaPlayer alloc] initWithVideoView:videoView];
-    self.mediaPlayer = mediaPlayer;
-	[videoView setMediaPlayer:mediaPlayer];
-	[mediaPlayer setMedia:_media];
-    [mediaPlayer play];
-    [mediaPlayer release];
+    VLCMediaListPlayer *mediaListPlayer = [[VLCMediaListPlayer alloc] init];
+    [mediaListPlayer.mediaPlayer setVideoView:videoView];
+    self.mediaListPlayer = mediaListPlayer;
+	[videoView setMediaPlayer:mediaListPlayer.mediaPlayer];
+	[mediaListPlayer setRootMedia:_media];
+    [mediaListPlayer play];
+    [mediaListPlayer release];
 
     [windowController release];
 }

@@ -21,7 +21,7 @@
 
 - (VLCMediaPlayer *)mediaPlayer
 {
-    return [self mediaDocument].mediaPlayer;
+    return [self mediaDocument].mediaListPlayer.mediaPlayer;
 }
 
 - (void)close
@@ -47,7 +47,7 @@
 	[window setFrame:frame display:NO];
 	[window center];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerStateChanged:) name:VLCMediaPlayerStateChanged object:[self mediaDocument].mediaPlayer];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerStateChanged:) name:VLCMediaPlayerStateChanged object:[self mediaDocument].mediaListPlayer.mediaPlayer];
 }
 
 

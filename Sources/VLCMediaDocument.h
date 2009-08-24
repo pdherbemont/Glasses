@@ -27,10 +27,10 @@
 
 @interface VLCMediaDocument : NSDocument {
 	VLCMedia *_media;
-	VLCMediaPlayer *_mediaPlayer;
+	VLCMediaListPlayer *_mediaListPlayer;
 	VLCFullscreenHUDWindowController * _fullscreenHUDWindowController;
 }
 
-@property (readonly,retain) VLCMediaPlayer *mediaPlayer;
+@property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
 
 @end
