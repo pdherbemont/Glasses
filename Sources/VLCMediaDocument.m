@@ -33,10 +33,10 @@
 
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
-	if((self = [super initWithContentsOfURL:absoluteURL ofType:typeName error:outError]))
-	{
-		_media = [[VLCMedia mediaWithURL:absoluteURL] retain];
-	}
+    self = [super initWithContentsOfURL:absoluteURL ofType:typeName error:outError];
+	if(!self)
+        return nil
+    _media = [[VLCMedia mediaWithURL:absoluteURL] retain];
 	return self;
 }
 
@@ -44,14 +44,15 @@
 {
 	[_fullscreenHUDWindowController release];
 	[_media release];
-	[_mediaPlayer stop];
-	self.mediaPlayer = nil;
+
+    NSAssert(!_mediaPlayer, @"The current media player should be removed in -close");
 
 	[super dealloc];
 }
 
 - (void)close
 {
+    [_mediaPlayer stop];
     self.mediaPlayer = nil;
     [super close];
 }
