@@ -18,6 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
+/* This class is just extending VLCVideoView (which is a VLCKit class).
+ * We mainly add fullscreen support here.
+ */
 #import <Cocoa/Cocoa.h>
 #import <VLCKit/VLCKit.h>
 

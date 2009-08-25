@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
+/* See VLCStyledVideoWindowView.h for background */
+
 #import <Cocoa/Cocoa.h>
 
 @class VLCExtendedVideoView;
