@@ -601,9 +601,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D15AC270486D014006FF6A4 /* Glasses */ = {
+		8D15AC270486D014006FF6A4 /* Lunettes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Glasses" */;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Lunettes" */;
 			buildPhases = (
 				63EF1FC70F904E3A002A2E14 /* CopyFiles */,
 				8D15AC2B0486D014006FF6A4 /* Resources */,
@@ -614,7 +614,7 @@
 			);
 			dependencies = (
 			);
-			name = Glasses;
+			name = Lunettes;
 			productInstallPath = "$(HOME)/Applications";
 			productName = "VLC light";
 			productReference = 8D15AC370486D014006FF6A4 /* Glasses.app */;
@@ -638,7 +638,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				8D15AC270486D014006FF6A4 /* Glasses */,
+				8D15AC270486D014006FF6A4 /* Lunettes */,
 			);
 		};
 /* End PBXProject section */
@@ -849,6 +849,7 @@
 				GCC_PREFIX_HEADER = VLC_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Glasses;
 			};
 			name = Debug;
@@ -907,7 +908,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Glasses" */ = {
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Lunettes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733C808A9546B00998B17 /* Debug */,

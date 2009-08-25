@@ -1,6 +1,6 @@
 //
 //  NSScreen_Additions.m
-//  VLC light
+//  Lunettes
 //
 //  Created by Pierre d'Herbemont on 4/11/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
