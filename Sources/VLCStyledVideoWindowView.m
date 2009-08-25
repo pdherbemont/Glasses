@@ -208,7 +208,9 @@
 {
     _isFrameLoaded = YES;
     id win = [self windowScriptObject];
-    [win setValue:[[self window] windowController] forKey:@"PlatformWindowController"];
+    NSWindow *window = [self window];
+    [win setValue:[window windowController] forKey:@"PlatformWindowController"];
+    [win setValue:window forKey:@"PlatformWindow"];
     [win setValue:self forKey:@"PlatformView"];
 
     [self videoDidResize];

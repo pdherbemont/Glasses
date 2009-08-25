@@ -39,7 +39,7 @@ windowController.PlatformWindowController = function() {
 }
 
 windowController.PlatformWindow = function() {
-    return this.PlatformWindowController().window;
+    return window.PlatformWindow;
 }
 
 windowController.contentHasClassName = function(className) {
