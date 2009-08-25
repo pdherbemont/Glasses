@@ -102,6 +102,7 @@
 		63B1E2D6104438B70029C49C /* timeinfo_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E2CB104438B70029C49C /* timeinfo_middle.png */; };
 		63B1E2D7104438B70029C49C /* timeline_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E2CC104438B70029C49C /* timeline_border.png */; };
 		63B1E2D8104438B70029C49C /* timeline_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E2CD104438B70029C49C /* timeline_thumb.png */; };
+		63B1E42E10444D540029C49C /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E42D10444D540029C49C /* Icon.icns */; };
 		63D441D0100469A60086772A /* VideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441CF100469A60086772A /* VideoWindow.xib */; };
 		63D441D2100469AD0086772A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441D1100469AD0086772A /* MainMenu.xib */; };
 		63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */; };
@@ -261,6 +262,7 @@
 		63B1E2CB104438B70029C49C /* timeinfo_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeinfo_middle.png; sourceTree = "<group>"; };
 		63B1E2CC104438B70029C49C /* timeline_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeline_border.png; sourceTree = "<group>"; };
 		63B1E2CD104438B70029C49C /* timeline_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeline_thumb.png; sourceTree = "<group>"; };
+		63B1E42D10444D540029C49C /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = Resources/Icon.icns; sourceTree = "<group>"; };
 		63D441CB100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/VideoWindow.xib; sourceTree = "<group>"; };
 		63D441CC100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = ../vlc/projects/macosx/framework/VLCKit.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -372,6 +374,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				63B1E42D10444D540029C49C /* Icon.icns */,
 				630143B11040727F00534090 /* Style */,
 				6301465A1040991000534090 /* StyledVideoWindow.xib */,
 				63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */,
@@ -764,6 +767,7 @@
 				63B1E2D6104438B70029C49C /* timeinfo_middle.png in Resources */,
 				63B1E2D7104438B70029C49C /* timeline_border.png in Resources */,
 				63B1E2D8104438B70029C49C /* timeline_thumb.png in Resources */,
+				63B1E42E10444D540029C49C /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -868,7 +872,6 @@
 			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
@@ -893,7 +896,6 @@
 			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
@@ -912,7 +914,7 @@
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../Framework/build/Debug\"";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -929,7 +931,7 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../Framework/build/Debug\"";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
