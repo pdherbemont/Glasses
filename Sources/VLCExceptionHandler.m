@@ -43,7 +43,7 @@
 }
 
 /* From Apple's guide on exception */
-- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(unsigned int)aMask
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask
 {
     [self printStackTrace:exception];
     NSLog(@"*** Exception Handled! %@: %@", [exception name], [exception reason]);
