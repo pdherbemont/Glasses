@@ -246,7 +246,7 @@
 		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = ../vlc/projects/macosx/framework/VLCKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D15AC370486D014006FF6A4 /* Glasses.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Glasses.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D15AC370486D014006FF6A4 /* Lunettes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunettes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		CC10A7AB103CA81900B4555A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		CC10A7AE103CA96800B4555A /* VLCPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferences.h; path = Sources/VLCPreferences.h; sourceTree = "<group>"; };
@@ -301,12 +301,12 @@
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D15AC370486D014006FF6A4 /* Glasses.app */,
+				8D15AC370486D014006FF6A4 /* Lunettes.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2A37F4AAFDCFA73011CA2CEA /* VLC light */ = {
+		2A37F4AAFDCFA73011CA2CEA /* Lunettes */ = {
 			isa = PBXGroup;
 			children = (
 				63014A711042AC9900534090 /* Coding Style.rtf */,
@@ -319,7 +319,7 @@
 				19C28FB0FE9D524F11CA2CBB /* Products */,
 				630143AA1040726600534090 /* WebKit.framework */,
 			);
-			name = "VLC light";
+			name = Lunettes;
 			sourceTree = "<group>";
 		};
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
@@ -616,8 +616,8 @@
 			);
 			name = Lunettes;
 			productInstallPath = "$(HOME)/Applications";
-			productName = "VLC light";
-			productReference = 8D15AC370486D014006FF6A4 /* Glasses.app */;
+			productName = Lunettes;
+			productReference = 8D15AC370486D014006FF6A4 /* Lunettes.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -625,10 +625,10 @@
 /* Begin PBXProject section */
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Glasses" */;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Lunettes" */;
 			compatibilityVersion = "Xcode 3.1";
 			hasScannedForEncodings = 1;
-			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* VLC light */;
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Lunettes */;
 			projectDirPath = "";
 			projectReferences = (
 				{
@@ -850,7 +850,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = Glasses;
+				PRODUCT_NAME = Lunettes;
 			};
 			name = Debug;
 		};
@@ -869,7 +869,7 @@
 				GCC_PREFIX_HEADER = VLC_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = Glasses;
+				PRODUCT_NAME = Lunettes;
 			};
 			name = Release;
 		};
@@ -917,7 +917,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Glasses" */ = {
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Lunettes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,
