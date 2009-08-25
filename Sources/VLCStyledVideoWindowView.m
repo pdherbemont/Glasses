@@ -66,6 +66,14 @@
     [[self mainFrame] loadRequest:request];    
 }
 
+- (VLCMediaPlayer *)mediaPlayer
+{
+    return [[[self window] windowController] mediaPlayer];
+}
+
+#pragma mark -
+#pragma mark Methods that are acting on the interface (ie: on javascript code).
+
 - (void)setKeyWindow:(BOOL)isKeyWindow
 {
     if (isKeyWindow)
@@ -104,6 +112,10 @@
     return _isFrameLoaded ? [self _htmlElementForId:@"ellapsed-time"].innerText : @"";
 }
 
+// The viewedPosition value is set from the core to indicate a the position of the
+// playing media.
+// This is different from the setPosition: method that is being called by the
+// javascript bridge (ie: from the interface code)
 - (void)setViewedPosition:(float)position
 {
     if (!_isFrameLoaded)
@@ -118,10 +130,25 @@
     return _viewedPosition;
 }
 
-- (VLCMediaPlayer *)mediaPlayer
+- (void)setViewedPlaying:(BOOL)isPlaying
 {
-    return [[[self window] windowController] mediaPlayer];
+    if (!_isFrameLoaded)
+        return;
+    if (isPlaying == _viewedPlaying)
+        return;
+    _viewedPlaying = isPlaying;
+
+    if (isPlaying)
+        [self _addClassToContent:@"playing"];
+    else
+        [self _removeClassFromContent:@"playing"];
 }
+
+- (BOOL)viewedPlaying
+{
+    return _viewedPlaying;
+}
+
 
 #pragma mark -
 #pragma mark Javascript callbacks
@@ -134,6 +161,11 @@
 - (void)play
 {    
     [[self mediaPlayer] play];
+}
+
+- (void)pause
+{
+    [[self mediaPlayer] pause];
 }
 
 - (void)toggleFullscreen
@@ -162,6 +194,8 @@
     if (sel == @selector(toggleFullscreen))
         return NO;
     if (sel == @selector(play))
+        return NO;
+    if (sel == @selector(pause))
         return NO;
     if (sel == @selector(setPosition:))
         return NO;

@@ -9,7 +9,7 @@ windowController.init = function() {
     bindButtonByIdToMethod("close", this.close);
     bindButtonByIdToMethod("miniaturize", this.miniaturize);
     bindButtonByIdToMethod("zoom", this.zoom);
-    bindButtonByIdToMethod("play", this.play);
+    bindButtonByIdToMethod("toggle-playing", this.togglePlaying);
     bindButtonByIdToMethod("fullscreen", this.fullscreen);
 
     // Bind the timeline.
@@ -34,6 +34,11 @@ function bindButtonByIdToMethod(id, method) {
     button.onclick = method;
 }
 
+windowController.contentHasClassName = function(className) {
+    var content = document.getElementById("content");
+    return content.className.indexOf(className) != -1;
+}
+
 windowController.close = function() {
     window.PlatformWindow.performClose();
 }
@@ -46,8 +51,11 @@ windowController.zoom = function() {
     window.PlatformWindow.zoom();
 }
 
-windowController.play = function() {
-    window.PlatformView.play();
+windowController.togglePlaying = function() {
+    if(windowController.contentHasClassName("playing"))
+        window.PlatformView.pause();
+    else
+        window.PlatformView.play();
 }
 
 windowController.fullscreen = function() {

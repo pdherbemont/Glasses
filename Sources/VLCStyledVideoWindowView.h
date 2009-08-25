@@ -27,6 +27,16 @@
  *
  * This makes the window easily styleable, so is its content.
  * Hence VLCStyledVideoWindowView supports multiple style.
+ *
+ * The js code can access both this view and its associated
+ * window by window.PlatformWindow (for VLCStyledVideoWindow)
+ * and window.PlatformView (for VLCStyledVideoWindowView).
+ * A list of methods that are accessible by javascript are defined
+ * in those classes method +isSelectorExcludedFromWebScript:
+ *
+ * We also drives the DOM and replaces the timeline, the ellapsed time
+ * and we add a className on the #content element to reflect both
+ * the window state, and the media player state.
  */
 
 #import <Cocoa/Cocoa.h>
@@ -37,15 +47,20 @@
     BOOL _isFrameLoaded;
     BOOL _isChangingPositionOnFrame;
     NSTrackingArea *_contentTracking;
-    float _viewedPosition;
     BOOL _wasPlayingBeforeChangingPosition;
     BOOL _isUserChangingPosition;
+    
+    float _viewedPosition;
+    BOOL _viewedPlaying;
 }
 - (void)setup;
 
 - (void)setKeyWindow:(BOOL)isKeyWindow;
 - (void)setMainWindow:(BOOL)isMainWindow;
 - (void)setWindowTitle:(NSString *)title;
+
+@property (assign) float viewedPosition;
+@property (assign) BOOL viewedPlaying;
 
 @property (copy) NSString *ellapsedTime;
 @end

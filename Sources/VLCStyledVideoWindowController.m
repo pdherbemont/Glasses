@@ -49,6 +49,8 @@
     [_styledWindowView bind:@"ellapsedTime" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.time.stringValue" options:nil];
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:0], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView bind:@"viewedPosition" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.position" options:options];
+    options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption, nil];
+    [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
 }
 
 #pragma mark -

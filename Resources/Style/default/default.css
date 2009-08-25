@@ -192,12 +192,20 @@ body {
     margin-right: 3px;
 }
 
-.play {
+#content .toggle-playing {
     background-image: url(play.png);
 }
 
-.play:active {
+#content .toggle-playing:active {
     background-image: url(play_blue.png);
+}
+
+#content.playing .toggle-playing {
+    background-image: url(pause.png);
+}
+
+#content.playing .toggle-playing:active {
+    background-image: url(pause_blue.png);
 }
 
 .fullscreen {

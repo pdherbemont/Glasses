@@ -207,7 +207,7 @@ body {
     margin-right: 6px;
 }
 
-.play {
+.toggle-playing {
     background: url(fs_play.png)  no-repeat;
     -webkit-background-size: 100%;
 }
