@@ -109,10 +109,6 @@
     if (!_isFrameLoaded)
         return;
     DOMHTMLElement *element = [self _htmlElementForId:@"timeline"];
-
-    // For some reasons not calling getAttribute: makes setAttribute non working.
-    (void)[element getAttribute:@"value"];
-
     [element setAttribute:@"value" value:[NSString stringWithFormat:@"%.0f", position * 1000]];
     _viewedPosition = position;
 }
