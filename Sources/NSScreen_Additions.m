@@ -34,7 +34,7 @@
 
 - (CGDirectDisplayID)displayID
 {
-    return (CGDirectDisplayID)_screenNumber;
+    return (CGDirectDisplayID)[[[self deviceDescription]objectForKey:@"NSScreenNumber"]intValue];
 }
 
 @end
