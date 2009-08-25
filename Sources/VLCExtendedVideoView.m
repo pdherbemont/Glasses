@@ -53,6 +53,7 @@
 {
     if (_isFullscreen == fullscreen)
         return;
+
     _isFullscreen = fullscreen;
     
 	if (_isFullscreen) {

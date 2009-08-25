@@ -30,8 +30,10 @@
  *
  * BRIDGING
  * The js code can access both this view and its associated
- * window by window.PlatformWindow (for VLCStyledVideoWindow)
+ * window by window.PlatformWindowController
+ * (for VLCStyledVideoWindowController)
  * and window.PlatformView (for VLCStyledVideoWindowView).
+ *  window.PlatformWindowController.window returns a VLCStyledVideoWindow.
  * A list of methods that are accessible by javascript are defined
  * in those classes method +isSelectorExcludedFromWebScript:.
  *

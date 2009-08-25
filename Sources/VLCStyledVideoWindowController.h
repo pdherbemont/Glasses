@@ -21,12 +21,14 @@
 /* See VLCStyledVideoWindowView.h for background */
 
 #import <Cocoa/Cocoa.h>
+#import "VLCFullscreenController.h"
 
 @class VLCExtendedVideoView;
 @class VLCStyledVideoWindowView;
 @interface VLCStyledVideoWindowController : NSWindowController {
     IBOutlet VLCExtendedVideoView *_videoView;
     IBOutlet VLCStyledVideoWindowView *_styledWindowView;
+    VLCFullscreenController *_fullscreenController;
 }
 @property (readonly, retain) VLCExtendedVideoView *videoView;
 @end

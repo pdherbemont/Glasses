@@ -40,6 +40,7 @@
     NSAssert(!_contentTracking, @"_contentTracking should have been released");
     [super dealloc];
 }
+
 - (void)close
 {
     [self removeTrackingArea:_contentTracking];
@@ -168,12 +169,6 @@
     [[self mediaPlayer] pause];
 }
 
-- (void)toggleFullscreen
-{
-    VLCExtendedVideoView *videoView = [[[self window] windowController] videoView];
-	[videoView setFullscreen:![videoView fullscreen]];
-}
-
 - (void)videoDidResize
 {    
     DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:@"video-view"];
@@ -190,8 +185,6 @@
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
 {
     if (sel == @selector(videoDidResize))
-        return NO;
-    if (sel == @selector(toggleFullscreen))
         return NO;
     if (sel == @selector(play))
         return NO;
@@ -215,7 +208,7 @@
 {
     _isFrameLoaded = YES;
     id win = [self windowScriptObject];
-    [win setValue:[self window] forKey:@"PlatformWindow"];
+    [win setValue:[[self window] windowController] forKey:@"PlatformWindowController"];
     [win setValue:self forKey:@"PlatformView"];
 
     [self videoDidResize];

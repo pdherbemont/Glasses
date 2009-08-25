@@ -10,7 +10,7 @@ windowController.init = function() {
     bindButtonByIdToMethod("miniaturize", this.miniaturize);
     bindButtonByIdToMethod("zoom", this.zoom);
     bindButtonByIdToMethod("toggle-playing", this.togglePlaying);
-    bindButtonByIdToMethod("fullscreen", this.fullscreen);
+    bindButtonByIdToMethod("fullscreen", this.enterFullscreen);
 
     // Bind the timeline.
     var timeline = document.getElementById("timeline");
@@ -34,21 +34,29 @@ function bindButtonByIdToMethod(id, method) {
     button.onclick = method;
 }
 
+windowController.PlatformWindowController = function() {
+    return window.PlatformWindowController;
+}
+
+windowController.PlatformWindow = function() {
+    return this.PlatformWindowController().window;
+}
+
 windowController.contentHasClassName = function(className) {
     var content = document.getElementById("content");
     return content.className.indexOf(className) != -1;
 }
 
 windowController.close = function() {
-    window.PlatformWindow.performClose();
+    windowController.PlatformWindow().performClose();
 }
 
 windowController.miniaturize = function() {
-    window.PlatformWindow.miniaturize();
+    windowController.PlatformWindow().miniaturize();
 }
 
 windowController.zoom = function() {
-    window.PlatformWindow.zoom();
+    windowController.PlatformWindow().zoom();
 }
 
 windowController.togglePlaying = function() {
@@ -58,8 +66,8 @@ windowController.togglePlaying = function() {
         window.PlatformView.play();
 }
 
-windowController.fullscreen = function() {
-    window.PlatformView.toggleFullscreen();
+windowController.enterFullscreen = function() {
+    windowController.PlatformWindowController().enterFullscreen();
 }
 
 windowController.videoResized = function() {
@@ -73,7 +81,7 @@ windowController.bodyResized = function() {
 
 
 windowController.windowFrame = function() {
-    var platformWindow = window.PlatformWindow;
+    var platformWindow = windowController.PlatformWindow();
     var origin = { x: platformWindow.frameOriginX(), y: platformWindow.frameOriginY() };
     var size = { height: platformWindow.frameSizeHeight(), width: platformWindow.frameSizeWidth() };
     return { origin: origin, size: size };
@@ -88,8 +96,8 @@ windowController.mouseDownPoint = null;
 windowController.windowFrameAtMouseDown = null;
 
 windowController.saveMouseDownInfo = function(event) {
-    this.mouseDownPoint = { x: event.screenX, y: event.screenY };
-    this.windowFrameAtMouseDown = this.windowFrame();
+    windowController.mouseDownPoint = { x: event.screenX, y: event.screenY };
+    windowController.windowFrameAtMouseDown = this.windowFrame();
 }
 
 // Timeline
@@ -119,7 +127,7 @@ windowController.mouseDraggedForWindowDrag = function(event) {
 	var dx = windowController.mouseDownPoint.x - event.screenX;
 	var dy = windowController.mouseDownPoint.y - event.screenY;
 	var mouseDownOrigin = windowController.windowFrameAtMouseDown.origin;
-	window.PlatformWindow.setFrameOrigin__(mouseDownOrigin.x - dx, mouseDownOrigin.y + dy);
+	windowController.PlatformWindow().setFrameOrigin__(mouseDownOrigin.x - dx, mouseDownOrigin.y + dy);
 }
 
 // Window Resize
@@ -130,7 +138,7 @@ windowController.mouseDownForWindowResize = function(event) {
 
     windowController.saveMouseDownInfo(event);
 
-    window.PlatformWindow.willStartLiveResize();
+    windowController.PlatformWindow().willStartLiveResize();
         
 	document.addEventListener('mouseup', windowController.mouseUpForWindowResize, false);
 	document.addEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
@@ -140,7 +148,7 @@ windowController.mouseUpForWindowResize = function(event) {
 	document.removeEventListener('mouseup', windowController.mouseUpForWindowResize, false);
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
 
-    window.PlatformWindow.didEndLiveResize();
+    windowController.PlatformWindow().didEndLiveResize();
 }
 
 windowController.mouseDraggedForWindowResize = function(event) {
@@ -149,7 +157,7 @@ windowController.mouseDraggedForWindowResize = function(event) {
 	var mouseDownOrigin = windowController.windowFrameAtMouseDown.origin;
 	var mouseDownSize = windowController.windowFrameAtMouseDown.size;
 
-    var platformWindow = window.PlatformWindow;
+    var platformWindow = windowController.PlatformWindow();
 	platformWindow.setFrame____(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
 }
 

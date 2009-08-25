@@ -23,9 +23,26 @@
 #import "VLCStyledVideoWindowController.h"
 #import "VLCStyledVideoWindowView.h"
 #import "VLCMediaDocument.h"
+#import "VLCStyledFullscreenHUDWindowController.h"
 
 @implementation VLCStyledVideoWindowController
 @synthesize videoView=_videoView;
+- (void)dealloc
+{
+    [super dealloc];
+}
+
+- (VLCFullscreenController *)fullscreenController
+{
+    if (!_fullscreenController) {
+        _fullscreenController = [[VLCFullscreenController alloc] initWithView:_videoView];
+        VLCStyledFullscreenHUDWindowController *hud = [[VLCStyledFullscreenHUDWindowController alloc] init];
+        _fullscreenController.hud = hud;
+        [hud release];
+    }
+    return _fullscreenController;
+}
+
 - (VLCMediaDocument *)mediaDocument
 {
     return (VLCMediaDocument *)[self document];
@@ -53,6 +70,13 @@
     [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
 }
 
+- (void)close
+{
+    [_fullscreenController release];
+    _fullscreenController = nil;
+    [super close];
+}
+
 #pragma mark -
 #pragma mark Window Delegate
 
@@ -71,6 +95,36 @@
 - (void)windowDidResignMain:(NSNotification *)notification
 {
     [_styledWindowView setMainWindow:YES];
+}
+
+#pragma mark -
+#pragma mark Javascript brigding
+
+- (void)enterFullscreen
+{
+    [[self fullscreenController] enterFullscreen:[[self window] screen]];
+}
+
+- (void)exitFullscreen
+{
+    [[self fullscreenController] leaveFullscreen];
+}
+
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
+{
+    if (sel == @selector(enterFullscreen))
+        return NO;
+    if (sel == @selector(exitFullscreen))
+        return NO;
+    if (sel == @selector(window))
+        return NO;
+    
+    return YES;
+}
+
++ (BOOL)isKeyExcludedFromWebScript:(const char *)name
+{
+    return YES;
 }
 
 @end

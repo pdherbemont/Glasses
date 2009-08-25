@@ -43,7 +43,7 @@
     return self;
 }
 
--(void)center
+- (void)center
 {
     /* user-defined screen */
         
