@@ -18,6 +18,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
+/* This is a view that is the content for VLCStyledVideoWindow.
+ * VLCStyledVideoWindow is a borderless window that just display,
+ * this view.
+ *
+ * This view is a subclass of WebView, and its goal is to display
+ * a window that is entirely html/css/js based.
+ *
+ * This makes the window easily styleable, so is its content.
+ * Hence VLCStyledVideoWindowView supports multiple style.
+ */
+
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
