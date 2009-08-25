@@ -28,15 +28,22 @@
  * This makes the window easily styleable, so is its content.
  * Hence VLCStyledVideoWindowView supports multiple style.
  *
+ * BRIDGING
  * The js code can access both this view and its associated
  * window by window.PlatformWindow (for VLCStyledVideoWindow)
  * and window.PlatformView (for VLCStyledVideoWindowView).
  * A list of methods that are accessible by javascript are defined
- * in those classes method +isSelectorExcludedFromWebScript:
+ * in those classes method +isSelectorExcludedFromWebScript:.
+ *
+ * For instance Window resize and Window drag are handled
+ * via javascript code, that directly calls window.PlatformWindow.
  *
  * We also drives the DOM and replaces the timeline, the ellapsed time
  * and we add a className on the #content element to reflect both
  * the window state, and the media player state.
+ *
+ * The video view is inserted on top of the <div id="video-view">.
+ * Its rect is being updated by a callback called -videoViewResized.
  */
 
 #import <Cocoa/Cocoa.h>
