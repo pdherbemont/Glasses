@@ -19,7 +19,6 @@
  *****************************************************************************/
 
 /* This class is just extending VLCVideoView (which is a VLCKit class).
- * We mainly add fullscreen support here.
  */
 #import <Cocoa/Cocoa.h>
 #import <VLCKit/VLCKit.h>
@@ -32,6 +31,5 @@
     VLCMediaPlayer *_mediaPlayer;
 }
 
-@property (readwrite,assign) BOOL fullscreen;
 @property (readwrite,assign) VLCMediaPlayer *mediaPlayer;
 @end

@@ -30,6 +30,20 @@
     [super didFinishLoadForFrame:frame];
 }
 
+- (void)cancelOperation:(id)sender
+{
+    [[[self window] windowController] leaveFullscreen];
+}
+
+- (void)mouseDown:(NSEvent *)event
+{
+	if ([event clickCount] == 2)
+		[[[self window] windowController] leaveFullscreen];
+    else
+        [super mouseDown:event];
+}
+
+
 #pragma mark -
 #pragma mark Javascript callbacks
 
@@ -40,20 +54,17 @@
 
 - (void)play
 {
-    NSLog(@"play %@", [self mediaPlayer]);
-    static BOOL paused = YES;
-    paused = !paused;
-    if (paused)
-        [[self mediaPlayer] pause];
-    else
-        [[self mediaPlayer] play];
-
+    [[self mediaPlayer] play];
 }
 
 - (void)pause
 {
-    NSLog(@"pausing %@", [self mediaPlayer]);
     [[self mediaPlayer] pause];
+}
+
+- (void)hideCursorUntilMouseMoves
+{
+    [NSCursor setHiddenUntilMouseMoves:YES];
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
@@ -64,7 +75,8 @@
         return NO;
     if (sel == @selector(setPosition:))
         return NO;
-    
+    if (sel == @selector(hideCursorUntilMouseMoves))
+        return NO;
     return YES;
 }
 

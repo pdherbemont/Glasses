@@ -9,7 +9,10 @@ var exposed_className = {
     timeline: "timeline",
     dragPlatformWindow: "drag-platform-window",
     resizePlatformWindow: "resize-platform-window",
-    autohideWhenMouseLeaves: "autohide-when-mouse-leaves"
+    autohideWhenMouseLeaves: "autohide-when-mouse-leaves",
+
+    /* These are the 'callback' className */
+    hidden: "hidden", /* On autohide-when-mouse-leaves elements */
 };
 
 var exposed_Id = {
@@ -75,21 +78,36 @@ windowController.PlatformWindow = function() {
     return window.PlatformWindow;
 }
 
+function elementHasClassName(element, className) {
+    return element.className.indexOf(className) != -1;
+}
+
 windowController.contentHasClassName = function(className) {
     var content = document.getElementById(exposed_Id.content);
-    return content.className.indexOf(className) != -1;
+    return elementHasClassName(content, className) != -1;
+}
+
+function removeClassNameFromElement(element, className) {
+    if(!elementHasClassName(element, className))
+        return;
+    element.className = element.className.replace(className, "");
 }
 
 windowController.removeClassNameFromContent = function(className) {
     var content = document.getElementById(exposed_Id.content);
-    content.className = content.className.replace(className, "");
+    removeClassNameFromElement(content, className);
+}
+
+function addClassNameToElement(element, className) {
+    console.log(element + ".hasClass("+className+")"+elementHasClassName(element, className));
+    if(elementHasClassName(element, className))
+        return;
+    element.className += " " + className;
 }
 
 windowController.addClassNameToContent = function(className) {
-    if (windowController.contentHasClassName(className))
-        return;
     var content = document.getElementById(exposed_Id.content);
-    content.className += " " + className;
+    addClassNameToElement(content, className);
 }
 
 
@@ -161,7 +179,7 @@ windowController.timelineValueChanged = function() {
 windowController.mouseDownForWindowDrag = function(event) {
 	// It is reasonnable to only allow click in div, to mouve the window
 	// This could probaby be refined
-	if (event.srcElement.nodeName != "DIV" || event.srcElement.className.indexOf(exposed_className.resizePlatformWindow) != -1)
+	if (event.srcElement.nodeName != "DIV" || elementHasClassName(event.srcElement, exposed_className.resizePlatformWindow))
 		return;
     windowController.saveMouseDownInfo(event);
 	document.addEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
@@ -216,12 +234,18 @@ windowController.timer = null;
 windowController.autohiddingTime = 0.5;
 
 windowController.autoHideElements = function(event) {
-    windowController.addClassNameToContent("hidden");
+    window.PlatformView.hideCursorUntilMouseMoves();
+    windowController.addClassNameToContent(exposed_className.hidden);
 }
 
 windowController.revealAutoHiddenElements = function(event) {
-    windowController.removeClassNameFromContent("hidden");
-    windowController.timer = setTimeout( windowController.autoHideElements, windowController.autohiddingTime * 1000 );
+    windowController.removeClassNameFromContent(exposed_className.hidden);
+    var timer = windowController.timer;
+    if (timer)
+        clearTimeout(timer);
+    if (event.srcElement != document.body)
+        return;
+    windowController.timer = setTimeout(windowController.autoHideElements, windowController.autohiddingTime * 1000);
 }
 
 windowController.interruptAutoHide = function(event) {

@@ -64,19 +64,6 @@
 
 
 #pragma mark -
-#pragma mark fullscreenHUDWindowControllerDelegate
-
-- (BOOL)fullscreen
-{
-    return [_videoView fullscreen];
-}
-
-- (void)setFullscreen:(BOOL)fullscreen
-{
-	[_videoView setFullscreen:fullscreen];
-}
-
-#pragma mark -
 #pragma mark VLCMediaPlayer delegate
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
@@ -126,7 +113,6 @@
 
 - (IBAction)toggleFullscreen:(id)sender
 {
-	[self setFullscreen:![self fullscreen]];
 }
 
 @end

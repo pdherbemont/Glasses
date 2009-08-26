@@ -29,11 +29,6 @@
     return YES;
 }
 
-- (BOOL)fullscreen
-{
-    return _isFullscreen;
-}
-
 - (BOOL)mouseDownCanMoveWindow;
 {
     return YES;
@@ -44,38 +39,4 @@
     return YES;
 }
 
-- (void)setFullscreen:(BOOL)fullscreen
-{
-    if (_isFullscreen == fullscreen)
-        return;
-
-    _isFullscreen = fullscreen;
-    
-	if (_isFullscreen) {
-        NSAssert(!_fullscreenController, @"There should not be any controller");
-        _fullscreenController = [[VLCFullscreenController alloc] init];
-		NSScreen *screen = [[self window] screen];
-		if ([screen isMainScreen])
-			[NSMenu setMenuBarVisible:NO];
-		
-		[_fullscreenController enterFullscreen:screen];
-	} else {
-        [_fullscreenController leaveFullscreen];
-        [_fullscreenController release];
-        _fullscreenController = nil;
-		[NSMenu setMenuBarVisible:YES];
-        [self exitFullScreenModeWithOptions:nil];
-	}
-}
-
-- (void)cancelOperation:(id)sender
-{
-    [self setFullscreen:![self fullscreen]];
-}
-
-- (void)mouseDown:(NSEvent *)event
-{
-	if ([event clickCount] == 2)
-		[self setFullscreen:![self fullscreen]];
-}
 @end
