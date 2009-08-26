@@ -9,6 +9,7 @@ var exposed_className = {
     timeline: "timeline",
     dragPlatformWindow: "drag-platform-window",
     resizePlatformWindow: "resize-platform-window",
+    autohideWhenMouseLeaves: "autohide-when-mouse-leaves"
 };
 
 var exposed_Id = {
@@ -37,6 +38,11 @@ windowController.init = function() {
     bindButtonByClassNameToMethod(exposed_className.enterFullscreen, this.enterFullscreen);
     bindButtonByClassNameToMethod(exposed_className.leaveFullscreen, this.leaveFullscreen);
 
+    // Deal with HUD hidding.
+    document.body.onmousemove = this.revealAutoHiddenElements;
+    bindByClassNameActionToMethod(document.body, 'mousemove', this.revealAutoHiddenElements);
+    bindByClassNameActionToMethod(exposed_className.autohideWhenMouseLeaves, 'mouseover', this.interruptAutoHide);
+
     // Bind the timeline.
     bindByClassNameActionToMethod(exposed_className.timeline, 'change', this.timelineValueChanged);
     
@@ -61,7 +67,6 @@ function bindByClassNameActionToMethod(className, action, method) {
         buttons.item(i).addEventListener(action, method, false);
 }
 
-
 windowController.PlatformWindowController = function() {
     return window.PlatformWindowController;
 }
@@ -74,6 +79,19 @@ windowController.contentHasClassName = function(className) {
     var content = document.getElementById(exposed_Id.content);
     return content.className.indexOf(className) != -1;
 }
+
+windowController.removeClassNameFromContent = function(className) {
+    var content = document.getElementById(exposed_Id.content);
+    content.className = content.className.replace(className, "");
+}
+
+windowController.addClassNameToContent = function(className) {
+    if (windowController.contentHasClassName(className))
+        return;
+    var content = document.getElementById(exposed_Id.content);
+    content.className += " " + className;
+}
+
 
 windowController.close = function() {
     windowController.PlatformWindow().performClose();
@@ -193,3 +211,23 @@ windowController.mouseDraggedForWindowResize = function(event) {
 	platformWindow.setFrame____(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
 }
 
+// HUD autohidding
+windowController.timer = null;
+windowController.autohiddingTime = 0.5;
+
+windowController.autoHideElements = function(event) {
+    windowController.addClassNameToContent("hidden");
+}
+
+windowController.revealAutoHiddenElements = function(event) {
+    windowController.removeClassNameFromContent("hidden");
+    windowController.timer = setTimeout( windowController.autoHideElements, windowController.autohiddingTime * 1000 );
+}
+
+windowController.interruptAutoHide = function(event) {
+    var timer = windowController.timer;
+    if (!timer)
+        return;
+    clearTimeout(timer);
+    timer = null;
+}

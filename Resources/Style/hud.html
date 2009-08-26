@@ -34,6 +34,13 @@
         width: 400px;
 
         padding: 10px;
+        opacity: 1;
+        -webkit-transition: opacity 0.2s ease-in;
+    }
+    
+    #content.hidden {
+        opacity: 0;
+        -webkit-transition: opacity 1s ease-in;
     }
 
     /*
@@ -150,7 +157,7 @@
 	<title>Template</title>
 </head>
 <body onload="windowController.init()">
-<div id="content" class="">
+<div id="content" class="autohide-when-mouse-leaves hidden"> <!-- Be hidden by default -->
     <div class="controls">
         <div id="title" class="title">Movie tile</div>
         <div class="timeinfo">
