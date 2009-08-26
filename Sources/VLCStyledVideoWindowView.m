@@ -214,12 +214,12 @@
     [win setValue:self forKey:@"PlatformView"];
 
     [self videoDidResize];
-    [self setKeyWindow:[[self window] isKeyWindow]];
-    [self setMainWindow:[[self window] isMainWindow]];
-    [self setWindowTitle:[[self window] title]];
+    [self setKeyWindow:[window isKeyWindow]];
+    [self setMainWindow:[window isMainWindow]];
+    [self setWindowTitle:[window title]];
     [self updateTrackingAreas];
 
-    [[self window] performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
+    [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
 }
 
 #pragma mark -
