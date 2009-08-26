@@ -99,6 +99,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 @implementation VLCFullscreenController
 @synthesize fullscreen=_fullscreen;
 @synthesize hud=_hud;
+@synthesize delegate=_delegate;
 
 - (id)initWithView:(NSView *)view
 {
@@ -200,6 +201,8 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     [_fullscreenWindow release];
     _fullscreenWindow = nil;
 
+    [_delegate fullscreenControllerDidLeaveFullscreen:self];
+
     // See -leaveFullscreenAndFadeOut:
     [self release];
 }
@@ -252,6 +255,9 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     NSAssert(animation == _animation2, @"We should only be the delegate from _animation2");
     if ([animation currentValue] < 1.0)
         return;
+
+    // Just clear all the animations.
+    [self _stopAnimationsIfNeeded];
     
     // Fullscreen ended or started (we are a delegate only for leaveFullscreen's/enterFullscren's anim2)
     if (self.fullscreen)

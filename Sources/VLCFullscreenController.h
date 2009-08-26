@@ -29,6 +29,7 @@
  */
 
 @protocol VLCFullscreenHUD;
+@protocol VLCFullscreenDelegate;
 
 extern const NSInteger VLCFullscreenWindowLevel;
 extern const NSInteger VLCFullscreenHUDWindowLevel;
@@ -38,6 +39,8 @@ extern const NSInteger VLCFullscreenHUDWindowLevel;
     NSWindow *_originalViewWindow;
 
     id <VLCFullscreenHUD> _hud;
+    
+    id <VLCFullscreenDelegate> _delegate;
 
     NSView *_placeholderView;
 
@@ -51,6 +54,8 @@ extern const NSInteger VLCFullscreenHUDWindowLevel;
 
 // This is just a delegate that is being owned by the fullscreen controller.
 @property (readwrite, retain) id <VLCFullscreenHUD> hud;
+
+@property (readwrite, assign) id <VLCFullscreenDelegate> delegate;
 @property (readonly, assign) BOOL fullscreen;
 
 - (void)enterFullscreen:(NSScreen *)screen;
@@ -61,4 +66,9 @@ extern const NSInteger VLCFullscreenHUDWindowLevel;
 - (void)fullscreenController:(VLCFullscreenController *)controller didEnterFullscreen:(NSScreen *)screen;
 - (void)fullscreenControllerWillLeaveFullscreen:(VLCFullscreenController *)controller;
 @end
+
+@protocol VLCFullscreenDelegate <NSObject>
+- (void)fullscreenControllerDidLeaveFullscreen:(VLCFullscreenController *)controller;
+@end
+
 

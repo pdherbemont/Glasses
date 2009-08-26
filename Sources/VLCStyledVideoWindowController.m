@@ -25,6 +25,9 @@
 #import "VLCMediaDocument.h"
 #import "VLCStyledFullscreenHUDWindowController.h"
 
+@interface VLCStyledVideoWindowController () <VLCFullscreenDelegate>
+@end
+
 @implementation VLCStyledVideoWindowController
 @synthesize videoView=_videoView;
 - (void)dealloc
@@ -40,6 +43,7 @@
         [[self document] addWindowController:hud];
         _fullscreenController.hud = hud;
         [hud release];
+        [_fullscreenController setDelegate:self];
     }
     return _fullscreenController;
 }
@@ -77,6 +81,15 @@
     [_fullscreenController release];
     _fullscreenController = nil;
     [super close];
+}
+
+#pragma mark -
+#pragma mark fullscreen Delegate
+
+- (void)fullscreenControllerDidLeaveFullscreen:(VLCFullscreenController *)controller
+{
+    [_fullscreenController autorelease];
+    _fullscreenController = nil;
 }
 
 #pragma mark -

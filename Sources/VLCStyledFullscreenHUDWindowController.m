@@ -19,6 +19,7 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
+    NSLog(@"DidLoad");
     NSAssert(_styledWindowView, @"_styledWindowView is not properly set in Nib file");
     [_styledWindowView bind:@"currentTime" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.time" options:nil];
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:0], NSNullPlaceholderBindingOption, nil];
@@ -41,7 +42,7 @@
 
 - (void)fullscreenControllerWillLeaveFullscreen:(VLCFullscreenController *)controller
 {
-    [[self window] close];
+    [[self window] orderOut:self];
 }
 
 #pragma mark -
