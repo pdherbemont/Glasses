@@ -21,8 +21,6 @@
 		630148BF1040B7F100534090 /* orange.css in Resources */ = {isa = PBXBuildFile; fileRef = 630148BC1040B7F100534090 /* orange.css */; };
 		630148C01040B7F100534090 /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = 630148BE1040B7F100534090 /* black.css */; };
 		63014A721042AC9900534090 /* Coding Style.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63014A711042AC9900534090 /* Coding Style.rtf */; };
-		6311DA470FF85941004BC7D1 /* VLCFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */; };
-		6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */; };
 		6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */; };
 		6311DA4F0FF85970004BC7D1 /* VLCMediaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */; };
 		6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */; };
@@ -88,7 +86,7 @@
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
 		63B1E10410440DF50029C49C /* VLCStyledFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10010440DF50029C49C /* VLCStyledFullscreenHUDWindowController.m */; };
 		63B1E10510440DF50029C49C /* VLCStyledFullscreenHUDWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10210440DF50029C49C /* VLCStyledFullscreenHUDWindowView.m */; };
-		63B1E10A10440EB00029C49C /* VLCStyledWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10910440EB00029C49C /* VLCStyledWindowView.m */; };
+		63B1E10A10440EB00029C49C /* VLCStyledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10910440EB00029C49C /* VLCStyledView.m */; };
 		63B1E11510441B790029C49C /* StyledFullscreenHUDWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */; };
 		63B1E24E1044258B0029C49C /* hud.html in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E24D1044258B0029C49C /* hud.html */; };
 		63B1E2CE104438B70029C49C /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E2C2104438B70029C49C /* default.css */; };
@@ -169,10 +167,6 @@
 		630148BC1040B7F100534090 /* orange.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = orange.css; sourceTree = "<group>"; };
 		630148BE1040B7F100534090 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = black.css; sourceTree = "<group>"; };
 		63014A711042AC9900534090 /* Coding Style.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Coding Style.rtf"; sourceTree = "<group>"; };
-		6311DA430FF85941004BC7D1 /* VLCFullscreenHUDWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenHUDWindow.h; path = Sources/VLCFullscreenHUDWindow.h; sourceTree = "<group>"; };
-		6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenHUDWindow.m; path = Sources/VLCFullscreenHUDWindow.m; sourceTree = "<group>"; };
-		6311DA450FF85941004BC7D1 /* VLCFullscreenHUDWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenHUDWindowController.h; path = Sources/VLCFullscreenHUDWindowController.h; sourceTree = "<group>"; };
-		6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenHUDWindowController.m; path = Sources/VLCFullscreenHUDWindowController.m; sourceTree = "<group>"; };
 		6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExceptionHandler.m; path = Sources/VLCExceptionHandler.m; sourceTree = "<group>"; };
 		6311DA4B0FF8595C004BC7D1 /* VLCExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExceptionHandler.h; path = Sources/VLCExceptionHandler.h; sourceTree = "<group>"; };
 		6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaDocument.m; path = Sources/VLCMediaDocument.m; sourceTree = "<group>"; };
@@ -247,8 +241,8 @@
 		63B1E10110440DF50029C49C /* VLCStyledFullscreenHUDWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledFullscreenHUDWindowView.h; path = Sources/VLCStyledFullscreenHUDWindowView.h; sourceTree = "<group>"; };
 		63B1E10210440DF50029C49C /* VLCStyledFullscreenHUDWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledFullscreenHUDWindowView.m; path = Sources/VLCStyledFullscreenHUDWindowView.m; sourceTree = "<group>"; };
 		63B1E10310440DF50029C49C /* VLCStyledFullscreenHUDWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledFullscreenHUDWindowController.h; path = Sources/VLCStyledFullscreenHUDWindowController.h; sourceTree = "<group>"; };
-		63B1E10810440EB00029C49C /* VLCStyledWindowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledWindowView.h; path = Sources/VLCStyledWindowView.h; sourceTree = "<group>"; };
-		63B1E10910440EB00029C49C /* VLCStyledWindowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledWindowView.m; path = Sources/VLCStyledWindowView.m; sourceTree = "<group>"; };
+		63B1E10810440EB00029C49C /* VLCStyledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledView.h; path = Sources/VLCStyledView.h; sourceTree = "<group>"; };
+		63B1E10910440EB00029C49C /* VLCStyledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledView.m; path = Sources/VLCStyledView.m; sourceTree = "<group>"; };
 		63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StyledFullscreenHUDWindow.xib; path = Resources/StyledFullscreenHUDWindow.xib; sourceTree = "<group>"; };
 		63B1E24D1044258B0029C49C /* hud.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = hud.html; path = Resources/Style/hud.html; sourceTree = "<group>"; };
 		63B1E2C2104438B70029C49C /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/Style/default.css; sourceTree = "<group>"; };
@@ -350,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				63EF25C70F90FD93002A2E14 /* Document */,
+				63B1E55C104554FC0029C49C /* Common Class for Styled Windows */,
 				6304D92E1040605E0031C854 /* Regular Video Window */,
 				6304D91C10405F330031C854 /* Styled Video Window */,
 				63EF25910F90F960002A2E14 /* Video */,
@@ -449,8 +444,6 @@
 				6301464E104098D300534090 /* VLCStyledVideoWindow.m */,
 				6301464F104098D300534090 /* VLCStyledVideoWindowController.h */,
 				63014650104098D300534090 /* VLCStyledVideoWindowController.m */,
-				63B1E10810440EB00029C49C /* VLCStyledWindowView.h */,
-				63B1E10910440EB00029C49C /* VLCStyledWindowView.m */,
 				63014651104098D300534090 /* VLCStyledVideoWindowView.h */,
 				63014652104098D300534090 /* VLCStyledVideoWindowView.m */,
 			);
@@ -555,6 +548,15 @@
 			path = Resources/Style/images;
 			sourceTree = "<group>";
 		};
+		63B1E55C104554FC0029C49C /* Common Class for Styled Windows */ = {
+			isa = PBXGroup;
+			children = (
+				63B1E10810440EB00029C49C /* VLCStyledView.h */,
+				63B1E10910440EB00029C49C /* VLCStyledView.m */,
+			);
+			name = "Common Class for Styled Windows";
+			sourceTree = "<group>";
+		};
 		63EF25910F90F960002A2E14 /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -587,10 +589,6 @@
 		63EF26330F910219002A2E14 /* Fullscreen */ = {
 			isa = PBXGroup;
 			children = (
-				6311DA430FF85941004BC7D1 /* VLCFullscreenHUDWindow.h */,
-				6311DA440FF85941004BC7D1 /* VLCFullscreenHUDWindow.m */,
-				6311DA450FF85941004BC7D1 /* VLCFullscreenHUDWindowController.h */,
-				6311DA460FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m */,
 				63B1DE51104381C20029C49C /* VLCFullscreenController.h */,
 				63B1DE52104381C20029C49C /* VLCFullscreenController.m */,
 				63B1E10310440DF50029C49C /* VLCStyledFullscreenHUDWindowController.h */,
@@ -780,11 +778,9 @@
 			files = (
 				6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
-				6311DA470FF85941004BC7D1 /* VLCFullscreenHUDWindow.m in Sources */,
 				CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */,
 				6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */,
 				CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */,
-				6311DA480FF85941004BC7D1 /* VLCFullscreenHUDWindowController.m in Sources */,
 				6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */,
 				6311DA4F0FF85970004BC7D1 /* VLCMediaDocument.m in Sources */,
 				CC10A7B0103CA96800B4555A /* VLCPreferences.m in Sources */,
@@ -799,7 +795,7 @@
 				63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */,
 				63B1E10410440DF50029C49C /* VLCStyledFullscreenHUDWindowController.m in Sources */,
 				63B1E10510440DF50029C49C /* VLCStyledFullscreenHUDWindowView.m in Sources */,
-				63B1E10A10440EB00029C49C /* VLCStyledWindowView.m in Sources */,
+				63B1E10A10440EB00029C49C /* VLCStyledView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -914,7 +910,7 @@
 		C05733CC08A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../Framework/build/Debug\"";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -931,7 +927,7 @@
 		C05733CD08A9546B00998B17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/../Framework/build/Debug\"";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;

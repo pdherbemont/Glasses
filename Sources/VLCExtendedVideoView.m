@@ -21,11 +21,6 @@
 #import "VLCExtendedVideoView.h"
 #import "NSScreen_Additions.h"
 
-#import "VLCFullscreenHUDWindowController.h"
-
-@interface VLCExtendedVideoView () <VLCFullscreenHUDWindowControllerDelegate>
-@end
-
 @implementation VLCExtendedVideoView
 @synthesize mediaPlayer=_mediaPlayer;
 
@@ -57,19 +52,17 @@
     _isFullscreen = fullscreen;
     
 	if (_isFullscreen) {
-        NSAssert(!_fullscreenHUDWindowController, @"There should not be any controller");
-        _fullscreenHUDWindowController = [[VLCFullscreenHUDWindowController alloc] init];
-        [_fullscreenHUDWindowController setDelegate:self];
+        NSAssert(!_fullscreenController, @"There should not be any controller");
+        _fullscreenController = [[VLCFullscreenController alloc] init];
 		NSScreen *screen = [[self window] screen];
 		if ([screen isMainScreen])
 			[NSMenu setMenuBarVisible:NO];
 		
-		[self enterFullScreenMode:screen withOptions:nil];
-        [_fullscreenHUDWindowController activate];
+		[_fullscreenController enterFullscreen:screen];
 	} else {
-        [_fullscreenHUDWindowController deactivate];
-        [_fullscreenHUDWindowController release];
-        _fullscreenHUDWindowController = nil;
+        [_fullscreenController leaveFullscreen];
+        [_fullscreenController release];
+        _fullscreenController = nil;
 		[NSMenu setMenuBarVisible:YES];
         [self exitFullScreenModeWithOptions:nil];
 	}

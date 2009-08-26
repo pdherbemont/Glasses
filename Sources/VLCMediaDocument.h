@@ -23,12 +23,10 @@
 #import <VLCKit/VLCKit.h>
 
 #import "VLCExtendedVideoView.h"
-#import "VLCFullscreenHUDWindowController.h"
 
 @interface VLCMediaDocument : NSDocument {
 	VLCMedia *_media;
 	VLCMediaListPlayer *_mediaListPlayer;
-	VLCFullscreenHUDWindowController * _fullscreenHUDWindowController;
 }
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;

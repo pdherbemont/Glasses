@@ -50,26 +50,17 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
+#import "VLCStyledView.h"
 
-@interface VLCStyledVideoWindowView : WebView
+@interface VLCStyledVideoWindowView : VLCStyledView
 {
-    BOOL _isFrameLoaded;
     BOOL _isChangingPositionOnFrame;
     NSTrackingArea *_contentTracking;
     BOOL _wasPlayingBeforeChangingPosition;
     BOOL _isUserChangingPosition;
-    
-    float _viewedPosition;
-    BOOL _viewedPlaying;
 }
-- (void)setup;
 
 - (void)setKeyWindow:(BOOL)isKeyWindow;
 - (void)setMainWindow:(BOOL)isMainWindow;
-- (void)setWindowTitle:(NSString *)title;
 
-@property (assign) float viewedPosition;
-@property (assign) BOOL viewedPlaying;
-
-@property (copy) NSString *ellapsedTime;
 @end

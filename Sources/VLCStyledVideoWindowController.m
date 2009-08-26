@@ -37,6 +37,7 @@
     if (!_fullscreenController) {
         _fullscreenController = [[VLCFullscreenController alloc] initWithView:_videoView];
         VLCStyledFullscreenHUDWindowController *hud = [[VLCStyledFullscreenHUDWindowController alloc] init];
+        [[self document] addWindowController:hud];
         _fullscreenController.hud = hud;
         [hud release];
     }
@@ -63,10 +64,11 @@
     [super windowDidLoad];
 	NSWindow * window = [self window];
     [window setDelegate:self];
-    [_styledWindowView bind:@"ellapsedTime" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.time.stringValue" options:nil];
+    [_styledWindowView bind:@"currentTime" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.time" options:nil];
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:0], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView bind:@"viewedPosition" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.position" options:options];
-    options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:NO], NSNullPlaceholderBindingOption, nil];
+    options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSNullPlaceholderBindingOption, nil];
+    [_styledWindowView setViewedPlaying:[[self valueForKeyPath:@"document.mediaListPlayer.mediaPlayer.playing"] boolValue]];
     [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
 }
 
@@ -105,16 +107,9 @@
     [[self fullscreenController] enterFullscreen:[[self window] screen]];
 }
 
-- (void)exitFullscreen
-{
-    [[self fullscreenController] leaveFullscreen];
-}
-
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
 {
     if (sel == @selector(enterFullscreen))
-        return NO;
-    if (sel == @selector(exitFullscreen))
         return NO;
     if (sel == @selector(window))
         return NO;

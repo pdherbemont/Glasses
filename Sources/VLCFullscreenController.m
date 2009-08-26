@@ -43,7 +43,7 @@ static NSViewAnimation *createFadeAnimation(NSWindow *target, enum fade_e fade)
 {
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
         target, NSViewAnimationTargetKey,
-        fade == FadeIn ? NSViewAnimationFadeInEffect :NSViewAnimationFadeOutEffect, NSViewAnimationEffectKey,
+        fade == FadeIn ? NSViewAnimationFadeInEffect : NSViewAnimationFadeOutEffect, NSViewAnimationEffectKey,
         nil
     ];
     NSViewAnimation *animation = createViewAnimationWithDefaultsSettingsAndDictionary(dict);
@@ -199,6 +199,9 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     
     [_fullscreenWindow release];
     _fullscreenWindow = nil;
+
+    // See -leaveFullscreenAndFadeOut:
+    [self release];
 }
 
 - (void)leaveFullscreenAndFadeOut:(BOOL)fadeout
@@ -226,12 +229,16 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     NSRect screenRect = screenRectForView(_placeholderView);
 
-    _animation1 = createFadeAnimation(_originalViewWindow, FadeOut);
-    _animation2 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], screenRect);
+    _animation1 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], screenRect);
+    _animation2 = createFadeAnimation(_originalViewWindow, FadeIn);
 
-    [_animation1 setDelegate:self];
-    [_animation1 startWhenAnimation:_animation2 reachesProgress:1.0];
-    [_animation2 startAnimation];
+    [_animation2 setDelegate:self];
+    [_animation2 startWhenAnimation:_animation1 reachesProgress:1.0];
+    [_animation1 startAnimation];
+
+    // This might happen if we quickly exit fullscreen and release us.
+    // Balanced in -fullscreenDidEnd
+    [self retain];
 }
 
 - (void)leaveFullscreen

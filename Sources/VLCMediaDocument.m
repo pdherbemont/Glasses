@@ -24,7 +24,7 @@
 #import "VLCVideoWindowController.h"
 #import "VLCFeatures.h"
 
-@interface VLCMediaDocument () <VLCFullscreenHUDWindowControllerDelegate>
+@interface VLCMediaDocument ()
 @property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;
 @end
 
@@ -42,7 +42,6 @@
 
 - (void)dealloc
 {
-	[_fullscreenHUDWindowController release];
 	[_media release];
 
     NSAssert(!_mediaListPlayer, @"The current media player should be removed in -close");

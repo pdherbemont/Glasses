@@ -1,3 +1,25 @@
+/* API - This is the className this file will use. */
+var exposed_className = {
+    close: "close",
+    miniaturize: "miniaturize",
+    zoom: "zoom",
+    togglePlaying: "toggle-playing",
+    enterFullscreen: "enter-fullscreen",
+    leaveFullscreen: "leave-fullscreen",
+    timeline: "timeline",
+    dragPlatformWindow: "drag-platform-window",
+    resizePlatformWindow: "resize-platform-window",
+};
+
+var exposed_Id = {
+    content: "content"
+};
+
+/* What is being set by the backend and expected here */
+var imported_className = {
+    playing: "playing"
+};
+
 /*
  *  Window Controller
  */
@@ -5,34 +27,40 @@ var windowController = new Object();
 
 // Called when page is loaded
 windowController.init = function() {
+    document.body.onresize = windowController.bodyResized;
+
     // Bind the buttons.
-    bindButtonByIdToMethod("close", this.close);
-    bindButtonByIdToMethod("miniaturize", this.miniaturize);
-    bindButtonByIdToMethod("zoom", this.zoom);
-    bindButtonByIdToMethod("toggle-playing", this.togglePlaying);
-    bindButtonByIdToMethod("fullscreen", this.enterFullscreen);
+    bindButtonByClassNameToMethod(exposed_className.close, this.close);
+    bindButtonByClassNameToMethod(exposed_className.miniaturize, this.miniaturize);
+    bindButtonByClassNameToMethod(exposed_className.miniaturize, this.zoom);
+    bindButtonByClassNameToMethod(exposed_className.togglePlaying, this.togglePlaying);
+    bindButtonByClassNameToMethod(exposed_className.enterFullscreen, this.enterFullscreen);
+    bindButtonByClassNameToMethod(exposed_className.leaveFullscreen, this.leaveFullscreen);
 
     // Bind the timeline.
-    var timeline = document.getElementById("timeline");
-    timeline.addEventListener('change', this.timelineValueChanged, false);
+    bindByClassNameActionToMethod(exposed_className.timeline, 'change', this.timelineValueChanged);
     
     // Make sure we'll be able to drag the window.
-    var content = document.getElementById("content");
-    content.addEventListener('mousedown', this.mouseDownForWindowDrag, false);
+    bindByClassNameActionToMethod(exposed_className.dragPlatformWindow, 'mousedown', this.mouseDownForWindowDrag);
 
     // Make sure we'll be able to resize the window.
-    var resize = document.getElementById("resize");
-    resize.addEventListener('mousedown', this.mouseDownForWindowResize, true);
+    bindByClassNameActionToMethod(exposed_className.resizePlatformWindow, 'mousedown', this.mouseDownForWindowResize);
 }
 
 
 // Private method below
 
 // Utility
-function bindButtonByIdToMethod(id, method) {
-    var button = document.getElementById(id);
-    button.onclick = method;
+function bindButtonByClassNameToMethod(className, method) {
+    bindByClassNameActionToMethod(className, 'click', method);
 }
+
+function bindByClassNameActionToMethod(className, action, method) {
+    var buttons = document.getElementsByClassName(className);
+    for(var i = 0; i < buttons.length; i++)
+        buttons.item(i).addEventListener(action, method, false);
+}
+
 
 windowController.PlatformWindowController = function() {
     return window.PlatformWindowController;
@@ -43,7 +71,7 @@ windowController.PlatformWindow = function() {
 }
 
 windowController.contentHasClassName = function(className) {
-    var content = document.getElementById("content");
+    var content = document.getElementById(exposed_Id.content);
     return content.className.indexOf(className) != -1;
 }
 
@@ -60,7 +88,7 @@ windowController.zoom = function() {
 }
 
 windowController.togglePlaying = function() {
-    if(windowController.contentHasClassName("playing"))
+    if(windowController.contentHasClassName(imported_className.playing))
         window.PlatformView.pause();
     else
         window.PlatformView.play();
@@ -68,6 +96,10 @@ windowController.togglePlaying = function() {
 
 windowController.enterFullscreen = function() {
     windowController.PlatformWindowController().enterFullscreen();
+}
+
+windowController.leaveFullscreen = function() {
+    windowController.PlatformWindowController().leaveFullscreen();
 }
 
 windowController.videoResized = function() {
@@ -111,7 +143,7 @@ windowController.timelineValueChanged = function() {
 windowController.mouseDownForWindowDrag = function(event) {
 	// It is reasonnable to only allow click in div, to mouve the window
 	// This could probaby be refined
-	if (event.srcElement.nodeName != "DIV" || event.srcElement.className.indexOf("resize") != -1)
+	if (event.srcElement.nodeName != "DIV" || event.srcElement.className.indexOf(exposed_className.resizePlatformWindow) != -1)
 		return;
     windowController.saveMouseDownInfo(event);
 	document.addEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
@@ -133,7 +165,7 @@ windowController.mouseDraggedForWindowDrag = function(event) {
 // Window Resize
 windowController.mouseDownForWindowResize = function(event) {
 	// It is reasonnable to only allow click in element that have a resize class
-	if (event.srcElement.className.indexOf("resize") == -1)
+	if (event.srcElement.className.indexOf(exposed_className.resizePlatformWindow) == -1)
 		return;
 
     windowController.saveMouseDownInfo(event);

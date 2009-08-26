@@ -6,5 +6,5 @@
     #import <Cocoa/Cocoa.h>
 #endif
 
-// Experimental feature
 #define VLCLogDebug NSLog
+#define VLCAssertNotReached(a) NSAssert(0, a)

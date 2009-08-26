@@ -208,11 +208,11 @@ body {
     background-image: url(pause_blue.png);
 }
 
-.fullscreen {
+.enter-fullscreen {
     background-image: url(fullscreen.png);
 }
 
-.fullscreen:active {
+.enter-fullscreen:active {
     background-image: url(fullscreen_blue.png);
 }
 

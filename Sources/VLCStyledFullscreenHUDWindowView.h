@@ -8,9 +8,8 @@
 
 #import <WebKit/WebKit.h>
 
+#import "VLCStyledView.h"
 
-@interface VLCStyledFullscreenHUDWindowView : WebView {
+@interface VLCStyledFullscreenHUDWindowView : VLCStyledView
 
-}
-- (void)setup;
 @end

@@ -6,8 +6,11 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
+#import <VLCKit/VLCKit.h>
+
 #import "VLCStyledFullscreenHUDWindowView.h"
 
+#import "VLCMediaDocument.h"
 
 @implementation VLCStyledFullscreenHUDWindowView
 
@@ -16,27 +19,58 @@
     [self setup];    
 }
 
-- (void)setup
+- (NSURL *)url
 {
-    [self setDrawsBackground:NO];
-    
-    [self setFrameLoadDelegate:self];
-    [self setUIDelegate:self];
-    [self setResourceLoadDelegate:self];
-    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"hud" ofType:@"html"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.];
-    [[self mainFrame] loadRequest:request];    
+    return [NSURL fileURLWithPath:path];
 }
 
+- (void)didFinishLoadForFrame:(WebFrame *)frame
+{
+    [super didFinishLoadForFrame:frame];
+}
 
 #pragma mark -
-#pragma mark WebViewDelegate
+#pragma mark Javascript callbacks
 
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
+- (void)setPosition:(float)position
 {
-    //_isFrameLoaded = YES;        
-   // [[self window] performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
+    [[self mediaPlayer] setPosition:position];
+}
+
+- (void)play
+{
+    NSLog(@"play %@", [self mediaPlayer]);
+    static BOOL paused = YES;
+    paused = !paused;
+    if (paused)
+        [[self mediaPlayer] pause];
+    else
+        [[self mediaPlayer] play];
+
+}
+
+- (void)pause
+{
+    NSLog(@"pausing %@", [self mediaPlayer]);
+    [[self mediaPlayer] pause];
+}
+
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
+{
+    if (sel == @selector(play))
+        return NO;
+    if (sel == @selector(pause))
+        return NO;
+    if (sel == @selector(setPosition:))
+        return NO;
+    
+    return YES;
+}
+
++ (BOOL)isKeyExcludedFromWebScript:(const char *)name
+{
+    return YES;
 }
 
 @end

@@ -9,5 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import "VLCFullscreenController.h"
 
+@class VLCStyledFullscreenHUDWindowView;
 @interface VLCStyledFullscreenHUDWindowController : NSWindowController <VLCFullscreenHUD>
+{
+    IBOutlet VLCStyledFullscreenHUDWindowView *_styledWindowView;
+
+    VLCFullscreenController *_fullscreenController; // Weak
+}
 @end

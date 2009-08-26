@@ -24,10 +24,10 @@
 #import <Cocoa/Cocoa.h>
 #import <VLCKit/VLCKit.h>
 
-#import "VLCFullscreenHUDWindowController.h"
+#import "VLCFullscreenController.h"
 
 @interface VLCExtendedVideoView : VLCVideoView {
-    VLCFullscreenHUDWindowController *_fullscreenHUDWindowController;
+    VLCFullscreenController *_fullscreenController;
 	BOOL _isFullscreen;
     VLCMediaPlayer *_mediaPlayer;
 }

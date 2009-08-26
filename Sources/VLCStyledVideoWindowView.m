@@ -27,11 +27,7 @@
 #import "DOMElement_Additions.h"
 
 @interface  VLCStyledVideoWindowView ()
-- (NSString *)_contentHTML;
-- (NSURL *)_baseURL;
-- (void)_addClassToContent:(NSString *)class;
-- (void)_removeClassFromContent:(NSString *)class;
-- (DOMHTMLElement *)_htmlElementForId:(NSString *)idName;
+- (void)videoDidResize;
 @end
 
 @implementation VLCStyledVideoWindowView
@@ -54,100 +50,45 @@
     [self setup];    
 }
 
-- (void)setup
+- (NSURL *)url
 {
-    [self setDrawsBackground:NO];
-    
-    [self setFrameLoadDelegate:self];
-    [self setUIDelegate:self];
-    [self setResourceLoadDelegate:self];
-    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:path] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.];
-    [[self mainFrame] loadRequest:request];    
+    return [NSURL fileURLWithPath:path];
 }
 
-- (VLCMediaPlayer *)mediaPlayer
+- (void)didFinishLoadForFrame:(WebFrame *)frame
 {
-    return [[[self window] windowController] mediaPlayer];
+    [super didFinishLoadForFrame:frame];
+
+    NSWindow *window = [self window];
+    [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
+
+    [self videoDidResize];
+    [self setKeyWindow:[window isKeyWindow]];
+    [self setMainWindow:[window isMainWindow]];
+    [self updateTrackingAreas];
+    
+    [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
 }
 
 #pragma mark -
-#pragma mark Methods that are acting on the interface (ie: on javascript code).
+#pragma mark Core -> Javascript setters
 
 - (void)setKeyWindow:(BOOL)isKeyWindow
 {
     if (isKeyWindow)
-        [self _addClassToContent:@"key-window"];
+        [self addClassToContent:@"key-window"];
     else
-        [self _removeClassFromContent:@"key-window"];
+        [self removeClassFromContent:@"key-window"];
 
 }
 
 - (void)setMainWindow:(BOOL)isMainWindow
 {
     if (isMainWindow)
-        [self _addClassToContent:@"main-window"];
+        [self addClassToContent:@"main-window"];
     else
-        [self _removeClassFromContent:@"main-window"];
-}
-
-- (void)setWindowTitle:(NSString *)title
-{
-    if (!_isFrameLoaded)
-        return;
-    DOMHTMLElement *windowTitle = [self _htmlElementForId:@"window-title"];
-    windowTitle.innerText = title;
-}
-
-- (void)setEllapsedTime:(NSString *)ellapsedTime
-{
-    if (!_isFrameLoaded)
-        return;
-    DOMHTMLElement *timeField = [self _htmlElementForId:@"ellapsed-time"];
-    timeField.innerText = ellapsedTime;
-}
-
-- (NSString *)ellapsedTime
-{
-    return _isFrameLoaded ? [self _htmlElementForId:@"ellapsed-time"].innerText : @"";
-}
-
-// The viewedPosition value is set from the core to indicate a the position of the
-// playing media.
-// This is different from the setPosition: method that is being called by the
-// javascript bridge (ie: from the interface code)
-- (void)setViewedPosition:(float)position
-{
-    if (!_isFrameLoaded)
-        return;
-    DOMHTMLElement *element = [self _htmlElementForId:@"timeline"];
-    [element setAttribute:@"value" value:[NSString stringWithFormat:@"%.0f", position * 1000]];
-    _viewedPosition = position;
-}
-
-- (float)viewedPosition
-{
-    return _viewedPosition;
-}
-
-- (void)setViewedPlaying:(BOOL)isPlaying
-{
-    if (!_isFrameLoaded)
-        return;
-    if (isPlaying == _viewedPlaying)
-        return;
-    _viewedPlaying = isPlaying;
-
-    if (isPlaying)
-        [self _addClassToContent:@"playing"];
-    else
-        [self _removeClassFromContent:@"playing"];
-}
-
-- (BOOL)viewedPlaying
-{
-    return _viewedPlaying;
+        [self removeClassFromContent:@"main-window"];
 }
 
 
@@ -202,27 +143,6 @@
 }
 
 #pragma mark -
-#pragma mark WebViewDelegate
-
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
-{
-    _isFrameLoaded = YES;
-    id win = [self windowScriptObject];
-    NSWindow *window = [self window];
-    [win setValue:[window windowController] forKey:@"PlatformWindowController"];
-    [win setValue:window forKey:@"PlatformWindow"];
-    [win setValue:self forKey:@"PlatformView"];
-
-    [self videoDidResize];
-    [self setKeyWindow:[window isKeyWindow]];
-    [self setMainWindow:[window isMainWindow]];
-    [self setWindowTitle:[window title]];
-    [self updateTrackingAreas];
-
-    [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
-}
-
-#pragma mark -
 #pragma mark Tracking area
 
 // Because the NSWindow that contains our WebView might have a lot
@@ -272,7 +192,7 @@
     NSAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
     NSMenuItem *item = sender;
 
-    DOMHTMLElement *element = [self _htmlElementForId:@"style"];
+    DOMHTMLElement *element = [self htmlElementForId:@"style"];
     NSAssert([element isKindOfClass:[DOMHTMLLinkElement class]], @"Element 'style' should be a link");
     DOMHTMLLinkElement *link = (id)element;
     if ([[item title] isEqualToString:@"Orange"])
@@ -314,49 +234,4 @@
     return NSPointInRect(point, [self bounds]) ? self : nil;
 }
 
-#pragma mark -
-#pragma mark Private
-
-- (DOMHTMLElement *)_htmlElementForId:(NSString *)idName;
-{
-    DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:idName];
-    NSAssert1([element isKindOfClass:[DOMHTMLElement class]], @"The '%@' element should be a DOMHTMLElement", idName);
-    return (id)element;
-}
-                           
-- (void)_addClassToContent:(NSString *)class
-{
-    if (!_isFrameLoaded)
-        return;
-    DOMHTMLElement *content = [self _htmlElementForId:@"content"];
-    NSString *currentClassName = content.className;
-    
-    if (!currentClassName)
-        content.className = class;
-    else if ([currentClassName rangeOfString:class].length == 0)
-        content.className = [NSString stringWithFormat:@"%@ %@", content.className, class];
-}
-
-- (void)_removeClassFromContent:(NSString *)class
-{
-    if (!_isFrameLoaded)
-        return;
-    DOMHTMLElement *content = [self _htmlElementForId:@"content"];
-    NSString *currentClassName = content.className;
-    if (!currentClassName)
-        return;
-    NSRange range = [currentClassName rangeOfString:class];
-    if (range.length > 0)
-        content.className = [content.className stringByReplacingCharactersInRange:range withString:@""];
-}
-
-- (NSString *)_contentHTML
-{
-	return [NSString stringWithContentsOfURL:[self _baseURL] encoding:NSUTF8StringEncoding error:NULL];
-}
-
-- (NSURL *)_baseURL
-{
-	return [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"]];
-}
 @end

@@ -8,14 +8,39 @@
 
 	<title>Template</title>
 </head>
-<body onload="windowController.init()" onresize="windowController.bodyResized()">
-<div id="content">
+<!--
+ - Special className used by base.js and by the backend:
+ "drag-platform-window": Dragging will drag the platformWindow. [Not in fullscreen].
+ "timeline": Backend will change the "value" attribute of those elements.
+ "ellapsed-time": Backend will change the innerText attribute of those elements.
+ "remaining-time": Backend will change the innerText attribute of those elements.
+ "title": Backend will change set the innertText of those element to the title of the playing movie.
+
+ "close": base.js will make a click on those element to close the platform window. [Not in fullscreen].
+ "miniaturize": base.js will make a click on those element to miniaturize the platform window. [Not in fullscreen].
+ "zoom": base.js will make a click on those element to zoom the platform window. [Not in fullscreen].
+ "enter-fullscreen": base.js will make a click on those element to enterFullscreen on the platform window. [Not in fullscreen].
+ "leave-fullscreen": base.js will make a click on those element to leaveFullscreen on the platform window. [Not in window].
+ "toggle-playing": base.js will make a click on those element to leaveFullscreen on the platform window. [Not in window].
+
+ "resize-platform-window": base.js will make a drag on those element to resize the platform window. [Not in fullscreen].
+ "drag-platform-window": base.js will make a drag on those element to move the platform window. [Not in fullscreen].
+
+ - Special id used by base.js and by the backend:
+ "content": Backend will add
+    "key-window", and "main-window" on the this item to reflect the platform window state. [Not in fullscreen].
+    "playing" when the video is playing. (this can be used to display a different image when we are playing or not.
+ "video-view": Backend will put the platform video view on top of this element. [Not in fullscreen]
+-->
+
+<body onload="windowController.init()">
+<div id="content" class="drag-platform-window">
     
     <div class="window-decoration">
         <div class="titlebar">
-            <button id="close" class="close">x</button>
-            <button id="miniaturize" class="miniaturize">-</button>
-            <button id="zoom" class="zoom">▢</button>
+            <button class="close">x</button>
+            <button class="miniaturize">-</button>
+            <button class="zoom">▢</button>
             <div id="window-title" class="title">Window Title</div>
         </div>
     </div>
@@ -24,16 +49,16 @@
         <div id="video-view" class="view"></div>
         <div class="controls">
             
-            <button id="fullscreen" class="fullscreen"></button>
-            <button id="toggle-playing" class="toggle-playing"></button>
+            <button class="enter-fullscreen"></button>
+            <button class="toggle-playing"></button>
             <div class="timeinfo">
-                <input id="timeline" type="range" class="timeline" max="1000" value="0">
-                <div id="ellapsed-time" class="ellapsed-time text">--:--</div>
+                <input class="timeline" type="range"  max="1000" value="0">
+                <div class="ellapsed-time">--:--</div>
             </div>
         </div>
     </div>
 
-    <div class="resize" id="resize"></div>
+    <div class="resize resize-platform-window"></div>
 </div>
 </body>
 </html>

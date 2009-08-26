@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="base.js"></script>
     <style>
     * {
         cursor: default;
@@ -72,21 +73,24 @@
         margin: auto;
     }
 
-    .fullscreen {
+    .leave-fullscreen {
         left: auto; right: 10px;
 
         background: url(fs_exit_fullscreen_highlight.png) no-repeat center;
     }
 
-    .fullscreen:active {
+    .leave-fullscreen:active {
         background-image: url(fs_exit_fullscreen.png);
     }
 
     .title {
         position: absolute;
         top: auto; bottom: 5px; left: 0; right: 0;
-        width: 100px;
+        width: 200px;
+        height: 12px;
         margin: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
         text-align: center;
     }
 
@@ -145,17 +149,17 @@
     </style>
 	<title>Template</title>
 </head>
-<body>
-<div id="content">
+<body onload="windowController.init()">
+<div id="content" class="">
     <div class="controls">
         <div id="title" class="title">Movie tile</div>
         <div class="timeinfo">
-            <div id="ellapsed-time" class="ellapsed-time text">--:--</div>
+            <div class="ellapsed-time">--:--</div>
             <input id="timeline" type="range" class="timeline" max="1000" value="0">
-            <div id="remaining-time" class="ellapsed-time text">--:--</div>
+            <div class="remaining-time">--:--</div>
         </div>
-        <button id="fullscreen" class="fullscreen"></button>
-        <button id="toggle-playing" class="toggle-playing"></button>
+        <button class="leave-fullscreen"></button>
+        <button class="toggle-playing"></button>
     </div>
 </div>
 </body>
