@@ -52,8 +52,35 @@
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
 		639F660B1046D81A00117832 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639F660A1046D81A00117832 /* SplashScreenWindow.xib */; };
 		639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
-		639F67A41046E58500117832 /* Default.lunettesstyle in Resources */ = {isa = PBXBuildFile; fileRef = 639F67861046E58500117832 /* Default.lunettesstyle */; };
-		639F67A51046E58800117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F67861046E58500117832 /* Default.lunettesstyle */; };
+		639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
+		639F68981046EA5E00117832 /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F687D1046EA5E00117832 /* black.css */; };
+		639F68991046EA5E00117832 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F687E1046EA5E00117832 /* default.css */; };
+		639F689A1046EA5E00117832 /* fs_exit_fullscreen_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F687F1046EA5E00117832 /* fs_exit_fullscreen_highlight.png */; };
+		639F689B1046EA5E00117832 /* fs_exit_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68801046EA5E00117832 /* fs_exit_fullscreen.png */; };
+		639F689C1046EA5E00117832 /* fs_pause_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68811046EA5E00117832 /* fs_pause_highlight.png */; };
+		639F689D1046EA5E00117832 /* fs_pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68821046EA5E00117832 /* fs_pause.png */; };
+		639F689E1046EA5E00117832 /* fs_play_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68831046EA5E00117832 /* fs_play_highlight.png */; };
+		639F689F1046EA5E00117832 /* fs_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68841046EA5E00117832 /* fs_play.png */; };
+		639F68A01046EA5E00117832 /* fullscreen_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68851046EA5E00117832 /* fullscreen_blue.png */; };
+		639F68A11046EA5E00117832 /* fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68861046EA5E00117832 /* fullscreen.png */; };
+		639F68A21046EA5E00117832 /* hud.html in Resources */ = {isa = PBXBuildFile; fileRef = 639F68871046EA5E00117832 /* hud.html */; };
+		639F68A31046EA5E00117832 /* orange.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F68881046EA5E00117832 /* orange.css */; };
+		639F68A41046EA5E00117832 /* pause_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68891046EA5E00117832 /* pause_blue.png */; };
+		639F68A51046EA5E00117832 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F688A1046EA5E00117832 /* pause.png */; };
+		639F68A61046EA5E00117832 /* play_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F688B1046EA5E00117832 /* play_blue.png */; };
+		639F68A71046EA5E00117832 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F688C1046EA5E00117832 /* play.png */; };
+		639F68A81046EA5E00117832 /* timeinfo_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F688D1046EA5E00117832 /* timeinfo_border.png */; };
+		639F68A91046EA5E00117832 /* timeinfo_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F688E1046EA5E00117832 /* timeinfo_middle.png */; };
+		639F68AA1046EA5E00117832 /* timeline_border.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F688F1046EA5E00117832 /* timeline_border.png */; };
+		639F68AB1046EA5E00117832 /* timeline_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68901046EA5E00117832 /* timeline_thumb.png */; };
+		639F68AC1046EA5E00117832 /* video-window.html in Resources */ = {isa = PBXBuildFile; fileRef = 639F68911046EA5E00117832 /* video-window.html */; };
+		639F68AD1046EA5E00117832 /* window-buttons-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68921046EA5E00117832 /* window-buttons-off.png */; };
+		639F68AE1046EA5E00117832 /* window-buttons-over.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68931046EA5E00117832 /* window-buttons-over.png */; };
+		639F68AF1046EA5E00117832 /* window-buttons.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68941046EA5E00117832 /* window-buttons.png */; };
+		639F68B01046EA5E00117832 /* window-close-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68951046EA5E00117832 /* window-close-on.png */; };
+		639F68B11046EA5E00117832 /* window-minimize-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68961046EA5E00117832 /* window-minimize-on.png */; };
+		639F68B21046EA5E00117832 /* window-zoom-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68971046EA5E00117832 /* window-zoom-on.png */; };
+		639F68C51046EAF700117832 /* base.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F687C1046EA5E00117832 /* base.js */; };
 		63B1DE53104381C20029C49C /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
 		63B1DF6F104395EC0029C49C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B1DF6E104395EC0029C49C /* Carbon.framework */; };
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
@@ -87,6 +114,13 @@
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = VLCKit;
 		};
+		639F68451046E9A200117832 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F683F1046E98400117832 /* Default.lunettesstyle */;
+			remoteInfo = Default.lunettesstyle;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -96,7 +130,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				639F67A51046E58800117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */,
+				639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */,
 			);
 			name = "Copy lunettesstyle Plugins";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -205,7 +239,36 @@
 		639F64821046BE2B00117832 /* lunettes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lunettes.png; sourceTree = "<group>"; };
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
 		639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSplashScreenWindowController.m; path = Sources/VLCSplashScreenWindowController.m; sourceTree = "<group>"; };
-		639F67861046E58500117832 /* Default.lunettesstyle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Default.lunettesstyle; path = Resources/Style/Default.lunettesstyle; sourceTree = "<group>"; };
+		639F68401046E98400117832 /* Default.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Default.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
+		639F687C1046EA5E00117832 /* base.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = base.js; path = Resources/Style/Default/base.js; sourceTree = "<group>"; };
+		639F687D1046EA5E00117832 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = black.css; path = Resources/Style/Default/black.css; sourceTree = "<group>"; };
+		639F687E1046EA5E00117832 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/Style/Default/default.css; sourceTree = "<group>"; };
+		639F687F1046EA5E00117832 /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Resources/Style/Default/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
+		639F68801046EA5E00117832 /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen.png; path = Resources/Style/Default/fs_exit_fullscreen.png; sourceTree = "<group>"; };
+		639F68811046EA5E00117832 /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause_highlight.png; path = Resources/Style/Default/fs_pause_highlight.png; sourceTree = "<group>"; };
+		639F68821046EA5E00117832 /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause.png; path = Resources/Style/Default/fs_pause.png; sourceTree = "<group>"; };
+		639F68831046EA5E00117832 /* fs_play_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play_highlight.png; path = Resources/Style/Default/fs_play_highlight.png; sourceTree = "<group>"; };
+		639F68841046EA5E00117832 /* fs_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play.png; path = Resources/Style/Default/fs_play.png; sourceTree = "<group>"; };
+		639F68851046EA5E00117832 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen_blue.png; path = Resources/Style/Default/fullscreen_blue.png; sourceTree = "<group>"; };
+		639F68861046EA5E00117832 /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen.png; path = Resources/Style/Default/fullscreen.png; sourceTree = "<group>"; };
+		639F68871046EA5E00117832 /* hud.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = hud.html; path = Resources/Style/Default/hud.html; sourceTree = "<group>"; };
+		639F68881046EA5E00117832 /* orange.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = orange.css; path = Resources/Style/Default/orange.css; sourceTree = "<group>"; };
+		639F68891046EA5E00117832 /* pause_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause_blue.png; path = Resources/Style/Default/pause_blue.png; sourceTree = "<group>"; };
+		639F688A1046EA5E00117832 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Resources/Style/Default/pause.png; sourceTree = "<group>"; };
+		639F688B1046EA5E00117832 /* play_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_blue.png; path = Resources/Style/Default/play_blue.png; sourceTree = "<group>"; };
+		639F688C1046EA5E00117832 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = Resources/Style/Default/play.png; sourceTree = "<group>"; };
+		639F688D1046EA5E00117832 /* timeinfo_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeinfo_border.png; path = Resources/Style/Default/timeinfo_border.png; sourceTree = "<group>"; };
+		639F688E1046EA5E00117832 /* timeinfo_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeinfo_middle.png; path = Resources/Style/Default/timeinfo_middle.png; sourceTree = "<group>"; };
+		639F688F1046EA5E00117832 /* timeline_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeline_border.png; path = Resources/Style/Default/timeline_border.png; sourceTree = "<group>"; };
+		639F68901046EA5E00117832 /* timeline_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeline_thumb.png; path = Resources/Style/Default/timeline_thumb.png; sourceTree = "<group>"; };
+		639F68911046EA5E00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/Default/video-window.html"; sourceTree = "<group>"; };
+		639F68921046EA5E00117832 /* window-buttons-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons-off.png"; path = "Resources/Style/Default/window-buttons-off.png"; sourceTree = "<group>"; };
+		639F68931046EA5E00117832 /* window-buttons-over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons-over.png"; path = "Resources/Style/Default/window-buttons-over.png"; sourceTree = "<group>"; };
+		639F68941046EA5E00117832 /* window-buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons.png"; path = "Resources/Style/Default/window-buttons.png"; sourceTree = "<group>"; };
+		639F68951046EA5E00117832 /* window-close-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-close-on.png"; path = "Resources/Style/Default/window-close-on.png"; sourceTree = "<group>"; };
+		639F68961046EA5E00117832 /* window-minimize-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-minimize-on.png"; path = "Resources/Style/Default/window-minimize-on.png"; sourceTree = "<group>"; };
+		639F68971046EA5E00117832 /* window-zoom-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-zoom-on.png"; path = "Resources/Style/Default/window-zoom-on.png"; sourceTree = "<group>"; };
+		639F68B31046EA9600117832 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Style/Default/Info.plist; sourceTree = "<group>"; };
 		63B1DE51104381C20029C49C /* VLCFullscreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenController.h; path = Sources/VLCFullscreenController.h; sourceTree = "<group>"; };
 		63B1DE52104381C20029C49C /* VLCFullscreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenController.m; path = Sources/VLCFullscreenController.m; sourceTree = "<group>"; };
 		63B1DF6E104395EC0029C49C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -282,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				8D15AC370486D014006FF6A4 /* Lunettes.app */,
+				639F68401046E98400117832 /* Default.lunettesstyle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -332,7 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				63B1E42D10444D540029C49C /* Icon.icns */,
-				630143B11040727F00534090 /* Style */,
+				630143B11040727F00534090 /* Default.lunettestyle */,
 				6301465A1040991000534090 /* StyledVideoWindow.xib */,
 				639F660A1046D81A00117832 /* SplashScreenWindow.xib */,
 				63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */,
@@ -368,12 +432,40 @@
 			name = Configurations;
 			sourceTree = "<group>";
 		};
-		630143B11040727F00534090 /* Style */ = {
+		630143B11040727F00534090 /* Default.lunettestyle */ = {
 			isa = PBXGroup;
 			children = (
-				639F67861046E58500117832 /* Default.lunettesstyle */,
+				639F687C1046EA5E00117832 /* base.js */,
+				639F687D1046EA5E00117832 /* black.css */,
+				639F687E1046EA5E00117832 /* default.css */,
+				639F687F1046EA5E00117832 /* fs_exit_fullscreen_highlight.png */,
+				639F68801046EA5E00117832 /* fs_exit_fullscreen.png */,
+				639F68811046EA5E00117832 /* fs_pause_highlight.png */,
+				639F68821046EA5E00117832 /* fs_pause.png */,
+				639F68831046EA5E00117832 /* fs_play_highlight.png */,
+				639F68841046EA5E00117832 /* fs_play.png */,
+				639F68851046EA5E00117832 /* fullscreen_blue.png */,
+				639F68861046EA5E00117832 /* fullscreen.png */,
+				639F68871046EA5E00117832 /* hud.html */,
+				639F68881046EA5E00117832 /* orange.css */,
+				639F68891046EA5E00117832 /* pause_blue.png */,
+				639F688A1046EA5E00117832 /* pause.png */,
+				639F688B1046EA5E00117832 /* play_blue.png */,
+				639F688C1046EA5E00117832 /* play.png */,
+				639F688D1046EA5E00117832 /* timeinfo_border.png */,
+				639F688E1046EA5E00117832 /* timeinfo_middle.png */,
+				639F688F1046EA5E00117832 /* timeline_border.png */,
+				639F68901046EA5E00117832 /* timeline_thumb.png */,
+				639F68911046EA5E00117832 /* video-window.html */,
+				639F68921046EA5E00117832 /* window-buttons-off.png */,
+				639F68931046EA5E00117832 /* window-buttons-over.png */,
+				639F68941046EA5E00117832 /* window-buttons.png */,
+				639F68951046EA5E00117832 /* window-close-on.png */,
+				639F68961046EA5E00117832 /* window-minimize-on.png */,
+				639F68971046EA5E00117832 /* window-zoom-on.png */,
+				639F68B31046EA9600117832 /* Info.plist */,
 			);
-			name = Style;
+			name = Default.lunettestyle;
 			sourceTree = "<group>";
 		};
 		6304D91C10405F330031C854 /* Styled Video Window */ = {
@@ -552,6 +644,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		639F683F1046E98400117832 /* Default.lunettesstyle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 639F68441046E98600117832 /* Build configuration list for PBXNativeTarget "Default.lunettesstyle" */;
+			buildPhases = (
+				639F683C1046E98400117832 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Default.lunettesstyle;
+			productName = Default.lunettesstyle;
+			productReference = 639F68401046E98400117832 /* Default.lunettesstyle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D15AC270486D014006FF6A4 /* Lunettes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Lunettes" */;
@@ -566,6 +673,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				639F68461046E9A200117832 /* PBXTargetDependency */,
 			);
 			name = Lunettes;
 			productInstallPath = "$(HOME)/Applications";
@@ -591,6 +699,7 @@
 			);
 			projectRoot = "";
 			targets = (
+				639F683F1046E98400117832 /* Default.lunettesstyle */,
 				8D15AC270486D014006FF6A4 /* Lunettes */,
 			);
 		};
@@ -607,6 +716,41 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		639F683C1046E98400117832 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639F68C51046EAF700117832 /* base.js in Resources */,
+				639F68981046EA5E00117832 /* black.css in Resources */,
+				639F68991046EA5E00117832 /* default.css in Resources */,
+				639F689A1046EA5E00117832 /* fs_exit_fullscreen_highlight.png in Resources */,
+				639F689B1046EA5E00117832 /* fs_exit_fullscreen.png in Resources */,
+				639F689C1046EA5E00117832 /* fs_pause_highlight.png in Resources */,
+				639F689D1046EA5E00117832 /* fs_pause.png in Resources */,
+				639F689E1046EA5E00117832 /* fs_play_highlight.png in Resources */,
+				639F689F1046EA5E00117832 /* fs_play.png in Resources */,
+				639F68A01046EA5E00117832 /* fullscreen_blue.png in Resources */,
+				639F68A11046EA5E00117832 /* fullscreen.png in Resources */,
+				639F68A21046EA5E00117832 /* hud.html in Resources */,
+				639F68A31046EA5E00117832 /* orange.css in Resources */,
+				639F68A41046EA5E00117832 /* pause_blue.png in Resources */,
+				639F68A51046EA5E00117832 /* pause.png in Resources */,
+				639F68A61046EA5E00117832 /* play_blue.png in Resources */,
+				639F68A71046EA5E00117832 /* play.png in Resources */,
+				639F68A81046EA5E00117832 /* timeinfo_border.png in Resources */,
+				639F68A91046EA5E00117832 /* timeinfo_middle.png in Resources */,
+				639F68AA1046EA5E00117832 /* timeline_border.png in Resources */,
+				639F68AB1046EA5E00117832 /* timeline_thumb.png in Resources */,
+				639F68AC1046EA5E00117832 /* video-window.html in Resources */,
+				639F68AD1046EA5E00117832 /* window-buttons-off.png in Resources */,
+				639F68AE1046EA5E00117832 /* window-buttons-over.png in Resources */,
+				639F68AF1046EA5E00117832 /* window-buttons.png in Resources */,
+				639F68B01046EA5E00117832 /* window-close-on.png in Resources */,
+				639F68B11046EA5E00117832 /* window-minimize-on.png in Resources */,
+				639F68B21046EA5E00117832 /* window-zoom-on.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D15AC2B0486D014006FF6A4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -650,7 +794,6 @@
 				639F660B1046D81A00117832 /* SplashScreenWindow.xib in Resources */,
 				639F64831046BE2B00117832 /* lunettes.png in Resources */,
 				63B1E42E10444D540029C49C /* Icon.icns in Resources */,
-				639F67A41046E58500117832 /* Default.lunettesstyle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,6 +847,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		639F68461046E9A200117832 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F683F1046E98400117832 /* Default.lunettesstyle */;
+			targetProxy = 639F68451046E9A200117832 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6311DB0D0FF85AF0004BC7D1 /* Credits.rtf */ = {
@@ -775,6 +926,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		639F68421046E98500117832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Default;
+				WRAPPER_EXTENSION = lunettesstyle;
+			};
+			name = Debug;
+		};
+		639F68431046E98500117832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Default;
+				WRAPPER_EXTENSION = lunettesstyle;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
@@ -854,6 +1055,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		639F68441046E98600117832 /* Build configuration list for PBXNativeTarget "Default.lunettesstyle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639F68421046E98500117832 /* Debug */,
+				639F68431046E98500117832 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Lunettes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
