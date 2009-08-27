@@ -80,7 +80,8 @@
 		639F68B01046EA5E00117832 /* window-close-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68951046EA5E00117832 /* window-close-on.png */; };
 		639F68B11046EA5E00117832 /* window-minimize-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68961046EA5E00117832 /* window-minimize-on.png */; };
 		639F68B21046EA5E00117832 /* window-zoom-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68971046EA5E00117832 /* window-zoom-on.png */; };
-		639F68C51046EAF700117832 /* base.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F687C1046EA5E00117832 /* base.js */; };
+		639F693F1046F1C400117832 /* base.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F687C1046EA5E00117832 /* base.js */; };
+		639F697C1046F29700117832 /* base.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F687C1046EA5E00117832 /* base.js */; };
 		63B1DE53104381C20029C49C /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
 		63B1DF6F104395EC0029C49C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B1DF6E104395EC0029C49C /* Carbon.framework */; };
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
@@ -235,7 +236,7 @@
 		6311DB2B0FF85BDB004BC7D1 /* display_track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_track.png; sourceTree = "<group>"; };
 		6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_active.png; sourceTree = "<group>"; };
 		6311DB320FF85BE3004BC7D1 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_blue.png; sourceTree = "<group>"; };
-		639F647C1046BDEF00117832 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
+		639F647C1046BDEF00117832 /* SplashScreenWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SplashScreenWindow.xib; path = Resources/English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
 		639F64821046BE2B00117832 /* lunettes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lunettes.png; sourceTree = "<group>"; };
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
 		639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSplashScreenWindowController.m; path = Sources/VLCSplashScreenWindowController.m; sourceTree = "<group>"; };
@@ -396,7 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				63B1E42D10444D540029C49C /* Icon.icns */,
-				630143B11040727F00534090 /* Default.lunettestyle */,
+				639F68DC1046F18700117832 /* Style */,
 				6301465A1040991000534090 /* StyledVideoWindow.xib */,
 				639F660A1046D81A00117832 /* SplashScreenWindow.xib */,
 				63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */,
@@ -435,35 +436,13 @@
 		630143B11040727F00534090 /* Default.lunettestyle */ = {
 			isa = PBXGroup;
 			children = (
-				639F687C1046EA5E00117832 /* base.js */,
 				639F687D1046EA5E00117832 /* black.css */,
 				639F687E1046EA5E00117832 /* default.css */,
-				639F687F1046EA5E00117832 /* fs_exit_fullscreen_highlight.png */,
-				639F68801046EA5E00117832 /* fs_exit_fullscreen.png */,
-				639F68811046EA5E00117832 /* fs_pause_highlight.png */,
-				639F68821046EA5E00117832 /* fs_pause.png */,
-				639F68831046EA5E00117832 /* fs_play_highlight.png */,
-				639F68841046EA5E00117832 /* fs_play.png */,
-				639F68851046EA5E00117832 /* fullscreen_blue.png */,
-				639F68861046EA5E00117832 /* fullscreen.png */,
 				639F68871046EA5E00117832 /* hud.html */,
 				639F68881046EA5E00117832 /* orange.css */,
-				639F68891046EA5E00117832 /* pause_blue.png */,
-				639F688A1046EA5E00117832 /* pause.png */,
-				639F688B1046EA5E00117832 /* play_blue.png */,
-				639F688C1046EA5E00117832 /* play.png */,
-				639F688D1046EA5E00117832 /* timeinfo_border.png */,
-				639F688E1046EA5E00117832 /* timeinfo_middle.png */,
-				639F688F1046EA5E00117832 /* timeline_border.png */,
-				639F68901046EA5E00117832 /* timeline_thumb.png */,
 				639F68911046EA5E00117832 /* video-window.html */,
-				639F68921046EA5E00117832 /* window-buttons-off.png */,
-				639F68931046EA5E00117832 /* window-buttons-over.png */,
-				639F68941046EA5E00117832 /* window-buttons.png */,
-				639F68951046EA5E00117832 /* window-close-on.png */,
-				639F68961046EA5E00117832 /* window-minimize-on.png */,
-				639F68971046EA5E00117832 /* window-zoom-on.png */,
 				639F68B31046EA9600117832 /* Info.plist */,
+				639F68DB1046F15200117832 /* images */,
 			);
 			name = Default.lunettestyle;
 			sourceTree = "<group>";
@@ -560,6 +539,44 @@
 				631CA0DA0FF8645100CA511E /* VLCKit.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		639F68DB1046F15200117832 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				639F687F1046EA5E00117832 /* fs_exit_fullscreen_highlight.png */,
+				639F68801046EA5E00117832 /* fs_exit_fullscreen.png */,
+				639F68811046EA5E00117832 /* fs_pause_highlight.png */,
+				639F68821046EA5E00117832 /* fs_pause.png */,
+				639F68831046EA5E00117832 /* fs_play_highlight.png */,
+				639F68841046EA5E00117832 /* fs_play.png */,
+				639F68851046EA5E00117832 /* fullscreen_blue.png */,
+				639F68861046EA5E00117832 /* fullscreen.png */,
+				639F68891046EA5E00117832 /* pause_blue.png */,
+				639F688A1046EA5E00117832 /* pause.png */,
+				639F688B1046EA5E00117832 /* play_blue.png */,
+				639F688C1046EA5E00117832 /* play.png */,
+				639F688D1046EA5E00117832 /* timeinfo_border.png */,
+				639F688E1046EA5E00117832 /* timeinfo_middle.png */,
+				639F688F1046EA5E00117832 /* timeline_border.png */,
+				639F68901046EA5E00117832 /* timeline_thumb.png */,
+				639F68921046EA5E00117832 /* window-buttons-off.png */,
+				639F68931046EA5E00117832 /* window-buttons-over.png */,
+				639F68941046EA5E00117832 /* window-buttons.png */,
+				639F68951046EA5E00117832 /* window-close-on.png */,
+				639F68961046EA5E00117832 /* window-minimize-on.png */,
+				639F68971046EA5E00117832 /* window-zoom-on.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		639F68DC1046F18700117832 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				639F687C1046EA5E00117832 /* base.js */,
+				630143B11040727F00534090 /* Default.lunettestyle */,
+			);
+			name = Style;
 			sourceTree = "<group>";
 		};
 		63B1E55C104554FC0029C49C /* Common Class for Styled Windows */ = {
@@ -699,8 +716,8 @@
 			);
 			projectRoot = "";
 			targets = (
-				639F683F1046E98400117832 /* Default.lunettesstyle */,
 				8D15AC270486D014006FF6A4 /* Lunettes */,
+				639F683F1046E98400117832 /* Default.lunettesstyle */,
 			);
 		};
 /* End PBXProject section */
@@ -720,7 +737,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				639F68C51046EAF700117832 /* base.js in Resources */,
+				639F697C1046F29700117832 /* base.js in Resources */,
 				639F68981046EA5E00117832 /* black.css in Resources */,
 				639F68991046EA5E00117832 /* default.css in Resources */,
 				639F689A1046EA5E00117832 /* fs_exit_fullscreen_highlight.png in Resources */,
@@ -755,6 +772,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				639F693F1046F1C400117832 /* base.js in Resources */,
 				6311DAF60FF85AC0004BC7D1 /* pause_embedded.png in Resources */,
 				6311DAF70FF85AC0004BC7D1 /* pause_embedded_blue.png in Resources */,
 				6311DAF80FF85AC0004BC7D1 /* pause_embedded_graphite.png in Resources */,
@@ -886,7 +904,7 @@
 		639F660A1046D81A00117832 /* SplashScreenWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				639F647C1046BDEF00117832 /* English */,
+				639F647C1046BDEF00117832 /* SplashScreenWindow.xib */,
 			);
 			name = SplashScreenWindow.xib;
 			sourceTree = "<group>";
