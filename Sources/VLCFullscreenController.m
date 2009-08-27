@@ -158,7 +158,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
             // simply fade the display
             CGDisplayFadeReservationToken token = fadeScreens();
 
-            SetSystemUIMode( kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+            SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
             [self _installPlaceholderView];
             [_fullscreenWindow setFrame:[screen frame] display:NO];
             [_fullscreenWindow makeKeyAndOrderFront:self];
@@ -179,7 +179,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     [self _stopAnimationsIfNeeded];
 
-    SetSystemUIMode( kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+    SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
 
     _animation1 = createFadeAnimation(_originalViewWindow, FadeOut);
     _animation2 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], [screen frame]);
@@ -220,7 +220,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     
     if (fadeout) {
         CGDisplayFadeReservationToken token = fadeScreens();
-        SetSystemUIMode( kUIModeNormal, kUIOptionAutoShowMenuBar);
+        SetSystemUIMode(kUIModeNormal, kUIOptionAutoShowMenuBar);
         [self fullscreenDidEnd];
         unfadeScreens(token);
         return;
