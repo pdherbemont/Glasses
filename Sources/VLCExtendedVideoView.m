@@ -34,9 +34,14 @@
     return YES;
 }
 
-- (BOOL)isOpaque
+/* VLCVideoView Overrides */
+- (void)drawRect:(NSRect)aRect
 {
-    return YES;
+
 }
 
+- (BOOL)isOpaque
+{
+    return NO;
+}
 @end

@@ -31,8 +31,6 @@ var windowController = new Object();
 
 // Called when page is loaded
 windowController.init = function() {
-    document.body.onresize = windowController.bodyResized;
-
     // Bind the buttons.
     bindButtonByClassNameToMethod(exposed_className.close, this.close);
     bindButtonByClassNameToMethod(exposed_className.miniaturize, this.miniaturize);
@@ -149,8 +147,7 @@ windowController.videoResized = function() {
     window.PlatformView.videoDidResize();
 }
 
-windowController.bodyResized = function() {
-    // Hack for now
+windowController.windowResized = function() {
     windowController.videoResized();
 }
 
@@ -224,6 +221,7 @@ windowController.mouseUpForWindowResize = function(event) {
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
 
     windowController.PlatformWindow().didEndLiveResize();
+    windowController.windowResized();
 }
 
 windowController.mouseDraggedForWindowResize = function(event) {

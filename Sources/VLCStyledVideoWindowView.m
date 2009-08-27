@@ -111,7 +111,7 @@
 }
 
 - (void)videoDidResize
-{    
+{
     DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:@"video-view"];
     NSAssert(element, @"No video-view element in this style");
     VLCVideoView *videoView = [[[self window] windowController] videoView];
@@ -203,6 +203,7 @@
         link.href = @"default.css";
 
     // Hack: Reload the full page for style change, this will help
+    [self performSelector:@selector(videoDidResize) withObject:self afterDelay:0.25];
     [[self window] performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.25];
 }
 

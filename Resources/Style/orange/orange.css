@@ -138,10 +138,10 @@ body {
 #video .view {
     position: absolute;
     background: black;
-    bottom: 32px;
-    right: 0px;
-    left: 0px;
-    top: 21px;
+    bottom: 50px;
+    right: 10px;
+    left: 10px;
+    top: 50px;
 }
 
 /*
