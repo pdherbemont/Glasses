@@ -95,7 +95,7 @@ static inline BOOL debugStyledWindow(void)
 
 - (void)setFrameOrigin:(float)x :(float)y
 {
-    [super setFrameOrigin:NSMakePoint(x, y)];
+    [self setFrameOrigin:NSMakePoint(x, y)];
 }
 
 - (float)frameSizeHeight
