@@ -19,6 +19,16 @@
         margin: 0;
     }
 
+    /* Make sure all (non visible) images are loaded to avoid flickering. */
+    .preloader {
+        position: fixed;
+        z-index: -1;
+        background-image: url(fs_play_highlight.png);
+        background-image: url(fs_pause.png);
+        background-image: url(fs_pause_highlight.png);
+        background-image: url(fs_exit_fullscreen_highlight.png);
+    }
+
     #content {
         position: absolute;
         background-color: rgba(0, 0, 0, 0.7);
@@ -168,6 +178,7 @@
         <button class="leave-fullscreen"></button>
         <button class="toggle-playing"></button>
     </div>
+    <div class="preloader"></div>
 </div>
 </body>
 </html>

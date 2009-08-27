@@ -12,6 +12,7 @@ body {
     margin: 0;
 }
 
+/* Make sure all (non visible) images are loaded to avoid flickering. */
 .preloader {
     position: fixed;
     z-index: -1;
@@ -26,6 +27,7 @@ body {
     background-image: url(pause.png);
     background-image: url(pause_blue.png);
 }
+
 /*
  * The window
  */
