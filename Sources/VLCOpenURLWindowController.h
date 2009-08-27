@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCPreferences.h: Preferences dialogue
+ * VLCOpenURLWindowController.h: Open dialogues
  *****************************************************************************
  * Copyright (C) 2009 the VideoLAN team
  * $Id: $
@@ -23,17 +23,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface VLCPreferences : NSObject {
-    IBOutlet NSTextField *_lastCheckForUpdate_txt;
-    IBOutlet NSButton *_checkForUpdates_ckb;
-    IBOutlet NSWindow *_prefs_win;
-
-    BOOL b_nib_loaded;
+@interface VLCOpenURLWindowController : NSWindowController {
+    IBOutlet NSTextField * _netURLField;
+    IBOutlet NSButton * _netCancelButton;
+    IBOutlet NSButton * _netOkButton;
 }
++ (VLCOpenURLWindowController *)sharedInstance;
 
-+ (VLCPreferences *)sharedInstance;
-
-- (IBAction)buttonAction: (id)sender;
-- (IBAction)showPreferences: (id)sender;
-
+- (IBAction)openNetworkStream:(id)sender;
+- (IBAction)networkPanelAction:(id)sender;
 @end

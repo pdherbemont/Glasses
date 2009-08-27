@@ -23,8 +23,14 @@
 
 #import "VLCDocumentController.h"
 #import "VLCMediaDocument.h"
+#import "VLCSplashScreenWindowController.h"
 
 @implementation VLCDocumentController
+
+- (void)awakeFromNib
+{
+    [NSApp setDelegate:self];
+}
 
 - (BOOL) becomeFirstResponder
 {
@@ -49,4 +55,19 @@
     return [VLCMediaDocument class];
 }
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    // We have some document open alread, don't bother to show the splashScreen.
+    if ([[self documents] count] > 0)
+        return;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    static NSString *dontShowSplashScreenKey = @"DontShowSplashScreen";
+    if ([defaults boolForKey:dontShowSplashScreenKey])
+        return;
+
+    // FIXME: We may want to release it at some point
+    _splashScreen = [[VLCSplashScreenWindowController alloc] init];
+    [[_splashScreen window] makeKeyAndOrderFront:self];
+}
 @end

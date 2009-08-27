@@ -23,9 +23,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+@class VLCSplashScreenWindowController;
 @interface VLCDocumentController : NSDocumentController {
-
+    VLCSplashScreenWindowController *_splashScreen;
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;

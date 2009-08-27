@@ -797,10 +797,10 @@
 				<string key="NSClassName">SUUpdater</string>
 			</object>
 			<object class="NSCustomObject" id="35436487">
-				<string key="NSClassName">VLCPreferences</string>
+				<string key="NSClassName">VLCPreferencesWindowController</string>
 			</object>
 			<object class="NSCustomObject" id="913847906">
-				<string key="NSClassName">VLCOpen</string>
+				<string key="NSClassName">VLCOpenURLWindowController</string>
 			</object>
 			<object class="NSCustomObject" id="517467475">
 				<string key="NSClassName">VLCDocumentController</string>
@@ -2249,8 +2249,8 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">VLCOpen</string>
-					<string key="superclassName">NSObject</string>
+					<string key="className">VLCOpenURLWindowController</string>
+					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
@@ -2268,35 +2268,25 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>_net_cancel_btn</string>
-							<string>_net_ok_btn</string>
-							<string>_net_url_fld</string>
-							<string>_net_win</string>
+							<string>_netCancelButton</string>
+							<string>_netOkButton</string>
+							<string>_netURLField</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTextField</string>
-							<string>NSPanel</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Sources/VLCOpen.h</string>
+						<string key="minorKey">Sources/VLCOpenURLWindowController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">VLCOpen</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBUserSource</string>
-						<string key="minorKey"/>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCPreferences</string>
-					<string key="superclassName">NSObject</string>
+					<string key="className">VLCPreferencesWindowController</string>
+					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
@@ -2314,20 +2304,18 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>_checkForUpdates_ckb</string>
-							<string>_lastCheckForUpdate_txt</string>
-							<string>_prefs_win</string>
+							<string>_checkForUpdatesCheckBox</string>
+							<string>_lastCheckForUpdateText</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSTextField</string>
-							<string>NSWindow</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Sources/VLCPreferences.h</string>
+						<string key="minorKey">Sources/VLCPreferencesWindowController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
