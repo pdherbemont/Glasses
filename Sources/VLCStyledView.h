@@ -34,6 +34,8 @@
     
     VLCTime *_currentTime;
     NSString *_title;
+
+    NSString *_pluginName;
 }
 
 /**

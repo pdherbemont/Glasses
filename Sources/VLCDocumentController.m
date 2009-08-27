@@ -55,6 +55,38 @@
     return [VLCMediaDocument class];
 }
 
+static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
+{
+    return [[NSMenuItem alloc] initWithTitle:name action:@selector(setStyleFromMenuItem:) keyEquivalent:@""];
+}
+
+- (void)rebuildStyleMenu
+{
+    NSString *pluginsPath = [[NSBundle mainBundle] builtInPlugInsPath];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSArray *plugins = [manager contentsOfDirectoryAtPath:pluginsPath error:nil];
+    NSAssert(_styleMenu, @"There is no style menu connected");
+    
+    // First add the special 'Default' menu and a separator
+    NSMenuItem *menuItem = createStyleMenuItemWithPlugInName(@"Default");
+    [[_styleMenu submenu] addItem:menuItem];
+    [menuItem release];
+    [[_styleMenu submenu] addItem:[NSMenuItem separatorItem]];
+    
+    for (NSString *pluginPath in plugins) {
+        if (![pluginPath hasSuffix:@".lunettesstyle"])
+            continue;
+        // Don't add the Default plugin twice
+        if ([pluginPath isEqualToString:@"Default.lunettesstyle"])
+            continue;
+        NSString *pluginName = [[pluginPath lastPathComponent] stringByDeletingPathExtension];
+        NSMenuItem *menuItem = createStyleMenuItemWithPlugInName(pluginName);
+        [[_styleMenu submenu] addItem:menuItem];
+        [menuItem release];
+        
+    }
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     // We have some document open alread, don't bother to show the splashScreen.
@@ -69,5 +101,7 @@
     // FIXME: We may want to release it at some point
     _splashScreen = [[VLCSplashScreenWindowController alloc] init];
     [[_splashScreen window] makeKeyAndOrderFront:self];
+    [self rebuildStyleMenu];
 }
+
 @end

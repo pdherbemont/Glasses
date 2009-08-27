@@ -229,28 +229,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     [super updateTrackingAreas];
 }
 
-#pragma mark -
-#pragma mark Menu Item Action
-
-- (void)setStyleFromMenuItem:(id)sender
-{
-    NSAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
-    NSMenuItem *item = sender;
-
-    DOMHTMLElement *element = [self htmlElementForId:@"style"];
-    NSAssert([element isKindOfClass:[DOMHTMLLinkElement class]], @"Element 'style' should be a link");
-    DOMHTMLLinkElement *link = (id)element;
-    if ([[item title] isEqualToString:@"Orange"])
-        link.href = @"orange.css";
-    else if ([[item title] isEqualToString:@"Black"])
-        link.href = @"black.css";
-    else
-        link.href = @"default.css";
-
-    // Hack: Reload the full page for style change, this will help
-    [self performSelector:@selector(videoDidResize) withObject:self afterDelay:0.25];
-    [[self window] performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.25];
-}
 
 #pragma mark -
 #pragma mark View methods

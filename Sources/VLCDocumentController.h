@@ -26,6 +26,7 @@
 @class VLCSplashScreenWindowController;
 @interface VLCDocumentController : NSDocumentController {
     VLCSplashScreenWindowController *_splashScreen;
+    IBOutlet NSMenuItem *_styleMenu;
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;

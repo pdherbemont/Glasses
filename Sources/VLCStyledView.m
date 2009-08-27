@@ -24,6 +24,7 @@
 
 @interface VLCStyledView ()
 @property (readwrite, assign) BOOL isFrameLoaded;
+@property (readwrite, assign) NSString *pluginName;
 - (void)setInnerText:(NSString *)text forElementsOfClass:(NSString *)class;
 - (void)setAttribute:(NSString *)attribute value:(NSString *)value forElementsOfClass:(NSString *)class;
 - (NSURL *)url;
@@ -31,6 +32,7 @@
 
 @implementation VLCStyledView
 @synthesize isFrameLoaded=_isFrameLoaded;
+@synthesize pluginName=_pluginName;
 
 - (void)dealloc
 {
@@ -67,7 +69,11 @@
 
 - (NSURL *)url
 {
-    NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:@"Default.lunettesstyle"];
+    NSString *pluginName = [self pluginName];
+    if (!pluginName)
+        pluginName = @"Default";
+    NSString *pluginFilename = [pluginName stringByAppendingPathExtension:@"lunettesstyle"];
+    NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:pluginFilename];
     NSBundle *defaultPlugin = [NSBundle bundleWithPath:pluginPath];
     NSAssert(defaultPlugin, @"Can't find the default path, this is bad");
     NSString *path = [defaultPlugin pathForResource:[self pageName] ofType:@"html"];
@@ -91,6 +97,18 @@
     [self setViewedPosition:_viewedPosition];
     [self setCurrentTime:_currentTime];
 }
+
+#pragma mark -
+#pragma mark Menu Item Action
+
+- (void)setStyleFromMenuItem:(id)sender
+{
+    NSAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
+    NSMenuItem *item = sender;
+    self.pluginName = [item title];
+    [self setup];
+}
+
 
 #pragma mark -
 #pragma mark Util
