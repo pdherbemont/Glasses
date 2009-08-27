@@ -52,11 +52,11 @@ body {
     left: 0;
     right: 0;
     height: 20px;
-    border-bottom: thin #434343 solid;
+    border-bottom: thin #404040 solid;
     border-top: 1px rgba(255, 255, 255, 0.8) solid;
     -webkit-border-top-left-radius: 3px; 
     -webkit-border-top-right-radius: 3px;
-    padding-left: 4px;
+    padding-left: 8px;
 }
 
 .window-decoration {
@@ -70,32 +70,47 @@ body {
     cursor: default;
     background-color: transparent;
     border: none;
-    height: 16px;
-    width: 16px;
-    opacity: 0;
-    -webkit-transition: opacity 0.3s ease-in;
 
-    font-family: Courier;
-    font-weight: bold;
-    color: rgba(255,255,255,0.9);
-    margin: 2px;
-    text-align: center;
+    height: 15px; width: 14px;
+    padding: 0px;
+    margin: 0;
+    margin-top: 3px;
+    margin-right: 4px;
 }
 
-#content:hover .window-decoration button {
-    opacity: 1;
-    -webkit-transition: opacity 0.1s ease-in;
+#content.key-window .window-buttons>button {
+    background-image: url(window-buttons.png);
 }
 
-.window-decoration button:active {
-    -webkit-background-position: 1px 1px;
-    background-color: rgba(255,255,255,0.4);
-    color: rgba(0,0,0,0.9);
+#content .window-buttons>button {
+    background-repeat: no-repeat;
+    background-image: url(window-buttons-off.png);
 }
 
+#content .window-buttons:hover>button {
+    background-image: url(window-buttons-over.png);
+}
+
+#content .window-buttons>.close:active {
+    background: url(window-close-on.png) no-repeat 0 0;
+}
+
+#content .window-buttons>.miniaturize:active {
+    background: url(window-minimize-on.png) no-repeat 0 0;
+}
+
+#content .window-buttons>.zoom:active {
+    background: url(window-zoom-on.png) no-repeat 0 0;
+}
+
+.close {
+    background-position-x: 0px;
+}
+.miniaturize {
+    background-position-x: -21px;
+}
 .zoom {
-    font-size: 10px;
-    vertical-align: centerline;
+    background-position-x: -42px;
 }
 
 .key-window .title {
@@ -138,7 +153,7 @@ body {
     bottom: 32px;
     right: 0px;
     left: 0px;
-    top: 21px;
+    top: 23px;
 }
 
 /*

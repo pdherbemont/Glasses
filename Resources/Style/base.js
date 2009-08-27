@@ -46,6 +46,11 @@ windowController.init = function() {
     bindByClassNameActionToMethod(document.body, 'mousemove', this.revealAutoHiddenElements);
     bindByClassNameActionToMethod(exposed_className.autohideWhenMouseLeaves, 'mouseover', this.interruptAutoHide);
 
+    // Deal with drag and drop
+    var buttons = document.getElementsByClassName("draggable");
+    for(var i = 0; i < buttons.length; i++)
+        Drag.init(buttons.item(i));
+
     // Bind the timeline.
     bindByClassNameActionToMethod(exposed_className.timeline, 'change', this.timelineValueChanged);
     
@@ -99,7 +104,6 @@ windowController.removeClassNameFromContent = function(className) {
 }
 
 function addClassNameToElement(element, className) {
-    console.log(element + ".hasClass("+className+")"+elementHasClassName(element, className));
     if(elementHasClassName(element, className))
         return;
     element.className += " " + className;
