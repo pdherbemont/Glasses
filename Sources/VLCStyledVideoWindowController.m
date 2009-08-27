@@ -113,6 +113,14 @@
 }
 
 #pragma mark -
+#pragma mark First responder handler (Respond to menu)
+
+- (void)toggleFullscreen:(id)sender
+{
+    [[self fullscreenController] enterFullscreen:[[self window] screen]];
+}
+
+#pragma mark -
 #pragma mark Javascript brigding
 
 - (void)enterFullscreen

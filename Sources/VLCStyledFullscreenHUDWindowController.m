@@ -45,6 +45,14 @@
 }
 
 #pragma mark -
+#pragma mark First responder handler (Respond to menu)
+
+- (void)toggleFullscreen:(id)sender
+{
+    [_fullscreenController leaveFullscreen];
+}
+
+#pragma mark -
 #pragma mark Javascript brigding
 
 - (void)leaveFullscreen
