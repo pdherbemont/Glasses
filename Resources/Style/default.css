@@ -12,6 +12,20 @@ body {
     margin: 0;
 }
 
+.preloader {
+    position: fixed;
+    z-index: -1;
+    background-image: url(window-close-on.png);
+    background-image: url(window-buttons-over.png);
+    background-image: url(window-buttons-off.png);
+    background-image: url(window-minimize-on.png);
+    background-image: url(window-zoom-on.png);
+
+    background-image: url(fullscreen_blue.png);
+    background-image: url(play_blue.png);
+    background-image: url(pause.png);
+    background-image: url(pause_blue.png);
+}
 /*
  * The window
  */
