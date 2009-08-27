@@ -93,6 +93,8 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 - (void)_installPlaceholderView;
 - (void)_restoreViewFromPlaceholderView;
 - (void)_stopAnimationsIfNeeded;
+- (NSWindow *)_windowToHide;
+
 @property (readwrite, assign) BOOL fullscreen;
 @end
 
@@ -181,7 +183,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
 
-    _animation1 = createFadeAnimation(_originalViewWindow, FadeOut);
+    _animation1 = createFadeAnimation([self _windowToHide], FadeOut);
     _animation2 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], [screen frame]);
 
     [_animation2 setDelegate:self];
@@ -233,7 +235,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     NSRect screenRect = screenRectForView(_placeholderView);
 
     _animation1 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], screenRect);
-    _animation2 = createFadeAnimation(_originalViewWindow, FadeIn);
+    _animation2 = createFadeAnimation([self _windowToHide], FadeIn);
 
     [_animation2 setDelegate:self];
     [_animation2 startWhenAnimation:_animation1 reachesProgress:1.0];
@@ -298,5 +300,10 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
         _animation1 = nil;
         _animation2 = nil;
     }    
+}
+
+- (NSWindow *)_windowToHide
+{
+    return [_originalViewWindow parentWindow] ?: _originalViewWindow;
 }
 @end

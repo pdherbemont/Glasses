@@ -1,0 +1,65 @@
+* {
+    cursor: default;
+    -webkit-user-select: none;
+}
+
+body {
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 0;
+}
+
+
+/*
+ * The window
+ */
+
+#content {
+    position: absolute;
+    background: url(tv.png) no-repeat;
+    -webkit-background-size: 100%;
+/* rgb(0.90,.90,.90) rgb(0.50,0.50,0.50) rgb(0.59,0.59,0.59) */
+    bottom: 0;
+    top: 0;
+    width: 850px;
+    height: 607px;
+    overflow: hidden;
+}
+
+/*
+ * Window decoration
+ */
+
+.window-decoration button {
+    display: none;
+}
+
+
+.title {
+    display: none;
+}
+
+/*
+ * Video view
+ */
+
+#video .view {
+    position: absolute;
+    background: transparent;
+    bottom: 96px;
+    right: 59px;
+    left: 56px;
+    top: 52px;
+    z-index: -1;
+}
+
+/*
+ * Controls
+ */
+
+.controls {
+    display: none;
+}

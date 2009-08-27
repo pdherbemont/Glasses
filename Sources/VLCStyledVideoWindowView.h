@@ -58,6 +58,7 @@
     NSTrackingArea *_contentTracking;
     BOOL _wasPlayingBeforeChangingPosition;
     BOOL _isUserChangingPosition;
+    NSWindow *_videoWindow;
 }
 
 - (void)setKeyWindow:(BOOL)isKeyWindow;

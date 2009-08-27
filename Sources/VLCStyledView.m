@@ -46,9 +46,11 @@
     [self setFrameLoadDelegate:self];
     [self setUIDelegate:self];
     [self setResourceLoadDelegate:self];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[self url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.];
-    [[self mainFrame] loadRequest:request];    
+    NSURL *url = [self url];
+    NSString *rawContent = [NSString stringWithContentsOfURL:url];
+    NSURL *lunettesstyleRoot = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Lunettes Style Root" ofType:nil]];
+    NSString *content = [rawContent stringByReplacingOccurrencesOfString:@"%lunettes_style_root%" withString:[lunettesstyleRoot absoluteString]];
+    [[self mainFrame] loadHTMLString:content baseURL:url];
 }
 
 - (VLCMediaPlayer *)mediaPlayer

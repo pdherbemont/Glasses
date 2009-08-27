@@ -32,8 +32,10 @@
     "playing" when the video is playing. (this can be used to display a different image when we are playing or not.
  "video-view": Backend will put the platform video view on top of this element. [Not in fullscreen]
 -->
-
-<body onload="windowController.init()">
+<script>
+    
+</script>
+<body onload="windowController.init(); setTimeout('window.PlatformWindow.setFrame____(100, 100, 870, 700)', 2000);">
 <div id="content" class="drag-platform-window key-window">
     
     <div class="window-decoration">
@@ -47,8 +49,8 @@
         </div>
     </div>
 
-    <div id="video">
-        <div id="video-view" class="view"></div>
+    <div id="video" class="enter-fullscreen">
+        <div id="video-view" class="view below-content"></div>
         <div class="controls">
             
             <button class="enter-fullscreen"></button>

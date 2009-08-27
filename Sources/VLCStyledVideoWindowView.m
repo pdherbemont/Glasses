@@ -34,11 +34,15 @@
 - (void)dealloc
 {
     NSAssert(!_contentTracking, @"_contentTracking should have been released");
+    NSAssert(!_videoWindow, @"_videoWindow should have been released");
     [super dealloc];
 }
 
 - (void)close
 {
+    [_videoWindow close];
+    [_videoWindow release];
+    _videoWindow = nil;
     [self removeTrackingArea:_contentTracking];
     [_contentTracking release];
     _contentTracking = nil;
@@ -109,17 +113,59 @@
     [[self mediaPlayer] pause];
 }
 
+#define SUPPORT_VIDEO_BELOW_CONTENT 0
+
+#if SUPPORT_VIDEO_BELOW_CONTENT
+static NSRect screenRectForViewRect(NSView *view, NSRect rect)
+{
+    NSRect screenRect = [view convertRect:rect toView:nil]; // Convert to Window base coord
+    NSRect windowFrame = [[view window] frame];
+    screenRect.origin.x += windowFrame.origin.x;
+    screenRect.origin.y += windowFrame.origin.y;  
+    return screenRect;
+}
+#endif
+
 - (void)videoDidResize
 {
-    DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:@"video-view"];
+    // This synchronize the VLCVideoView on top of the element whose id is "video-view"
+    // We actually put the VLCVideoView in a Window that will be a child window,
+    // Hence the HTML content will be able to overlay the window.
+
+    DOMHTMLElement *element = [self htmlElementForId:@"video-view"];
     NSAssert(element, @"No video-view element in this style");
     VLCVideoView *videoView = [[[self window] windowController] videoView];
     NSAssert(videoView, @"There is no videoView.");
 
     NSRect frame = [element frameInView:self];
+#if SUPPORT_VIDEO_BELOW_CONTENT
+    NSRect screenRect = screenRectForViewRect(self, frame);
+
+    BOOL belowContent = [element.className rangeOfString:@"below-content"].length > 0;
+    NSWindow *window = [self window];
+    if (![videoView window]) {
+        
+        // Create the window now.
+        _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+        [_videoWindow setBackgroundColor:[NSColor blackColor]];
+        [_videoWindow setLevel:VLCFullscreenHUDWindowLevel];
+        [_videoWindow setContentView:videoView];
+        [_videoWindow setIgnoresMouseEvents:YES];
+        [window addChildWindow:_videoWindow ordered:belowContent ? NSWindowBelow : NSWindowAbove];
+    }
+    else {
+        //[[self window] removeChildWindow:_videoWindow];
+        BOOL videoWindowIsOnTop = [_videoWindow windowNumber] < [window windowNumber];
+        if (videoWindowIsOnTop ^ belowContent)
+            [window addChildWindow:_videoWindow ordered:belowContent ? NSWindowBelow : NSWindowAbove];
+        [_videoWindow setFrame:screenRect display:NO];
+    }
+
+#else
     if (![videoView superview])
         [self addSubview:videoView];
     [videoView setFrame:frame];
+#endif
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
@@ -169,7 +215,7 @@
    if ([VLCStyledVideoWindow debugStyledWindow])
        return;
 
-    DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:@"content"];
+    DOMElement *element = [self htmlElementForId:@"content"];
     NSAssert(element, @"No content element in this style");
     NSRect frame = [element frameInView:self];
     
