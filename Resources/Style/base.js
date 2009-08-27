@@ -42,9 +42,12 @@ windowController.init = function() {
     bindButtonByClassNameToMethod(exposed_className.leaveFullscreen, this.leaveFullscreen);
 
     // Deal with HUD hidding.
-    document.body.onmousemove = this.revealAutoHiddenElements;
-    bindByClassNameActionToMethod(document.body, 'mousemove', this.revealAutoHiddenElements);
-    bindByClassNameActionToMethod(exposed_className.autohideWhenMouseLeaves, 'mouseover', this.interruptAutoHide);
+    var buttons = document.getElementsByClassName(exposed_className.autohideWhenMouseLeaves);
+    if (buttons.length > 0) {
+        document.body.onmousemove = this.revealAutoHiddenElements;
+        bindByClassNameActionToMethod(document.body, 'mousemove', this.revealAutoHiddenElements);
+        bindByClassNameActionToMethod(exposed_className.autohideWhenMouseLeaves, 'mouseover', this.interruptAutoHide);        
+    }
 
     // Deal with drag and drop
     var buttons = document.getElementsByClassName("draggable");
