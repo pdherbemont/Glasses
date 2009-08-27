@@ -50,10 +50,9 @@
     [self setup];    
 }
 
-- (NSURL *)url
+- (NSString *)pageName
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"html"];
-    return [NSURL fileURLWithPath:path];
+    return @"video-window";
 }
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame

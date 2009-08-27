@@ -26,6 +26,7 @@
 @property (readwrite, assign) BOOL isFrameLoaded;
 - (void)setInnerText:(NSString *)text forElementsOfClass:(NSString *)class;
 - (void)setAttribute:(NSString *)attribute value:(NSString *)value forElementsOfClass:(NSString *)class;
+- (NSURL *)url;
 @end
 
 @implementation VLCStyledView
@@ -56,10 +57,19 @@
 }
 
 
+- (NSString *)pageName
+{
+    VLCAssertNotReached(@"You must override -pageName in your subclass");
+    return nil;
+}
+
 - (NSURL *)url
 {
-    VLCAssertNotReached(@"You must override -url in your subclass");
-    return nil;
+    NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:@"Default.lunettesstyle"];
+    NSBundle *defaultPlugin = [NSBundle bundleWithPath:pluginPath];
+    NSAssert(defaultPlugin, @"Can't find the default path, this is bad");
+    NSString *path = [defaultPlugin pathForResource:[self pageName] ofType:@"html"];
+    return [NSURL fileURLWithPath:path];
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame

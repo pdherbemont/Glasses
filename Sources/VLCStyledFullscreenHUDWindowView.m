@@ -31,10 +31,9 @@
     [self setup];    
 }
 
-- (NSURL *)url
+- (NSString *)pageName
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"hud" ofType:@"html"];
-    return [NSURL fileURLWithPath:path];
+    return @"hud";
 }
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame

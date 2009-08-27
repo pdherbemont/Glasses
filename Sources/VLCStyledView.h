@@ -45,7 +45,7 @@
 /**
  * Subclass have to override this, and provide their content url.
  */
-- (NSURL *)url;
+- (NSString *)pageName;
 
 /**
  * Called when the webview is loaded.
