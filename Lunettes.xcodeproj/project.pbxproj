@@ -112,6 +112,7 @@
 		CC61B345103DDAD700D13C72 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC61B343103DDAD700D13C72 /* OpenURLWindow.xib */; };
 		CC61B348103DDB9C00D13C72 /* VLCOpenURLWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */; };
 		CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
+		CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -345,6 +346,8 @@
 		CC61B347103DDB9C00D13C72 /* VLCOpenURLWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenURLWindowController.h; path = Sources/VLCOpenURLWindowController.h; sourceTree = "<group>"; };
 		CC61B414103E088B00D13C72 /* VLCDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentController.h; path = Sources/VLCDocumentController.h; sourceTree = "<group>"; };
 		CC61B415103E088B00D13C72 /* VLCDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentController.m; path = Sources/VLCDocumentController.m; sourceTree = "<group>"; };
+		CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAboutWindowController.h; path = Sources/VLCAboutWindowController.h; sourceTree = "<group>"; };
+		CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAboutWindowController.m; path = Sources/VLCAboutWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -720,6 +723,8 @@
 				CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */,
 				CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */,
 				CC61B347103DDB9C00D13C72 /* VLCOpenURLWindowController.h */,
+				CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */,
+				CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */,
 			);
 			name = "Non-document windows";
 			sourceTree = "<group>";
@@ -961,6 +966,7 @@
 				63B1E10510440DF50029C49C /* VLCStyledFullscreenHUDWindowView.m in Sources */,
 				63B1E10A10440EB00029C49C /* VLCStyledView.m in Sources */,
 				639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */,
+				CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

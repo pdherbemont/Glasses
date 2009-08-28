@@ -42,7 +42,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>audio.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>Monkey's Audio Lossless Audio Compression</string>
+			<string>Monkey&apos;s Audio Lossless Audio Compression</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
@@ -912,6 +912,8 @@
 	<string>1.0</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2009 VideoLAN</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
