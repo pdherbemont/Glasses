@@ -106,6 +106,10 @@
     [self setViewedPlaying:_viewedPlaying];
     [self setViewedPosition:_viewedPosition];
     [self setCurrentTime:_currentTime];
+
+    // We are coming out of a style change, let's fade in back
+    if (![window alphaValue])
+        [[[self window] animator] setAlphaValue:1];
 }
 
 #pragma mark -
@@ -113,6 +117,10 @@
 
 - (void)setStyleFromMenuItem:(id)sender
 {
+    // We are going to change style, hide the window to prevent glitches.
+    [[self window] setAlphaValue:0];
+
+    // First, set the new style in our ivar, then reload using -setup.
     NSAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
     NSMenuItem *item = sender;
     self.pluginName = [item title];
