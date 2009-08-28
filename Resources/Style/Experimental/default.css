@@ -33,10 +33,11 @@ body {
 }
 
 .show-playlist .more {
-    -webkit-transform: rotateY(0deg);
+    -webkit-transform: translateX(0px);
 }
 
 .more {
+    z-index: -1;
     position: absolute;
 /* rgb(0.90,.90,.90) rgb(0.50,0.50,0.50) rgb(0.59,0.59,0.59) */
     top: 0; bottom: 0;
@@ -52,12 +53,14 @@ body {
     margin-top: 35px;
     margin-bottom: 35px;
     margin-right: 35px;
-    -webkit-transform-origin: 0px 0 0;
+    -webkit-transform: translateX(-200px);
+
+/*    -webkit-transform-origin: 0px 0 0;
     -webkit-border-top-left-radius: 0px;
     -webkit-border-bottom-left-radius: 0px;
     -webkit-transform-style: preserve-3d;
     -webkit-backface-visibility:hidden;
-    -webkit-transform: rotateY(90deg);
+    -webkit-transform: rotateY(90deg); */
 
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
 }
