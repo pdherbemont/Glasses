@@ -229,7 +229,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     [super updateTrackingAreas];
 }
 
-
 #pragma mark -
 #pragma mark View methods
 

@@ -84,10 +84,11 @@
 		639F69C41046F54400117832 /* base.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 639F687C1046EA5E00117832 /* base.js */; };
 		639F6CB01047220E00117832 /* TV.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F6CAB104721BD00117832 /* TV.lunettesstyle */; };
 		639F6DC110473E5100117832 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F6C6D104721AE00117832 /* default.css */; };
-		639F6DC210473E5100117832 /* hud.html in Resources */ = {isa = PBXBuildFile; fileRef = 639F6C6E104721AE00117832 /* hud.html */; };
-		639F6DC310473E5100117832 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 639F6C6F104721AE00117832 /* Info.plist */; };
 		639F6DC410473E5100117832 /* tv.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F6C70104721AE00117832 /* tv.png */; };
 		639F6DC510473E5100117832 /* video-window.html in Resources */ = {isa = PBXBuildFile; fileRef = 639F6C71104721AE00117832 /* video-window.html */; };
+		639F7283104754BB00117832 /* video-window.html in Resources */ = {isa = PBXBuildFile; fileRef = 639F7281104754BB00117832 /* video-window.html */; };
+		639F7284104754BB00117832 /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F7282104754BB00117832 /* black.css */; };
+		639F7296104755AB00117832 /* Black.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F72671047548200117832 /* Black.lunettesstyle */; };
 		63B1DE53104381C20029C49C /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
 		63B1DF6F104395EC0029C49C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B1DF6E104395EC0029C49C /* Carbon.framework */; };
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
@@ -135,6 +136,13 @@
 			remoteGlobalIDString = 639F6C8B104721BD00117832 /* TV.lunettesstyle */;
 			remoteInfo = TV.lunettesstyle;
 		};
+		639F72C7104755B000117832 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F725D1047548200117832 /* Black.lunettesstyle */;
+			remoteInfo = Black.lunettesstyle;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -144,6 +152,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				639F7296104755AB00117832 /* Black.lunettesstyle in Copy lunettesstyle Plugins */,
 				639F6CB01047220E00117832 /* TV.lunettesstyle in Copy lunettesstyle Plugins */,
 				639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */,
 			);
@@ -296,11 +305,13 @@
 		639F68971046EA5E00117832 /* window-zoom-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-zoom-on.png"; path = "Resources/Style/Default/window-zoom-on.png"; sourceTree = "<group>"; };
 		639F68B31046EA9600117832 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Style/Default/Info.plist; sourceTree = "<group>"; };
 		639F6C6D104721AE00117832 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/Style/TV/default.css; sourceTree = "<group>"; };
-		639F6C6E104721AE00117832 /* hud.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = hud.html; path = Resources/Style/TV/hud.html; sourceTree = "<group>"; };
 		639F6C6F104721AE00117832 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Style/TV/Info.plist; sourceTree = "<group>"; };
 		639F6C70104721AE00117832 /* tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tv.png; path = Resources/Style/TV/tv.png; sourceTree = "<group>"; };
 		639F6C71104721AE00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/TV/video-window.html"; sourceTree = "<group>"; };
 		639F6CAB104721BD00117832 /* TV.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TV.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
+		639F72671047548200117832 /* Black.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Black.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
+		639F7281104754BB00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/Black/video-window.html"; sourceTree = "<group>"; };
+		639F7282104754BB00117832 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = black.css; path = Resources/Style/Black/black.css; sourceTree = "<group>"; };
 		63B1DE51104381C20029C49C /* VLCFullscreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenController.h; path = Sources/VLCFullscreenController.h; sourceTree = "<group>"; };
 		63B1DE52104381C20029C49C /* VLCFullscreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenController.m; path = Sources/VLCFullscreenController.m; sourceTree = "<group>"; };
 		63B1DF6E104395EC0029C49C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -379,6 +390,7 @@
 				8D15AC370486D014006FF6A4 /* Lunettes.app */,
 				639F68401046E98400117832 /* Default.lunettesstyle */,
 				639F6CAB104721BD00117832 /* TV.lunettesstyle */,
+				639F72671047548200117832 /* Black.lunettesstyle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -465,7 +477,7 @@
 			name = Configurations;
 			sourceTree = "<group>";
 		};
-		630143B11040727F00534090 /* Default.lunettestyle */ = {
+		630143B11040727F00534090 /* Default */ = {
 			isa = PBXGroup;
 			children = (
 				639F687D1046EA5E00117832 /* black.css */,
@@ -476,7 +488,7 @@
 				639F68B31046EA9600117832 /* Info.plist */,
 				639F68DB1046F15200117832 /* images */,
 			);
-			name = Default.lunettestyle;
+			name = Default;
 			sourceTree = "<group>";
 		};
 		6304D91C10405F330031C854 /* Styled Video Window */ = {
@@ -606,8 +618,9 @@
 			isa = PBXGroup;
 			children = (
 				639F687C1046EA5E00117832 /* base.js */,
+				639F72161047541D00117832 /* Black */,
 				639F6C4B1047216300117832 /* TV */,
-				630143B11040727F00534090 /* Default.lunettestyle */,
+				630143B11040727F00534090 /* Default */,
 			);
 			name = Style;
 			sourceTree = "<group>";
@@ -616,12 +629,20 @@
 			isa = PBXGroup;
 			children = (
 				639F6C6D104721AE00117832 /* default.css */,
-				639F6C6E104721AE00117832 /* hud.html */,
 				639F6C6F104721AE00117832 /* Info.plist */,
 				639F6C70104721AE00117832 /* tv.png */,
 				639F6C71104721AE00117832 /* video-window.html */,
 			);
 			name = TV;
+			sourceTree = "<group>";
+		};
+		639F72161047541D00117832 /* Black */ = {
+			isa = PBXGroup;
+			children = (
+				639F7281104754BB00117832 /* video-window.html */,
+				639F7282104754BB00117832 /* black.css */,
+			);
+			name = Black;
 			sourceTree = "<group>";
 		};
 		63B1E55C104554FC0029C49C /* Common Class for Styled Windows */ = {
@@ -736,6 +757,21 @@
 			productReference = 639F6CAB104721BD00117832 /* TV.lunettesstyle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		639F725D1047548200117832 /* Black.lunettesstyle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 639F72641047548200117832 /* Build configuration list for PBXNativeTarget "Black.lunettesstyle" */;
+			buildPhases = (
+				639F725E1047548200117832 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Black.lunettesstyle;
+			productName = Default.lunettesstyle;
+			productReference = 639F72671047548200117832 /* Black.lunettesstyle */;
+			productType = "com.apple.product-type.bundle";
+		};
 		8D15AC270486D014006FF6A4 /* Lunettes */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "Lunettes" */;
@@ -752,6 +788,7 @@
 			dependencies = (
 				639F68461046E9A200117832 /* PBXTargetDependency */,
 				639F6CAF1047220B00117832 /* PBXTargetDependency */,
+				639F72C8104755B000117832 /* PBXTargetDependency */,
 			);
 			name = Lunettes;
 			productInstallPath = "$(HOME)/Applications";
@@ -780,6 +817,7 @@
 				8D15AC270486D014006FF6A4 /* Lunettes */,
 				639F683F1046E98400117832 /* Default.lunettesstyle */,
 				639F6C8B104721BD00117832 /* TV.lunettesstyle */,
+				639F725D1047548200117832 /* Black.lunettesstyle */,
 			);
 		};
 /* End PBXProject section */
@@ -834,10 +872,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				639F6DC110473E5100117832 /* default.css in Resources */,
-				639F6DC210473E5100117832 /* hud.html in Resources */,
-				639F6DC310473E5100117832 /* Info.plist in Resources */,
 				639F6DC410473E5100117832 /* tv.png in Resources */,
 				639F6DC510473E5100117832 /* video-window.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		639F725E1047548200117832 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				639F7283104754BB00117832 /* video-window.html in Resources */,
+				639F7284104754BB00117832 /* black.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,6 +976,11 @@
 			isa = PBXTargetDependency;
 			target = 639F6C8B104721BD00117832 /* TV.lunettesstyle */;
 			targetProxy = 639F6CAE1047220B00117832 /* PBXContainerItemProxy */;
+		};
+		639F72C8104755B000117832 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F725D1047548200117832 /* Black.lunettesstyle */;
+			targetProxy = 639F72C7104755B000117832 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1104,6 +1154,56 @@
 			};
 			name = Release;
 		};
+		639F72651047548200117832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/TV/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Black;
+				WRAPPER_EXTENSION = lunettesstyle;
+			};
+			name = Debug;
+		};
+		639F72661047548200117832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/TV/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Black;
+				WRAPPER_EXTENSION = lunettesstyle;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C05733C808A9546B00998B17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
@@ -1197,6 +1297,15 @@
 			buildConfigurations = (
 				639F6CA9104721BD00117832 /* Debug */,
 				639F6CAA104721BD00117832 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		639F72641047548200117832 /* Build configuration list for PBXNativeTarget "Black.lunettesstyle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				639F72651047548200117832 /* Debug */,
+				639F72661047548200117832 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

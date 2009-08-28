@@ -67,17 +67,27 @@
     return nil;
 }
 
+- (NSURL *)urlForPluginName:(NSString *)pluginName
+{
+    NSString *pluginFilename = [pluginName stringByAppendingPathExtension:@"lunettesstyle"];
+    NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:pluginFilename];
+    NSBundle *plugin = [NSBundle bundleWithPath:pluginPath];
+    NSAssert(plugin, @"Can't find the default path, this is bad");
+    NSString *path = [plugin pathForResource:[self pageName] ofType:@"html"];
+    return [NSURL fileURLWithPath:path];
+}
 - (NSURL *)url
 {
     NSString *pluginName = [self pluginName];
     if (!pluginName)
         pluginName = @"Default";
-    NSString *pluginFilename = [pluginName stringByAppendingPathExtension:@"lunettesstyle"];
-    NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:pluginFilename];
-    NSBundle *defaultPlugin = [NSBundle bundleWithPath:pluginPath];
-    NSAssert(defaultPlugin, @"Can't find the default path, this is bad");
-    NSString *path = [defaultPlugin pathForResource:[self pageName] ofType:@"html"];
-    return [NSURL fileURLWithPath:path];
+    NSURL *filePath = [self urlForPluginName:pluginName];
+    // Nothing found, fallback to the default plugin.
+    // This allows to reimplement just the window
+    // or just the HUD.
+    if (!filePath)
+        filePath = [self urlForPluginName:@"Default"];
+    return filePath;
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
