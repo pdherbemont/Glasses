@@ -125,10 +125,9 @@
     if (sel != @selector(setStyleFromMenuItem:))
         return NO;
     NSString *pluginName = self.pluginName;
-    NSString *menuTitle = [menuItem title];
     if (!pluginName)
         pluginName = @"Default";
-    BOOL isCurrentPlugin = [menuTitle isEqualToString:pluginName];
+    BOOL isCurrentPlugin = [[menuItem title] isEqualToString:pluginName];
     [menuItem setState:isCurrentPlugin ? NSOnState : NSOffState];
     return YES;
 }
