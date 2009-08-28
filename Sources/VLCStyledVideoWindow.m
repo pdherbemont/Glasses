@@ -107,12 +107,12 @@ static inline BOOL debugStyledWindow(void)
 
 - (void)zoom
 {
-    [super zoom:nil];
+    [self performZoom:nil];
 }
 
 - (void)miniaturize
 {
-    [super miniaturize:nil];
+    [self performMiniaturize:nil];
 }
 
 - (float)frameOriginX

@@ -75,6 +75,7 @@
     [mediaListPlayer.mediaPlayer setVideoView:videoView];
     self.mediaListPlayer = mediaListPlayer;
 	[videoView setMediaPlayer:mediaListPlayer.mediaPlayer];
+    [mediaListPlayer.mediaPlayer setDelegate:self];
 	[mediaListPlayer setRootMedia:_media];
     [mediaListPlayer play];
     [mediaListPlayer release];
@@ -102,6 +103,29 @@
 		*outError = [NSError errorWithDomain:NSOSStatusErrorDomain code:unimpErr userInfo:NULL];
 	}
     return YES;
+}
+
+
+#pragma mark -
+#pragma mark VLCMediaPlayer delegate
+
+- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
+{
+    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+    VLCMediaPlayerState state = [mediaPlayer state];
+    switch (state) {
+        case VLCMediaPlayerStateError:
+        {
+            // we've got an error here, unknown button set to display
+            NSAlert *alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil
+                                 informativeTextWithFormat:@"An unknown error occured when playing %@", [[mediaPlayer media] url]];
+            [alert runModal];
+            [self close];
+            break;            
+        }
+        default:
+            break;
+    }
 }
 
 @end
