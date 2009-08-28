@@ -101,6 +101,9 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     [[_splashScreen window] makeKeyAndOrderFront:self];
     [self rebuildStyleMenu];
     [_splashScreen setShouldCloseDocument:NO];
+
+    // The _splashScreen will autorelease itself when done, forgot about the reference now.
+    _splashScreen = nil;
 }
 
 @end
