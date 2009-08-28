@@ -83,6 +83,14 @@
     [super close];
 }
 
+- (void)showWindow:(id)sender
+{
+    [super showWindow:self];
+    // Because our window is borderless this is not properly done by NSDocument.
+    // Work around by doing it ourselves.
+    [NSApp addWindowsItem:[self window] title:[[self window] title] filename:NO];
+}
+
 #pragma mark -
 #pragma mark fullscreen Delegate
 

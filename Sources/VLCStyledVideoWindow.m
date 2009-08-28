@@ -64,13 +64,45 @@ static inline BOOL debugStyledWindow(void)
     return YES;
 }
 
+// Because we are borderless, a certain number of thing don't work out of the box.
+// For instance the NSDocument patterns don't apply, we have to reimplement them.
+- (void)performClose:(id)sender
+{
+    NSDocument *doc = [[NSDocumentController sharedDocumentController] documentForWindow:self];
+    [doc close];
+}
+
+- (void)performZoom:(id)sender
+{
+    [self zoom:nil];
+    [NSApp updateWindowsItem:self];
+}
+
+- (void)performMiniaturize:(id)sender
+{
+    [self miniaturize:nil];
+    [NSApp updateWindowsItem:self];
+}
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
+{
+    SEL sel = [anItem action];
+    if (sel == @selector(performClose:))
+        return YES;
+    if (sel == @selector(performZoom:))
+        return YES;
+    if (sel == @selector(performMiniaturize:))
+        return YES;
+    return [super validateUserInterfaceItem:anItem];
+}
+
 #pragma mark -
 #pragma mark Javascript bindings
 /* Javascript bindings: We are not necessarily respecting Cocoa naming scheme convention. That's an exception */
 
 - (void)performClose
 {
-    [super close];
+    [self performClose:self];
 }
 
 - (void)zoom
