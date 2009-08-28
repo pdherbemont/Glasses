@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
+    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="script.js"></script>
+	<link id="style" rel="stylesheet" type="text/css" href="default.css" />
+
+	<title>Video Window</title>
+</head>
+<body onload="windowController.init()">
+<div id="content" class="drag-platform-window key-window">
+    
+    <div class="window-decoration">
+        <div class="titlebar">
+            <div class="window-buttons">
+                <button class="close"></button>
+                <button class="miniaturize"></button>
+                <button class="zoom"></button>
+            </div>
+            <div id="window-title" class="title">Window Title</div>
+            <div id="number-items" class="number-items" onclick="togglePlaylistView();">12 items</div>
+        </div>
+    </div>
+
+    <div id="video">
+        <div id="video-view" class="view"></div>
+        <div class="controls">
+            
+            <button class="enter-fullscreen"></button>
+            <button class="toggle-playing"></button>
+            <div class="timeinfo">
+                <input class="timeline" type="range"  max="1000" value="0">
+                <div class="ellapsed-time">--:--</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="resize resize-platform-window"></div>
+    <div class="preloader"></div>
+</div>
+<div class="more">
+    <div class="window-decoration">
+        <div class="titlebar"></div>
+    </div>
+    <div class="textcontent">
+        <table onclick="tableClicked(event);">
+            <tr><td onclick="tableClicked(event);">Die Hard 1-Piège de Cristal.avi</td></tr>
+            <tr class="selected"><td>Die Hard 2-58min pour vivre.avi</td></tr>
+            <tr><td>Die Hard 3-Une Journée en Enfer.avi</td></tr>
+            <tr><td>Le Jour le plus long.mp4</td></tr>
+            <tr><td>Lost.S05E11.HDTV.XviD-XOR.avi</td></tr>
+            <tr><td>South.Park.S13E04.RERIP.DSR.XviD-0TV.avi</td></tr>
+            <tr><td>The.Simpsons.S20E16.HDTV.XviD-0TV.avi</td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+            <tr><td></td></tr>
+        </table>
+
+    </div>
+
+    <div class="controls"></div>
+
+</div>
+
+</body>
+</html>
