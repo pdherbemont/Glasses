@@ -157,21 +157,21 @@ body {
 }
 
 .show-playlist>#content {
-    -webkit-transition: -webkit-border-top-right-radius 1s ease-in;
-    -webkit-transition: -webkit-border-bottom-right-radius 1s ease-in;
+    -webkit-transition: -webkit-border-top-right-radius 0.1s ease-in;
+    -webkit-transition: -webkit-border-bottom-right-radius 0.1s ease-in;
     -webkit-border-top-right-radius: 0px;
     -webkit-border-bottom-right-radius: 0px;
     border-right: 0px transparent solid;
 }
 
 .show-playlist>#content .titlebar {
-    -webkit-transition: -webkit-border-top-right-radius 1s ease-in;
+    -webkit-transition: -webkit-border-top-right-radius 0.1s ease-in;
     -webkit-border-top-right-radius: 0px;
 
     border-right: none;
 }
 .show-playlist>#content .controls {
-    -webkit-transition: -webkit-border-bottom-right-radius 1s ease-in;
+    -webkit-transition: -webkit-border-bottom-right-radius 0.1s ease-in;
     -webkit-border-bottom-right-radius: 0px;
 }
 
