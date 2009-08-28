@@ -119,6 +119,19 @@
     [self setup];
 }
 
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    SEL sel = [menuItem action];
+    if (sel != @selector(setStyleFromMenuItem:))
+        return NO;
+    NSString *pluginName = self.pluginName;
+    NSString *menuTitle = [menuItem title];
+    if (!pluginName)
+        pluginName = @"Default";
+    BOOL isCurrentPlugin = [menuTitle isEqualToString:pluginName];
+    [menuItem setState:isCurrentPlugin ? NSOnState : NSOffState];
+    return YES;
+}
 
 #pragma mark -
 #pragma mark Util
