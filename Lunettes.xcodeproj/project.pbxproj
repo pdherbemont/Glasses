@@ -105,6 +105,8 @@
 		639F777810480FCE00117832 /* window-minimize-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F776810480FCE00117832 /* window-minimize-on.png */; };
 		639F777910480FCE00117832 /* window-zoom-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F776910480FCE00117832 /* window-zoom-on.png */; };
 		639F777A10480FD500117832 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F775E10480FCE00117832 /* script.js */; };
+		639F781010483EC200117832 /* fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F780E10483EC200117832 /* fullscreen.png */; };
+		639F781110483EC200117832 /* fullscreen_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F780F10483EC200117832 /* fullscreen_blue.png */; };
 		63B1DE53104381C20029C49C /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
 		63B1DF6F104395EC0029C49C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B1DF6E104395EC0029C49C /* Carbon.framework */; };
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
@@ -348,6 +350,8 @@
 		639F776710480FCE00117832 /* window-close-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-close-on.png"; sourceTree = "<group>"; };
 		639F776810480FCE00117832 /* window-minimize-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-minimize-on.png"; sourceTree = "<group>"; };
 		639F776910480FCE00117832 /* window-zoom-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-zoom-on.png"; sourceTree = "<group>"; };
+		639F780E10483EC200117832 /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen.png; path = Resources/Style/Experimental/fullscreen.png; sourceTree = "<group>"; };
+		639F780F10483EC200117832 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen_blue.png; path = Resources/Style/Experimental/fullscreen_blue.png; sourceTree = "<group>"; };
 		63B1DE51104381C20029C49C /* VLCFullscreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenController.h; path = Sources/VLCFullscreenController.h; sourceTree = "<group>"; };
 		63B1DE52104381C20029C49C /* VLCFullscreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenController.m; path = Sources/VLCFullscreenController.m; sourceTree = "<group>"; };
 		63B1DF6E104395EC0029C49C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -660,6 +664,8 @@
 			children = (
 				639F687C1046EA5E00117832 /* base.js */,
 				639F775810480FCE00117832 /* Experimental */,
+				639F780E10483EC200117832 /* fullscreen.png */,
+				639F780F10483EC200117832 /* fullscreen_blue.png */,
 				639F72161047541D00117832 /* Black */,
 				639F6C4B1047216300117832 /* TV */,
 				630143B11040727F00534090 /* Default */,
@@ -992,6 +998,8 @@
 				639F777710480FCE00117832 /* window-close-on.png in Resources */,
 				639F777810480FCE00117832 /* window-minimize-on.png in Resources */,
 				639F777910480FCE00117832 /* window-zoom-on.png in Resources */,
+				639F781010483EC200117832 /* fullscreen.png in Resources */,
+				639F781110483EC200117832 /* fullscreen_blue.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
