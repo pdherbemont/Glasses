@@ -38,7 +38,6 @@
 		6311DB060FF85AC0004BC7D1 /* skip_previous_active_embedded.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD80FF85AC0004BC7D1 /* skip_previous_active_embedded.png */; };
 		6311DB070FF85AC0004BC7D1 /* skip_previous_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD90FF85AC0004BC7D1 /* skip_previous_embedded_blue.png */; };
 		6311DB080FF85AC0004BC7D1 /* skip_previous_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DADA0FF85AC0004BC7D1 /* skip_previous_embedded_graphite.png */; };
-		6311DB150FF85AF0004BC7D1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB0D0FF85AF0004BC7D1 /* Credits.rtf */; };
 		6311DB160FF85AF0004BC7D1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */; };
 		6311DB1C0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */; };
 		6311DB2C0FF85BDB004BC7D1 /* display_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB270FF85BDB004BC7D1 /* display_left.png */; };
@@ -105,6 +104,7 @@
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
 		CC10A7AC103CA81900B4555A /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7AA103CA81900B4555A /* PreferencesWindow.xib */; };
 		CC10A7B0103CA96800B4555A /* VLCPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */; };
+		CC2F0B9B104769220015F5FA /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2F0B99104769220015F5FA /* AboutWindow.xib */; };
 		CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC566421103C9F6300FEA1D3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
@@ -133,14 +133,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 639F6C8B104721BD00117832 /* TV.lunettesstyle */;
+			remoteGlobalIDString = 639F6C8B104721BD00117832;
 			remoteInfo = TV.lunettesstyle;
 		};
 		639F72C7104755B000117832 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 639F725D1047548200117832 /* Black.lunettesstyle */;
+			remoteGlobalIDString = 639F725D1047548200117832;
 			remoteInfo = Black.lunettesstyle;
 		};
 /* End PBXContainerItemProxy section */
@@ -260,7 +260,6 @@
 		6311DAD80FF85AC0004BC7D1 /* skip_previous_active_embedded.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skip_previous_active_embedded.png; sourceTree = "<group>"; };
 		6311DAD90FF85AC0004BC7D1 /* skip_previous_embedded_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skip_previous_embedded_blue.png; sourceTree = "<group>"; };
 		6311DADA0FF85AC0004BC7D1 /* skip_previous_embedded_graphite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skip_previous_embedded_graphite.png; sourceTree = "<group>"; };
-		6311DB0E0FF85AF0004BC7D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = Credits.rtf; sourceTree = "<group>"; };
 		6311DB100FF85AF0004BC7D1 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = InfoPlist.strings; sourceTree = "<group>"; };
 		6311DB1B0FF85B1A004BC7D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/FullscreenHUDWindow.xib; sourceTree = "<group>"; };
 		6311DB270FF85BDB004BC7D1 /* display_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_left.png; sourceTree = "<group>"; };
@@ -335,6 +334,7 @@
 		CC10A7AB103CA81900B4555A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
 		CC10A7AE103CA96800B4555A /* VLCPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferencesWindowController.h; path = Sources/VLCPreferencesWindowController.h; sourceTree = "<group>"; };
 		CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPreferencesWindowController.m; path = Sources/VLCPreferencesWindowController.m; sourceTree = "<group>"; };
+		CC2F0B9A104769220015F5FA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
 		CC56641D103C9F5900FEA1D3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMiscUIElements.m; path = Sources/VLCMiscUIElements.m; sourceTree = "<group>"; };
 		CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiscUIElements.h; path = Sources/VLCMiscUIElements.h; sourceTree = "<group>"; };
@@ -443,6 +443,7 @@
 				63B1E42D10444D540029C49C /* Icon.icns */,
 				639F68DC1046F18700117832 /* Style */,
 				6301465A1040991000534090 /* StyledVideoWindow.xib */,
+				CC2F0B99104769220015F5FA /* AboutWindow.xib */,
 				639F660A1046D81A00117832 /* SplashScreenWindow.xib */,
 				63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */,
 				CC10A7AA103CA81900B4555A /* PreferencesWindow.xib */,
@@ -450,7 +451,6 @@
 				CC61B343103DDAD700D13C72 /* OpenURLWindow.xib */,
 				63D441CF100469A60086772A /* VideoWindow.xib */,
 				63D441D1100469AD0086772A /* MainMenu.xib */,
-				6311DB0D0FF85AF0004BC7D1 /* Credits.rtf */,
 				6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */,
 				6311DAAC0FF85AC0004BC7D1 /* Images */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
@@ -910,7 +910,6 @@
 				6311DB060FF85AC0004BC7D1 /* skip_previous_active_embedded.png in Resources */,
 				6311DB070FF85AC0004BC7D1 /* skip_previous_embedded_blue.png in Resources */,
 				6311DB080FF85AC0004BC7D1 /* skip_previous_embedded_graphite.png in Resources */,
-				6311DB150FF85AF0004BC7D1 /* Credits.rtf in Resources */,
 				6311DB160FF85AF0004BC7D1 /* InfoPlist.strings in Resources */,
 				6311DB1C0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib in Resources */,
 				6311DB2C0FF85BDB004BC7D1 /* display_left.png in Resources */,
@@ -930,6 +929,7 @@
 				639F660B1046D81A00117832 /* SplashScreenWindow.xib in Resources */,
 				639F64831046BE2B00117832 /* lunettes.png in Resources */,
 				63B1E42E10444D540029C49C /* Icon.icns in Resources */,
+				CC2F0B9B104769220015F5FA /* AboutWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -985,15 +985,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6311DB0D0FF85AF0004BC7D1 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6311DB0E0FF85AF0004BC7D1 /* English */,
-			);
-			name = Credits.rtf;
-			path = Resources/English.lproj;
-			sourceTree = "<group>";
-		};
 		6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1041,6 +1032,14 @@
 				CC10A7AB103CA81900B4555A /* English */,
 			);
 			name = PreferencesWindow.xib;
+			sourceTree = "<group>";
+		};
+		CC2F0B99104769220015F5FA /* AboutWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CC2F0B9A104769220015F5FA /* English */,
+			);
+			name = AboutWindow.xib;
 			sourceTree = "<group>";
 		};
 		CC61B343103DDAD700D13C72 /* OpenURLWindow.xib */ = {
