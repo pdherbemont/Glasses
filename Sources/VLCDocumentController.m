@@ -102,7 +102,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     [self rebuildStyleMenu];
     [_splashScreen setShouldCloseDocument:NO];
 
-    // The _splashScreen will autorelease itself when done, forgot about the reference now.
+    // The _splashScreen will autorelease itself when done, forget about the reference now.
     _splashScreen = nil;
 }
 
