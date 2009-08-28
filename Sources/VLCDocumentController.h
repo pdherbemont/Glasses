@@ -1,10 +1,8 @@
 /*****************************************************************************
- * VLCDocumentController.h: NSDocumentController in customized
- *****************************************************************************
  * Copyright (C) 2009 the VideoLAN team
- * $Id: $
  *
  * Authors: Felix Paul Kühne <fkuehne at videolan dot org>
+ *          Pierre d'Herbemont
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

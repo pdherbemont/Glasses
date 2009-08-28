@@ -1,10 +1,8 @@
 /*****************************************************************************
- * VLCDocumentController.m: NSDocumentController in customized
- *****************************************************************************
  * Copyright (C) 2009 the VideoLAN team
- * $Id: $
  *
  * Authors: Felix Paul Kühne <fkuehne at videolan dot org>
+ *          Pierre d'Herbemont
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -89,7 +87,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-    // We have some document open alread, don't bother to show the splashScreen.
+    // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)
         return;
 
@@ -98,10 +96,11 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     if ([defaults boolForKey:dontShowSplashScreenKey])
         return;
 
-    // FIXME: We may want to release it at some point
+    // auto-releases itself when the window is closed
     _splashScreen = [[VLCSplashScreenWindowController alloc] init];
     [[_splashScreen window] makeKeyAndOrderFront:self];
     [self rebuildStyleMenu];
+    [_splashScreen setShouldCloseDocument:NO];
 }
 
 @end
