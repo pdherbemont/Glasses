@@ -40,9 +40,11 @@
 
 - (void)close
 {
+#if SUPPORT_VIDEO_BELOW_CONTENT
     [_videoWindow close];
     [_videoWindow release];
     _videoWindow = nil;
+#endif
     [self removeTrackingArea:_contentTracking];
     [_contentTracking release];
     _contentTracking = nil;
@@ -72,6 +74,11 @@
     [self updateTrackingAreas];
     
     [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
+}
+
+- (void)windowDidChangeAlphaValue:(CGFloat)alpha
+{
+    [_videoWindow setAlphaValue:alpha];
 }
 
 #pragma mark -
@@ -113,8 +120,6 @@
     [[self mediaPlayer] pause];
 }
 
-#define SUPPORT_VIDEO_BELOW_CONTENT 0
-
 #if SUPPORT_VIDEO_BELOW_CONTENT
 static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 {
@@ -144,21 +149,22 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     BOOL belowContent = [element.className rangeOfString:@"below-content"].length > 0;
     NSWindow *window = [self window];
     if (![videoView window]) {
-        
+        NSAssert (!_videoWindow, @"There shouldn't be a video window at this point");
+
         // Create the window now.
         _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         [_videoWindow setBackgroundColor:[NSColor blackColor]];
         [_videoWindow setLevel:VLCFullscreenHUDWindowLevel];
         [_videoWindow setContentView:videoView];
         [_videoWindow setIgnoresMouseEvents:YES];
+        [_videoWindow setHasShadow:NO];
         [window addChildWindow:_videoWindow ordered:belowContent ? NSWindowBelow : NSWindowAbove];
     }
     else {
-        //[[self window] removeChildWindow:_videoWindow];
         BOOL videoWindowIsOnTop = [_videoWindow windowNumber] < [window windowNumber];
         if (videoWindowIsOnTop ^ belowContent)
             [window addChildWindow:_videoWindow ordered:belowContent ? NSWindowBelow : NSWindowAbove];
-        [_videoWindow setFrame:screenRect display:NO];
+        [_videoWindow setFrame:screenRect display:YES];
     }
 
 #else

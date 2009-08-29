@@ -48,11 +48,11 @@ body {
 
 #video .view {
     position: absolute;
-    background: black;
+    background: transparent;
     bottom: 127px;
     right: 61px;
-    left: 59px;
-    top: 70px;
+    left: 57px;
+    top: 68px;
 }
 
 /*

@@ -26,4 +26,13 @@
     NSWindowController *_windowController;
 }
 + (BOOL)debugStyledWindow;
+
 @end
+
+#ifdef SUPPORT_VIDEO_BELOW_CONTENT
+// In SL this is not the proper way to do it,
+// we have to switch to @protocol VLCStyledVideoWindow <NSWindowDelegate>
+@interface NSObject (VLCStyledVideoWindowDelegate)
+- (void)window:(NSWindow *)window didChangeAlphaValue:(CGFloat)alpha;
+@end
+#endif

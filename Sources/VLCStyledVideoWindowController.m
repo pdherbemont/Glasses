@@ -121,6 +121,11 @@
     [_styledWindowView setMainWindow:YES];
 }
 
+- (void)window:(NSWindow *)window didChangeAlphaValue:(CGFloat)alpha
+{
+    [_styledWindowView windowDidChangeAlphaValue:alpha];
+}
+
 #pragma mark -
 #pragma mark First responder handler (Respond to menu)
 

@@ -58,10 +58,15 @@
     NSTrackingArea *_contentTracking;
     BOOL _wasPlayingBeforeChangingPosition;
     BOOL _isUserChangingPosition;
+#ifdef SUPPORT_VIDEO_BELOW_CONTENT
     NSWindow *_videoWindow;
+#endif
 }
 
 - (void)setKeyWindow:(BOOL)isKeyWindow;
 - (void)setMainWindow:(BOOL)isMainWindow;
 
+#ifdef SUPPORT_VIDEO_BELOW_CONTENT
+- (void)windowDidChangeAlphaValue:(CGFloat)alpha;
+#endif
 @end

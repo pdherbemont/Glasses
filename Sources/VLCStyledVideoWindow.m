@@ -96,6 +96,15 @@ static inline BOOL debugStyledWindow(void)
     return [super validateUserInterfaceItem:anItem];
 }
 
+#ifdef SUPPORT_VIDEO_BELOW_CONTENT
+- (void)setAlphaValue:(CGFloat)alpha
+{
+    [super setAlphaValue:alpha];
+    if ([_delegate respondsToSelector:@selector(window:didChangeAlphaValue:)])
+        [_delegate window:self didChangeAlphaValue:alpha];
+}
+#endif
+
 #pragma mark -
 #pragma mark Javascript bindings
 /* Javascript bindings: We are not necessarily respecting Cocoa naming scheme convention. That's an exception */

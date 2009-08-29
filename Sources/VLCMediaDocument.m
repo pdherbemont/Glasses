@@ -22,7 +22,6 @@
 #import "VLCMediaDocument.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCVideoWindowController.h"
-#import "VLCFeatures.h"
 
 @interface VLCMediaDocument ()
 @property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;

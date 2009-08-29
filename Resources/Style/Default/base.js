@@ -218,7 +218,6 @@ windowController.mouseUpForWindowResize = function(event) {
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
 
     windowController.PlatformWindow().didEndLiveResize();
-    windowController.windowResized();
 }
 
 windowController.mouseDraggedForWindowResize = function(event) {
@@ -229,6 +228,7 @@ windowController.mouseDraggedForWindowResize = function(event) {
 
     var platformWindow = windowController.PlatformWindow();
 	platformWindow.setFrame____(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
+    windowController.windowResized();
 }
 
 // HUD autohidding
