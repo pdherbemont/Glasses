@@ -28,8 +28,6 @@
     IBOutlet NSButton *_checkForUpdatesCheckBox;
 }
 
-+ (VLCPreferencesWindowController *)sharedInstance;
-
 - (IBAction)buttonAction:(id)sender;
 - (IBAction)showPreferences:(id)sender;
 

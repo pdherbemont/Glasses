@@ -25,8 +25,6 @@
     IBOutlet id _gpl_field;
 }
 
-+ (VLCGPLWindowController *)sharedInstance;
-
 @end;
 
 @interface VLCAboutWindowController : NSWindowController {
@@ -46,7 +44,6 @@
     VLCGPLWindowController *_gplWindowController;
 }
 
-+ (VLCAboutWindowController *)sharedInstance;
 - (IBAction)showGPL:(id)sender;
 
 @end

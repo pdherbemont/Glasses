@@ -27,14 +27,16 @@
 
 
 @implementation VLCExceptionHandler
+static VLCExceptionHandler *expectionHandlerDelegate = nil;
 + (void)load
 {
-    [[NSExceptionHandler defaultExceptionHandler] setDelegate:[[VLCExceptionHandler alloc] init]];
+    expectionHandlerDelegate = [[VLCExceptionHandler alloc] init];
+    NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
+    [handler setDelegate:expectionHandlerDelegate];
  
-    [[NSExceptionHandler defaultExceptionHandler] setExceptionHandlingMask:
-                0xffff /* Catch all */ ];
+    [handler setExceptionHandlingMask: 0xffff /* Catch all */ ];
 
-    [[NSExceptionHandler defaultExceptionHandler] setExceptionHangingMask:
+    [handler setExceptionHangingMask:
                 NSHangOnUncaughtExceptionMask|
                 NSHangOnUncaughtSystemExceptionMask|
                 NSHangOnUncaughtRuntimeErrorMask|

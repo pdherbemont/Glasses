@@ -26,22 +26,6 @@
 
 static VLCGPLWindowController *_sharedGPLInstance = nil;
 
-+ (VLCGPLWindowController *)sharedInstance
-{
-    return _sharedGPLInstance ? _sharedGPLInstance : [[self alloc] init];
-}
-
-- (id)init
-{
-    if (_sharedGPLInstance) {
-        [self dealloc];
-    } else {
-        _sharedGPLInstance = [super init];
-    }
-    
-    return _sharedGPLInstance;
-}
-
 - (NSString *)windowNibName
 {
     return @"AboutWindow";
@@ -57,24 +41,6 @@ static VLCGPLWindowController *_sharedGPLInstance = nil;
 @end
 
 @implementation VLCAboutWindowController
-
-static VLCAboutWindowController *_sharedAboutInstance = nil;
-
-+ (VLCAboutWindowController *)sharedInstance
-{
-    return _sharedAboutInstance ? _sharedAboutInstance : [[self alloc] init];
-}
-
-- (id)init
-{
-    if (_sharedAboutInstance) {
-        [self dealloc];
-    } else {
-        _sharedAboutInstance = [super init];
-    }
-    
-    return _sharedAboutInstance;
-}
 
 - (NSString *)windowNibName
 {

@@ -26,22 +26,6 @@
 
 @implementation VLCOpenURLWindowController
 
-static VLCOpenURLWindowController *sharedOpenInstance = nil;
-
-+ (VLCOpenURLWindowController *)sharedInstance
-{
-    return sharedOpenInstance ? sharedOpenInstance : [[self alloc] init];
-}
-
-- (id)init
-{
-    if (sharedOpenInstance)
-        [self dealloc];
-    else
-        sharedOpenInstance = [super init];
-    return sharedOpenInstance;
-}
-
 - (NSString *)windowNibName
 {
     return @"OpenURLWindow";

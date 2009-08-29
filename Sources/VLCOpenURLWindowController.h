@@ -28,7 +28,6 @@
     IBOutlet NSButton * _netCancelButton;
     IBOutlet NSButton * _netOkButton;
 }
-+ (VLCOpenURLWindowController *)sharedInstance;
 
 - (IBAction)openNetworkStream:(id)sender;
 - (IBAction)networkPanelAction:(id)sender;

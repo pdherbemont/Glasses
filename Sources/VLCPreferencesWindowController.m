@@ -26,22 +26,6 @@
 
 @implementation VLCPreferencesWindowController
 
-static VLCPreferencesWindowController *sharedPreferencesInstance = nil;
-
-+ (VLCPreferencesWindowController *)sharedInstance
-{
-    return sharedPreferencesInstance ? sharedPreferencesInstance : [[self alloc] init];
-}
-
-- (id)init
-{
-    if (sharedPreferencesInstance)
-        [self dealloc];
-    else
-        sharedPreferencesInstance = [super init];
-    return sharedPreferencesInstance;
-}
-
 - (NSString *)windowNibName
 {
     return @"PreferencesWindow";
