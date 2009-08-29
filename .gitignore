@@ -1,4 +1,5 @@
 .DS_Store
-*.mode2v3
+*.mode*v*
+*.perspective*
 *.pbxuser
 build
