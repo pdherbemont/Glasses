@@ -127,6 +127,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 - (void)fullscreenDidStart
 {
     [_hud fullscreenController:self didEnterFullscreen:[_fullscreenWindow screen]];
+    [NSCursor setHiddenUntilMouseMoves:YES];
 }
 
 - (void)enterFullscreen:(NSScreen *)screen
@@ -140,8 +141,6 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
         screen = [[_view window] screen];
     if (!screen)
         screen = [NSScreen deepestScreen];
-
-    [NSCursor setHiddenUntilMouseMoves:YES];
 
     // Only create the _fullscreenWindow if we are not in the middle of the zooming animation.
     if (!_fullscreenWindow) {

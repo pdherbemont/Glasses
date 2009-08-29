@@ -39,6 +39,10 @@
 - (void)didFinishLoadForFrame:(WebFrame *)frame
 {
     [super didFinishLoadForFrame:frame];
+
+    // Make sure the cursor is hidden, at this point the js is
+    // ready to handle the cursor visibility.
+    [NSCursor setHiddenUntilMouseMoves:YES];
 }
 
 - (void)cancelOperation:(id)sender
