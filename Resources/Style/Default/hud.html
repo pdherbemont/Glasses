@@ -4,6 +4,8 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script type="text/ecmascript" defer="defer" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
+	<script type="text/ecmascript" defer="defer" encoding="utf-8" src="dom-drag.js"></script>
+	<script type="text/ecmascript" defer="defer" encoding="utf-8" src="hud.js"></script>
     <style>
     * {
         cursor: default;
@@ -17,6 +19,7 @@
         right: 0;
         position: absolute;
         margin: 0;
+        overflow : hidden;
     }
 
     /* Make sure all (non visible) images are loaded to avoid flickering. */
@@ -39,7 +42,7 @@
         border: 2px solid white;
         
         top: auto; bottom: 100px; left: 0; right: 0;
-        margin: auto;
+        
         height: 70px;
         width: 400px;
 
@@ -166,8 +169,8 @@
     </style>
 	<title>HUD</title>
 </head>
-<body onload="windowController.init()">
-<div id="content" class="autohide-when-mouse-leaves hidden"> <!-- Be hidden by default -->
+<body onload="windowController.init(); HUDController.init();">
+<div id="content" class="autohide-when-mouse-leaves hidden draggable"> <!-- Be hidden by default -->
     <div class="controls">
         <div id="title" class="title">Movie tile</div>
         <div class="timeinfo">

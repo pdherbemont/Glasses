@@ -7,11 +7,12 @@ var exposed_className = {
     enterFullscreen: "enter-fullscreen",
     leaveFullscreen: "leave-fullscreen",
     timeline: "timeline",
+    draggable: "draggable",
     dragPlatformWindow: "drag-platform-window",
     dontDragPlatformWindow: "dont-drag-platform-window",
     resizePlatformWindow: "resize-platform-window",
     autohideWhenMouseLeaves: "autohide-when-mouse-leaves",
-
+    
     /* These are the 'callback' className */
     hidden: "hidden", /* On autohide-when-mouse-leaves elements */
 };
@@ -49,7 +50,12 @@ windowController.init = function() {
         document.body.addEventListener('mousemove', this.revealAutoHiddenElements, false);
         bindByClassNameActionToMethod(exposed_className.autohideWhenMouseLeaves, 'mouseover', this.interruptAutoHide);        
     }
-
+	
+    // Make "draggable" elements draggable.
+    var draggableElements = document.getElementsByClassName(exposed_className.draggable);
+    for (i = 0; i < draggableElements.length; i++)
+        Drag.init(draggableElements[i]);        
+	
     // Bind the timeline.
     bindByClassNameActionToMethod(exposed_className.timeline, 'change', this.timelineValueChanged);
     
@@ -64,7 +70,7 @@ windowController.init = function() {
 // Private method below
 
 // Utility
-function bindButtonByClassNameToMethod(className, method) {
+function bindButtonByClassNameToMethod(className, method) {			
     bindByClassNameActionToMethod(className, 'click', method);
 }
 

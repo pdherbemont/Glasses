@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3222CB9B10498BD300D4708C /* hud.js in Sources */ = {isa = PBXBuildFile; fileRef = 3222CB9A10498BD300D4708C /* hud.js */; };
+		3222CB9C10498BE300D4708C /* hud.js in Resources */ = {isa = PBXBuildFile; fileRef = 3222CB9A10498BD300D4708C /* hud.js */; };
+		329965CE10496F2800EF342B /* dom-drag.js in Resources */ = {isa = PBXBuildFile; fileRef = 329965CD10496F1100EF342B /* dom-drag.js */; };
 		6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
 		630143AB1040726600534090 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 630143AA1040726600534090 /* WebKit.framework */; };
 		6301464C104098C500534090 /* VLCVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464B104098C500534090 /* VLCVideoWindowController.m */; };
@@ -210,6 +213,8 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3222CB9A10498BD300D4708C /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = hud.js; sourceTree = "<group>"; };
+		329965CD10496F1100EF342B /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "dom-drag.js"; sourceTree = "<group>"; };
 		630141D5104062B300534090 /* Common Settings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Common Settings.xcconfig"; sourceTree = "<group>"; };
 		630143AA1040726600534090 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6301464B104098C500534090 /* VLCVideoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindowController.m; path = Sources/VLCVideoWindowController.m; sourceTree = "<group>"; };
@@ -525,6 +530,8 @@
 		630143B11040727F00534090 /* Default */ = {
 			isa = PBXGroup;
 			children = (
+				329965CD10496F1100EF342B /* dom-drag.js */,
+				3222CB9A10498BD300D4708C /* hud.js */,
 				639F687D1046EA5E00117832 /* black.css */,
 				639F687E1046EA5E00117832 /* default.css */,
 				639F68871046EA5E00117832 /* hud.html */,
@@ -930,6 +937,8 @@
 			files = (
 				639F68981046EA5E00117832 /* black.css in Resources */,
 				639F68991046EA5E00117832 /* default.css in Resources */,
+				329965CE10496F2800EF342B /* dom-drag.js in Resources */,
+				3222CB9C10498BE300D4708C /* hud.js in Resources */,
 				639F689A1046EA5E00117832 /* fs_exit_fullscreen_highlight.png in Resources */,
 				639F689B1046EA5E00117832 /* fs_exit_fullscreen.png in Resources */,
 				639F689C1046EA5E00117832 /* fs_pause_highlight.png in Resources */,
@@ -1079,6 +1088,7 @@
 				63B1E10A10440EB00029C49C /* VLCStyledView.m in Sources */,
 				639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */,
 				CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */,
+				3222CB9B10498BD300D4708C /* hud.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
