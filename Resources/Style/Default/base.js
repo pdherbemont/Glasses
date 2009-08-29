@@ -45,15 +45,9 @@ windowController.init = function() {
     // Deal with HUD hidding.
     var buttons = document.getElementsByClassName(exposed_className.autohideWhenMouseLeaves);
     if (buttons.length > 0) {
-        document.body.onmousemove = this.revealAutoHiddenElements;
-        bindByClassNameActionToMethod(document.body, 'mousemove', this.revealAutoHiddenElements);
+        document.body.addEventListener('mousemove', this.revealAutoHiddenElements, false);
         bindByClassNameActionToMethod(exposed_className.autohideWhenMouseLeaves, 'mouseover', this.interruptAutoHide);        
     }
-
-    // Deal with drag and drop
-    var buttons = document.getElementsByClassName("draggable");
-    for(var i = 0; i < buttons.length; i++)
-        Drag.init(buttons.item(i));
 
     // Bind the timeline.
     bindByClassNameActionToMethod(exposed_className.timeline, 'change', this.timelineValueChanged);
