@@ -20,8 +20,8 @@
 
 #import "VLCFullscreenController.h"
 
-const NSInteger VLCFullscreenWindowLevel = 0; // NSFloatingWindowLevel
-const NSInteger VLCFullscreenHUDWindowLevel = 0;  // NSFloatingWindowLevel + 1
+const NSInteger VLCFullscreenWindowLevel = NSFloatingWindowLevel
+const NSInteger VLCFullscreenHUDWindowLevel = NSFloatingWindowLevel + 1
 
 #import <Carbon/Carbon.h> // For SetSystemUIMode
 
