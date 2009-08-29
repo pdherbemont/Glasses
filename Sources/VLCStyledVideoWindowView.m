@@ -131,11 +131,41 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 }
 #endif
 
+- (void)_addBelowWindowInRect:(NSRect)screenRect withVideoView:(VLCVideoView *)videoView
+{
+    NSAssert(!_videoWindow, @"There shouldn't be a video window at this point");
+    // Create the window now.
+    _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+    [_videoWindow setBackgroundColor:[NSColor blackColor]];
+    [_videoWindow setLevel:VLCFullscreenHUDWindowLevel];
+    [_videoWindow setContentView:videoView];
+    [_videoWindow setIgnoresMouseEvents:YES];
+    [_videoWindow setReleasedWhenClosed:NO];
+    [_videoWindow setAcceptsMouseMovedEvents:NO];
+    [_videoWindow setHasShadow:NO];
+    NSWindow *window = [self window];
+    [_videoWindow setAlphaValue:[window alphaValue]];
+    [window addChildWindow:_videoWindow ordered:NSWindowBelow];    
+}
+
+- (void)_removeBelowWindow
+{
+    NSAssert(_videoWindow, @"There should be a video window at this point");
+    [[self window] removeChildWindow:_videoWindow];
+    [_videoWindow close];
+    [_videoWindow release];
+    _videoWindow = nil;
+}
+
 - (void)videoDidResize
 {
     // This synchronize the VLCVideoView on top of the element whose id is "video-view"
-    // We actually put the VLCVideoView in a Window that will be a child window,
+    // When the style wants the video-view to be below the rest of the page, we
+    // put the VLCVideoView in a Window that will be a child window.
     // Hence the HTML content will be able to overlay the window.
+    //
+    // When there is no such instruction, it will just be a regular NSView in the
+    // parent window.
 
     DOMHTMLElement *element = [self htmlElementForId:@"video-view"];
     NSAssert(element, @"No video-view element in this style");
@@ -143,30 +173,43 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     NSAssert(videoView, @"There is no videoView.");
 
     NSRect frame = [element frameInView:self];
+
 #if SUPPORT_VIDEO_BELOW_CONTENT
-    NSRect screenRect = screenRectForViewRect(self, frame);
-
     BOOL belowContent = [element.className rangeOfString:@"below-content"].length > 0;
-    NSWindow *window = [self window];
     if (![videoView window]) {
-        NSAssert (!_videoWindow, @"There shouldn't be a video window at this point");
-
-        // Create the window now.
-        _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
-        [_videoWindow setBackgroundColor:[NSColor blackColor]];
-        [_videoWindow setLevel:VLCFullscreenHUDWindowLevel];
-        [_videoWindow setContentView:videoView];
-        [_videoWindow setIgnoresMouseEvents:YES];
-        [_videoWindow setHasShadow:NO];
-        [window addChildWindow:_videoWindow ordered:belowContent ? NSWindowBelow : NSWindowAbove];
+        
+        if (belowContent)
+            [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withVideoView:videoView];
+        else {
+            [self addSubview:videoView];
+            [videoView setFrame:frame];
+        }
+        
     }
     else {
-        BOOL videoWindowIsOnTop = [_videoWindow windowNumber] < [window windowNumber];
-        if (videoWindowIsOnTop ^ belowContent)
-            [window addChildWindow:_videoWindow ordered:belowContent ? NSWindowBelow : NSWindowAbove];
-        [_videoWindow setFrame:screenRect display:YES];
+        BOOL videoIsOnTop = !_videoWindow;
+        if (videoIsOnTop && !belowContent) {
+            [videoView setFrame:frame];
+            return;
+        }
+        if (!videoIsOnTop && belowContent) {
+            [_videoWindow setFrame:screenRectForViewRect(self, frame) display:YES];
+            return;
+        }
+        if (videoIsOnTop && belowContent) {
+            [videoView removeFromSuperviewWithoutNeedingDisplay];
+            [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withVideoView:videoView];
+            return;
+        }
+        if (!videoIsOnTop && !belowContent) {
+            [videoView removeFromSuperviewWithoutNeedingDisplay];
+            [self addSubview:videoView];
+            [videoView setFrame:frame];
+            [self _removeBelowWindow];
+            return;
+        }
+        VLCAssertNotReached(@"Previous conditions should not lead here");
     }
-
 #else
     if (![videoView superview])
         [self addSubview:videoView];
