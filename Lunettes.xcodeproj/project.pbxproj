@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3222CB9B10498BD300D4708C /* hud.js in Sources */ = {isa = PBXBuildFile; fileRef = 3222CB9A10498BD300D4708C /* hud.js */; };
 		3222CB9C10498BE300D4708C /* hud.js in Resources */ = {isa = PBXBuildFile; fileRef = 3222CB9A10498BD300D4708C /* hud.js */; };
 		329965CE10496F2800EF342B /* dom-drag.js in Resources */ = {isa = PBXBuildFile; fileRef = 329965CD10496F1100EF342B /* dom-drag.js */; };
 		6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
@@ -1088,7 +1087,6 @@
 				63B1E10A10440EB00029C49C /* VLCStyledView.m in Sources */,
 				639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */,
 				CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */,
-				3222CB9B10498BD300D4708C /* hud.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
