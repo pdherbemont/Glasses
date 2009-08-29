@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="2"/>
 			<integer value="45"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -47,7 +48,7 @@
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{231.868, 107}</string>
 				<object class="NSView" key="NSWindowView" id="758025822">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -203,6 +204,7 @@
 									</object>
 									<string key="NSFrameSize">{427, 136}</string>
 									<reference key="NSSuperview" ref="796263961"/>
+									<reference key="NSNextKeyView" ref="272814571"/>
 									<reference key="NSDocView" ref="272814571"/>
 									<reference key="NSBGColor" ref="1011810121"/>
 									<object class="NSCursor" key="NSCursor" id="1008372122">
@@ -234,6 +236,7 @@
 							</object>
 							<string key="NSFrame">{{160, 138}, {427, 136}}</string>
 							<reference key="NSSuperview" ref="758025822"/>
+							<reference key="NSNextKeyView" ref="780333360"/>
 							<int key="NSsFlags">0</int>
 							<reference key="NSVScroller" ref="947371407"/>
 							<reference key="NSHScroller" ref="862470201"/>
@@ -425,6 +428,7 @@
 									</object>
 									<string key="NSFrameSize">{397, 117}</string>
 									<reference key="NSSuperview" ref="866201633"/>
+									<reference key="NSNextKeyView" ref="263259614"/>
 									<reference key="NSDocView" ref="263259614"/>
 									<object class="NSColor" key="NSBGColor">
 										<int key="NSColorSpace">3</int>
@@ -456,6 +460,7 @@
 							</object>
 							<string key="NSFrame">{{175, 260}, {397, 117}}</string>
 							<reference key="NSSuperview" ref="758025822"/>
+							<reference key="NSNextKeyView" ref="1017588234"/>
 							<int key="NSsFlags">0</int>
 							<reference key="NSVScroller" ref="809028762"/>
 							<reference key="NSHScroller" ref="898293442"/>
@@ -513,6 +518,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{612, 397}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{231.868, 129}</string>
@@ -613,6 +619,7 @@
 									</object>
 									<string key="NSFrame">{{1, 1}, {478, 358}}</string>
 									<reference key="NSSuperview" ref="612180986"/>
+									<reference key="NSNextKeyView" ref="1018476120"/>
 									<reference key="NSDocView" ref="1018476120"/>
 									<reference key="NSBGColor" ref="647091445"/>
 									<object class="NSCursor" key="NSCursor">
@@ -644,6 +651,7 @@
 							</object>
 							<string key="NSFrameSize">{480, 360}</string>
 							<reference key="NSSuperview" ref="161518284"/>
+							<reference key="NSNextKeyView" ref="572003373"/>
 							<int key="NSsFlags">530</int>
 							<reference key="NSVScroller" ref="866309444"/>
 							<reference key="NSHScroller" ref="670709744"/>
@@ -665,14 +673,6 @@
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">_name_version_field</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="130635361"/>
-					</object>
-					<int key="connectionID">52</int>
-				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">_copyright_field</string>
@@ -728,6 +728,14 @@
 						<reference key="destination" ref="1018476120"/>
 					</object>
 					<int key="connectionID">60</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_version_field</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="130635361"/>
+					</object>
+					<int key="connectionID">61</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1083,11 +1091,18 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">60</int>
+			<int key="maxID">61</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Sources/VLCStyledVideoWindow.h</string>
+					</object>
+				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCAboutWindowController</string>
 					<string key="superclassName">NSWindowController</string>
@@ -1102,7 +1117,7 @@
 							<string>_copyright_field</string>
 							<string>_credits_scrollview</string>
 							<string>_credits_textview</string>
-							<string>_name_version_field</string>
+							<string>_version_field</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
