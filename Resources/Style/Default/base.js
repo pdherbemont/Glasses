@@ -32,7 +32,7 @@ var windowController = new Object();
 // Called when page is loaded
 windowController.init = function() {
 	// Bind key-equivalent
-	document.body.addEventListener('keydown', this.keydown, false);
+	document.body.addEventListener('keydown', this.keyDown, false);
 	
     // Bind the buttons.
     bindButtonByClassNameToMethod(exposed_className.close, this.close);
@@ -258,10 +258,11 @@ windowController.interruptAutoHide = function(event) {
     timer = null;
 }
 
+// Key events
 
-windowController.keydown = function(event) {
-	var key = event.charCode;
-	// Space" key
-	if (key == 0x20) 
-		windowController.togglePlaying();
+windowController.keyDown = function(event) {
+    var key = event.charCode;
+    // Space" key
+    if (key == 0x20) 
+        windowController.togglePlaying();
 }
