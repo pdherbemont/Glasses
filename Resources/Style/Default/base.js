@@ -8,6 +8,7 @@ var exposed_className = {
     leaveFullscreen: "leave-fullscreen",
     timeline: "timeline",
     dragPlatformWindow: "drag-platform-window",
+    dontDragPlatformWindow: "dont-drag-platform-window",
     resizePlatformWindow: "resize-platform-window",
     autohideWhenMouseLeaves: "autohide-when-mouse-leaves",
 
@@ -83,6 +84,15 @@ windowController.PlatformWindow = function() {
 
 function elementHasClassName(element, className) {
     return element.className.indexOf(className) != -1;
+}
+
+function elementOrParentHasClassName(element, className) {
+    if (elementHasClassName(element, className))
+        return true;
+    var parent = element.parent;
+    if (!parent)
+        return false;
+    return elementOrParentHasClassName(parent, className);
 }
 
 windowController.contentHasClassName = function(className) {
@@ -180,8 +190,11 @@ windowController.timelineValueChanged = function() {
 windowController.mouseDownForWindowDrag = function(event) {
 	// It is reasonnable to only allow click in div, to mouve the window
 	// This could probaby be refined
-	if (event.srcElement.nodeName != "DIV" || elementHasClassName(event.srcElement, exposed_className.resizePlatformWindow))
-		return;
+	if (event.srcElement.nodeName != "DIV"
+     || elementHasClassName(event.srcElement, exposed_className.resizePlatformWindow)
+     || elementOrParentHasClassName(event.srcElement, exposed_className.dontDragPlatformWindow)) {
+        return;
+    }
     windowController.saveMouseDownInfo(event);
 	document.addEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
 	document.addEventListener('mousemove', windowController.mouseDraggedForWindowDrag, false);
