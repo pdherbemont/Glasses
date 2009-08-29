@@ -1,10 +1,23 @@
-//
-//  VLCAboutWindowController.m
-//  Lunettes
-//
-//  Created by Felix Paul Kühne on 28.08.09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
-//
+/*****************************************************************************
+* Copyright (C) 2009 the VideoLAN team
+* $Id: $
+*
+* Authors: Felix Paul Kühne <fkuehne at videolan dot org>
+*
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+*****************************************************************************/
 
 #import "VLCAboutWindowController.h"
 
@@ -71,21 +84,21 @@ static VLCAboutWindowController *_sharedAboutInstance = nil;
 - (void)awakeFromNib
 {
     [[self window] setDelegate: self];
-    _gpl_win_controller = [[VLCGPLWindowController alloc] init];
+    _gplWindowController = [[VLCGPLWindowController alloc] init];
 
     /* Get the localized info dictionary (InfoPlist.strings) */
-    NSDictionary *_local_dict;
-    _local_dict = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary *_localDict;
+    _localDict = [[NSBundle mainBundle] infoDictionary];
 
     /* Setup the copyright field */
-    [_copyright_field setStringValue:[NSString stringWithFormat:@"%@", [_local_dict objectForKey:@"NSHumanReadableCopyright"]]];
+    [_copyright_field setStringValue:[NSString stringWithFormat:@"%@", [_localDict objectForKey:@"NSHumanReadableCopyright"]]];
 
     /* Setup the nameversion field */
-    [_name_version_field setStringValue:[NSString stringWithFormat:@"Version %@", [_local_dict objectForKey:@"CFBundleVersion"]]];
+    [_version_field setStringValue:[NSString stringWithFormat:@"Version %@", [_localDict objectForKey:@"CFBundleVersion"]]];
 
     /* setup the authors and thanks field */
     [_credits_textview setString: [NSString stringWithFormat: @"%@\n%@\n\n%@", 
-                                   [NSString stringWithUTF8String:psz_generic_about], 
+                                   [NSString stringWithUTF8String:psz_genericAbout], 
                                    [NSString stringWithUTF8String:psz_authors], 
                                    [NSString stringWithUTF8String:psz_thanks]]];
 
@@ -99,15 +112,15 @@ static VLCAboutWindowController *_sharedAboutInstance = nil;
 
 - (void)dealloc
 {
-    [_gpl_win_controller release];
-    [_scroll_timer invalidate];
+    [_gplWindowController release];
+    [_scrollTimer invalidate];
 
     [super dealloc];
 }
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-    _scroll_timer = [NSTimer scheduledTimerWithTimeInterval: 1/6
+    _scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 1/6
                                                       target:self
                                                     selector:@selector(scrollCredits:)
                                                     userInfo:nil
@@ -116,7 +129,7 @@ static VLCAboutWindowController *_sharedAboutInstance = nil;
 
 - (void)windowDidResignKey:(NSNotification *)notification
 {
-    [_scroll_timer invalidate];
+    [_scrollTimer invalidate];
 }
 
 - (IBAction)showWindow:(id)sender
@@ -124,12 +137,12 @@ static VLCAboutWindowController *_sharedAboutInstance = nil;
     /* Show the window */
     b_restart = YES;
     [_credits_textview scrollPoint:NSMakePoint(0,0)];
-    [[self window] makeKeyAndOrderFront: nil];
+    [[self window] makeKeyAndOrderFront: sender];
 }
 
 - (IBAction)showGPL:(id)sender
 {
-    [_gpl_win_controller showWindow: sender];
+    [_gplWindowController showWindow: sender];
 }
 
 - (void)scrollCredits:(NSTimer *)timer

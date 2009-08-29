@@ -31,19 +31,19 @@
 
 @interface VLCAboutWindowController : NSWindowController {
     /* main about panel */
-    IBOutlet id _name_version_field;
+    IBOutlet id _version_field;
     IBOutlet id _copyright_field;
     IBOutlet id _credits_textview;
     IBOutlet id _credits_scrollview;
 
-    NSTimer *_scroll_timer;
+    NSTimer *_scrollTimer;
     float f_current;
     float f_end;
     NSTimeInterval i_start;
     BOOL b_restart;
     BOOL b_isSetUp;
 
-    VLCGPLWindowController *_gpl_win_controller;
+    VLCGPLWindowController *_gplWindowController;
 }
 
 + (VLCAboutWindowController *)sharedInstance;
@@ -51,7 +51,7 @@
 
 @end
 
-static const char psz_generic_about[] =
+static const char psz_genericAbout[] =
 "Lunettes is written by:\n"
 "Pierre d'Herbemont, Felix Paul Kühne\n"
 "\n"
