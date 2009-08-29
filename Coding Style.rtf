@@ -9,15 +9,70 @@
 \fs24 \cf0 \
 
 \fs28 Cocoa coding style for the naming.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
 
-\fs24 \
+\f1\fs20 \cf0 variableNaming
+\f0\fs28  variable should use capitalization on all word expect the first and never '_' ie\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 BOOL isFirstTimeReading;\
+int age;\
+
+\f0\fs24 \
+
+\b \cf3 WRONG\
+
+\f1\b0\fs18 \cf0 BOOL is_first_time_reading;\
+int Age;\
+int isFirstTimeReading_ever;\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
+
+\f0\fs28 \cf0 Objective-C Instance variable must be prefixed with _\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 @interface Object \{\
+	  BOOL _isFirstTimeReading;\
+	  int _age;\
+\}\
+
+\f0\fs24 \
+
+\b \cf3 WRONG\
+
+\f1\b0\fs18 \cf0 @interface Object \{\
+	  BOOL isFirstTimeReading;\
+	  int age;\
+\}
+\f0\fs28 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\fs24 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
 
 \f1\fs20 \cf0 Pointer *
 \f0\fs28  must be preceded with a space and with no space after ie\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
+
+\b\fs24 \cf2 RIGHT\
+
+\f1\b0\fs18 \cf0 void *pointer;\
+
+\f0\fs24 \
+
+\b \cf3 WRONG\
+
+\f1\b0\fs18 \cf0 void * pointer;\
+void* pointer;\
+void*pointer;\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
 
-\fs24 \cf0 \
+\f0\fs24 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
 
 \f1\fs20 \cf0 if
@@ -28,20 +83,22 @@
 
 \b\fs24 \cf2 RIGHT\
 
-\b0 \cf0 if (a) \{\
+\f1\b0\fs18 \cf0 if (a) \{\
   ...\
 \}\
 function();\
-\
+
+\f0\fs24 \
 
 \b \cf3 WRONG\
 
-\b0 \cf0 if( a )\
+\f1\b0\fs18 \cf0 if( a )\
 if ( a )\
 if(a)\
 function ();\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
-\cf0 \
+
+\f0\fs24 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
 
 \f1\fs18 \cf0 \{\}
@@ -50,7 +107,7 @@ function ();\
 
 \b\fs24 \cf2 RIGHT\
 
-\b0 \cf0 if (a) \{\
+\f1\b0\fs18 \cf0 if (a) \{\
    ...\
 \}\
 while (a) \{\
@@ -65,9 +122,10 @@ void function()\
    ...\
 \}\
 
-\b \cf3 WRONG
+\f0\b\fs24 \cf3 WRONG
 \b0 \cf0 \
-- (void)function \{\
+
+\f1\fs18 - (void)function \{\
    ...\
 \}\
 if (a)\
@@ -75,7 +133,8 @@ if (a)\
    ...\
 \}\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
-\cf0 \
+
+\f0\fs24 \cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
 
 \fs28 \cf0 Prefer early 
@@ -85,17 +144,19 @@ if (a)\
 
 \b\fs24 \cf2 PREFER\
 
-\b0 \cf0 if (!a)\
+\f1\b0\fs18 \cf0 if (!a)\
     return;\
-\
+
+\f0\fs24 \
 
 \b \cf3 OVER\
 
-\b0 \cf0 if (a) \{\
+\f1\b0\fs18 \cf0 if (a) \{\
   ...\
   ...\
 \}\
-\
+
+\f0\fs24 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
 
 \fs28 \cf0 Objective C code - Don't call multiply the same method\
@@ -103,18 +164,19 @@ if (a)\
 
 \b\fs24 \cf2 RIGHT\
 
-\b0 \cf0 NSWindow *window = [self window];\
+\f1\b0\fs18 \cf0 NSWindow *window = [self window];\
 NSRect frame = [window frame];\
 frame.origin.x = 0;\
 [window setFrame:frame display:NO];\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\fi540\ql\qnatural\pardirnatural
 
-\b \cf3 WRONG\
+\f0\b\fs24 \cf3 WRONG\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\li540\ql\qnatural\pardirnatural
 
-\b0 \cf0 NSRect frame = [[self window] frame];\
+\f1\b0\fs18 \cf0 NSRect frame = [[self window] frame];\
 frame.origin.x = 0;\
 [[self window] setFrame:frame display:NO];\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl480\slmult1\ql\qnatural\pardirnatural
-\cf0 \
+
+\f0\fs24 \cf0 \
 }
