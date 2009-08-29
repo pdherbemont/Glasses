@@ -49,7 +49,7 @@
     [self setUIDelegate:self];
     [self setResourceLoadDelegate:self];
     NSURL *url = [self url];
-    NSString *rawContent = [NSString stringWithContentsOfURL:url];
+    NSString *rawContent = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
     NSURL *lunettesstyleRoot = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Lunettes Style Root" ofType:nil]];
     NSString *content = [rawContent stringByReplacingOccurrencesOfString:@"%lunettes_style_root%" withString:[lunettesstyleRoot absoluteString]];
     [[self mainFrame] loadHTMLString:content baseURL:url];
