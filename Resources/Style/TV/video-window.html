@@ -7,6 +7,17 @@
 	<link id="style" rel="stylesheet" type="text/css" href="default.css" />
 
 	<title>Video Window</title>
+    <script>
+    function placeWindow() {
+        var newSize = { width: 870, height: 640 };
+        // Because we are not able to fit any rect in this style, place ourselves at the right place.
+        var originalFrame = windowController.windowFrame();
+        var x = originalFrame.origin.x;
+        var y = originalFrame.origin.y - newSize.height + originalFrame.size.height;
+        window.PlatformWindow.setFrame____(x, y, newSize.width, newSize.height);
+        window.PlatformView.videoDidResize();
+    }
+    </script>
 </head>
 <!--
  - Special className used by base.js and by the backend:
@@ -32,10 +43,7 @@
     "playing" when the video is playing. (this can be used to display a different image when we are playing or not.
  "video-view": Backend will put the platform video view on top of this element. [Not in fullscreen]
 -->
-<script>
-    
-</script>
-<body onload="windowController.init(); setTimeout('window.PlatformWindow.setFrame____(100, 100, 870, 700); window.PlatformView.videoDidResize()', 0);">
+<body onload="windowController.init(); setTimeout(placeWindow, 0);">
 <div id="content" class="drag-platform-window key-window">
     
     <div class="window-decoration">
