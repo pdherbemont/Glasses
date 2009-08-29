@@ -72,7 +72,7 @@
     [_fullscreenController leaveFullscreen];
 }
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(leaveFullscreen))
         return NO;    

@@ -142,7 +142,7 @@
     [[self fullscreenController] enterFullscreen:[[self window] screen]];
 }
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(enterFullscreen))
         return NO;

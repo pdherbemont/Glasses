@@ -143,7 +143,7 @@
 #pragma mark -
 #pragma mark Util
 
-- (DOMHTMLElement *)htmlElementForId:(NSString *)idName;
+- (DOMHTMLElement *)htmlElementForId:(NSString *)idName
 {
     DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:idName];
     NSAssert1([element isKindOfClass:[DOMHTMLElement class]], @"The '%@' element should be a DOMHTMLElement", idName);

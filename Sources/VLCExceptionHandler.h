@@ -25,8 +25,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface VLCExceptionHandler : NSObject {
-
-}
+@interface VLCExceptionHandler : NSObject
 - (void)printStackTrace:(NSException *)e;
 @end

@@ -25,7 +25,7 @@
     IBOutlet id _gpl_field;
 }
 
-@end;
+@end
 
 @interface VLCAboutWindowController : NSWindowController {
     /* main about panel */

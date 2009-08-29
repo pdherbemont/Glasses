@@ -78,7 +78,7 @@
     [NSCursor setHiddenUntilMouseMoves:YES];
 }
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(play))
         return NO;

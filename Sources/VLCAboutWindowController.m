@@ -24,8 +24,6 @@
 
 @implementation VLCGPLWindowController
 
-static VLCGPLWindowController *_sharedGPLInstance = nil;
-
 - (NSString *)windowNibName
 {
     return @"AboutWindow";
@@ -84,33 +82,6 @@ static VLCGPLWindowController *_sharedGPLInstance = nil;
     [super dealloc];
 }
 
-- (void)windowDidBecomeKey:(NSNotification *)notification
-{
-    _scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 1/6
-                                                      target:self
-                                                    selector:@selector(scrollCredits:)
-                                                    userInfo:nil
-                                                     repeats:YES];
-}
-
-- (void)windowDidResignKey:(NSNotification *)notification
-{
-    [_scrollTimer invalidate];
-}
-
-- (IBAction)showWindow:(id)sender
-{
-    /* Show the window */
-    b_restart = YES;
-    [_credits_textview scrollPoint:NSMakePoint(0,0)];
-    [[self window] makeKeyAndOrderFront: sender];
-}
-
-- (IBAction)showGPL:(id)sender
-{
-    [_gplWindowController showWindow: sender];
-}
-
 - (void)scrollCredits:(NSTimer *)timer
 {
     if( b_restart )
@@ -137,6 +108,33 @@ static VLCGPLWindowController *_sharedGPLInstance = nil;
             b_restart = YES;
         }
     }
+}
+
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{
+    _scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 1/6
+                                                      target:self
+                                                    selector:@selector(scrollCredits:)
+                                                    userInfo:nil
+                                                     repeats:YES];
+}
+
+- (void)windowDidResignKey:(NSNotification *)notification
+{
+    [_scrollTimer invalidate];
+}
+
+- (IBAction)showWindow:(id)sender
+{
+    /* Show the window */
+    b_restart = YES;
+    [_credits_textview scrollPoint:NSMakePoint(0,0)];
+    [[self window] makeKeyAndOrderFront: sender];
+}
+
+- (IBAction)showGPL:(id)sender
+{
+    [_gplWindowController showWindow: sender];
 }
 
 @end

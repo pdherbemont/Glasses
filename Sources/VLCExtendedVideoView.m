@@ -29,7 +29,7 @@
     return YES;
 }
 
-- (BOOL)mouseDownCanMoveWindow;
+- (BOOL)mouseDownCanMoveWindow
 {
     return YES;
 }

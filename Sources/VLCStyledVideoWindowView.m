@@ -217,7 +217,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 #endif
 }
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(videoDidResize))
         return NO;

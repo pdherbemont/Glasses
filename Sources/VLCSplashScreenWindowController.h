@@ -22,8 +22,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface VLCSplashScreenWindowController : NSWindowController {
-}
-
+@interface VLCSplashScreenWindowController : NSWindowController
 - (IBAction)reportBug:(id)sender;
 @end

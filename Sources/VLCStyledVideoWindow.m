@@ -35,7 +35,7 @@ static inline BOOL debugStyledWindow(void)
 #endif
     return [[NSUserDefaults standardUserDefaults] boolForKey:@"DebugStyledWindow"];    
 }
-- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag;
+- (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
     if (!debugStyledWindow())
         aStyle = NSBorderlessWindowMask;
@@ -169,7 +169,7 @@ static inline BOOL debugStyledWindow(void)
     [self setFrame:frame display:YES];
 }
 
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel;
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(performClose))
         return NO;

@@ -23,6 +23,10 @@
 #import "VLCMediaDocument.h"
 #import "VLCSplashScreenWindowController.h"
 
+@interface NSResponder (StyleMenuItemHandling)
+- (void)setStyleFromMenuItem:(id)sender;
+@end
+
 @implementation VLCDocumentController
 
 - (void)awakeFromNib
