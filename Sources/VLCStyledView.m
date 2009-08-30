@@ -22,6 +22,8 @@
 #import <VLCKit/VLCKit.h>
 #import "VLCMediaDocument.h"
 
+static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
+
 @interface VLCStyledView ()
 @property (readwrite, assign) BOOL isFrameLoaded;
 @property (readwrite, assign) NSString *pluginName;
@@ -60,6 +62,18 @@
     return [[[[self window] windowController] document] mediaListPlayer].mediaPlayer;
 }
 
+- (NSString *)defaultPluginName
+{
+    NSString *pluginName = [[NSUserDefaults standardUserDefaults] stringForKey:defaultPluginNamePreferencesKey];
+    if (!pluginName)
+        pluginName = @"Default";
+    return pluginName;
+}
+
+- (void)setDefaultPluginName:(NSString *)pluginName
+{
+    [[NSUserDefaults standardUserDefaults] setObject:pluginName forKey:defaultPluginNamePreferencesKey];
+}
 
 - (NSString *)pageName
 {
@@ -76,17 +90,18 @@
     NSString *path = [plugin pathForResource:[self pageName] ofType:@"html"];
     return [NSURL fileURLWithPath:path];
 }
+
 - (NSURL *)url
 {
     NSString *pluginName = [self pluginName];
     if (!pluginName)
-        pluginName = @"Default";
+        pluginName = [self defaultPluginName];
     NSURL *filePath = [self urlForPluginName:pluginName];
     // Nothing found, fallback to the default plugin.
     // This allows to reimplement just the window
     // or just the HUD.
     if (!filePath)
-        filePath = [self urlForPluginName:@"Default"];
+        filePath = [self urlForPluginName:[self defaultPluginName]];
     return filePath;
 }
 
@@ -125,6 +140,7 @@
     NSAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
     NSMenuItem *item = sender;
     self.pluginName = [item title];
+    [self setDefaultPluginName:self.pluginName];
     [self setup];
 }
 
@@ -135,7 +151,7 @@
         return NO;
     NSString *pluginName = self.pluginName;
     if (!pluginName)
-        pluginName = @"Default";
+        pluginName = [self defaultPluginName];
     BOOL isCurrentPlugin = [[menuItem title] isEqualToString:pluginName];
     [menuItem setState:isCurrentPlugin ? NSOnState : NSOffState];
     return YES;
