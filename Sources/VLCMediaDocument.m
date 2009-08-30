@@ -22,6 +22,7 @@
 #import "VLCMediaDocument.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCVideoWindowController.h"
+#import "VLCPlaylistDebugWindowController.h"
 
 @interface VLCMediaDocument ()
 @property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;
@@ -126,4 +127,13 @@
     }
 }
 
+#pragma mark -
+#pragma mark First responder
+
+- (void)showDebugPlaylist:(id)sender
+{
+    VLCPlaylistDebugWindowController *windowController = [[VLCPlaylistDebugWindowController alloc] init];
+    [self addWindowController:windowController];
+    [[windowController window] makeKeyAndOrderFront:self];
+}
 @end

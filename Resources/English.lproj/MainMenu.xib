@@ -761,7 +761,7 @@
 								</object>
 								<object class="NSMenuItem" id="738962911">
 									<reference key="NSMenu" ref="790503413"/>
-									<string key="NSTitle">Show Styled Window Frame</string>
+									<string key="NSTitle">Enable Styled Window Frame</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="1033313550"/>
@@ -770,6 +770,24 @@
 								<object class="NSMenuItem" id="857543124">
 									<reference key="NSMenu" ref="790503413"/>
 									<string key="NSTitle">Enable WebKit Inspector in Fullscreen</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
+								<object class="NSMenuItem" id="813854163">
+									<reference key="NSMenu" ref="790503413"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="1033313550"/>
+									<reference key="NSMixedImage" ref="310636482"/>
+								</object>
+								<object class="NSMenuItem" id="320458226">
+									<reference key="NSMenu" ref="790503413"/>
+									<string key="NSTitle">Show Debug Playlist</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="1033313550"/>
@@ -800,10 +818,6 @@
 				<string key="NSClassName">VLCAboutWindowController</string>
 			</object>
 			<object class="NSUserDefaultsController" id="968351115">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>DebugFullscreen</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
@@ -1177,6 +1191,14 @@
 						</object>
 					</object>
 					<int key="connectionID">503</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showDebugPlaylist:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="320458226"/>
+					</object>
+					<int key="connectionID">506</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1810,6 +1832,8 @@
 							<reference ref="52812767"/>
 							<reference ref="738962911"/>
 							<reference ref="857543124"/>
+							<reference ref="813854163"/>
+							<reference ref="320458226"/>
 						</object>
 						<reference key="parent" ref="38816907"/>
 					</object>
@@ -1831,6 +1855,16 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">499</int>
 						<reference key="object" ref="857543124"/>
+						<reference key="parent" ref="790503413"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">504</int>
+						<reference key="object" ref="813854163"/>
+						<reference key="parent" ref="790503413"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">505</int>
+						<reference key="object" ref="320458226"/>
 						<reference key="parent" ref="790503413"/>
 					</object>
 				</object>
@@ -1995,6 +2029,8 @@
 					<string>499.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>5.ImportedFromIB2</string>
+					<string>504.IBPluginDependency</string>
+					<string>505.IBPluginDependency</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -2172,7 +2208,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{569, 673}, {306, 63}}</string>
+					<string>{{569, 643}, {306, 93}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2180,6 +2216,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{355, 533}, {225, 203}}</string>
@@ -2224,7 +2262,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">503</int>
+			<int key="maxID">506</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2237,10 +2275,12 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>setStyleFromMenuItem:</string>
+							<string>showDebugPlaylist:</string>
 							<string>toggleFullscreen:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>

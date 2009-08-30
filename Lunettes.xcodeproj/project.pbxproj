@@ -18,6 +18,7 @@
 		63014659104098F000534090 /* DOMElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014657104098F000534090 /* DOMElement_Additions.m */; };
 		6301465E1040992F00534090 /* StyledVideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6301465A1040991000534090 /* StyledVideoWindow.xib */; };
 		63014A721042AC9900534090 /* Coding Style.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63014A711042AC9900534090 /* Coding Style.rtf */; };
+		63032501104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */; };
 		6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */; };
 		6311DA4F0FF85970004BC7D1 /* VLCMediaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */; };
 		6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */; };
@@ -50,8 +51,12 @@
 		6311DB330FF85BE3004BC7D1 /* fullscreen_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */; };
 		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
+		635D1124104A844000D34A87 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1123104A844000D34A87 /* AboutWindow.xib */; };
+		635D112A104A846400D34A87 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1129104A846400D34A87 /* OpenURLWindow.xib */; };
+		635D112C104A846400D34A87 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112B104A846400D34A87 /* PreferencesWindow.xib */; };
+		635D112E104A847300D34A87 /* PlaylistDebugWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */; };
+		635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */; };
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
-		639F660B1046D81A00117832 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639F660A1046D81A00117832 /* SplashScreenWindow.xib */; };
 		639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
 		639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
 		639F68981046EA5E00117832 /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F687D1046EA5E00117832 /* black.css */; };
@@ -123,14 +128,11 @@
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
-		CC10A7AC103CA81900B4555A /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7AA103CA81900B4555A /* PreferencesWindow.xib */; };
 		CC10A7B0103CA96800B4555A /* VLCPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */; };
-		CC2F0B9B104769220015F5FA /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC2F0B99104769220015F5FA /* AboutWindow.xib */; };
 		CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC566421103C9F6300FEA1D3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
 		CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9091103C95000000601C /* VLCVideoWindow.m */; };
-		CC61B345103DDAD700D13C72 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC61B343103DDAD700D13C72 /* OpenURLWindow.xib */; };
 		CC61B348103DDB9C00D13C72 /* VLCOpenURLWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */; };
 		CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
 		CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */; };
@@ -212,8 +214,8 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		3222CB9A10498BD300D4708C /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = hud.js; sourceTree = "<group>"; };
-		329965CD10496F1100EF342B /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "dom-drag.js"; sourceTree = "<group>"; };
+		3222CB9A10498BD300D4708C /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = hud.js; path = Resources/Style/Default/hud.js; sourceTree = "<group>"; };
+		329965CD10496F1100EF342B /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "dom-drag.js"; path = "Resources/Style/Default/dom-drag.js"; sourceTree = "<group>"; };
 		630141D5104062B300534090 /* Common Settings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Common Settings.xcconfig"; sourceTree = "<group>"; };
 		630143AA1040726600534090 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6301464B104098C500534090 /* VLCVideoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindowController.m; path = Sources/VLCVideoWindowController.m; sourceTree = "<group>"; };
@@ -229,6 +231,8 @@
 		6301465A1040991000534090 /* StyledVideoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StyledVideoWindow.xib; path = Resources/StyledVideoWindow.xib; sourceTree = "<group>"; };
 		6301469F10409B4700534090 /* VLCVideoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindowController.h; path = Sources/VLCVideoWindowController.h; sourceTree = "<group>"; };
 		63014A711042AC9900534090 /* Coding Style.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Coding Style.rtf"; sourceTree = "<group>"; };
+		630324FF104A82C400CC82B6 /* VLCPlaylistDebugWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaylistDebugWindowController.h; path = Sources/VLCPlaylistDebugWindowController.h; sourceTree = "<group>"; };
+		63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaylistDebugWindowController.m; path = Sources/VLCPlaylistDebugWindowController.m; sourceTree = "<group>"; };
 		6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExceptionHandler.m; path = Sources/VLCExceptionHandler.m; sourceTree = "<group>"; };
 		6311DA4B0FF8595C004BC7D1 /* VLCExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExceptionHandler.h; path = Sources/VLCExceptionHandler.h; sourceTree = "<group>"; };
 		6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaDocument.m; path = Sources/VLCMediaDocument.m; sourceTree = "<group>"; };
@@ -293,7 +297,11 @@
 		6311DB2B0FF85BDB004BC7D1 /* display_track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_track.png; sourceTree = "<group>"; };
 		6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_active.png; sourceTree = "<group>"; };
 		6311DB320FF85BE3004BC7D1 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_blue.png; sourceTree = "<group>"; };
-		639F647C1046BDEF00117832 /* SplashScreenWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SplashScreenWindow.xib; path = Resources/English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
+		635D1121104A843D00D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
+		635D1125104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/OpenURLWindow.xib; sourceTree = "<group>"; };
+		635D1126104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
+		635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaylistDebugWindow.xib; path = Resources/PlaylistDebugWindow.xib; sourceTree = "<group>"; };
+		639F647C1046BDEF00117832 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
 		639F64821046BE2B00117832 /* lunettes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lunettes.png; sourceTree = "<group>"; };
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
 		639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSplashScreenWindowController.m; path = Sources/VLCSplashScreenWindowController.m; sourceTree = "<group>"; };
@@ -336,7 +344,6 @@
 		639F7281104754BB00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/Black/video-window.html"; sourceTree = "<group>"; };
 		639F7282104754BB00117832 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = black.css; path = Resources/Style/Black/black.css; sourceTree = "<group>"; };
 		639F772010480F8300117832 /* Experimental.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Experimental.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
-		639F773910480F8300117832 /* Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info copy.plist"; sourceTree = "<group>"; };
 		639F775910480FCE00117832 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
 		639F775A10480FCE00117832 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
 		639F775B10480FCE00117832 /* pause_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_blue.png; sourceTree = "<group>"; };
@@ -376,16 +383,13 @@
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Lunettes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunettes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
-		CC10A7AB103CA81900B4555A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
 		CC10A7AE103CA96800B4555A /* VLCPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferencesWindowController.h; path = Sources/VLCPreferencesWindowController.h; sourceTree = "<group>"; };
 		CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPreferencesWindowController.m; path = Sources/VLCPreferencesWindowController.m; sourceTree = "<group>"; };
-		CC2F0B9A104769220015F5FA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
 		CC56641D103C9F5900FEA1D3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMiscUIElements.m; path = Sources/VLCMiscUIElements.m; sourceTree = "<group>"; };
 		CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiscUIElements.h; path = Sources/VLCMiscUIElements.h; sourceTree = "<group>"; };
 		CC5E9090103C95000000601C /* VLCVideoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindow.h; path = Sources/VLCVideoWindow.h; sourceTree = "<group>"; };
 		CC5E9091103C95000000601C /* VLCVideoWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindow.m; path = Sources/VLCVideoWindow.m; sourceTree = "<group>"; };
-		CC61B344103DDAD700D13C72 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/OpenURLWindow.xib; sourceTree = "<group>"; };
 		CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCOpenURLWindowController.m; path = Sources/VLCOpenURLWindowController.m; sourceTree = "<group>"; };
 		CC61B347103DDB9C00D13C72 /* VLCOpenURLWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenURLWindowController.h; path = Sources/VLCOpenURLWindowController.h; sourceTree = "<group>"; };
 		CC61B414103E088B00D13C72 /* VLCDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentController.h; path = Sources/VLCDocumentController.h; sourceTree = "<group>"; };
@@ -462,6 +466,7 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				630324FC104A82A200CC82B6 /* Debug Playlist Window */,
 				63EF25C70F90FD93002A2E14 /* Document */,
 				63B1E55C104554FC0029C49C /* Common Class for Styled Windows */,
 				6304D92E1040605E0031C854 /* Regular Video Window */,
@@ -490,20 +495,11 @@
 			children = (
 				63B1E42D10444D540029C49C /* Icon.icns */,
 				639F68DC1046F18700117832 /* Style */,
-				6301465A1040991000534090 /* StyledVideoWindow.xib */,
-				CC2F0B99104769220015F5FA /* AboutWindow.xib */,
-				639F660A1046D81A00117832 /* SplashScreenWindow.xib */,
-				63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */,
-				CC10A7AA103CA81900B4555A /* PreferencesWindow.xib */,
-				6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */,
-				CC61B343103DDAD700D13C72 /* OpenURLWindow.xib */,
-				63D441CF100469A60086772A /* VideoWindow.xib */,
-				63D441D1100469AD0086772A /* MainMenu.xib */,
+				63032506104A836800CC82B6 /* New Group */,
 				6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */,
 				6311DAAC0FF85AC0004BC7D1 /* Images */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				CC10A7A5103CA66B00B4555A /* dsa_pub.pem */,
-				639F773910480F8300117832 /* Info copy.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -540,6 +536,32 @@
 				639F68DB1046F15200117832 /* images */,
 			);
 			name = Default;
+			sourceTree = "<group>";
+		};
+		630324FC104A82A200CC82B6 /* Debug Playlist Window */ = {
+			isa = PBXGroup;
+			children = (
+				630324FF104A82C400CC82B6 /* VLCPlaylistDebugWindowController.h */,
+				63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */,
+			);
+			name = "Debug Playlist Window";
+			sourceTree = "<group>";
+		};
+		63032506104A836800CC82B6 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				635D1123104A844000D34A87 /* AboutWindow.xib */,
+				6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */,
+				63D441D1100469AD0086772A /* MainMenu.xib */,
+				635D1129104A846400D34A87 /* OpenURLWindow.xib */,
+				635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */,
+				635D112B104A846400D34A87 /* PreferencesWindow.xib */,
+				635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */,
+				63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */,
+				6301465A1040991000534090 /* StyledVideoWindow.xib */,
+				63D441CF100469A60086772A /* VideoWindow.xib */,
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		6304D91C10405F330031C854 /* Styled Video Window */ = {
@@ -1046,15 +1068,16 @@
 				63D441D0100469A60086772A /* VideoWindow.xib in Resources */,
 				63D441D2100469AD0086772A /* MainMenu.xib in Resources */,
 				CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */,
-				CC10A7AC103CA81900B4555A /* PreferencesWindow.xib in Resources */,
-				CC61B345103DDAD700D13C72 /* OpenURLWindow.xib in Resources */,
 				6301465E1040992F00534090 /* StyledVideoWindow.xib in Resources */,
 				63014A721042AC9900534090 /* Coding Style.rtf in Resources */,
 				63B1E11510441B790029C49C /* StyledFullscreenHUDWindow.xib in Resources */,
-				639F660B1046D81A00117832 /* SplashScreenWindow.xib in Resources */,
 				639F64831046BE2B00117832 /* lunettes.png in Resources */,
 				63B1E42E10444D540029C49C /* Icon.icns in Resources */,
-				CC2F0B9B104769220015F5FA /* AboutWindow.xib in Resources */,
+				635D1124104A844000D34A87 /* AboutWindow.xib in Resources */,
+				635D112A104A846400D34A87 /* OpenURLWindow.xib in Resources */,
+				635D112C104A846400D34A87 /* PreferencesWindow.xib in Resources */,
+				635D112E104A847300D34A87 /* PlaylistDebugWindow.xib in Resources */,
+				635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1087,6 +1110,7 @@
 				63B1E10A10440EB00029C49C /* VLCStyledView.m in Sources */,
 				639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */,
 				CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */,
+				63032501104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1128,10 +1152,34 @@
 			name = FullscreenHUDWindow.xib;
 			sourceTree = "<group>";
 		};
-		639F660A1046D81A00117832 /* SplashScreenWindow.xib */ = {
+		635D1123104A844000D34A87 /* AboutWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				639F647C1046BDEF00117832 /* SplashScreenWindow.xib */,
+				635D1121104A843D00D34A87 /* English */,
+			);
+			name = AboutWindow.xib;
+			sourceTree = "<group>";
+		};
+		635D1129104A846400D34A87 /* OpenURLWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				635D1125104A846000D34A87 /* English */,
+			);
+			name = OpenURLWindow.xib;
+			sourceTree = "<group>";
+		};
+		635D112B104A846400D34A87 /* PreferencesWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				635D1126104A846000D34A87 /* English */,
+			);
+			name = PreferencesWindow.xib;
+			sourceTree = "<group>";
+		};
+		635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				639F647C1046BDEF00117832 /* English */,
 			);
 			name = SplashScreenWindow.xib;
 			sourceTree = "<group>";
@@ -1150,30 +1198,6 @@
 				63D441CC100469A10086772A /* English */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		CC10A7AA103CA81900B4555A /* PreferencesWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CC10A7AB103CA81900B4555A /* English */,
-			);
-			name = PreferencesWindow.xib;
-			sourceTree = "<group>";
-		};
-		CC2F0B99104769220015F5FA /* AboutWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CC2F0B9A104769220015F5FA /* English */,
-			);
-			name = AboutWindow.xib;
-			sourceTree = "<group>";
-		};
-		CC61B343103DDAD700D13C72 /* OpenURLWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CC61B344103DDAD700D13C72 /* English */,
-			);
-			name = OpenURLWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
