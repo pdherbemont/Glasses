@@ -224,6 +224,23 @@
     return _viewedPlaying;
 }
 
+- (void)setSeekable:(BOOL)isSeekable
+{
+    _seekable = isSeekable;
+    if (!_isFrameLoaded)
+        return;
+    if (isSeekable)
+        [self addClassToContent:@"seekable"];
+    else
+        [self removeClassFromContent:@"seekable"];    
+    
+}
+
+- (BOOL)seekable
+{
+    return _seekable;
+}
+
 #pragma mark -
 #pragma mark DOM manipulation
 

@@ -101,6 +101,7 @@
         [self removeClassFromContent:@"main-window"];
 }
 
+// Other setter are in super class.
 
 #pragma mark -
 #pragma mark Javascript callbacks

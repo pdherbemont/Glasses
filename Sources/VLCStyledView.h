@@ -31,6 +31,7 @@
     BOOL _isFrameLoaded;
     float _viewedPosition;
     BOOL _viewedPlaying;
+    BOOL _seekable;
     
     VLCTime *_currentTime;
     NSString *_title;

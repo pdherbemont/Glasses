@@ -74,6 +74,7 @@
     options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView setViewedPlaying:[[self valueForKeyPath:@"document.mediaListPlayer.mediaPlayer.playing"] boolValue]];
     [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
+    [_styledWindowView bind:@"seekable" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.seekable" options:options];
 }
 
 - (void)close
