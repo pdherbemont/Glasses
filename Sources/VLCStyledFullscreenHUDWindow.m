@@ -41,7 +41,7 @@ static inline BOOL debugStyledWindow(void)
         [self setBackgroundColor:[NSColor clearColor]];
     [self setAcceptsMouseMovedEvents:YES];
     [self setIgnoresMouseEvents:NO];
-    [self setLevel:VLCFullscreenHUDWindowLevel];
+    [self setLevel:VLCFullscreenHUDWindowLevel()];
     return self;
 }
 

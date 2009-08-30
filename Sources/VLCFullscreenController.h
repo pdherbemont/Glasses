@@ -31,8 +31,8 @@
 @protocol VLCFullscreenHUD;
 @protocol VLCFullscreenDelegate;
 
-extern const NSInteger VLCFullscreenWindowLevel;
-extern const NSInteger VLCFullscreenHUDWindowLevel;
+extern NSInteger VLCFullscreenWindowLevel(void);
+extern NSInteger VLCFullscreenHUDWindowLevel(void);
 
 @interface VLCFullscreenController : NSObject {
     NSView *_view;

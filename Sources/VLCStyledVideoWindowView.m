@@ -137,7 +137,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     // Create the window now.
     _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
     [_videoWindow setBackgroundColor:[NSColor blackColor]];
-    [_videoWindow setLevel:VLCFullscreenHUDWindowLevel];
+    [_videoWindow setLevel:VLCFullscreenHUDWindowLevel()];
     [_videoWindow setContentView:videoView];
     [_videoWindow setIgnoresMouseEvents:YES];
     [_videoWindow setReleasedWhenClosed:NO];

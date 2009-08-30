@@ -20,8 +20,21 @@
 
 #import "VLCFullscreenController.h"
 
-const NSInteger VLCFullscreenWindowLevel = 3; //NSFloatingWindowLevel
-const NSInteger VLCFullscreenHUDWindowLevel = 4; //NSFloatingWindowLevel + 1
+
+static inline BOOL debugFullscreen(void)
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"DebugFullscreen"];    
+}
+
+NSInteger VLCFullscreenWindowLevel(void)
+{
+    return debugFullscreen() ? 0 : 3;
+}
+
+NSInteger VLCFullscreenHUDWindowLevel(void)
+{
+    return debugFullscreen() ? 0 : 4;
+}
 
 #import <Carbon/Carbon.h> // For SetSystemUIMode
 
@@ -152,7 +165,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
         // Create the window now.
         _fullscreenWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         [_fullscreenWindow setBackgroundColor:[NSColor blackColor]];
-        [_fullscreenWindow setLevel:VLCFullscreenHUDWindowLevel];
+        [_fullscreenWindow setLevel:VLCFullscreenHUDWindowLevel()];
 
         if (![_originalViewWindow isVisible] || [_originalViewWindow alphaValue] == 0.0) {
             // We don't animate if the view to move fullscreen is not visible, instead we
