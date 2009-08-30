@@ -135,5 +135,7 @@
     VLCPlaylistDebugWindowController *windowController = [[VLCPlaylistDebugWindowController alloc] init];
     [self addWindowController:windowController];
     [[windowController window] makeKeyAndOrderFront:self];
+    [windowController release];
 }
+
 @end
