@@ -24,11 +24,46 @@
 #import "VLCOpenURLWindowController.h"
 #import "VLCDocumentController.h"
 
+static NSString *recentNetworkItemsPreferencesKey = @"RecentNetworkItems";
+static NSString *lastNetworkItemsPreferencesKey = @"LastNetworkItems";
 @implementation VLCOpenURLWindowController
 
 - (NSString *)windowNibName
 {
     return @"OpenURLWindow";
+}
+
+- (void)addItemToRecentList:(NSString *)urlString
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    // Save it as the last item added to the list.
+    [defaults setValue:urlString forKey:lastNetworkItemsPreferencesKey];
+
+    // Now add this item to the recent list
+    NSArray *originalRecents = [defaults arrayForKey:recentNetworkItemsPreferencesKey];
+    
+    // No previous item
+    if (!originalRecents) {
+        [defaults setValue:[NSArray arrayWithObject:urlString] forKey:recentNetworkItemsPreferencesKey];
+        return;
+    }
+    
+    NSUInteger count = MIN(10, [originalRecents count]);
+    NSArray *tenMostRecents = [originalRecents objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, count)]];
+    NSMutableArray *recents = [NSMutableArray arrayWithArray:tenMostRecents];
+    
+    // Remove the last one, or the current position of read item.
+    NSUInteger index = [recents indexOfObjectIdenticalTo:urlString];
+    if (index != NSNotFound)
+        [recents removeObjectAtIndex:index];
+    else if (count >= 10)
+        [recents removeLastObject];
+    [recents insertObject:urlString atIndex:0];
+    
+    // Save it.
+    [defaults setValue:recents forKey:recentNetworkItemsPreferencesKey];
+    
 }
 
 - (IBAction)openNetworkStream:(id)sender
@@ -37,14 +72,16 @@
     int returnValue = [NSApp runModalForWindow:window];
     [window orderOut:sender];
     if (returnValue) {
-        NSDocumentController *documentController = [NSDocumentController sharedDocumentController];
         NSURL *url = [NSURL URLWithString:[_netURLField stringValue]];
-        NSDocument *tempDoc = [documentController openDocumentWithContentsOfURL:url display:YES error:nil];
-        if (tempDoc) {
-            [documentController addDocument:tempDoc];
-            [documentController noteNewRecentDocumentURL:url];
-        }
+        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:nil];
+        [self addItemToRecentList:[url absoluteString]];
     }
+}
+
+- (IBAction)clearRecentItems:(id)sender
+{
+    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:lastNetworkItemsPreferencesKey];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:recentNetworkItemsPreferencesKey];
 }
 
 - (IBAction)networkPanelAction:(id)sender

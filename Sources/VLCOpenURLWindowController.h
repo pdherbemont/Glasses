@@ -31,4 +31,6 @@
 
 - (IBAction)openNetworkStream:(id)sender;
 - (IBAction)networkPanelAction:(id)sender;
+
+- (IBAction)clearRecentItems:(id)sender;
 @end
