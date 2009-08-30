@@ -10,7 +10,9 @@
 
 
 @interface VLCPlaylistDebugWindowController : NSWindowController {
-
+    IBOutlet NSTreeController *_playlistTreeController;
 }
+
+- (IBAction)playSelectedItem:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "VLCPlaylistDebugWindowController.h"
+#import "VLCMediaDocument.h"
 
 
 @implementation VLCPlaylistDebugWindowController
@@ -16,4 +17,15 @@
     return @"PlaylistDebugWindow";
 }
 
+- (IBAction)playSelectedItem:(id)sender
+{
+    NSAssert(_playlistTreeController, @"No tree controller in the xib file");
+
+    NSArray *selectedObjects = [_playlistTreeController selectedObjects];
+    if ([selectedObjects count] <= 0)
+        return;
+    VLCMediaListPlayer *player = [self.document mediaListPlayer];
+    [player playMedia:[selectedObjects objectAtIndex:0]];
+    [player play];    
+}
 @end
