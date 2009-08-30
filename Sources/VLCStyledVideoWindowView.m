@@ -81,6 +81,11 @@
     [_videoWindow setAlphaValue:alpha];
 }
 
+- (BOOL)acceptsFirstMouse:(NSEvent *)event
+{
+    return YES;
+}
+
 #pragma mark -
 #pragma mark Core -> Javascript setters
 

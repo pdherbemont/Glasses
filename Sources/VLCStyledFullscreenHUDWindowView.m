@@ -58,6 +58,10 @@
         [super mouseDown:event];
 }
 
+- (BOOL)acceptsFirstMouse:(NSEvent *)event
+{
+    return YES;
+}
 
 #pragma mark -
 #pragma mark Javascript callbacks
