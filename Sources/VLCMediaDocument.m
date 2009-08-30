@@ -52,6 +52,7 @@
 - (void)close
 {
     [_mediaListPlayer stop];
+    [mediaListPlayer.mediaPlayer setDelegate:nil];
     self.mediaListPlayer = nil;
     [super close];
 }
