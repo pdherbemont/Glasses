@@ -26,6 +26,5 @@
         return;
     VLCMediaListPlayer *player = [self.document mediaListPlayer];
     [player playMedia:[selectedObjects objectAtIndex:0]];
-    [player play];    
 }
 @end
