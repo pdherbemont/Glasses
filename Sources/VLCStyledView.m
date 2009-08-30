@@ -105,6 +105,7 @@
     [self setWindowTitle:[window title]];
     [self setViewedPlaying:_viewedPlaying];
     [self setViewedPosition:_viewedPosition];
+    [self setSeekable:_seekable];
     [self setCurrentTime:_currentTime];
 
     // We are coming out of a style change, let's fade in back

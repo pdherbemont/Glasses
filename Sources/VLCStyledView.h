@@ -74,6 +74,7 @@
 @property (copy) NSString *windowTitle;
 @property float viewedPosition;
 @property BOOL viewedPlaying;
+@property BOOL seekable;
 
 - (VLCMediaPlayer *)mediaPlayer;
 
