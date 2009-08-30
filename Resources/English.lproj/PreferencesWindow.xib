@@ -69,7 +69,7 @@
 								</object>
 								<reference key="NSControlView" ref="734935445"/>
 								<int key="NSButtonFlags">1211912703</int>
-								<int key="NSButtonFlags2">130</int>
+								<int key="NSButtonFlags2">2</int>
 								<object class="NSCustomResource" key="NSNormalImage" id="714326291">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
@@ -96,7 +96,7 @@
 								<reference key="NSSupport" ref="737195053"/>
 								<reference key="NSControlView" ref="1048130553"/>
 								<int key="NSButtonFlags">1211912703</int>
-								<int key="NSButtonFlags2">130</int>
+								<int key="NSButtonFlags2">2</int>
 								<reference key="NSNormalImage" ref="714326291"/>
 								<reference key="NSAlternateImage" ref="595350030"/>
 								<string key="NSAlternateContents"/>
@@ -150,10 +150,6 @@
 				<string key="NSFrameAutosaveName">Preferences Window</string>
 			</object>
 			<object class="NSUserDefaultsController" id="242931913">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>DontShowSplashScreen</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
