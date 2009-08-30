@@ -1,8 +1,8 @@
 /*****************************************************************************
 * Copyright (C) 2009 the VideoLAN team
-* $Id: $
+* $Id:$
 *
-* Authors: Felix Paul Kühne <fkuehne at videolan dot org>
+* Authors:Felix Paul Kühne <fkuehne at videolan dot org>
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,45 @@
 
 #import "VLCAboutWindowController.h"
 
+#pragma mark -
+
+@interface VLCTextScrollAnimation : NSAnimation {
+    NSTextView *_textview;
+    BOOL _reverse;
+}
+@property (retain) NSTextView *textview;
+@property BOOL reverse;
+@end
+
+@implementation VLCTextScrollAnimation
+@synthesize textview=_textview;
+@synthesize reverse=_reverse;
+
+- (id)init
+{
+    self = [super initWithDuration:30. animationCurve:NSAnimationLinear];
+    if (!self)
+        return nil;
+
+    [self setFrameRate:60.0];
+    [self setAnimationBlockingMode:NSAnimationNonblocking];
+    
+    return self;
+}
+
+- (void)setCurrentProgress:(NSAnimationProgress)progress
+{
+    // Call super to update the progress value.
+    [super setCurrentProgress:progress];
+    
+    CGFloat value = [self currentValue];
+    CGFloat realValue = _reverse ? 1 - value : value;
+    [_textview scrollPoint:NSMakePoint(0, realValue * _textview.bounds.size.height)];
+}
+
+@end
+
+#pragma mark -
 
 @implementation VLCGPLWindowController
 
@@ -29,14 +68,17 @@
     return @"AboutWindow";
 }
 
-- (IBAction)showWindow:(id)sender
+-(IBAction)showWindow:(id)sender
 {
-    [_gpl_field setString: [NSString stringWithUTF8String: psz_license]];
-    [[self window] center];
-    [[self window] makeKeyAndOrderFront: self];
+    [_gplTextField setString:[NSString stringWithUTF8String:psz_license]];
+    NSWindow *window = [self window];
+    [window center];
+    [window makeKeyAndOrderFront:self];
 }
 
 @end
+
+#pragma mark -
 
 @implementation VLCAboutWindowController
 
@@ -47,28 +89,27 @@
 
 - (void)awakeFromNib
 {
-    [[self window] setDelegate: self];
+    [[self window] setDelegate:self];
     _gplWindowController = [[VLCGPLWindowController alloc] init];
 
     /* Get the localized info dictionary (InfoPlist.strings) */
-    NSDictionary *_localDict;
-    _localDict = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary *localDict = [[NSBundle mainBundle] infoDictionary];
 
     /* Setup the copyright field */
-    [_copyright_field setStringValue:[NSString stringWithFormat:@"%@", [_localDict objectForKey:@"NSHumanReadableCopyright"]]];
+    [_copyrightField setStringValue:[NSString stringWithFormat:@"%@", [localDict objectForKey:@"NSHumanReadableCopyright"]]];
 
     /* Setup the nameversion field */
-    [_version_field setStringValue:[NSString stringWithFormat:@"Version %@", [_localDict objectForKey:@"CFBundleVersion"]]];
+    [_versionField setStringValue:[NSString stringWithFormat:@"Version %@", [localDict objectForKey:@"CFBundleVersion"]]];
 
     /* setup the authors and thanks field */
-    [_credits_textview setString: [NSString stringWithFormat: @"%@\n%@\n\n%@", 
+    [_creditsTextView setString:[NSString stringWithFormat:@"%@\n%@\n\n%@", 
                                    [NSString stringWithUTF8String:psz_genericAbout], 
                                    [NSString stringWithUTF8String:psz_authors], 
                                    [NSString stringWithUTF8String:psz_thanks]]];
 
     /* Setup the window */
-    [_credits_textview setDrawsBackground: NO];
-    [_credits_scrollview setDrawsBackground: NO];
+    [_creditsTextView setDrawsBackground:NO];
+    [_creditsScrollView setDrawsBackground:NO];
     [[self window] setExcludedFromWindowsMenu:YES];
     [[self window] setMenu:nil];
     [[self window] center];
@@ -76,65 +117,100 @@
 
 - (void)dealloc
 {
+    NSAssert(!_animation, @"Should have been released");
+    NSAssert(!_rewindAnimation, @"Should have been released");
     [_gplWindowController release];
-    [_scrollTimer invalidate];
 
     [super dealloc];
 }
 
-- (void)scrollCredits:(NSTimer *)timer
+- (void)stopAnimation
 {
-    if( b_restart )
-    {
-        /* Reset the starttime */
-        i_start = [NSDate timeIntervalSinceReferenceDate] + 6.0;
-        f_current = 0;
-        f_end = [_credits_textview bounds].size.height - [_credits_scrollview bounds].size.height;
-        b_restart = NO;
-    }
-    
-    if( [NSDate timeIntervalSinceReferenceDate] >= i_start )
-    {
-        /* Scroll to the position */
-        [_credits_textview scrollPoint:NSMakePoint( 0, f_current )];
-        
-        /* Increment the scroll position */
-        f_current += 0.005;
-        
-        /* If at end, restart at the top */
-        if( f_current >= f_end )
-        {
-            [_credits_textview scrollPoint:NSMakePoint(0,0)];
-            b_restart = YES;
-        }
-    }
+    [NSObject cancelPreviousPerformRequestsWithTarget:_animation];
+    [_animation stopAnimation];
+    [_animation release];
+    _animation = nil;
 }
 
-- (void)windowDidBecomeKey:(NSNotification *)notification
+- (void)stopAllAnimations
 {
-    _scrollTimer = [NSTimer scheduledTimerWithTimeInterval: 1/6
-                                                      target:self
-                                                    selector:@selector(scrollCredits:)
-                                                    userInfo:nil
-                                                     repeats:YES];
+    [self stopAnimation];
+    [NSObject cancelPreviousPerformRequestsWithTarget:_rewindAnimation];
+    [_rewindAnimation stopAnimation];
+    [_rewindAnimation release];
+    _rewindAnimation = nil;
+}
+
+- (void)close
+{
+    [self stopAllAnimations];
+}
+
+
+- (void)windowDidBecomeKey:(NSNotification *)notification
+{    
+    NSAssert(!_animation, @"Should have been released");
+    _animation = [[VLCTextScrollAnimation alloc] init];
+    _animation.textview = _creditsTextView;
+    
+    [_animation setDelegate:self];
+    [_animation performSelector:@selector(startAnimation) withObject:nil afterDelay:3];
 }
 
 - (void)windowDidResignKey:(NSNotification *)notification
 {
-    [_scrollTimer invalidate];
+    [self stopAnimation];
+}
+
+- (void)launchRewindAnimationWithProgress:(CGFloat)progress
+{
+    NSAssert(!_rewindAnimation, @"There should be no _rewindAnimation");
+    _rewindAnimation = [[VLCTextScrollAnimation alloc] init];
+    _rewindAnimation.textview = _creditsTextView;
+    _rewindAnimation.reverse = YES;
+    
+    [_rewindAnimation setDelegate:self];
+    [_rewindAnimation setDuration:2];
+    [_rewindAnimation setAnimationCurve:NSAnimationEaseInOut];
+    if (progress == 1) {
+        [_rewindAnimation performSelector:@selector(startAnimation) withObject:nil afterDelay:3];
+        return;
+    }
+    [_rewindAnimation setCurrentProgress:progress];
+    [_rewindAnimation startAnimation];    
+}
+
+- (void)animationDidStop:(NSAnimation *)animation
+{
+    if (animation != _animation)
+        return;
+    CGFloat currentProgress = [_animation currentProgress];
+    [self launchRewindAnimationWithProgress:1 - currentProgress];
+}
+
+- (void)animationDidEnd:(NSAnimation *)animation
+{
+    if (animation == _rewindAnimation) {
+        [_rewindAnimation release];
+        _rewindAnimation = nil;
+        return;
+    }
+    NSAssert(animation == _animation, @"This should be _animation");
+    [_animation release];
+    _animation = nil;
+    [self launchRewindAnimationWithProgress:0];
 }
 
 - (IBAction)showWindow:(id)sender
 {
     /* Show the window */
-    b_restart = YES;
-    [_credits_textview scrollPoint:NSMakePoint(0,0)];
-    [[self window] makeKeyAndOrderFront: sender];
+    [_creditsTextView scrollPoint:NSMakePoint(0,0)];
+    [[self window] makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)showGPL:(id)sender
 {
-    [_gplWindowController showWindow: sender];
+    [_gplWindowController showWindow:sender];
 }
 
 @end

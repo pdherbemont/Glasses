@@ -21,27 +21,27 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface VLCGPLWindowController : NSWindowController {
-    IBOutlet id _gpl_field;
-}
+@class VLCTextScrollAnimation;
 
+@interface VLCGPLWindowController : NSWindowController {
+    IBOutlet NSTextView *_gplTextField;
+}
 @end
 
 @interface VLCAboutWindowController : NSWindowController {
     /* main about panel */
-    IBOutlet id _version_field;
-    IBOutlet id _copyright_field;
-    IBOutlet id _credits_textview;
-    IBOutlet id _credits_scrollview;
+    IBOutlet NSTextField *_versionField;
+    IBOutlet NSTextField *_copyrightField;
+    IBOutlet NSTextView *_creditsTextView;
+    IBOutlet NSScrollView *_creditsScrollView;
 
     NSTimer *_scrollTimer;
-    float f_current;
-    float f_end;
-    NSTimeInterval i_start;
-    BOOL b_restart;
-    BOOL b_isSetUp;
+    VLCTextScrollAnimation *_animation;
+    VLCTextScrollAnimation *_rewindAnimation;
 
-    VLCGPLWindowController *_gplWindowController;
+    BOOL _isSetUp;
+
+    IBOutlet VLCGPLWindowController *_gplWindowController;
 }
 
 - (IBAction)showGPL:(id)sender;
