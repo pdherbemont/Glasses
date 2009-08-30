@@ -767,8 +767,8 @@
 		63EF25C60F90FD8B002A2E14 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */,
 				6311DA4B0FF8595C004BC7D1 /* VLCExceptionHandler.h */,
+				6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -802,12 +802,12 @@
 		CC10A7B5103CA99000B4555A /* System Framework Addition */ = {
 			isa = PBXGroup;
 			children = (
-				CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */,
 				CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */,
+				CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */,
 				6311DA5A0FF8598D004BC7D1 /* NSScreen_Additions.h */,
 				6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */,
-				63014657104098F000534090 /* DOMElement_Additions.m */,
 				63014658104098F000534090 /* DOMElement_Additions.h */,
+				63014657104098F000534090 /* DOMElement_Additions.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -819,8 +819,8 @@
 				639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */,
 				CC10A7AE103CA96800B4555A /* VLCPreferencesWindowController.h */,
 				CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */,
-				CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */,
 				CC61B347103DDB9C00D13C72 /* VLCOpenURLWindowController.h */,
+				CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */,
 				CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */,
 				CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */,
 			);
