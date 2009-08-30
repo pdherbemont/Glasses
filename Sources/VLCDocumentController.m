@@ -91,6 +91,8 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
+    [self rebuildStyleMenu];
+
     // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)
         return;
@@ -103,7 +105,6 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     // auto-releases itself when the window is closed
     _splashScreen = [[VLCSplashScreenWindowController alloc] init];
     [[_splashScreen window] makeKeyAndOrderFront:self];
-    [self rebuildStyleMenu];
     [_splashScreen setShouldCloseDocument:NO];
 
     // The _splashScreen will autorelease itself when done, forget about the reference now.
