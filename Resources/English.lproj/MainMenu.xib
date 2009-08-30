@@ -788,7 +788,8 @@
 								<object class="NSMenuItem" id="320458226">
 									<reference key="NSMenu" ref="790503413"/>
 									<string key="NSTitle">Show Debug Playlist</string>
-									<string key="NSKeyEquiv"/>
+									<string key="NSKeyEquiv">p</string>
+									<int key="NSKeyEquivModMask">786432</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="1033313550"/>
 									<reference key="NSMixedImage" ref="310636482"/>
@@ -2208,7 +2209,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{569, 643}, {306, 93}}</string>
+					<string>{{569, 643}, {341, 93}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
