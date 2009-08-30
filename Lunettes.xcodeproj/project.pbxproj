@@ -466,13 +466,13 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				630324FC104A82A200CC82B6 /* Debug Playlist Window */,
 				63EF25C70F90FD93002A2E14 /* Document */,
 				63B1E55C104554FC0029C49C /* Common Class for Styled Windows */,
 				6304D92E1040605E0031C854 /* Regular Video Window */,
 				6304D91C10405F330031C854 /* Styled Video Window */,
 				63EF25910F90F960002A2E14 /* Video */,
 				63EF26330F910219002A2E14 /* Fullscreen */,
+				630324FC104A82A200CC82B6 /* Debug Playlist Window */,
 				CC61B34C103DDBC000D13C72 /* Non-document windows */,
 				63EF25C60F90FD8B002A2E14 /* Internal */,
 				CC10A7B5103CA99000B4555A /* System Framework Addition */,
