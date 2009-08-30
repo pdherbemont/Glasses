@@ -66,12 +66,13 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 {
     NSString *pluginName = [[NSUserDefaults standardUserDefaults] stringForKey:defaultPluginNamePreferencesKey];
     if (!pluginName)
-        pluginName = @"Default";
+        return @"Default";
     return pluginName;
 }
 
 - (void)setDefaultPluginName:(NSString *)pluginName
 {
+    NSAssert(pluginName, @"We shouldn't set a null pluginName");
     [[NSUserDefaults standardUserDefaults] setObject:pluginName forKey:defaultPluginNamePreferencesKey];
 }
 
@@ -88,6 +89,8 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     NSBundle *plugin = [NSBundle bundleWithPath:pluginPath];
     NSAssert(plugin, @"Can't find the default path, this is bad");
     NSString *path = [plugin pathForResource:[self pageName] ofType:@"html"];
+    if (!path)
+        return nil;
     return [NSURL fileURLWithPath:path];
 }
 
@@ -101,7 +104,7 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     // This allows to reimplement just the window
     // or just the HUD.
     if (!filePath)
-        filePath = [self urlForPluginName:[self defaultPluginName]];
+        filePath = [self urlForPluginName:@"Default"];
     return filePath;
 }
 
