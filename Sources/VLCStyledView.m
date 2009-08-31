@@ -84,10 +84,13 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 
 - (NSURL *)urlForPluginName:(NSString *)pluginName
 {
+    NSAssert(pluginName, @"pluginName shouldn't be null.");
     NSString *pluginFilename = [pluginName stringByAppendingPathExtension:@"lunettesstyle"];
     NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:pluginFilename];
+    NSAssert(pluginPath, @"Can't find the plugin path, this is bad");
     NSBundle *plugin = [NSBundle bundleWithPath:pluginPath];
-    NSAssert(plugin, @"Can't find the default path, this is bad");
+    if (!plugin)
+        return nil;
     NSString *path = [plugin pathForResource:[self pageName] ofType:@"html"];
     if (!path)
         return nil;
