@@ -49,7 +49,7 @@ static NSString *lastNetworkItemsPreferencesKey = @"LastNetworkItems";
         return;
     }
     
-    NSUInteger count = MIN(10, [originalRecents count]);
+    NSUInteger count = MIN(10UL, [originalRecents count]);
     NSArray *tenMostRecents = [originalRecents objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, count)]];
     NSMutableArray *recents = [NSMutableArray arrayWithArray:tenMostRecents];
     
