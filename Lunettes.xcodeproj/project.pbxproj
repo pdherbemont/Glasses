@@ -152,7 +152,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 639F771910480F8300117832 /* Experimental.lunettesstyle */;
+			remoteGlobalIDString = 639F771910480F8300117832;
 			remoteInfo = Experimental.lunettesstyle;
 		};
 		639F68451046E9A200117832 /* PBXContainerItemProxy */ = {
@@ -1371,7 +1371,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/Default/Info.plist;
+				INFOPLIST_FILE = Resources/Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1546,7 +1546,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/Default/Info.plist;
+				INFOPLIST_FILE = Resources/Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1570,7 +1570,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/Default/Info.plist;
+				INFOPLIST_FILE = Resources/Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
