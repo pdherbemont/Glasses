@@ -69,6 +69,8 @@
     NSWindow *window = [self window];
     [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
 
+    [window setIgnoresMouseEvents:NO];
+
     [self videoDidResize];
     [self setKeyWindow:[window isKeyWindow]];
     [self setMainWindow:[window isMainWindow]];
