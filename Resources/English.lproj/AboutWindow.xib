@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="45"/>
 			<integer value="2"/>
+			<integer value="45"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -108,7 +108,7 @@
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">2912</int>
+												<int key="NSFlags">2913</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<object class="NSColor" key="NSBackgroundColor" id="1011810121">
@@ -179,9 +179,9 @@
 									<reference key="NSNextKeyView" ref="272814571"/>
 									<reference key="NSDocView" ref="272814571"/>
 									<reference key="NSBGColor" ref="1011810121"/>
-									<object class="NSCursor" key="NSCursor" id="1008372122">
-										<string key="NSHotSpot">{1, -1}</string>
-										<int key="NSCursorType">0</int>
+									<object class="NSCursor" key="NSCursor" id="755504909">
+										<string key="NSHotSpot">{4, -5}</string>
+										<int key="NSCursorType">1</int>
 									</object>
 									<int key="NScvFlags">4</int>
 								</object>
@@ -407,7 +407,10 @@
 										<int key="NSColorSpace">3</int>
 										<bytes key="NSWhite">MSAwAA</bytes>
 									</object>
-									<reference key="NSCursor" ref="1008372122"/>
+									<object class="NSCursor" key="NSCursor">
+										<string key="NSHotSpot">{1, -1}</string>
+										<int key="NSCursorType">0</int>
+									</object>
 									<int key="NScvFlags">2</int>
 								</object>
 								<object class="NSScroller" id="809028762">
@@ -446,7 +449,7 @@
 							<reference key="NSSuperview" ref="758025822"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="497458943">
-								<int key="NSCellFlags">68288064</int>
+								<int key="NSCellFlags">70385217</int>
 								<int key="NSCellFlags2">138413056</int>
 								<string key="NSContents">Version 1.0</string>
 								<object class="NSFont" key="NSSupport">
@@ -476,7 +479,7 @@
 							<reference key="NSSuperview" ref="758025822"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="159020263">
-								<int key="NSCellFlags">68288064</int>
+								<int key="NSCellFlags">70385217</int>
 								<int key="NSCellFlags2">138413056</int>
 								<string key="NSContents">Copyright © 2009</string>
 								<object class="NSFont" key="NSSupport">
@@ -628,10 +631,7 @@
 									<reference key="NSNextKeyView" ref="1018476120"/>
 									<reference key="NSDocView" ref="1018476120"/>
 									<reference key="NSBGColor" ref="647091445"/>
-									<object class="NSCursor" key="NSCursor">
-										<string key="NSHotSpot">{4, -5}</string>
-										<int key="NSCursorType">1</int>
-									</object>
+									<reference key="NSCursor" ref="755504909"/>
 									<int key="NScvFlags">4</int>
 								</object>
 								<object class="NSScroller" id="866309444">
@@ -1030,9 +1030,9 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{155, 359}, {612, 397}}</string>
+					<string>{{343, 359}, {612, 397}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{155, 359}, {612, 397}}</string>
+					<string>{{343, 359}, {612, 397}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
 					<string>{231.868, 107}</string>
@@ -1071,9 +1071,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{234, 117}, {480, 360}}</string>
+					<string>{{343, 390}, {480, 360}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{234, 117}, {480, 360}}</string>
+					<string>{{343, 390}, {480, 360}}</string>
 					<boolean value="YES"/>
 					<boolean value="YES"/>
 					<string>{480, 360}</string>

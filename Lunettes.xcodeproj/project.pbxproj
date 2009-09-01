@@ -506,7 +506,7 @@
 			children = (
 				63B1E42D10444D540029C49C /* Icon.icns */,
 				639F68DC1046F18700117832 /* Style */,
-				63032506104A836800CC82B6 /* New Group */,
+				63032506104A836800CC82B6 /* xibs */,
 				6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */,
 				6311DAAC0FF85AC0004BC7D1 /* Images */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
@@ -559,7 +559,7 @@
 			name = "Debug Playlist Window";
 			sourceTree = "<group>";
 		};
-		63032506104A836800CC82B6 /* New Group */ = {
+		63032506104A836800CC82B6 /* xibs */ = {
 			isa = PBXGroup;
 			children = (
 				635D1123104A844000D34A87 /* AboutWindow.xib */,
@@ -573,7 +573,7 @@
 				6301465A1040991000534090 /* StyledVideoWindow.xib */,
 				63D441CF100469A60086772A /* VideoWindow.xib */,
 			);
-			name = "New Group";
+			name = xibs;
 			sourceTree = "<group>";
 		};
 		6304D91C10405F330031C854 /* Styled Video Window */ = {

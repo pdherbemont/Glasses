@@ -102,10 +102,11 @@
     [_versionField setStringValue:[NSString stringWithFormat:@"Version %@", [localDict objectForKey:@"CFBundleVersion"]]];
 
     /* setup the authors and thanks field */
-    [_creditsTextView setString:[NSString stringWithFormat:@"%@\n%@\n\n%@", 
-                                   [NSString stringWithUTF8String:psz_genericAbout], 
-                                   [NSString stringWithUTF8String:psz_authors], 
-                                   [NSString stringWithUTF8String:psz_thanks]]];
+    [_creditsTextView setString: [NSString stringWithFormat:@"%@\n%@\n\n%@",
+                                  [NSString stringWithUTF8String:psz_genericAbout],
+                                  [NSString stringWithUTF8String:psz_authors],
+                                  [NSString stringWithUTF8String:psz_thanks]]];
+    [_creditsTextView setFont: [NSFont fontWithName:@"Lucida Grande" size:11.0]];
 
     /* Setup the window */
     [_creditsTextView setDrawsBackground:NO];

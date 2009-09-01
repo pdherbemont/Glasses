@@ -413,6 +413,8 @@ static const char psz_thanks[] =
 "ogg, theora, vorbis - Monty & the Xiph.org Foundation\n"
 "flac - Josh Coalson et al.\n"
 "Sparkle - Andy Matuschak et al.\n"
+"\n"
+"\n"
 ;
 static const char psz_authors[] =
 "Laurent Aimar\n"
