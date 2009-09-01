@@ -284,7 +284,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 - (NSString *)titleAtIndex:(NSUInteger)index
 {
-    return [[[self rootMediaList] mediaAtIndex:index].metaDictionary objectForKey:@"title"];
+    return [[[[self rootMediaList] mediaAtIndex:index] metaDictionary] objectForKey:@"title"];
 }
 
 - (NSUInteger)count
