@@ -24,6 +24,7 @@
 #import "VLCStyledVideoWindowController.h"
 #import "VLCExtendedVideoView.h"
 #import "VLCStyledVideoWindow.h"
+#import "VLCMediaDocument.h"
 #import "DOMElement_Additions.h"
 
 @interface  VLCStyledVideoWindowView ()
@@ -223,8 +224,43 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 #endif
 }
 
+- (VLCMediaListPlayer *)mediaListPlayer
+{
+    return [[[[self window] windowController] document] mediaListPlayer];
+}
+
+
+- (VLCMediaList *)rootMediaList
+{
+    VLCMediaListPlayer *player = [self mediaListPlayer];
+    VLCMediaList *mainMediaContent = player.rootMedia.subitems;
+    BOOL isPlaylistDocument = mainMediaContent.count > 0;
+    return isPlaylistDocument ? mainMediaContent : player.mediaList;
+}
+
+- (void)playMediaAtIndex:(NSUInteger)index
+{
+    [[self mediaListPlayer] playMedia:[[self rootMediaList] mediaAtIndex:index]];
+}
+
+- (NSString *)titleAtIndex:(NSUInteger)index
+{
+    return [[[self rootMediaList] mediaAtIndex:index].metaDictionary objectForKey:@"title"];
+}
+
+- (NSUInteger)count
+{
+    return [[self rootMediaList] count];
+}
+
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
+    if (sel == @selector(playMediaAtIndex:))
+        return NO;
+    if (sel == @selector(titleAtIndex:))
+        return NO;
+    if (sel == @selector(count))
+        return NO;
     if (sel == @selector(videoDidResize))
         return NO;
     if (sel == @selector(play))
@@ -271,9 +307,16 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
        return;
 
     DOMElement *element = [self htmlElementForId:@"content"];
+
     NSAssert(element, @"No content element in this style");
     NSRect frame = [element frameInView:self];
-    
+
+    DOMElement *more = [[[self mainFrame] DOMDocument] getElementById:@"more"];
+    if (more) {
+        NSRect frameMore = [more frameInView:self];
+        frame = NSUnionRect(frameMore, frame);
+    }
+
     if (!_contentTracking || !NSEqualRects([_contentTracking rect], frame)) {
         [self removeTrackingArea:_contentTracking];
         [_contentTracking release];

@@ -33,7 +33,7 @@ body {
 }
 
 .show-playlist .more {
-    -webkit-transform: translateX(0px);
+    -webkit-transform: rotateY(0deg);
 }
 
 .more {
@@ -49,18 +49,16 @@ body {
     border-right: 1px #434343 solid;
     border-top: 1px rgba(136, 136, 136, 0.5) solid;
     border-bottom: thin #434343 solid;
-    overflow: hidden;
     margin-top: 35px;
     margin-bottom: 35px;
     margin-right: 35px;
-    -webkit-transform: translateX(-200px);
 
-/*    -webkit-transform-origin: 0px 0 0;
+    -webkit-transform-origin: 0px 0 0;
     -webkit-border-top-left-radius: 0px;
     -webkit-border-bottom-left-radius: 0px;
     -webkit-transform-style: preserve-3d;
-    -webkit-backface-visibility:hidden;
-    -webkit-transform: rotateY(90deg); */
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: rotateY(90deg); 
 
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
 }
@@ -89,37 +87,39 @@ body {
 .more .textcontent {
     margin-top: 2px;
 }
-.more .textcontent table, .more .textcontent table * {
+.more .textcontent ul {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#303030));
     display: block;
-    position: relative;
+    position: absolute;
     width: 100%;
-    display: block;
-    position: relative;
+    margin: 0px;
+    padding: 0px;
+    top: 22px; right: 0; left: 0; bottom: 32px;
+    overflow: auto;
 }
 
-.more .textcontent table tr, .more .textcontent table td {
+.more .textcontent ul li {
     height: 50px;
 }
-.more .textcontent table tr {
+.more .textcontent ul li {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#303030));
     border-bottom: thin rgba(255,255,255,0.2) solid;
 }
 
-.more .textcontent table tr.selected {
+.more .textcontent ul li.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cfcfcf), color-stop(0.2, #aaaaaa), color-stop(0.8, #bbbbbb), to(#999999));
     border-bottom: thin rgba(255,255,255,0.2) solid;
 }
-.more .textcontent table tr.selected td {
+
+.more .textcontent ul li.selected td {
     color: rgba(0,0,0,1);
     text-shadow: 0 1px 1px rgba(255,255,255,1);
 }
 
 
-.more .textcontent table td {
-    overflow: hidden;
+.more .textcontent ul li {
     text-overflow: ellipsis;
     word-wrap: break-word;
-    overflow: hidden;
 
     font-family: LucidaGrande;
     font-size: 11px;
@@ -128,7 +128,6 @@ body {
     padding: 5px;
     padding-right: 15px;
     text-shadow: 0 1px 1px rgba(0,0,0,1);
-    width: 100%;
     
     -webkit-text-wrap: -webkit-unrestricted;
 }

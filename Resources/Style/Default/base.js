@@ -128,6 +128,7 @@ windowController.addClassNameToContent = function(className) {
     addClassNameToElement(content, className);
 }
 
+// JS -> Core
 
 windowController.close = function() {
     windowController.PlatformWindow().performClose();

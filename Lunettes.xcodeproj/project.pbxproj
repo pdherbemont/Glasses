@@ -57,6 +57,7 @@
 		635D112E104A847300D34A87 /* PlaylistDebugWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */; };
 		635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */; };
 		635D14EE104AE3BE00D34A87 /* hud.css in Resources */ = {isa = PBXBuildFile; fileRef = 635D14ED104AE3BE00D34A87 /* hud.css */; };
+		635D179A104C34D100D34A87 /* Experimental.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F772010480F8300117832 /* Experimental.lunettesstyle */; };
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
 		639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
 		639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
@@ -147,6 +148,13 @@
 			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
 			remoteInfo = VLCKit;
 		};
+		635D17B6104C34D400D34A87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F771910480F8300117832 /* Experimental.lunettesstyle */;
+			remoteInfo = Experimental.lunettesstyle;
+		};
 		639F68451046E9A200117832 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -177,6 +185,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				635D179A104C34D100D34A87 /* Experimental.lunettesstyle in Copy lunettesstyle Plugins */,
 				639F7296104755AB00117832 /* Black.lunettesstyle in Copy lunettesstyle Plugins */,
 				639F6CB01047220E00117832 /* TV.lunettesstyle in Copy lunettesstyle Plugins */,
 				639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */,
@@ -909,6 +918,7 @@
 			dependencies = (
 				639F68461046E9A200117832 /* PBXTargetDependency */,
 				639F6CAF1047220B00117832 /* PBXTargetDependency */,
+				635D17B7104C34D400D34A87 /* PBXTargetDependency */,
 				639F72C8104755B000117832 /* PBXTargetDependency */,
 			);
 			name = Lunettes;
@@ -1121,6 +1131,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		635D17B7104C34D400D34A87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F771910480F8300117832 /* Experimental.lunettesstyle */;
+			targetProxy = 635D17B6104C34D400D34A87 /* PBXContainerItemProxy */;
+		};
 		639F68461046E9A200117832 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 639F683F1046E98400117832 /* Default.lunettesstyle */;
@@ -1356,7 +1371,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "/Users/steg/Sources/Glasses/Info copy.plist";
+				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1531,7 +1546,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "/Users/steg/Sources/Glasses/Info copy.plist";
+				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1555,7 +1570,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = "/Users/steg/Sources/Glasses/Info copy.plist";
+				INFOPLIST_FILE = /Users/steg/Sources/Glasses/Resources/Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
