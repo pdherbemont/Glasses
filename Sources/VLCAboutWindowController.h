@@ -44,8 +44,6 @@
     IBOutlet VLCGPLWindowController *_gplWindowController;
 }
 
-- (IBAction)showGPL:(id)sender;
-
 @end
 
 static const char psz_genericAbout[] =
@@ -55,6 +53,8 @@ static const char psz_genericAbout[] =
 "Based upon VLC media player 1.1-git using VLCKit.\n"
 "\n"
 "Lunettes is brought to you by VideoLAN.\n"
+"\n"
+"\n"
 "\n"
 "\n"
 "\n"

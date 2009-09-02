@@ -71,6 +71,7 @@
 -(IBAction)showWindow:(id)sender
 {
     [_gplTextField setString:[NSString stringWithUTF8String:psz_license]];
+    [_gplTextField setFont: [NSFont fontWithName:@"Lucida Grande" size:11.0]];
     NSWindow *window = [self window];
     [window center];
     [window makeKeyAndOrderFront:self];
@@ -207,11 +208,6 @@
     /* Show the window */
     [_creditsTextView scrollPoint:NSMakePoint(0,0)];
     [[self window] makeKeyAndOrderFront:sender];
-}
-
-- (IBAction)showGPL:(id)sender
-{
-    [_gplWindowController showWindow:sender];
 }
 
 @end

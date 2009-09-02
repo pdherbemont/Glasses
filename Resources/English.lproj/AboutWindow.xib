@@ -538,7 +538,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{356, 183}, {480, 360}}</string>
 				<int key="NSWTFlags">1886912512</int>
-				<string key="NSWindowTitle">Licence</string>
+				<string key="NSWindowTitle">License</string>
 				<object class="NSMutableString" key="NSWindowClass">
 					<characters key="NS.bytes">NSWindow</characters>
 				</object>
@@ -736,20 +736,20 @@
 					<int key="connectionID">68</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">showGPL:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="799989148"/>
-					</object>
-					<int key="connectionID">70</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">_gplWindowController</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="849720927"/>
 					</object>
 					<int key="connectionID">71</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showWindow:</string>
+						<reference key="source" ref="849720927"/>
+						<reference key="destination" ref="799989148"/>
+					</object>
+					<int key="connectionID">72</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1105,7 +1105,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">71</int>
+			<int key="maxID">72</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1120,10 +1120,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCAboutWindowController</string>
 					<string key="superclassName">NSWindowController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">showGPL:</string>
-						<string key="NS.object.0">id</string>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
