@@ -63,23 +63,6 @@ body {
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
 }
 
-.more .controls {
-    /* Window is key window */
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
-    -webkit-border-bottom-left-radius: 0px;
-
-}
-
-.more .controls {
-/* rgb(0.90,.90,.90) rgb(0.50,0.50,0.50) rgb(0.59,0.59,0.59) */
-
-}
-
-.more .titlebar {
-    /* Window is key window */
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
-}
-
 .more {
     display: block;
 }
@@ -141,7 +124,7 @@ body {
  * The window
  */
 
-#content {
+#main-window {
     position: absolute;
 /* rgb(0.90,.90,.90) rgb(0.50,0.50,0.50) rgb(0.59,0.59,0.59) */
     bottom: 0;
@@ -158,7 +141,7 @@ body {
     overflow: hidden;
 }
 
-.show-playlist>#content {
+.show-playlist>#main-window {
     -webkit-transition: -webkit-border-top-right-radius 0.1s ease-in;
     -webkit-transition: -webkit-border-bottom-right-radius 0.1s ease-in;
     -webkit-border-top-right-radius: 0px;
@@ -166,13 +149,13 @@ body {
     border-right: 0px transparent solid;
 }
 
-.show-playlist>#content .titlebar {
+.show-playlist>#main-window .titlebar {
     -webkit-transition: -webkit-border-top-right-radius 0.1s ease-in;
     -webkit-border-top-right-radius: 0px;
 
     border-right: none;
 }
-.show-playlist>#content .controls {
+.show-playlist>#main-window .controls {
     -webkit-transition: -webkit-border-bottom-right-radius 0.1s ease-in;
     -webkit-border-bottom-right-radius: 0px;
 }
@@ -181,11 +164,11 @@ body {
  * Window decoration
  */
 
-#content.key-window .titlebar {
+.key-window .titlebar {
     /* Window is key window */
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
 }
-#content .titlebar {
+.titlebar {
     /* Window is non key window */
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cfcfcf));
 }
@@ -223,28 +206,28 @@ body {
     margin-right: 4px;
 }
 
-#content.key-window .window-buttons>button {
+.key-window .window-buttons>button {
     background-image: url(window-buttons.png);
 }
 
-#content .window-buttons>button {
+.window-buttons>button {
     background-repeat: no-repeat;
     background-image: url(window-buttons-off.png);
 }
 
-#content .window-buttons:hover>button {
+.window-buttons:hover>button {
     background-image: url(window-buttons-over.png);
 }
 
-#content .window-buttons>.close:active {
+.window-buttons>.close:active {
     background: url(window-close-on.png) no-repeat 0 0;
 }
 
-#content .window-buttons>.miniaturize:active {
+.window-buttons>.miniaturize:active {
     background: url(window-minimize-on.png) no-repeat 0 0;
 }
 
-#content .window-buttons>.zoom:active {
+.window-buttons>.zoom:active {
     background: url(window-zoom-on.png) no-repeat 0 0;
 }
 
@@ -363,12 +346,12 @@ body {
  * Controls
  */
 
-#content.key-window .controls {
+.key-window .controls {
     /* Window is key window */
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
 }
 
-#content .controls {
+.controls {
     /* Window is non key window */
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cfcfcf));
 }
@@ -388,12 +371,12 @@ body {
     height: 31px;
 }
 /*
-#content .controls  {
+#main-window .controls  {
     -webkit-transform: translateY(40px);
     -webkit-transition: -webkit-transform 1.0s ease-in-out;
 }
 
-#content:hover .controls  {
+#main-window:hover .controls  {
     -webkit-transform: translateY(0);
     -webkit-transition: -webkit-transform 0.2s ease-in-out;
 }*/
@@ -410,19 +393,19 @@ body {
     margin-right: 3px;
 }
 
-#content .toggle-playing {
+.toggle-playing {
     background-image: url(play.png);
 }
 
-#content .toggle-playing:active {
+.toggle-playing:active {
     background-image: url(play_blue.png);
 }
 
-#content.playing .toggle-playing {
+.playing .toggle-playing {
     background-image: url(pause.png);
 }
 
-#content.playing .toggle-playing:active {
+.playing .toggle-playing:active {
     background-image: url(pause_blue.png);
 }
 
@@ -481,3 +464,31 @@ body {
     font-size: 10px;
 }
 
+.seekable .timeinfo>:nth-child(n) {
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease-out;
+}
+
+.timeinfo>:nth-child(n) {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-out;
+}
+
+.seekable .status {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-out;
+}
+
+.status {
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease-out;
+}
+
+.status {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+
+    font-family: LucidaGrande;
+    font-size: 10px;
+}

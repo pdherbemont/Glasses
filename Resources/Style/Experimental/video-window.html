@@ -9,8 +9,8 @@
 
 	<title>Video Window</title>
 </head>
-<body onload="init(); windowController.init()">
-<div id="content" class="drag-platform-window key-window">
+<body onload="init(); windowController.init();" id="content" class="key-window">
+<div id="main-window" class="drag-platform-window">
     
     <div class="window-decoration">
         <div class="titlebar">
@@ -27,20 +27,20 @@
     <div id="video">
         <div id="video-view" class="view"></div>
         <div class="controls">
-            
             <button class="enter-fullscreen"></button>
             <button class="toggle-playing"></button>
             <div class="timeinfo">
                 <input class="timeline" type="range"  max="1000" value="0">
                 <div class="ellapsed-time">--:--</div>
             </div>
+            <div class="status">Playing</div>
         </div>
     </div>
 
     <div class="resize resize-platform-window"></div>
     <div class="preloader"></div>
 </div>
-<div id="more" class="more">
+<div id="more" class="more drag-platform-window">
     <div class="window-decoration">
         <div class="titlebar"></div>
     </div>
