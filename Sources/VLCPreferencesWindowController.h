@@ -28,7 +28,7 @@
     IBOutlet NSButton *_checkForUpdatesCheckBox;
 }
 
+- (void)syncSettings;
 - (IBAction)buttonAction:(id)sender;
-- (IBAction)showPreferences:(id)sender;
 
 @end

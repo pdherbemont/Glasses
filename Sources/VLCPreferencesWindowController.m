@@ -26,6 +26,12 @@
 
 @implementation VLCPreferencesWindowController
 
+- (void)awakeFromNib
+{
+    [[SUUpdater sharedUpdater] setDelegate: self];
+    [self syncSettings];
+}
+
 - (NSString *)windowNibName
 {
     return @"PreferencesWindow";
@@ -45,7 +51,13 @@
     [_checkForUpdatesCheckBox setIntValue:[updater automaticallyChecksForUpdates]];
 }
 
-- (IBAction)showPreferences: (id)sender
+- (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
+{
+    if ([[self window] isVisible])
+        [self syncSettings];
+}
+
+- (IBAction)showWindow: (id)sender
 {
     [self syncSettings];
     [[self window] makeKeyAndOrderFront: nil];
