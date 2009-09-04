@@ -51,6 +51,7 @@
 		6311DB330FF85BE3004BC7D1 /* fullscreen_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */; };
 		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
+		6323FFA0104ECB5E00FBEC60 /* hud.html in Resources */ = {isa = PBXBuildFile; fileRef = 6323FF9F104ECB5E00FBEC60 /* hud.html */; };
 		635D1124104A844000D34A87 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1123104A844000D34A87 /* AboutWindow.xib */; };
 		635D112A104A846400D34A87 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1129104A846400D34A87 /* OpenURLWindow.xib */; };
 		635D112C104A846400D34A87 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112B104A846400D34A87 /* PreferencesWindow.xib */; };
@@ -307,6 +308,7 @@
 		6311DB2B0FF85BDB004BC7D1 /* display_track.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = display_track.png; sourceTree = "<group>"; };
 		6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_active.png; sourceTree = "<group>"; };
 		6311DB320FF85BE3004BC7D1 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_blue.png; sourceTree = "<group>"; };
+		6323FF9F104ECB5E00FBEC60 /* hud.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = hud.html; sourceTree = "<group>"; };
 		635D1121104A843D00D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
 		635D1125104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/OpenURLWindow.xib; sourceTree = "<group>"; };
 		635D1126104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
@@ -746,6 +748,7 @@
 				639F776010480FCE00117832 /* timeinfo_middle.png */,
 				639F776110480FCE00117832 /* timeline_border.png */,
 				639F776210480FCE00117832 /* timeline_thumb.png */,
+				6323FF9F104ECB5E00FBEC60 /* hud.html */,
 				639F776310480FCE00117832 /* video-window.html */,
 				639F776410480FCE00117832 /* window-buttons-off.png */,
 				639F776510480FCE00117832 /* window-buttons-over.png */,
@@ -1044,6 +1047,7 @@
 				639F777910480FCE00117832 /* window-zoom-on.png in Resources */,
 				639F781010483EC200117832 /* fullscreen.png in Resources */,
 				639F781110483EC200117832 /* fullscreen_blue.png in Resources */,
+				6323FFA0104ECB5E00FBEC60 /* hud.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

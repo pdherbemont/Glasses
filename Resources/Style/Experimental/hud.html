@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
+    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="script.js"></script>
+    <style>
+
+    body {
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+        margin: 0;
+        overflow: hidden;
+    }
+
+
+    .hidden ul {
+        opacity: 0;
+        -webkit-transition: opacity 0.3s ease-in-out;
+    }
+    ul {
+        opacity: 1;
+        -webkit-transition: opacity 0.3s ease-in-out;
+    }
+    ul {
+        -webkit-transition: top 0.3s ease-out;
+        position: absolute;
+        top: 0; bottom: auto; right: 0; left: auto;
+        padding-right: 10px;
+        text-align: right;
+        list-style-type:none;
+    }
+    
+    ul li {
+        color: white;
+        -webkit-text-stroke: 1px black; 
+        text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+        font-size: 64px;
+        padding: 40px;
+        height: 76px;
+        text-align: right;
+    }
+
+    .hidden .playlist-selection {
+        opacity: 0;
+        -webkit-transition: opacity 0.3s ease-in-out;
+    }
+    .playlist-selection {
+        opacity: 1;
+        -webkit-transition: opacity 0.3s ease-in-out;
+    }
+
+    .playlist-selection {
+        position: absolute;
+        margin: 20px;
+        top: 0; bottom: auto; right: 0; left: auto;
+
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        -webkit-box-shadow:  0px 0px 5px rgba(100, 100, 250, 1);
+        height: 116px;
+        width: 1000px;
+        padding: 20px;
+        -webkit-transition: top 0.3s ease-out;
+    
+        background-color: rgba(255, 255, 255, 0);
+        background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 0.3)), color-stop(0.5, rgba(255, 255, 255, 0)), to(rgba(0, 0, 0, 0.5)));
+    }
+    </style>
+    <script>
+    var selectionIndex = 0;
+    var timer = null;
+    function gotoCurrentSelection() {
+        if (selectionIndex < 0)
+            selectionIndex = 0;
+
+        var item = document.getElementById("tableItem" + selectionIndex);
+        var playlist = document.getElementById("playlist");
+        if (!item) {
+            selectionIndex--;
+            return;
+        }
+
+        if (timer)
+            clearTimeout(timer);
+        timer = setTimeout(function (){playlist.style.top = - selectionIndex * (76 + 80) + "px"; timer = null;}, 0);
+    }
+    
+    function onKeyDown(event) {
+        console.log("event.keyCode " + event.keyCode);
+        windowController.revealAutoHiddenElementsAndHideAfter(3);
+
+        switch (event.keyCode) {
+            case 40: // Up
+                selectionIndex++;
+                gotoCurrentSelection();
+                break;
+            case 38: // Down
+                selectionIndex--;
+                gotoCurrentSelection();
+                break;
+            case 13: // Enter
+                window.PlatformView.playMediaAtIndex_(selectionIndex);
+                windowController.revealAutoHiddenElementsAndHideAfter(0);
+                break;
+            case 00: // Escape
+                break;
+        }
+    }
+    </script>
+	<title>Video Window</title>
+</head>
+<body onkeydown="onKeyDown(event)" onload="init(); windowController.init();" id="content" class="key-window">
+<div id="more">
+    <div class="textcontent autohide-when-mouse-leaves">
+        <div class="playlist-selection" id="playlist-selection"></div>
+        <ul id="playlist" class="playlist">
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+            <li>fakecontent</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

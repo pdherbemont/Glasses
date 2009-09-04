@@ -30,6 +30,9 @@ function init() {
     var playlist = document.getElementById("playlist");
     var table = createTableWithDiv(playlist);
     playlist.table = table;
+
+    removeItems();
+    setTimeout("addItems()", 0);
 }
 
 function newItem(index, title) {
@@ -38,8 +41,11 @@ function newItem(index, title) {
 
 function addItems() {
     var playlist = document.getElementById("playlist");
-    for(i = 0; i < window.PlatformView.count(); i++)
-        playlist.table.add(newItem(i, window.PlatformView.titleAtIndex_(i)));
+    var platformView = window.PlatformView;
+    if (!platformView)
+        return;
+    for(i = 0; i < platformView.count(); i++)
+        playlist.table.add(newItem(i, platformView.titleAtIndex_(i)));
 }
 
 function removeItems() {

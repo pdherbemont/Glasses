@@ -12,6 +12,7 @@ var exposed_className = {
     dontDragPlatformWindow: "dont-drag-platform-window",
     resizePlatformWindow: "resize-platform-window",
     autohideWhenMouseLeaves: "autohide-when-mouse-leaves",
+    dontHideWhenMouseIsInside: "dont-hide-when-mouse-is-inside",
     
     /* These are the 'callback' className */
     hidden: "hidden", /* On autohide-when-mouse-leaves elements */
@@ -48,7 +49,7 @@ windowController.init = function() {
     var buttons = document.getElementsByClassName(exposed_className.autohideWhenMouseLeaves);
     if (buttons.length > 0) {
         document.body.addEventListener('mousemove', this.revealAutoHiddenElements, false);
-        bindByClassNameActionToMethod(exposed_className.autohideWhenMouseLeaves, 'mouseover', this.interruptAutoHide);        
+        bindByClassNameActionToMethod(exposed_className.dontHideWhenMouseIsInside, 'mouseover', this.interruptAutoHide);        
     }
 	
     // Make "draggable" elements draggable.
@@ -260,14 +261,18 @@ windowController.autoHideElements = function(event) {
     windowController.addClassNameToContent(exposed_className.hidden);
 }
 
-windowController.revealAutoHiddenElements = function(event) {
+windowController.revealAutoHiddenElementsAndHideAfter = function(seconds, element) {
     windowController.removeClassNameFromContent(exposed_className.hidden);
     var timer = windowController.timer;
     if (timer)
         clearTimeout(timer);
-    if (event.srcElement != document.body)
+    if (element && elementOrParentHasClassName(element, exposed_className.exposed_className))
         return;
-    windowController.timer = setTimeout(windowController.autoHideElements, windowController.autohiddingTime * 1000);
+    windowController.timer = setTimeout(windowController.autoHideElements, seconds * 1000);    
+}
+
+windowController.revealAutoHiddenElements = function(event) {
+    windowController.revealAutoHiddenElementsAndHideAfter(windowController.autohiddingTime, event.srcElement);
 }
 
 windowController.interruptAutoHide = function(event) {

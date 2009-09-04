@@ -63,6 +63,11 @@
     return YES;
 }
 
+- (void)keyDown:(NSEvent *)theEvent
+{
+
+}
+
 #pragma mark -
 #pragma mark Javascript callbacks
 
@@ -86,8 +91,43 @@
     [NSCursor setHiddenUntilMouseMoves:YES];
 }
 
+- (VLCMediaListPlayer *)mediaListPlayer
+{
+    return [[[[self window] windowController] document] mediaListPlayer];
+}
+
+
+- (VLCMediaList *)rootMediaList
+{
+    VLCMediaListPlayer *player = [self mediaListPlayer];
+    VLCMediaList *mainMediaContent = player.rootMedia.subitems;
+    BOOL isPlaylistDocument = mainMediaContent.count > 0;
+    return isPlaylistDocument ? mainMediaContent : player.mediaList;
+}
+
+- (void)playMediaAtIndex:(NSUInteger)index
+{
+    [[self mediaListPlayer] playMedia:[[self rootMediaList] mediaAtIndex:index]];
+}
+
+- (NSString *)titleAtIndex:(NSUInteger)index
+{
+    return [[[self rootMediaList] mediaAtIndex:index].metaDictionary objectForKey:@"title"];
+}
+
+- (NSUInteger)count
+{
+    return [[self rootMediaList] count];
+}
+
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
+    if (sel == @selector(playMediaAtIndex:))
+        return NO;
+    if (sel == @selector(titleAtIndex:))
+        return NO;
+    if (sel == @selector(count))
+        return NO;    
     if (sel == @selector(play))
         return NO;
     if (sel == @selector(pause))
