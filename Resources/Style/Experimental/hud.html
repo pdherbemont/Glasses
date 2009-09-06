@@ -15,34 +15,70 @@
         position: absolute;
         margin: 0;
         overflow: hidden;
+        -webkit-perspective: 900;
     }
 
+    .textcontent {
+        position: absolute;
+        top: 40px; bottom: auto; right: 40px; left: auto;
+        overflow: hidden;
+        height: 400px;
+        width: 200px;
+        background-color: rgba(0, 0, 0, 0.7);
+        -webkit-border-radius: 10px;
+        -webkit-box-shadow: 0px 5px 30px black;
+        -webkit-transform: rotateY(-45deg);
+        -webkit-transform-origin: 200px 0 0;
+        -webkit-transform-style: preserve-3d;
+    }
 
-    .hidden ul {
+    .hidden .textcontent {
         opacity: 0;
         -webkit-transition: opacity 0.3s ease-in-out;
     }
-    ul {
+    .textcontent {
         opacity: 1;
         -webkit-transition: opacity 0.3s ease-in-out;
     }
     ul {
         -webkit-transition: top 0.3s ease-out;
         position: absolute;
-        top: 0; bottom: auto; right: 0; left: auto;
+        top: 0px; bottom: auto; right: 0px; left: auto;
         padding-right: 10px;
         text-align: right;
         list-style-type:none;
     }
     
+    .overlay-top {
+        position: absolute;
+        top: 0px; bottom: auto; right: 0px; left: 0px;
+        height: 200px;
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(black), to(rgba(0,0,0,0)));
+                -webkit-border-radius: 10px;
+    }
+    .overlay-bottom {
+        position: absolute;
+        top: auto; bottom: 0px; right: 0px; left: 0px;
+        height: 200px;
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), to(black));
+                -webkit-border-radius: 10px;
+    }
+    
     ul li {
+        color: #ababab;
+        font-family: Lucida Grande;
+        font-size: 20px;
+        font-weight: bold;
+        text-align: left;
+        height: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    ul li.selected {
         color: white;
-        -webkit-text-stroke: 1px black; 
-        text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
-        font-size: 64px;
-        padding: 40px;
-        height: 76px;
-        text-align: right;
+        -webkit-text-stroke: 0px; 
+        text-shadow: 0px 0px 10px white;
     }
 
     .hidden .playlist-selection {
@@ -73,6 +109,11 @@
     <script>
     var selectionIndex = 0;
     var timer = null;
+    function removeCurrentSelection() {
+        var item = document.getElementById("tableItem" + selectionIndex);
+        removeClassNameFromElement(item, "selected");
+
+    }
     function gotoCurrentSelection() {
         if (selectionIndex < 0)
             selectionIndex = 0;
@@ -84,21 +125,26 @@
             return;
         }
 
+        addClassNameToElement(item, "selected");
+
         if (timer)
             clearTimeout(timer);
-        timer = setTimeout(function (){playlist.style.top = - selectionIndex * (76 + 80) + "px"; timer = null;}, 0);
+        timer = setTimeout(function (){playlist.style.top = - (selectionIndex - 7) * (25) + "px"; timer = null;}, 0);
+
     }
-    
+
     function onKeyDown(event) {
         console.log("event.keyCode " + event.keyCode);
         windowController.revealAutoHiddenElementsAndHideAfter(3);
 
         switch (event.keyCode) {
             case 40: // Up
+                removeCurrentSelection();
                 selectionIndex++;
                 gotoCurrentSelection();
                 break;
             case 38: // Down
+                removeCurrentSelection();
                 selectionIndex--;
                 gotoCurrentSelection();
                 break;
@@ -116,12 +162,11 @@
 <body onkeydown="onKeyDown(event)" onload="init(); windowController.init();" id="content" class="key-window">
 <div id="more">
     <div class="textcontent autohide-when-mouse-leaves">
-        <div class="playlist-selection" id="playlist-selection"></div>
         <ul id="playlist" class="playlist">
             <li>fakecontent</li>
             <li>fakecontent</li>
             <li>fakecontent</li>
-            <li>fakecontent</li>
+            <li class="selected">fakecontent</li>
             <li>fakecontent</li>
             <li>fakecontent</li>
             <li>fakecontent</li>
@@ -130,6 +175,8 @@
             <li>fakecontent</li>
             <li>fakecontent</li>
         </ul>
+        <div class="overlay-top"></div>
+        <div class="overlay-bottom"></div>
     </div>
 </div>
 
