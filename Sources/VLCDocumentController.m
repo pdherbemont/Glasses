@@ -89,9 +89,39 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     }
 }
 
+static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *mediaDiscoverer)
+{
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[mediaDiscoverer localizedName] action:@selector(openLibraryFromMenuItem:) keyEquivalent:@""];
+    [menuItem setRepresentedObject:mediaDiscoverer];
+    return menuItem;
+}
+
+- (void)rebuildOpenLibraryMenu
+{
+    NSMenu *menu = [_openLibraryMenu submenu];
+    for (NSUInteger i = 0; i < [menu numberOfItems]; i++)
+         [menu removeItemAtIndex:i];
+
+    for (VLCMediaDiscoverer *mediaDiscoverer in [VLCMediaDiscoverer availableMediaDiscoverer]) {
+        NSMenuItem *menuItem = createOpenLibraryMenuItemWithDiscoverer(mediaDiscoverer);
+        [menu addItem:menuItem];
+        [menuItem release];
+    }
+}
+
+- (void)openLibraryFromMenuItem:(id)sender
+{
+    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:[[sender representedObject] discoveredMedia]];
+    [self addDocument:mediaDocument];
+    [mediaDocument makeWindowControllers];
+    [mediaDocument showWindows];
+    [mediaDocument release];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self rebuildStyleMenu];
+    [self rebuildOpenLibraryMenu];
 
     // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)

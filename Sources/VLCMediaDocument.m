@@ -40,9 +40,20 @@
 	return self;
 }
 
+- (id)initWithMediaList:(VLCMediaList *)mediaList
+{
+    self = [super init];
+	if(!self)
+        return nil;
+    _mediaList = [mediaList retain];
+	return self;
+}
+
+
 - (void)dealloc
 {
 	[_media release];
+	[_mediaList release];
 
     NSAssert(!_mediaListPlayer, @"The current media player should be removed in -close");
 
@@ -77,7 +88,10 @@
     self.mediaListPlayer = mediaListPlayer;
 	[videoView setMediaPlayer:mediaListPlayer.mediaPlayer];
     [mediaListPlayer.mediaPlayer setDelegate:self];
-	[mediaListPlayer setRootMedia:_media];
+    if (_media)
+        [mediaListPlayer setRootMedia:_media];
+    else
+        [mediaListPlayer setMediaList:_mediaList];
     [mediaListPlayer play];
     [mediaListPlayer release];
 

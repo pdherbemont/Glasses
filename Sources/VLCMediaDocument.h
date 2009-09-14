@@ -26,8 +26,11 @@
 
 @interface VLCMediaDocument : NSDocument {
 	VLCMedia *_media;
+	VLCMediaList *_mediaList;
 	VLCMediaListPlayer *_mediaListPlayer;
 }
+
+- (id)initWithMediaList:(VLCMediaList *)mediaList;
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
 
