@@ -74,6 +74,8 @@
     [self videoDidResize];
     [self setKeyWindow:[window isKeyWindow]];
     [self setMainWindow:[window isMainWindow]];
+    [self setListCount:_listCount];
+    [self setSublistCount:_sublistCount];
     [self updateTrackingAreas];
     
     [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
@@ -108,6 +110,41 @@
     else
         [self removeClassFromContent:@"main-window"];
 }
+
+- (void)setListCount:(NSUInteger)count
+{
+    _listCount = count;
+
+    // Use the sublist count if we have subitems.
+    if (_sublistCount > 0)
+        return;
+
+    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
+    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
+}
+
+- (NSUInteger)listCount
+{
+    return _listCount;
+}
+
+- (void)setSublistCount:(NSUInteger)count
+{
+    _sublistCount = count;
+
+    // No subitems, use the list count.
+    if (_sublistCount == 0)
+        return;
+
+    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
+    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
+}
+
+- (NSUInteger)sublistCount
+{
+    return _sublistCount;
+}
+
 
 // Other setter are in super class.
 

@@ -166,11 +166,17 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 #pragma mark -
 #pragma mark Util
 
-- (DOMHTMLElement *)htmlElementForId:(NSString *)idName
+- (DOMHTMLElement *)htmlElementForId:(NSString *)idName canBeNil:(BOOL)canBeNil
 {
     DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:idName];
-    NSAssert1([element isKindOfClass:[DOMHTMLElement class]], @"The '%@' element should be a DOMHTMLElement", idName);
+    if (!canBeNil)
+        NSAssert1([element isKindOfClass:[DOMHTMLElement class]], @"The '%@' element should be a DOMHTMLElement", idName);
     return (id)element;
+}
+
+- (DOMHTMLElement *)htmlElementForId:(NSString *)idName
+{
+    return [self htmlElementForId:idName canBeNil:NO];
 }
 
 #pragma mark -

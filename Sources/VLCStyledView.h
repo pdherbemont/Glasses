@@ -66,6 +66,7 @@
 - (void)addClassToContent:(NSString *)className;
 - (void)removeClassFromContent:(NSString *)className;
 - (DOMHTMLElement *)htmlElementForId:(NSString *)idName;
+- (DOMHTMLElement *)htmlElementForId:(NSString *)idName canBeNil:(BOOL)canBeNil;
 
 /**
  * This will be used to bind some value in the DOM

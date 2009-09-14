@@ -24,12 +24,13 @@
         overflow: hidden;
         height: 400px;
         width: 200px;
-        background-color: rgba(0, 0, 0, 0.7);
+        background-color: rgba(50, 50, 50, 0.8);
         -webkit-border-radius: 10px;
         -webkit-box-shadow: 0px 5px 30px black;
-        -webkit-transform: rotateY(-45deg);
+/*        -webkit-transform: rotateY(-45deg);
         -webkit-transform-origin: 200px 0 0;
-        -webkit-transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d; */
+        border: 1px solid rgba(0,0,0,0.4);
     }
 
     .hidden .textcontent {
@@ -53,14 +54,14 @@
         position: absolute;
         top: 0px; bottom: auto; right: 0px; left: 0px;
         height: 200px;
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(black), to(rgba(0,0,0,0)));
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(black), color-stop(0.8, rgba(0,0,0,0)), to(rgba(0,0,0,0)));
                 -webkit-border-radius: 10px;
     }
     .overlay-bottom {
         position: absolute;
         top: auto; bottom: 0px; right: 0px; left: 0px;
         height: 200px;
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), to(black));
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), color-stop(0.2, rgba(0,0,0,0)), to(black));
                 -webkit-border-radius: 10px;
     }
     
@@ -78,7 +79,7 @@
     ul li.selected {
         color: white;
         -webkit-text-stroke: 0px; 
-        text-shadow: 0px 0px 10px white;
+        text-shadow: 0px 0px 3px black;
     }
 
     .hidden .playlist-selection {
@@ -159,7 +160,7 @@
     </script>
 	<title>Video Window</title>
 </head>
-<body onkeydown="onKeyDown(event)" onload="init(); windowController.init();" id="content" class="key-window">
+<body onkeydown="onKeyDown(event)" onload="windowController.init(); init();" id="content" class="key-window">
 <div id="more">
     <div class="textcontent autohide-when-mouse-leaves">
         <ul id="playlist" class="playlist">
