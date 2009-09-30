@@ -99,7 +99,7 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
 - (void)rebuildOpenLibraryMenu
 {
     NSMenu *menu = [_openLibraryMenu submenu];
-    for (NSUInteger i = 0; i < [menu numberOfItems]; i++)
+    for (NSInteger i = 0; i < [menu numberOfItems]; i++)
          [menu removeItemAtIndex:i];
 
     for (VLCMediaDiscoverer *mediaDiscoverer in [VLCMediaDiscoverer availableMediaDiscoverer]) {

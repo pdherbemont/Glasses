@@ -919,6 +919,6 @@
 	<key>SUFeedURL</key>
 	<string>http://jones.videolan.org/~videolan/fpk/sparkle/lunettes.xml</string>
 	<key>NSSupportsSuddenTermination</key>
-	<string>YES</string>
+	<true/>
 </dict>
 </plist>

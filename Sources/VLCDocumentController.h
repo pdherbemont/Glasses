@@ -29,5 +29,6 @@
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
+- (void)openLibraryFromMenuItem:(id)sender;
 
 @end
