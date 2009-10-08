@@ -10,7 +10,7 @@ function togglePlaylistView() {
     }
     removeItems();
     addItems();
-    setTimeout(function() { window.PlatformView.videoDidResize() }, 1000);
+    window.PlatformView.videoDidResize();
 }
 
 function tableClicked(event) {
