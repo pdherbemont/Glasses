@@ -26,6 +26,7 @@
 #import "VLCStyledVideoWindow.h"
 #import "VLCMediaDocument.h"
 #import "DOMElement_Additions.h"
+#import "DOMHTMLElement_Additions.h"
 
 @interface  VLCStyledVideoWindowView ()
 - (void)videoDidResize;
@@ -78,7 +79,8 @@
     [self setSublistCount:_sublistCount];
     [self updateTrackingAreas];
     
-    [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
+    //[window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
+    //[window performSelector:@selector(display) withObject:self afterDelay:0.];
 }
 
 - (void)windowDidChangeAlphaValue:(CGFloat)alpha
@@ -111,6 +113,17 @@
         [self removeClassFromContent:@"main-window"];
 }
 
+- (void)setHTMLListCount:(NSUInteger)count
+{
+    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
+    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
+
+    if (count == 1)
+        [self removeClassFromContent:@"multiple-play-items"];
+    else
+        [self addClassToContent:@"multiple-play-items"];
+}
+
 - (void)setListCount:(NSUInteger)count
 {
     _listCount = count;
@@ -119,8 +132,7 @@
     if (_sublistCount > 0)
         return;
 
-    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
-    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
+    [self setHTMLListCount:count];
 }
 
 - (NSUInteger)listCount
@@ -136,8 +148,7 @@
     if (_sublistCount == 0)
         return;
 
-    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
-    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
+    [self setHTMLListCount:count];
 }
 
 - (NSUInteger)sublistCount
@@ -219,6 +230,10 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     NSAssert(videoView, @"There is no videoView.");
 
     NSRect frame = [element frameInView:self];
+
+    // For now the playlist toggle uses this methog
+    // to update the tracking area, so force it here.
+    [self updateTrackingAreas];
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
     BOOL belowContent = [element.className rangeOfString:@"below-content"].length > 0;
@@ -345,13 +360,13 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
    if ([VLCStyledVideoWindow debugStyledWindow])
        return;
 
-    DOMElement *element = [self htmlElementForId:@"content"];
+    DOMElement *element = [self htmlElementForId:@"main-window"];
 
     NSAssert(element, @"No content element in this style");
     NSRect frame = [element frameInView:self];
 
-    DOMElement *more = [[[self mainFrame] DOMDocument] getElementById:@"more"];
-    if (more) {
+    DOMHTMLElement *more = [self htmlElementForId:@"more" canBeNil:YES] ;
+    if (more && [more hasClassName:@"visible"]) {
         NSRect frameMore = [more frameInView:self];
         frame = NSUnionRect(frameMore, frame);
     }

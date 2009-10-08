@@ -12,6 +12,18 @@ body {
     margin: 0;
 }
 
+
+body {
+    -webkit-perspective: 1000;
+}
+
+input[type=search] {
+    -webkit-user-select: text;
+    cursor: auto;
+    margin: auto;
+    padding: auto;
+}
+
 /* Make sure all (non visible) images are loaded to avoid flickering. */
 .preloader {
     position: fixed;
@@ -26,10 +38,6 @@ body {
     background-image: url(play_blue.png);
     background-image: url(pause.png);
     background-image: url(pause_blue.png);
-}
-
-body {
-    -webkit-perspective: 1000;
 }
 
 .show-playlist .more {
@@ -65,6 +73,7 @@ body {
 
 .more {
     display: block;
+    -webkit-box-shadow: 0px 0px 5px #888;
 }
 
 .more .textcontent {
@@ -138,6 +147,13 @@ body {
     border-top: 1px rgba(136, 136, 136, 0.5) solid;
     border-bottom: thin #434343 solid;
     overflow: hidden;
+}
+
+#main-window {
+    -webkit-box-shadow: 0px 0px 5px #888;
+}
+.show-playlist>#main-window {
+    -webkit-box-shadow: 0px 0px 5px #888;
 }
 
 .show-playlist>#main-window {
@@ -429,7 +445,6 @@ body {
     height: 14px;
     margin-left: 10px;
 }
-
 .timeinfo>:nth-child(n) {
     display: -webkit-box;
     margin-left: 5px;
@@ -490,4 +505,12 @@ body {
 
     font-family: LucidaGrande;
     font-size: 10px;
+}
+
+.search {
+    position: absolute;
+    top: 5px;
+    -webkit-box-flex: 1;
+    right: 10px;
+    color: black;
 }

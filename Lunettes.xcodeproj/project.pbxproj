@@ -59,6 +59,16 @@
 		635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */; };
 		635D14EE104AE3BE00D34A87 /* hud.css in Resources */ = {isa = PBXBuildFile; fileRef = 635D14ED104AE3BE00D34A87 /* hud.css */; };
 		635D179A104C34D100D34A87 /* Experimental.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F772010480F8300117832 /* Experimental.lunettesstyle */; };
+		6380A47F107E4DA5008263B9 /* hud.css in Resources */ = {isa = PBXBuildFile; fileRef = 6380A47E107E4DA5008263B9 /* hud.css */; };
+		6380A496107E4F84008263B9 /* fs_exit_fullscreen_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A48E107E4F84008263B9 /* fs_exit_fullscreen_highlight.png */; };
+		6380A497107E4F84008263B9 /* fs_exit_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A48F107E4F84008263B9 /* fs_exit_fullscreen.png */; };
+		6380A498107E4F84008263B9 /* fs_pause_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A490107E4F84008263B9 /* fs_pause_highlight.png */; };
+		6380A499107E4F84008263B9 /* fs_pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A491107E4F84008263B9 /* fs_pause.png */; };
+		6380A49A107E4F84008263B9 /* fs_play_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A492107E4F84008263B9 /* fs_play_highlight.png */; };
+		6380A49B107E4F84008263B9 /* fs_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A493107E4F84008263B9 /* fs_play.png */; };
+		6380A4FE107E51A0008263B9 /* dom-drag.js in Resources */ = {isa = PBXBuildFile; fileRef = 6380A480107E4DC8008263B9 /* dom-drag.js */; };
+		6380A4FF107E51A0008263B9 /* hud.js in Resources */ = {isa = PBXBuildFile; fileRef = 6380A481107E4DC8008263B9 /* hud.js */; };
+		6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */; };
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
 		639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
 		639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
@@ -115,8 +125,6 @@
 		639F777810480FCE00117832 /* window-minimize-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F776810480FCE00117832 /* window-minimize-on.png */; };
 		639F777910480FCE00117832 /* window-zoom-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F776910480FCE00117832 /* window-zoom-on.png */; };
 		639F777A10480FD500117832 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F775E10480FCE00117832 /* script.js */; };
-		639F781010483EC200117832 /* fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F780E10483EC200117832 /* fullscreen.png */; };
-		639F781110483EC200117832 /* fullscreen_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F780F10483EC200117832 /* fullscreen_blue.png */; };
 		63B1DE53104381C20029C49C /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
 		63B1DF6F104395EC0029C49C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B1DF6E104395EC0029C49C /* Carbon.framework */; };
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
@@ -314,6 +322,19 @@
 		635D1126104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
 		635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaylistDebugWindow.xib; path = Resources/PlaylistDebugWindow.xib; sourceTree = "<group>"; };
 		635D14ED104AE3BE00D34A87 /* hud.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = hud.css; path = Resources/Style/Default/hud.css; sourceTree = "<group>"; };
+		6380A47E107E4DA5008263B9 /* hud.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = hud.css; sourceTree = "<group>"; };
+		6380A480107E4DC8008263B9 /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "dom-drag.js"; sourceTree = "<group>"; };
+		6380A481107E4DC8008263B9 /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = hud.js; sourceTree = "<group>"; };
+		6380A48E107E4F84008263B9 /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
+		6380A48F107E4F84008263B9 /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_exit_fullscreen.png; sourceTree = "<group>"; };
+		6380A490107E4F84008263B9 /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_pause_highlight.png; sourceTree = "<group>"; };
+		6380A491107E4F84008263B9 /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_pause.png; sourceTree = "<group>"; };
+		6380A492107E4F84008263B9 /* fs_play_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_play_highlight.png; sourceTree = "<group>"; };
+		6380A493107E4F84008263B9 /* fs_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_play.png; sourceTree = "<group>"; };
+		6380A494107E4F84008263B9 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_blue.png; sourceTree = "<group>"; };
+		6380A495107E4F84008263B9 /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen.png; sourceTree = "<group>"; };
+		6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMHTMLElement_Additions.h; path = Sources/DOMHTMLElement_Additions.h; sourceTree = "<group>"; };
+		6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DOMHTMLElement_Additions.m; path = Sources/DOMHTMLElement_Additions.m; sourceTree = "<group>"; };
 		639F647C1046BDEF00117832 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
 		639F64821046BE2B00117832 /* lunettes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lunettes.png; sourceTree = "<group>"; };
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
@@ -375,7 +396,7 @@
 		639F776810480FCE00117832 /* window-minimize-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-minimize-on.png"; sourceTree = "<group>"; };
 		639F776910480FCE00117832 /* window-zoom-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-zoom-on.png"; sourceTree = "<group>"; };
 		639F780E10483EC200117832 /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen.png; sourceTree = "<group>"; };
-		639F780F10483EC200117832 /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen_blue.png; sourceTree = "<group>"; };
+		639F780F10483EC200117832 /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullscreen.png; sourceTree = "<group>"; };
 		63B1DE51104381C20029C49C /* VLCFullscreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenController.h; path = Sources/VLCFullscreenController.h; sourceTree = "<group>"; };
 		63B1DE52104381C20029C49C /* VLCFullscreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenController.m; path = Sources/VLCFullscreenController.m; sourceTree = "<group>"; };
 		63B1DF6E104395EC0029C49C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -672,6 +693,37 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6380A49F107E4F93008263B9 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				639F780E10483EC200117832 /* fullscreen.png */,
+				639F780F10483EC200117832 /* fullscreen.png */,
+				639F775A10480FCE00117832 /* pause.png */,
+				639F775B10480FCE00117832 /* pause_blue.png */,
+				639F775C10480FCE00117832 /* play.png */,
+				639F775D10480FCE00117832 /* play_blue.png */,
+				639F775F10480FCE00117832 /* timeinfo_border.png */,
+				639F776010480FCE00117832 /* timeinfo_middle.png */,
+				639F776110480FCE00117832 /* timeline_border.png */,
+				639F776210480FCE00117832 /* timeline_thumb.png */,
+				639F776410480FCE00117832 /* window-buttons-off.png */,
+				639F776510480FCE00117832 /* window-buttons-over.png */,
+				639F776610480FCE00117832 /* window-buttons.png */,
+				639F776710480FCE00117832 /* window-close-on.png */,
+				639F776810480FCE00117832 /* window-minimize-on.png */,
+				639F776910480FCE00117832 /* window-zoom-on.png */,
+				6380A48E107E4F84008263B9 /* fs_exit_fullscreen_highlight.png */,
+				6380A48F107E4F84008263B9 /* fs_exit_fullscreen.png */,
+				6380A490107E4F84008263B9 /* fs_pause_highlight.png */,
+				6380A491107E4F84008263B9 /* fs_pause.png */,
+				6380A492107E4F84008263B9 /* fs_play_highlight.png */,
+				6380A493107E4F84008263B9 /* fs_play.png */,
+				6380A494107E4F84008263B9 /* fullscreen_blue.png */,
+				6380A495107E4F84008263B9 /* fullscreen.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		639F68DB1046F15200117832 /* images */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,26 +788,14 @@
 		639F775810480FCE00117832 /* Experimental */ = {
 			isa = PBXGroup;
 			children = (
-				639F780E10483EC200117832 /* fullscreen.png */,
-				639F780F10483EC200117832 /* fullscreen_blue.png */,
+				6380A480107E4DC8008263B9 /* dom-drag.js */,
+				6380A481107E4DC8008263B9 /* hud.js */,
+				6380A47E107E4DA5008263B9 /* hud.css */,
 				639F775910480FCE00117832 /* default.css */,
-				639F775A10480FCE00117832 /* pause.png */,
-				639F775B10480FCE00117832 /* pause_blue.png */,
-				639F775C10480FCE00117832 /* play.png */,
-				639F775D10480FCE00117832 /* play_blue.png */,
 				639F775E10480FCE00117832 /* script.js */,
-				639F775F10480FCE00117832 /* timeinfo_border.png */,
-				639F776010480FCE00117832 /* timeinfo_middle.png */,
-				639F776110480FCE00117832 /* timeline_border.png */,
-				639F776210480FCE00117832 /* timeline_thumb.png */,
 				6323FF9F104ECB5E00FBEC60 /* hud.html */,
 				639F776310480FCE00117832 /* video-window.html */,
-				639F776410480FCE00117832 /* window-buttons-off.png */,
-				639F776510480FCE00117832 /* window-buttons-over.png */,
-				639F776610480FCE00117832 /* window-buttons.png */,
-				639F776710480FCE00117832 /* window-close-on.png */,
-				639F776810480FCE00117832 /* window-minimize-on.png */,
-				639F776910480FCE00117832 /* window-zoom-on.png */,
+				6380A49F107E4F93008263B9 /* images */,
 			);
 			name = Experimental;
 			path = Resources/Style/Experimental;
@@ -823,6 +863,8 @@
 				6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */,
 				63014658104098F000534090 /* DOMElement_Additions.h */,
 				63014657104098F000534090 /* DOMElement_Additions.m */,
+				6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */,
+				6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1028,6 +1070,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6380A4FE107E51A0008263B9 /* dom-drag.js in Resources */,
+				6380A4FF107E51A0008263B9 /* hud.js in Resources */,
 				639F777A10480FD500117832 /* script.js in Resources */,
 				639F776A10480FCE00117832 /* default.css in Resources */,
 				639F776B10480FCE00117832 /* pause.png in Resources */,
@@ -1045,9 +1089,14 @@
 				639F777710480FCE00117832 /* window-close-on.png in Resources */,
 				639F777810480FCE00117832 /* window-minimize-on.png in Resources */,
 				639F777910480FCE00117832 /* window-zoom-on.png in Resources */,
-				639F781010483EC200117832 /* fullscreen.png in Resources */,
-				639F781110483EC200117832 /* fullscreen_blue.png in Resources */,
 				6323FFA0104ECB5E00FBEC60 /* hud.html in Resources */,
+				6380A47F107E4DA5008263B9 /* hud.css in Resources */,
+				6380A496107E4F84008263B9 /* fs_exit_fullscreen_highlight.png in Resources */,
+				6380A497107E4F84008263B9 /* fs_exit_fullscreen.png in Resources */,
+				6380A498107E4F84008263B9 /* fs_pause_highlight.png in Resources */,
+				6380A499107E4F84008263B9 /* fs_pause.png in Resources */,
+				6380A49A107E4F84008263B9 /* fs_play_highlight.png in Resources */,
+				6380A49B107E4F84008263B9 /* fs_play.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,6 +1178,7 @@
 				639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */,
 				CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */,
 				63032501104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m in Sources */,
+				6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

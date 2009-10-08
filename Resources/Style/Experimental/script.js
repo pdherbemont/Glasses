@@ -1,12 +1,16 @@
 function togglePlaylistView() {
     var name = "show-playlist";
-    if (document.body.className.indexOf(name) == -1)
-        document.body.className += " " + name;
-    else
-        document.body.className = document.body.className.replace(name, "");
+    if (!elementHasClassName(document.body, name)) {
+        addClassNameToElement(document.getElementById("more"), "visible");
+        addClassNameToElement(document.body, name);
+    }
+    else {
+        removeClassNameFromElement(document.getElementById("more"), "visible");
+        removeClassNameFromElement(document.body, name);
+    }
     removeItems();
     addItems();
-    setTimeout(windowController.windowResized(), 400);
+    setTimeout(function() { window.PlatformView.videoDidResize() }, 1000);
 }
 
 function tableClicked(event) {

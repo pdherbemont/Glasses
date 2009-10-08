@@ -17,7 +17,7 @@ body {
  * The window
  */
 
-#content {
+#main-window {
     position: absolute;
     background: url(tv.png) no-repeat;
     -webkit-background-size: 100%;

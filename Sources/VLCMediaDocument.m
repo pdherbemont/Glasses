@@ -134,7 +134,7 @@
             NSAlert *alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil
                                  informativeTextWithFormat:@"An unknown error occured when playing %@", [[mediaPlayer media] url]];
             [alert runModal];
-            [self close];
+            //[self close];
             break;            
         }
         default:

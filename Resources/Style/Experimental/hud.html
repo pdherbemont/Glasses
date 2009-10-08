@@ -3,27 +3,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
-    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="script.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
+	<script type="text/ecmascript" encoding="utf-8" src="dom-drag.js"></script>
+	<script type="text/ecmascript" encoding="utf-8" src="hud.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="script.js"></script>
+	<link id="style" rel="stylesheet" type="text/css" href="hud.css" />
     <style>
 
-    body {
-        bottom: 0;
-        top: 0;
-        left: 0;
-        right: 0;
-        position: absolute;
-        margin: 0;
-        overflow: hidden;
-        -webkit-perspective: 900;
-    }
 
     .textcontent {
         position: absolute;
         top: 40px; bottom: auto; right: 40px; left: auto;
-        overflow: hidden;
         height: 400px;
-        width: 200px;
+        min-width: 200px;
+        max-width: 500px;
+        width: auto;
         background-color: rgba(50, 50, 50, 0.8);
         -webkit-border-radius: 10px;
         -webkit-box-shadow: 0px 5px 30px black;
@@ -41,13 +35,14 @@
         opacity: 1;
         -webkit-transition: opacity 0.3s ease-in-out;
     }
+
     ul {
         -webkit-transition: top 0.3s ease-out;
         position: absolute;
         top: 0px; bottom: auto; right: 0px; left: auto;
         padding-right: 10px;
         text-align: right;
-        list-style-type:none;
+        list-style-type: none;
     }
     
     .overlay-top {
@@ -55,14 +50,14 @@
         top: 0px; bottom: auto; right: 0px; left: 0px;
         height: 200px;
         background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(black), color-stop(0.8, rgba(0,0,0,0)), to(rgba(0,0,0,0)));
-                -webkit-border-radius: 10px;
+        -webkit-border-radius: 10px;
     }
     .overlay-bottom {
         position: absolute;
         top: auto; bottom: 0px; right: 0px; left: 0px;
         height: 200px;
         background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), color-stop(0.2, rgba(0,0,0,0)), to(black));
-                -webkit-border-radius: 10px;
+        -webkit-border-radius: 10px;
     }
     
     ul li {
@@ -82,6 +77,16 @@
         text-shadow: 0px 0px 3px black;
     }
 
+    /* If there is only one element don't show the playlist */
+    .textcontent {
+        display: none;
+    }
+
+    .multiple-play-items .textcontent {
+        display: block;
+    }
+
+    /* Animate between the hidden and the visible state */
     .hidden .playlist-selection {
         opacity: 0;
         -webkit-transition: opacity 0.3s ease-in-out;
@@ -105,6 +110,9 @@
     
         background-color: rgba(255, 255, 255, 0);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 0.3)), color-stop(0.5, rgba(255, 255, 255, 0)), to(rgba(0, 0, 0, 0.5)));
+    }
+    #playlist {
+        top: 175px; 
     }
     </style>
     <script>
@@ -160,7 +168,7 @@
     </script>
 	<title>Video Window</title>
 </head>
-<body onkeydown="onKeyDown(event)" onload="windowController.init(); init();" id="content" class="key-window">
+<body onkeydown="onKeyDown(event)" onload="init(); HUDController.init(); windowController.init();" id="content" class="key-window hidden">
 <div id="more">
     <div class="textcontent autohide-when-mouse-leaves">
         <ul id="playlist" class="playlist">
@@ -180,6 +188,21 @@
         <div class="overlay-bottom"></div>
     </div>
 </div>
+
+<div id="draggable-controls" class="autohide-when-mouse-leaves dont-hide-when-mouse-is-inside draggable"> <!-- Be hidden by default -->
+    <div class="controls">
+        <div id="title" class="title">Movie title</div>
+        <div class="timeinfo">
+            <div class="ellapsed-time">--:--</div>
+            <input id="timeline" type="range" class="timeline" max="1000" value="0">
+            <div class="remaining-time">--:--</div>
+        </div>
+        <button class="leave-fullscreen"></button>
+        <button class="toggle-playing"></button>
+    </div>
+    <div class="preloader"></div>
+</div>
+
 
 </body>
 </html>

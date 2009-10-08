@@ -32,7 +32,7 @@ body {
  * The window
  */
 
-#content {
+#main-window {
     position: absolute;
 /* rgb(0.90,.90,.90) rgb(0.50,0.50,0.50) rgb(0.59,0.59,0.59) */
     bottom: 0;
