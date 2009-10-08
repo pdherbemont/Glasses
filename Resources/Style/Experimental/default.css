@@ -146,7 +146,7 @@ input[type=search] {
     border-right: 1px #434343 solid;
     border-top: 1px rgba(136, 136, 136, 0.5) solid;
     border-bottom: thin #434343 solid;
-    overflow: hidden;
+    overflow: visible;
 }
 
 #main-window {
@@ -175,6 +175,67 @@ input[type=search] {
     -webkit-border-bottom-right-radius: 0px;
 }
 
+.show-playlist .titlebar-fixup,
+.show-playlist .bottombar-fixup
+{
+    opacity: 1;
+    -webkit-transition: opacity 0.5s ease-in;
+}
+
+.titlebar-fixup, .bottombar-fixup
+{
+    opacity: 0;
+    -webkit-transition: opacity 0.s ease-in;
+}
+
+.key-window .titlebar-fixup {
+    /* Window is key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
+}
+.titlebar-fixup {
+    /* Window is non key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cfcfcf));
+}
+
+.titlebar-fixup
+{
+    border-bottom: thin #404040 solid;
+    border-top: 1px rgba(255, 255, 255, 0.8) solid;
+    height: 20px;
+    top: -1px;
+    right: -5px;
+    width: 7px;
+    margin: 0px;
+    position: absolute;
+    display: block;
+}
+
+
+.bottombar-fixup
+{
+    height: 31px;
+    border-bottom: thin #404040 solid;
+    border-top: 1px rgba(255, 255, 255, 0.8) solid;
+    bottom: -1px;
+    width: 7px;
+    right: -5px;
+    position: absolute;
+    display: block;
+    border-top: thin rgba(255,255,255, 0.8) solid;
+}
+
+.key-window .bottombar-fixup {
+    /* Window is key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
+}
+
+.bottombar-fixup {
+    /* Window is non key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cfcfcf));
+}
+
+
+
 /*
  * Window decoration
  */
@@ -189,6 +250,7 @@ input[type=search] {
 }
 
 .titlebar {
+    overflow: visible;
     -webkit-user-select: none;
     position: absolute;
     top: 0;
@@ -382,7 +444,6 @@ input[type=search] {
     padding-left: 5px;
     padding-right: 10px;
     border-top: thin rgba(255,255,255, 0.8) solid;
-    box-sizing: border-box;
     height: 31px;
 }
 /*
@@ -454,12 +515,12 @@ input[type=search] {
 .timeline {
     -webkit-appearance: none;
     -webkit-box-flex: 1;
-    height: 2px;
+    height: 10px;
     background-color: transparent;
     -webkit-border-image: url(timeline_border.png) 3 3 3 3 repeat repeat;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     margin-top: 3px;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
     padding: 0;
     padding-bottom: 2px;
 }
