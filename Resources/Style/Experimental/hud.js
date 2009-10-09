@@ -1,5 +1,5 @@
 var HUDController = new Object();
-console.log("Hello");
+
 HUDController.init = function() {
     resetHudPosition();	
 }

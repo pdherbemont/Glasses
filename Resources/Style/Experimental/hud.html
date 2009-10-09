@@ -149,15 +149,22 @@
 
     }
 
-    var timer = null;
+    var hideTimer = null;
+    function hidePlaylist() {
+        var elmt = document.getElementById("more");
+        addClassNameToElement(elmt, "hidden");
+        hideTimer = null;
+    }
+
     function onKeyDown(event) {
-        console.log("event.keyCode " + event.keyCode);
         
         var elmt = document.getElementById("more");
         removeClassNameFromElement(elmt, "hidden");
-        if (timer)
-            clearTimeout(timer);
-        timer = setTimeout(function(){ addClassNameToElement(elmt, "hidden"); timer = null; }, 1000);
+
+        if (hideTimer)
+            clearTimeout(hideTimer);
+
+        hideTimer = setTimeout(function () { hidePlaylist(); }, 1000);
     
         switch (event.keyCode) {
             case 40: // Up

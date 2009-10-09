@@ -261,7 +261,17 @@ windowController.autoHideElements = function(event) {
     windowController.addClassNameToContent(exposed_className.hidden);
 }
 
+// We have a dummy mouseMove events that triggers "revealAutoHiddenElementsAndHideAfter"
+// that gets sent anyway. This makes the HUD show up when the HUD is put on screen.
+// This is not what we want so skip it.
+var globalIsFirstMouseMove = true;
+
 windowController.revealAutoHiddenElementsAndHideAfter = function(seconds, element) {
+    if (globalIsFirstMouseMove) {
+        globalIsFirstMouseMove = false;
+        return;
+    }
+
     windowController.removeClassNameFromContent(exposed_className.hidden);
     var timer = windowController.timer;
     if (timer)
