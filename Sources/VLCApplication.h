@@ -25,15 +25,15 @@
 #import <VLCKit/VLCKit.h>
 
 @interface VLCApplication : NSApplication {
-    BOOL b_justJumped;
-	BOOL b_mediaKeySupport;
-    BOOL b_activeInBackground;
-    BOOL b_active;
+    BOOL _hasJustJumped;
+    BOOL _hasMediaKeySupport;
+    BOOL _isActiveInBackground;
+    BOOL _isActive;
 }
 
-- (void)appGotActiveOrInactive: (NSNotification *)o_notification;
-- (void)coreChangedMediaKeySupportSetting: (NSNotification *)o_notification;
-- (void)sendEvent: (NSEvent*)event;
+- (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification;
+- (void)coreChangedMediaKeySupportSetting:(NSNotification *)notification;
+- (void)sendEvent:(NSEvent*)event;
 - (void)resetJump;
 
 @end

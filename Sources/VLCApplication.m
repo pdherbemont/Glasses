@@ -1,10 +1,10 @@
 /*****************************************************************************
- * VLCApplication.h: NSApplication subclass
+ * VLCApplication.h:NSApplication subclass
  *****************************************************************************
  * Copyright (C) 2009 the VideoLAN team
- * $Id: $
+ * $Id:$
  *
- * Authors: Felix Paul Kühne <fkuehne at videolan dot org>
+ * Authors:Felix Paul Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,81 +37,77 @@
 - (void)awakeFromNib
 {
     /* register our default values... */
-    [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys: @"YES", @"ControlWithMediaKeys", @"YES", @"ControlWithMediaKeysInBackground", nil]];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:@"YES", @"ControlWithMediaKeys", @"YES", @"ControlWithMediaKeysInBackground", nil]];
     
-    [self coreChangedMediaKeySupportSetting: nil];
+    [self coreChangedMediaKeySupportSetting:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(coreChangedMediaKeySupportSetting:) name: @"NSUserDefaultsDidChangeNotification" object: nil];
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appGotActiveOrInactive:) name: @"NSApplicationDidBecomeActiveNotification" object: nil];
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(appGotActiveOrInactive:) name: @"NSApplicationWillResignActiveNotification" object: nil];
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(coreChangedMediaKeySupportSetting:) name:@"NSUserDefaultsDidChangeNotification" object:nil];
+    [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationDidBecomeActiveNotification" object:nil];
+    [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationWillResignActiveNotification" object:nil];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
-- (void)appGotActiveOrInactive: (NSNotification *)o_notification
+- (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification
 {
-    if(( [[o_notification name] isEqualToString: @"NSApplicationWillResignActiveNotification"] && !b_activeInBackground ) || !b_mediaKeySupport)
-        b_active = NO;
+    BOOL hasResignedActive = [[notification name] isEqualToString:@"NSApplicationWillResignActiveNotification"];
+    if ((hasResignedActive && !_isActiveInBackground ) || !_hasMediaKeySupport)
+        _isActive = NO;
     else
-        b_active = YES;
+        _isActive = YES;
 }
 
-- (void)coreChangedMediaKeySupportSetting: (NSNotification *)o_notification
+- (void)coreChangedMediaKeySupportSetting:(NSNotification *)notification
 {
-    b_active = b_mediaKeySupport = [[[NSUserDefaults standardUserDefaults] objectForKey: @"ControlWithMediaKeys"] intValue];
-    b_activeInBackground = [[[NSUserDefaults standardUserDefaults] objectForKey: @"ControlWithMediaKeysInBackground"] intValue];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _isActive = _hasMediaKeySupport = [defaults boolForKey:@"ControlWithMediaKeys"];
+    _isActiveInBackground = [defaults boolForKey:@"ControlWithMediaKeysInBackground"];
 }
 
 
-- (void)sendEvent: (NSEvent*)event
+- (void)sendEvent:(NSEvent*)event
 {
-    if( b_active )
-	{
-        if( [event type] == NSSystemDefined && [event subtype] == 8 )
-        {
-            int keyCode = (([event data1] & 0xFFFF0000) >> 16);
-            int keyFlags = ([event data1] & 0x0000FFFF);
-            int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
-            int keyRepeat = (keyFlags & 0x1);
-            
-            if( keyCode == NX_KEYTYPE_PLAY && keyState == 0 && [[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] canPause] )
-                [[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] pause];
+    if (_isActive) {
+        if ([event type] == NSSystemDefined && [event subtype] == 8) {
+            int keyCode =  ([event data1] & 0xFFFF0000) >> 16;
+            int keyFlags = [event data1] & 0x0000FFFF;
+            int keyState = ((keyFlags & 0xFF00) >> 8) == 0xA;
+            int keyRepeat = keyFlags & 0x1;
+
+            VLCMediaPlayer *mediaPlayer = [[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer];
+        
+            if (keyCode == NX_KEYTYPE_PLAY && keyState == 0 && [mediaPlayer canPause])
+                [mediaPlayer pause];
  
-            if( keyCode == NX_KEYTYPE_FAST && !b_justJumped )
-            {
-                if( keyRepeat == 1 )
-                {
-                    [[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] shortJumpForward];
-                    b_justJumped = YES;
-                    [self performSelector:@selector(resetJump)
-                               withObject: NULL
-                               afterDelay:0.25];
+            if (keyCode == NX_KEYTYPE_FAST && !_hasJustJumped) {
+                if (keyRepeat == 1) {
+                    [mediaPlayer shortJumpForward];
+                    _hasJustJumped = YES;
+                    [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.25];
                 }
             }
             
-            if( keyCode == NX_KEYTYPE_REWIND && !b_justJumped )
-            {
-                if( keyRepeat == 1 )
-                {
-                    [[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] shortJumpBackward];
-                    b_justJumped = YES;
-                    [self performSelector:@selector(resetJump)
-                               withObject: NULL
-                               afterDelay:0.25];
+            if (keyCode == NX_KEYTYPE_REWIND && !_hasJustJumped) {
+                if (keyRepeat == 1) {
+                    [mediaPlayer shortJumpBackward];
+                    _hasJustJumped = YES;
+                    [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.25];
                 }
             }
         }
     }
-    [super sendEvent: event];
+    [super sendEvent:event];
 }
 
 - (void)resetJump
 {
-    b_justJumped = NO;
+    _hasJustJumped = NO;
 }
 
 @end
