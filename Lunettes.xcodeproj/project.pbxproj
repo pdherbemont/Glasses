@@ -146,6 +146,8 @@
 		CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9091103C95000000601C /* VLCVideoWindow.m */; };
 		CC61B348103DDB9C00D13C72 /* VLCOpenURLWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */; };
 		CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
+		CCABE883107F6230004A471E /* VLCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABE882107F6230004A471E /* VLCApplication.m */; };
+		CCABE8CC107F664B004A471E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCABE8CB107F664B004A471E /* IOKit.framework */; };
 		CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */; };
 /* End PBXBuildFile section */
 
@@ -428,6 +430,9 @@
 		CC61B347103DDB9C00D13C72 /* VLCOpenURLWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenURLWindowController.h; path = Sources/VLCOpenURLWindowController.h; sourceTree = "<group>"; };
 		CC61B414103E088B00D13C72 /* VLCDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentController.h; path = Sources/VLCDocumentController.h; sourceTree = "<group>"; };
 		CC61B415103E088B00D13C72 /* VLCDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentController.m; path = Sources/VLCDocumentController.m; sourceTree = "<group>"; };
+		CCABE881107F6230004A471E /* VLCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCApplication.h; path = Sources/VLCApplication.h; sourceTree = "<group>"; };
+		CCABE882107F6230004A471E /* VLCApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCApplication.m; path = Sources/VLCApplication.m; sourceTree = "<group>"; };
+		CCABE8CB107F664B004A471E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAboutWindowController.h; path = Sources/VLCAboutWindowController.h; sourceTree = "<group>"; };
 		CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAboutWindowController.m; path = Sources/VLCAboutWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -443,6 +448,7 @@
 				CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */,
 				630143AB1040726600534090 /* WebKit.framework in Frameworks */,
 				63B1DF6F104395EC0029C49C /* Carbon.framework in Frameworks */,
+				CCABE8CC107F664B004A471E /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +460,7 @@
 			children = (
 				CC56641D103C9F5900FEA1D3 /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				CCABE8CB107F664B004A471E /* IOKit.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -865,6 +872,8 @@
 				63014657104098F000534090 /* DOMElement_Additions.m */,
 				6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */,
 				6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */,
+				CCABE881107F6230004A471E /* VLCApplication.h */,
+				CCABE882107F6230004A471E /* VLCApplication.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1179,6 +1188,7 @@
 				CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */,
 				63032501104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m in Sources */,
 				6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */,
+				CCABE883107F6230004A471E /* VLCApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
