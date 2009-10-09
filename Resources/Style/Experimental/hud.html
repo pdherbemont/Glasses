@@ -12,12 +12,12 @@
 
 
     .textcontent {
+        display: block;
         position: absolute;
         top: 40px; bottom: auto; right: 40px; left: auto;
-        height: 400px;
-        min-width: 200px;
-        max-width: 500px;
-        width: auto;
+        height: 400px;;
+        width: 300px;
+        overflow: hidden;
         background-color: rgba(50, 50, 50, 0.8);
         -webkit-border-radius: 10px;
         -webkit-box-shadow: 0px 5px 30px black;
@@ -27,24 +27,16 @@
         border: 1px solid rgba(0,0,0,0.4);
     }
 
-    .hidden .textcontent {
+    .not-in-browser-debug #content>.hidden .textcontent {
         opacity: 0;
         -webkit-transition: opacity 0.3s ease-in-out;
     }
+
     .textcontent {
         opacity: 1;
         -webkit-transition: opacity 0.3s ease-in-out;
     }
 
-    ul {
-        -webkit-transition: top 0.3s ease-out;
-        position: absolute;
-        top: 0px; bottom: auto; right: 0px; left: auto;
-        padding-right: 10px;
-        text-align: right;
-        list-style-type: none;
-    }
-    
     .overlay-top {
         position: absolute;
         top: 0px; bottom: auto; right: 0px; left: 0px;
@@ -59,23 +51,35 @@
         background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), color-stop(0.2, rgba(0,0,0,0)), to(black));
         -webkit-border-radius: 10px;
     }
-    
+
+    ul {
+        position: absolute;
+        -webkit-transition: top 0.3s ease-out;
+        top: 175px; bottom: auto; right: 0px; left: auto;
+        list-style-type: none;
+        width: 100%;
+    }
+
     ul li {
         color: #ababab;
         font-family: Lucida Grande;
         font-size: 20px;
         font-weight: bold;
-        text-align: left;
-        height: 25px;
+        text-align: center;
         overflow: hidden;
         text-overflow: ellipsis;
+        -webkit-transition: font-size 0.3s ease-out;
     }
 
     ul li.selected {
         color: white;
         -webkit-text-stroke: 0px; 
         text-shadow: 0px 0px 3px black;
+        text-transform: capitalize;
+        font-size: 50px;
+        -webkit-transition: font-size 0.3s ease-out;
     }
+
 
     /* If there is only one element don't show the playlist */
     .textcontent {
@@ -111,9 +115,6 @@
         background-color: rgba(255, 255, 255, 0);
         background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 255, 255, 0.3)), color-stop(0.5, rgba(255, 255, 255, 0)), to(rgba(0, 0, 0, 0.5)));
     }
-    #playlist {
-        top: 175px; 
-    }
     </style>
     <script>
     var selectionIndex = 0;
@@ -131,21 +132,31 @@
         var playlist = document.getElementById("playlist");
         if (!item) {
             selectionIndex--;
+            if (selectionIndex > 0)
+                gotoCurrentSelection();
+            else
+                selectionIndex = 0;
             return;
         }
 
         addClassNameToElement(item, "selected");
-
+    
         if (timer)
             clearTimeout(timer);
         timer = setTimeout(function (){playlist.style.top = - (selectionIndex - 7) * (25) + "px"; timer = null;}, 0);
 
     }
 
+    var timer = null;
     function onKeyDown(event) {
         console.log("event.keyCode " + event.keyCode);
-        windowController.revealAutoHiddenElementsAndHideAfter(3);
-
+        
+        var elmt = document.getElementById("more");
+        removeClassNameFromElement(elmt, "hidden");
+        if (timer)
+            clearTimeout(timer);
+        timer = setTimeout(function(){ addClassNameToElement(elmt, "hidden"); timer = null; }, 1000);
+    
         switch (event.keyCode) {
             case 40: // Up
                 removeCurrentSelection();
@@ -159,7 +170,7 @@
                 break;
             case 13: // Enter
                 window.PlatformView.playMediaAtIndex_(selectionIndex);
-                windowController.revealAutoHiddenElementsAndHideAfter(0);
+                addClassNameToElement(elmt, "hidden");
                 break;
             case 00: // Escape
                 break;
@@ -169,25 +180,6 @@
 	<title>Video Window</title>
 </head>
 <body onkeydown="onKeyDown(event)" onload="init(); HUDController.init(); windowController.init();" id="content" class="key-window hidden">
-<div id="more">
-    <div class="textcontent autohide-when-mouse-leaves">
-        <ul id="playlist" class="playlist">
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-            <li class="selected">fakecontent</li>
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-            <li>fakecontent</li>
-        </ul>
-        <div class="overlay-top"></div>
-        <div class="overlay-bottom"></div>
-    </div>
-</div>
 
 <div id="draggable-controls" class="autohide-when-mouse-leaves dont-hide-when-mouse-is-inside draggable"> <!-- Be hidden by default -->
     <div class="controls">
@@ -203,6 +195,14 @@
     <div class="preloader"></div>
 </div>
 
+<div id="more" class="hidden">
+    <div class="textcontent">
+        <ul id="playlist" class="playlist">
+        </ul>
+        <div class="overlay-top"></div>
+        <div class="overlay-bottom"></div>
+    </div>
+</div>
 
 </body>
 </html>

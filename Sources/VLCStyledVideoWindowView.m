@@ -75,8 +75,6 @@
     [self videoDidResize];
     [self setKeyWindow:[window isKeyWindow]];
     [self setMainWindow:[window isMainWindow]];
-    [self setListCount:_listCount];
-    [self setSublistCount:_sublistCount];
     [self updateTrackingAreas];
     
     //[window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
@@ -112,50 +110,6 @@
     else
         [self removeClassFromContent:@"main-window"];
 }
-
-- (void)setHTMLListCount:(NSUInteger)count
-{
-    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
-    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
-
-    if (count == 1)
-        [self removeClassFromContent:@"multiple-play-items"];
-    else
-        [self addClassToContent:@"multiple-play-items"];
-}
-
-- (void)setListCount:(NSUInteger)count
-{
-    _listCount = count;
-
-    // Use the sublist count if we have subitems.
-    if (_sublistCount > 0)
-        return;
-
-    [self setHTMLListCount:count];
-}
-
-- (NSUInteger)listCount
-{
-    return _listCount;
-}
-
-- (void)setSublistCount:(NSUInteger)count
-{
-    _sublistCount = count;
-
-    // No subitems, use the list count.
-    if (_sublistCount == 0)
-        return;
-
-    [self setHTMLListCount:count];
-}
-
-- (NSUInteger)sublistCount
-{
-    return _sublistCount;
-}
-
 
 // Other setter are in super class.
 
@@ -284,12 +238,12 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 }
 
 
-- (VLCMediaList *)rootMediaList
+- (VLCMediaListAspect *)rootMediaList
 {
     VLCMediaListPlayer *player = [self mediaListPlayer];
-    VLCMediaList *mainMediaContent = player.rootMedia.subitems;
+    VLCMediaListAspect *mainMediaContent = player.rootMedia.subitems.flatAspect;
     BOOL isPlaylistDocument = mainMediaContent.count > 0;
-    return isPlaylistDocument ? mainMediaContent : player.mediaList;
+    return isPlaylistDocument ? mainMediaContent : player.mediaList.flatAspect;
 }
 
 - (void)playMediaAtIndex:(NSUInteger)index

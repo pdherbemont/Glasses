@@ -32,7 +32,10 @@
     float _viewedPosition;
     BOOL _viewedPlaying;
     BOOL _seekable;
-    
+
+    NSUInteger _listCount;
+    NSUInteger _sublistCount;
+
     VLCTime *_currentTime;
     NSString *_title;
 
@@ -76,6 +79,8 @@
 @property float viewedPosition;
 @property BOOL viewedPlaying;
 @property BOOL seekable;
+@property NSUInteger listCount;
+@property NSUInteger sublistCount;
 
 - (VLCMediaPlayer *)mediaPlayer;
 

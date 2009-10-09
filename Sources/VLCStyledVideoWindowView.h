@@ -58,8 +58,6 @@
     NSTrackingArea *_contentTracking;
     BOOL _wasPlayingBeforeChangingPosition;
     BOOL _isUserChangingPosition;
-    NSUInteger _listCount;
-    NSUInteger _sublistCount;
 #ifdef SUPPORT_VIDEO_BELOW_CONTENT
     NSWindow *_videoWindow;
 #endif
@@ -67,9 +65,6 @@
 
 - (void)setKeyWindow:(BOOL)isKeyWindow;
 - (void)setMainWindow:(BOOL)isMainWindow;
-
-@property NSUInteger listCount;
-@property NSUInteger sublistCount;
 
 #ifdef SUPPORT_VIDEO_BELOW_CONTENT
 - (void)windowDidChangeAlphaValue:(CGFloat)alpha;

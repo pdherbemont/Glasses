@@ -128,6 +128,8 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     [self setViewedPosition:_viewedPosition];
     [self setSeekable:_seekable];
     [self setCurrentTime:_currentTime];
+    [self setListCount:_listCount];
+    [self setSublistCount:_sublistCount];
 
     // We are coming out of a style change, let's fade in back
     if (![window alphaValue])
@@ -268,6 +270,49 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 - (BOOL)seekable
 {
     return _seekable;
+}
+
+- (void)setHTMLListCount:(NSUInteger)count
+{
+    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
+    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
+    
+    if (count == 1)
+        [self removeClassFromContent:@"multiple-play-items"];
+    else
+        [self addClassToContent:@"multiple-play-items"];
+}
+
+- (void)setListCount:(NSUInteger)count
+{
+    _listCount = count;
+    
+    // Use the sublist count if we have subitems.
+    if (_sublistCount > 0)
+        return;
+    
+    [self setHTMLListCount:count];
+}
+
+- (NSUInteger)listCount
+{
+    return _listCount;
+}
+
+- (void)setSublistCount:(NSUInteger)count
+{
+    _sublistCount = count;
+    
+    // No subitems, use the list count.
+    if (_sublistCount == 0)
+        return;
+    
+    [self setHTMLListCount:count];
+}
+
+- (NSUInteger)sublistCount
+{
+    return _sublistCount;
 }
 
 #pragma mark -
