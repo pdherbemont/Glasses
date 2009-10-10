@@ -434,8 +434,8 @@
 		CCABE881107F6230004A471E /* VLCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCApplication.h; path = Sources/VLCApplication.h; sourceTree = "<group>"; };
 		CCABE882107F6230004A471E /* VLCApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCApplication.m; path = Sources/VLCApplication.m; sourceTree = "<group>"; };
 		CCABE8CB107F664B004A471E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		CCABEBA6107FD06B004A471E /* AppleRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleRemote.h; sourceTree = "<group>"; };
-		CCABEBA7107FD06B004A471E /* AppleRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleRemote.m; sourceTree = "<group>"; };
+		CCABEBA6107FD06B004A471E /* AppleRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleRemote.h; path = Sources/AppleRemote.h; sourceTree = "<group>"; };
+		CCABEBA7107FD06B004A471E /* AppleRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleRemote.m; path = Sources/AppleRemote.m; sourceTree = "<group>"; };
 		CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAboutWindowController.h; path = Sources/VLCAboutWindowController.h; sourceTree = "<group>"; };
 		CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAboutWindowController.m; path = Sources/VLCAboutWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
