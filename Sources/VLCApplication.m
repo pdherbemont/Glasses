@@ -22,8 +22,8 @@
  *****************************************************************************/
 
 #import "VLCApplication.h"
+#import "VLCStyledVideoWindowController.h"
 #import "VLCMediaDocument.h"
-#import <VLCKit/VLCMediaPlayer.h>
 #import <IOKit/hidsystem/ev_keymap.h>         /* for the media key support */
 
 /*****************************************************************************
@@ -38,7 +38,7 @@
 {
     /* register our default values... */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:@"YES", @"ControlWithMediaKeys", @"YES", @"ControlWithMediaKeysInBackground", nil]];
+    [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:@"YES", @"ControlWithMediaKeys", @"YES", @"ControlWithMediaKeysInBackground", @"YES", @"ControlWithHIDRemote", nil]];
     
     [self coreChangedMediaKeySupportSetting:nil];
 
@@ -46,11 +46,21 @@
     [center addObserver:self selector:@selector(coreChangedMediaKeySupportSetting:) name:@"NSUserDefaultsDidChangeNotification" object:nil];
     [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationDidBecomeActiveNotification" object:nil];
     [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationWillResignActiveNotification" object:nil];
+
+    /* init Apple Remote support */
+    _remote = [[AppleRemote alloc] init];
+    [_remote setClickCountEnabledButtons: kRemoteButtonPlay];
+    [_remote setListeningOnAppActivate: YES];
+    [_remote setDelegate: self];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey: @"ControlWithMediaKeysInBackground"] intValue])
+        [_remote startListening: self];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_remote stopListening: self];
+    [_remote release];
     [super dealloc];
 }
 
@@ -108,6 +118,102 @@
 - (void)resetJump
 {
     _hasJustJumped = NO;
+}
+
+#pragma mark -
+#pragma mark Apple Remote Control
+
+/* Helper method for the remote control interface in order to trigger forward/backward and volume
+ increase/decrease as long as the user holds the left/right, plus/minus button */
+- (void) executeHoldActionForRemoteButton: (NSNumber*) buttonIdentifierNumber
+{
+    if (_remoteButtonIsHold)
+    {
+        switch ([buttonIdentifierNumber intValue])
+        {
+            case kRemoteButtonRight_Hold:
+                [[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] mediumJumpForward];
+                break;
+            case kRemoteButtonLeft_Hold:
+                [[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] mediumJumpBackward];
+                break;
+            case kRemoteButtonVolume_Plus_Hold:
+                [[[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] audio] volumeUp];
+                break;
+            case kRemoteButtonVolume_Minus_Hold:
+                [[[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] audio] volumeDown];
+                break;
+        }
+        if (_remoteButtonIsHold)
+        {
+            /* trigger event */
+            [self performSelector:@selector(executeHoldActionForRemoteButton:)
+                       withObject:buttonIdentifierNumber
+                       afterDelay:0.25];
+        }
+    }
+}
+
+/* Apple Remote callback */
+- (void) appleRemoteButton: (AppleRemoteEventIdentifier)buttonIdentifier
+               pressedDown: (BOOL) pressedDown
+                clickCount: (unsigned int) count
+{
+    switch (buttonIdentifier)
+    {
+        case kRemoteButtonPlay:
+            if(count >= 2) {
+                NSLog(@"we should toggle fullscreen");
+                /* on double-click, go fullscreen */
+                int x = 0;
+                /* FIXME: we need a clean way to get the current main window controller... */
+                while (! [[[[[[NSDocumentController sharedDocumentController] currentDocument] windowControllers] objectAtIndex: x] windowNibName] isEqualToString: @"StyledVideoWindow"] )
+                {
+                    x++;
+                    if (x>10)
+                        return;
+                }
+                if (x<10)
+                {
+                    NSLog(@"found controller");
+                    VLCStyledVideoWindowController *theMainWindowController = [[[[NSDocumentController sharedDocumentController] currentDocument] windowControllers] objectAtIndex: x];
+                   [theMainWindowController toggleFullscreen:self];
+                }
+            } else {
+                [[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] pause];
+            }
+            break;
+        case kRemoteButtonVolume_Plus:
+            [[[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] audio] volumeUp];
+            break;
+        case kRemoteButtonVolume_Minus:
+            [[[[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer] audio] volumeDown];
+            break;
+/* FIXME: any useful idea for those?
+        case kRemoteButtonRight:
+            break;
+        case kRemoteButtonLeft:
+            break; */
+        case kRemoteButtonRight_Hold:
+        case kRemoteButtonLeft_Hold:
+        case kRemoteButtonVolume_Plus_Hold:
+        case kRemoteButtonVolume_Minus_Hold:
+            /* simulate an event as long as the user holds the button */
+            _remoteButtonIsHold = pressedDown;
+            if (pressedDown)
+            {
+                NSNumber* buttonIdentifierNumber = [NSNumber numberWithInt: buttonIdentifier];
+                [self performSelector:@selector(executeHoldActionForRemoteButton:)
+                           withObject:buttonIdentifierNumber];
+            }
+            break;
+/* FIXME: we might want to show the current position here like in VLC
+        case kRemoteButtonMenu:
+            break; */
+        default:
+            /* Add here whatever you want other buttons to do */
+            break;
+    }
 }
 
 @end

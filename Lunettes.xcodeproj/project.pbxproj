@@ -148,6 +148,7 @@
 		CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
 		CCABE883107F6230004A471E /* VLCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABE882107F6230004A471E /* VLCApplication.m */; };
 		CCABE8CC107F664B004A471E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCABE8CB107F664B004A471E /* IOKit.framework */; };
+		CCABEBA8107FD06B004A471E /* AppleRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABEBA7107FD06B004A471E /* AppleRemote.m */; };
 		CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */; };
 /* End PBXBuildFile section */
 
@@ -433,6 +434,8 @@
 		CCABE881107F6230004A471E /* VLCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCApplication.h; path = Sources/VLCApplication.h; sourceTree = "<group>"; };
 		CCABE882107F6230004A471E /* VLCApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCApplication.m; path = Sources/VLCApplication.m; sourceTree = "<group>"; };
 		CCABE8CB107F664B004A471E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		CCABEBA6107FD06B004A471E /* AppleRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleRemote.h; sourceTree = "<group>"; };
+		CCABEBA7107FD06B004A471E /* AppleRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppleRemote.m; sourceTree = "<group>"; };
 		CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAboutWindowController.h; path = Sources/VLCAboutWindowController.h; sourceTree = "<group>"; };
 		CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAboutWindowController.m; path = Sources/VLCAboutWindowController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -874,6 +877,8 @@
 				63014657104098F000534090 /* DOMElement_Additions.m */,
 				6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */,
 				6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */,
+				CCABEBA6107FD06B004A471E /* AppleRemote.h */,
+				CCABEBA7107FD06B004A471E /* AppleRemote.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1189,6 +1194,7 @@
 				63032501104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m in Sources */,
 				6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */,
 				CCABE883107F6230004A471E /* VLCApplication.m in Sources */,
+				CCABEBA8107FD06B004A471E /* AppleRemote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

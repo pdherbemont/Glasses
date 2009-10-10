@@ -23,12 +23,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import <VLCKit/VLCKit.h>
+#import "AppleRemote.h"
 
 @interface VLCApplication : NSApplication {
     BOOL _hasJustJumped;
     BOOL _hasMediaKeySupport;
     BOOL _isActiveInBackground;
     BOOL _isActive;
+
+    AppleRemote * _remote;
+    BOOL _remoteButtonIsHold; /* true as long as the user holds the left,right,plus or minus on the remote control */
 }
 
 - (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification;

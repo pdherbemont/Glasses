@@ -135,7 +135,10 @@
 
 - (void)toggleFullscreen:(id)sender
 {
-    [[self fullscreenController] enterFullscreen:[[self window] screen]];
+    if (![[self fullscreenController] fullscreen])
+        [[self fullscreenController] enterFullscreen:[[self window] screen]];
+    else
+        [[self fullscreenController] leaveFullscreen];
 }
 
 #pragma mark -

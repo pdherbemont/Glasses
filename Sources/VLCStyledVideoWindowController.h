@@ -30,5 +30,6 @@
     IBOutlet VLCStyledVideoWindowView *_styledWindowView;
     VLCFullscreenController *_fullscreenController;
 }
+- (void)toggleFullscreen:(id)sender;
 @property (readonly, retain) VLCExtendedVideoView *videoView;
 @end
