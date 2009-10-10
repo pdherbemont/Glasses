@@ -195,21 +195,21 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 }
 
 - (BOOL) listeningOnAppActivate {
-    return !!_appDelegate;
+    return _listeningOnAppActivate;
 }
 
 - (void) setListeningOnAppActivate: (BOOL) value {
+    if (value == _listeningOnAppActivate)
+        return;
+    _listeningOnAppActivate = value;
     if (value) {
-        if (_appDelegate) return;
-        _appDelegate = [[AppleRemoteApplicationDelegate alloc] initWithApplicationDelegate: [NSApp delegate]];
-        /* NSApp does not retain its delegate therefore we keep retain count on 1 */
-        [NSApp setDelegate: _appDelegate];
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserver:self selector:@selector(applicationDidBecomeActive:) name:NSApplicationDidBecomeActiveNotification object:NSApp];
+        [center addObserver:self selector:@selector(applicationWillResignActive:) name:NSApplicationWillResignActiveNotification object:NSApp];
     } else {
-        if (!_appDelegate) return;
-        id previousAppDelegate = [_appDelegate applicationDelegate];
-        [NSApp setDelegate: previousAppDelegate];
-        [_appDelegate release];
-        _appDelegate = nil;
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center removeObserver:self name:NSApplicationDidBecomeActiveNotification object:NSApp];        
+        [center removeObserver:self name:NSApplicationWillResignActiveNotification object:NSApp];        
     }
 }
 
@@ -666,64 +666,15 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 
 @end
 
-@implementation AppleRemoteApplicationDelegate
+@implementation AppleRemote (NSAppObserver)
 
-- (id) initWithApplicationDelegate: (id) delegate {
-    if((self = [super init]))
-        applicationDelegate = [delegate retain];
-    return self;
-}
 
-- (void) dealloc {
-    [applicationDelegate release];
-    [super dealloc];
-}
-
-- (id) applicationDelegate {
-    return applicationDelegate;
-}
-
-- (void)applicationWillBecomeActive:(NSNotification *)aNotification {
-    if ([applicationDelegate respondsToSelector: @selector(applicationWillBecomeActive:)]) {
-        [applicationDelegate applicationWillBecomeActive: aNotification];
-    }
-}
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
-    [[AppleRemote sharedRemote] setListeningToRemote: YES];
-
-    if ([applicationDelegate respondsToSelector: @selector(applicationDidBecomeActive:)]) {
-        [applicationDelegate applicationDidBecomeActive: aNotification];
-    }
+    [self setListeningToRemote: YES];
 }
+
 - (void)applicationWillResignActive:(NSNotification *)aNotification {
-    [[AppleRemote sharedRemote] setListeningToRemote: NO];
-
-    if ([applicationDelegate respondsToSelector: @selector(applicationWillResignActive:)]) {
-        [applicationDelegate applicationWillResignActive: aNotification];
-    }
-}
-- (void)applicationDidResignActive:(NSNotification *)aNotification {
-    if ([applicationDelegate respondsToSelector: @selector(applicationDidResignActive:)]) {
-        [applicationDelegate applicationDidResignActive: aNotification];
-    }
+    [self setListeningToRemote: NO];
 }
 
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-    NSMethodSignature* signature = [super methodSignatureForSelector: aSelector];
-    if (signature == nil && applicationDelegate != nil) {
-        signature = [applicationDelegate methodSignatureForSelector: aSelector];
-    }
-    return signature;
-}
-
-- (void)forwardInvocation:(NSInvocation *)invocation {
-    SEL aSelector = [invocation selector];
-
-    if (applicationDelegate==nil || [applicationDelegate respondsToSelector:aSelector]==NO) {
-        [super forwardInvocation: invocation];
-        return;
-    }
-
-    [invocation invokeWithTarget:applicationDelegate];
-}
 @end

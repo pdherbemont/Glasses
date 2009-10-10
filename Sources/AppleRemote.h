@@ -83,7 +83,7 @@ This class is implemented as a singleton as there is exactly one remote per mach
 The class is not thread safe
 */
 @interface AppleRemote : NSObject {
-    AppleRemoteApplicationDelegate *_appDelegate;
+    BOOL _listeningOnAppActivate;
 
     IOHIDDeviceInterface** hidDeviceInterface;
     IOHIDQueueInterface**  queue;
