@@ -6,24 +6,34 @@
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
 	<script type="text/ecmascript" encoding="utf-8" src="dom-drag.js"></script>
 	<script type="text/ecmascript" encoding="utf-8" src="hud.js"></script>
-    <script type="text/ecmascript" encoding="utf-8" src="script.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="playlist.js"></script>
 	<link id="style" rel="stylesheet" type="text/css" href="hud.css" />
     <style>
 
 
+    #more {
+        -webkit-perspective: 1000;
+        -webkit-perspective-origin-x: 0%;
+        -webkit-perspective-origin-y: 50%;
+        position: absolute;
+        top: 40px; bottom: auto; right: 20px; left: auto;
+        height: 400px;;
+        width: 300px;
+    }
     .textcontent {
         display: block;
         position: absolute;
-        top: 40px; bottom: auto; right: 40px; left: auto;
-        height: 400px;;
+        top: 40px; bottom: auto; right: 20px; left: auto;
+        height: 400px;
         width: 300px;
         overflow: hidden;
         background-color: rgba(50, 50, 50, 0.8);
         -webkit-border-radius: 10px;
         -webkit-box-shadow: 0px 5px 30px black;
-/*        -webkit-transform: rotateY(-45deg);
+        -webkit-transform: rotateY(-45deg);
         -webkit-transform-origin: 200px 0 0;
-        -webkit-transform-style: preserve-3d; */
+        -webkit-transform-style: preserve-3d;
+
         border: 1px solid rgba(0,0,0,0.4);
     }
 
