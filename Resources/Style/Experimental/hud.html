@@ -185,10 +185,15 @@
                 break;
         }
     }
+    function init() {
+        initPlaylist();
+        HUDController.init();
+        windowController.init();
+    }
     </script>
 	<title>Video Window</title>
 </head>
-<body onkeydown="onKeyDown(event)" onload="init(); HUDController.init(); windowController.init();" id="content" class="key-window hidden">
+<body  id="content" class="key-window hidden" onkeydown="onKeyDown(event)" onload="init()" ondblclick="windowController.leaveFullscreen()">
 
 <div id="draggable-controls" class="autohide-when-mouse-leaves dont-hide-when-mouse-is-inside draggable"> <!-- Be hidden by default -->
     <div class="controls">

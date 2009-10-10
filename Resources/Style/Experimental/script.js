@@ -30,7 +30,7 @@ title: "No title",
 artist: "No artist"
 };
 
-function init() {
+function initPlaylist() {
     var playlist = document.getElementById("playlist");
     var table = createTableWithDiv(playlist);
     playlist.table = table;
