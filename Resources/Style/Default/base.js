@@ -296,7 +296,8 @@ windowController.interruptAutoHide = function(event) {
 // Key events
 
 windowController.keyDown = function(event) {
-    var key = event.charCode;
+    var key = event.keyCode;
+
     // Space" key
     if (key == 0x20) 
         windowController.togglePlaying();
