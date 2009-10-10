@@ -86,7 +86,7 @@
     [self setMainWindow:[window isMainWindow]];
     [self updateTrackingAreas];
     
-    //[window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
+    [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
     [window performSelector:@selector(display) withObject:self afterDelay:0.];
 }
 
