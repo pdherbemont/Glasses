@@ -101,13 +101,9 @@ input[type=search] {
 .more .textcontent ul li.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cfcfcf), color-stop(0.2, #aaaaaa), color-stop(0.8, #bbbbbb), to(#999999));
     border-bottom: thin rgba(255,255,255,0.2) solid;
-}
-
-.more .textcontent ul li.selected td {
     color: rgba(0,0,0,1);
     text-shadow: 0 1px 1px rgba(255,255,255,1);
 }
-
 
 .more .textcontent ul li {
     text-overflow: ellipsis;
