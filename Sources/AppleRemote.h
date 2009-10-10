@@ -76,12 +76,15 @@ enum AppleRemoteEventIdentifier
     kRemoteButtonVolume_Minus_Hold  =1<<13
 };
 typedef enum AppleRemoteEventIdentifier AppleRemoteEventIdentifier;
+@class AppleRemoteApplicationDelegate;
 
 /*  Encapsulates usage of the apple remote control
 This class is implemented as a singleton as there is exactly one remote per machine (until now)
 The class is not thread safe
 */
 @interface AppleRemote : NSObject {
+    AppleRemoteApplicationDelegate *_appDelegate;
+
     IOHIDDeviceInterface** hidDeviceInterface;
     IOHIDQueueInterface**  queue;
     NSMutableArray*        allCookies;

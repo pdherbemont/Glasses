@@ -109,6 +109,7 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 }
 
 - (void) dealloc {
+    [self setListeningOnAppActivate:NO]; // This free _appDelegate and set back the old delegate.
     [self stopListening:self];
     [cookieToButtonMapping release];
     [super dealloc];
@@ -194,21 +195,21 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 }
 
 - (BOOL) listeningOnAppActivate {
-    id appDelegate = [NSApp delegate];
-    return (appDelegate!=nil && [appDelegate isKindOfClass: [AppleRemoteApplicationDelegate class]]);
+    return !!_appDelegate;
 }
+
 - (void) setListeningOnAppActivate: (BOOL) value {
     if (value) {
-        if ([self listeningOnAppActivate]) return;
-        AppleRemoteApplicationDelegate* appDelegate = [[AppleRemoteApplicationDelegate alloc] initWithApplicationDelegate: [NSApp delegate]];
+        if (_appDelegate) return;
+        _appDelegate = [[AppleRemoteApplicationDelegate alloc] initWithApplicationDelegate: [NSApp delegate]];
         /* NSApp does not retain its delegate therefore we keep retain count on 1 */
-        [NSApp setDelegate: appDelegate];
+        [NSApp setDelegate: _appDelegate];
     } else {
-        if ([self listeningOnAppActivate]==NO) return;
-        AppleRemoteApplicationDelegate* appDelegate = (AppleRemoteApplicationDelegate*)[NSApp delegate];
-        id previousAppDelegate = [appDelegate applicationDelegate];
+        if (!_appDelegate) return;
+        id previousAppDelegate = [_appDelegate applicationDelegate];
         [NSApp setDelegate: previousAppDelegate];
-        [appDelegate release];
+        [_appDelegate release];
+        _appDelegate = nil;
     }
 }
 
@@ -601,6 +602,8 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
             if (object == 0 || CFGetTypeID(object) != CFNumberGetTypeID()) continue;
             cookie = (IOHIDElementCookie) [object longValue];
 
+#if 0
+// Left over for documentation purpose.
             //Get usage
             object = [element valueForKey: (NSString*)CFSTR(kIOHIDElementUsageKey) ];
             if (object == nil || ![object isKindOfClass:[NSNumber class]]) continue;
@@ -610,7 +613,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
             object = [element valueForKey: (NSString*)CFSTR(kIOHIDElementUsagePageKey) ];
             if (object == nil || ![object isKindOfClass:[NSNumber class]]) continue;
             usagePage = [object longValue];
-
+#endif
             [allCookies addObject: [NSNumber numberWithInt:(int)cookie]];
         }
     } else {
@@ -631,6 +634,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
         queue = (*hidDeviceInterface)->allocQueue(hidDeviceInterface);
         if (queue) {
             result = (*queue)->create(queue, 0, 12);    //depth: maximum number of elements in queue before oldest elements in queue begin to be lost.
+            NSAssert(result == kIOReturnSuccess, @"Can't init the remote");
 
             unsigned int i=0;
             for(i=0; i<[allCookies count]; i++) {
