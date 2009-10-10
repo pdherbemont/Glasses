@@ -48,7 +48,7 @@ static inline BOOL debugStyledWindow(void)
         [self setOpaque:NO];
         [self setBackgroundColor:[NSColor clearColor]];
     }
-    [self setHasShadow:YES];
+    [self setHasShadow:NO];
     [self setAcceptsMouseMovedEvents:YES];
     [self setIgnoresMouseEvents:NO];
     return self;

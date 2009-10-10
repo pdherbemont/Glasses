@@ -30,6 +30,7 @@
 
 @interface  VLCStyledVideoWindowView ()
 - (void)videoDidResize;
+- (void)_removeBelowWindow;
 @end
 
 @implementation VLCStyledVideoWindowView
@@ -43,9 +44,7 @@
 - (void)close
 {
 #if SUPPORT_VIDEO_BELOW_CONTENT
-    [_videoWindow close];
-    [_videoWindow release];
-    _videoWindow = nil;
+    [self _removeBelowWindow];
 #endif
     [self removeTrackingArea:_contentTracking];
     [_contentTracking release];
@@ -56,6 +55,16 @@
 - (void)awakeFromNib
 {
     [self setup];    
+}
+
+- (void)setup
+{
+#if SUPPORT_VIDEO_BELOW_CONTENT
+    // When a style is reloaded, this method gets called.
+    // Clear the below window here.
+    [self _removeBelowWindow];
+#endif
+    [super setup];
 }
 
 - (NSString *)pageName
@@ -78,7 +87,7 @@
     [self updateTrackingAreas];
     
     //[window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
-    //[window performSelector:@selector(display) withObject:self afterDelay:0.];
+    [window performSelector:@selector(display) withObject:self afterDelay:0.];
 }
 
 - (void)windowDidChangeAlphaValue:(CGFloat)alpha
@@ -142,9 +151,19 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 }
 #endif
 
+- (void)_removeBelowWindow
+{
+    if (_videoWindow)
+        [[self window] removeChildWindow:_videoWindow];
+    [_videoWindow close];
+    [_videoWindow release];
+    _videoWindow = nil;
+}
+
 - (void)_addBelowWindowInRect:(NSRect)screenRect withVideoView:(VLCVideoView *)videoView
 {
-    NSAssert(!_videoWindow, @"There shouldn't be a video window at this point");
+    NSAssert(!_videoWindow, @"There should not be a video window at this point");
+
     // Create the window now.
     _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
     [_videoWindow setBackgroundColor:[NSColor blackColor]];
@@ -157,15 +176,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     NSWindow *window = [self window];
     [_videoWindow setAlphaValue:[window alphaValue]];
     [window addChildWindow:_videoWindow ordered:NSWindowBelow];    
-}
-
-- (void)_removeBelowWindow
-{
-    NSAssert(_videoWindow, @"There should be a video window at this point");
-    [[self window] removeChildWindow:_videoWindow];
-    [_videoWindow close];
-    [_videoWindow release];
-    _videoWindow = nil;
 }
 
 - (void)videoDidResize
@@ -190,11 +200,12 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     [self updateTrackingAreas];
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
-    BOOL belowContent = [element.className rangeOfString:@"below-content"].length > 0;
+    BOOL wantsBelowContent = [element.className rangeOfString:@"below-content"].length > 0;
     if (![videoView window]) {
         
-        if (belowContent)
+        if (wantsBelowContent) {
             [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withVideoView:videoView];
+        }
         else {
             [self addSubview:videoView];
             [videoView setFrame:frame];
@@ -203,20 +214,20 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     }
     else {
         BOOL videoIsOnTop = !_videoWindow;
-        if (videoIsOnTop && !belowContent) {
+        if (videoIsOnTop && !wantsBelowContent) {
             [videoView setFrame:frame];
             return;
         }
-        if (!videoIsOnTop && belowContent) {
+        if (!videoIsOnTop && wantsBelowContent) {
             [_videoWindow setFrame:screenRectForViewRect(self, frame) display:YES];
             return;
         }
-        if (videoIsOnTop && belowContent) {
+        if (videoIsOnTop && wantsBelowContent) {
             [videoView removeFromSuperviewWithoutNeedingDisplay];
             [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withVideoView:videoView];
             return;
         }
-        if (!videoIsOnTop && !belowContent) {
+        if (!videoIsOnTop && !wantsBelowContent) {
             [videoView removeFromSuperviewWithoutNeedingDisplay];
             [self addSubview:videoView];
             [videoView setFrame:frame];
