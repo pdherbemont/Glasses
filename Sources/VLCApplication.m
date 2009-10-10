@@ -39,8 +39,6 @@
     /* register our default values... */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:@"YES", @"ControlWithMediaKeys", @"YES", @"ControlWithMediaKeysInBackground", @"YES", @"ControlWithHIDRemote", nil]];
-    
-    [self coreChangedMediaKeySupportSetting:nil];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(coreChangedMediaKeySupportSetting:) name:@"NSUserDefaultsDidChangeNotification" object:nil];
@@ -49,11 +47,11 @@
 
     /* init Apple Remote support */
     _remote = [[AppleRemote alloc] init];
-    [_remote setClickCountEnabledButtons: kRemoteButtonPlay];
-    [_remote setListeningOnAppActivate: YES];
-    [_remote setDelegate: self];
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey: @"ControlWithMediaKeysInBackground"] intValue])
-        [_remote startListening: self];
+    [_remote setClickCountEnabledButtons:kRemoteButtonPlay];
+    [_remote setListeningOnAppActivate:YES];
+    [_remote setDelegate:self];
+
+    [self coreChangedMediaKeySupportSetting:nil];
 }
 
 - (void)dealloc
@@ -78,6 +76,10 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _isActive = _hasMediaKeySupport = [defaults boolForKey:@"ControlWithMediaKeys"];
     _isActiveInBackground = [defaults boolForKey:@"ControlWithMediaKeysInBackground"];
+    if ([defaults boolForKey:@"ControlWithHIDRemote"])
+        [_remote startListening:self];
+    else
+        [_remote stopListening:self];
 }
 
 
