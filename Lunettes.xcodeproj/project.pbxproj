@@ -124,7 +124,7 @@
 		639F777710480FCE00117832 /* window-close-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F776710480FCE00117832 /* window-close-on.png */; };
 		639F777810480FCE00117832 /* window-minimize-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F776810480FCE00117832 /* window-minimize-on.png */; };
 		639F777910480FCE00117832 /* window-zoom-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F776910480FCE00117832 /* window-zoom-on.png */; };
-		639F777A10480FD500117832 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F775E10480FCE00117832 /* script.js */; };
+		639F777A10480FD500117832 /* playlist.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F775E10480FCE00117832 /* playlist.js */; };
 		63B1DE53104381C20029C49C /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
 		63B1DF6F104395EC0029C49C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B1DF6E104395EC0029C49C /* Carbon.framework */; };
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
@@ -386,7 +386,7 @@
 		639F775B10480FCE00117832 /* pause_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause_blue.png; sourceTree = "<group>"; };
 		639F775C10480FCE00117832 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		639F775D10480FCE00117832 /* play_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play_blue.png; sourceTree = "<group>"; };
-		639F775E10480FCE00117832 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
+		639F775E10480FCE00117832 /* playlist.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = playlist.js; sourceTree = "<group>"; };
 		639F775F10480FCE00117832 /* timeinfo_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeinfo_border.png; sourceTree = "<group>"; };
 		639F776010480FCE00117832 /* timeinfo_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeinfo_middle.png; sourceTree = "<group>"; };
 		639F776110480FCE00117832 /* timeline_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeline_border.png; sourceTree = "<group>"; };
@@ -802,7 +802,7 @@
 				6380A481107E4DC8008263B9 /* hud.js */,
 				6380A47E107E4DA5008263B9 /* hud.css */,
 				639F775910480FCE00117832 /* default.css */,
-				639F775E10480FCE00117832 /* script.js */,
+				639F775E10480FCE00117832 /* playlist.js */,
 				6323FF9F104ECB5E00FBEC60 /* hud.html */,
 				639F776310480FCE00117832 /* video-window.html */,
 				6380A49F107E4F93008263B9 /* images */,
@@ -1086,7 +1086,7 @@
 			files = (
 				6380A4FE107E51A0008263B9 /* dom-drag.js in Resources */,
 				6380A4FF107E51A0008263B9 /* hud.js in Resources */,
-				639F777A10480FD500117832 /* script.js in Resources */,
+				639F777A10480FD500117832 /* playlist.js in Resources */,
 				639F776A10480FCE00117832 /* default.css in Resources */,
 				639F776B10480FCE00117832 /* pause.png in Resources */,
 				639F776C10480FCE00117832 /* pause_blue.png in Resources */,
