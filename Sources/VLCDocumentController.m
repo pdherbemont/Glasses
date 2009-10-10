@@ -89,9 +89,11 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     }
 }
 
-static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *mediaDiscoverer)
+static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *mediaDiscoverer, NSUInteger n)
 {
-    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[mediaDiscoverer localizedName] action:@selector(openLibraryFromMenuItem:) keyEquivalent:@""];
+    NSString *keyEquivalent = [NSString stringWithFormat:@"%d", n];
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[mediaDiscoverer localizedName] action:@selector(openLibraryFromMenuItem:) keyEquivalent:keyEquivalent];
+    [menuItem setKeyEquivalentModifierMask:NSAlternateKeyMask | NSCommandKeyMask];
     [menuItem setRepresentedObject:mediaDiscoverer];
     return menuItem;
 }
@@ -102,8 +104,9 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     for (NSInteger i = 0; i < [menu numberOfItems]; i++)
          [menu removeItemAtIndex:i];
 
+    NSUInteger i = 1;
     for (VLCMediaDiscoverer *mediaDiscoverer in [VLCMediaDiscoverer availableMediaDiscoverer]) {
-        NSMenuItem *menuItem = createOpenLibraryMenuItemWithDiscoverer(mediaDiscoverer);
+        NSMenuItem *menuItem = createOpenLibraryMenuItemWithDiscoverer(mediaDiscoverer, i++);
         [menu addItem:menuItem];
         [menuItem release];
     }
