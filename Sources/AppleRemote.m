@@ -569,7 +569,6 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 - (BOOL) initializeCookies {
     IOHIDDeviceInterface122** handle = (IOHIDDeviceInterface122**)hidDeviceInterface;
     IOHIDElementCookie      cookie;
-    id                      object;
     NSArray*                elements = nil;
     NSDictionary*           element;
     IOReturn success;
@@ -595,10 +594,10 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
             element = [elements objectAtIndex:i];
 
             //Get cookie
-            object = [element valueForKey: (NSString*)CFSTR(kIOHIDElementCookieKey) ];
+            id object = [element valueForKey: (NSString*)CFSTR(kIOHIDElementCookieKey) ];
             if (object == nil || ![object isKindOfClass:[NSNumber class]]) continue;
             if (object == 0 || CFGetTypeID(object) != CFNumberGetTypeID()) continue;
-            cookie = (IOHIDElementCookie) [object longValue];
+            cookie = (IOHIDElementCookie) [object pointerValue];
 
 #if 0
 // Left over for documentation purpose.
@@ -636,7 +635,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 
             unsigned int i=0;
             for(i=0; i<[allCookies count]; i++) {
-                IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] intValue];
+                IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] pointerValue];
                 (*queue)->addElement(queue, cookie, 0);
             }
 
