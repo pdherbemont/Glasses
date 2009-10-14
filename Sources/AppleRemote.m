@@ -569,10 +569,6 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 - (BOOL) initializeCookies {
     IOHIDDeviceInterface122** handle = (IOHIDDeviceInterface122**)hidDeviceInterface;
     IOHIDElementCookie      cookie;
-#if 0
-    long                    usage;
-    long                    usagePage;
-#endif
     id                      object;
     NSArray*                elements = nil;
     NSDictionary*           element;
@@ -609,12 +605,12 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
             //Get usage
             object = [element valueForKey: (NSString*)CFSTR(kIOHIDElementUsageKey) ];
             if (object == nil || ![object isKindOfClass:[NSNumber class]]) continue;
-            usage = [object longValue];
+            long usage = [object longValue];
 
             //Get usage page
             object = [element valueForKey: (NSString*)CFSTR(kIOHIDElementUsagePageKey) ];
             if (object == nil || ![object isKindOfClass:[NSNumber class]]) continue;
-            usagePage = [object longValue];
+            long usagePage = [object longValue];
 #endif
             [allCookies addObject: [NSNumber numberWithInt:(int)cookie]];
         }
