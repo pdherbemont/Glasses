@@ -569,8 +569,10 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 - (BOOL) initializeCookies {
     IOHIDDeviceInterface122** handle = (IOHIDDeviceInterface122**)hidDeviceInterface;
     IOHIDElementCookie      cookie;
+#if 0
     long                    usage;
     long                    usagePage;
+#endif
     id                      object;
     NSArray*                elements = nil;
     NSDictionary*           element;
