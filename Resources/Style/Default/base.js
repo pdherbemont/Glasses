@@ -27,6 +27,40 @@ var imported_className = {
     playing: "playing"
 };
 
+
+/*
+ *  Element additional methods
+ */
+
+Element.prototype.hasClassName = function (className)
+{
+    return this.className.indexOf(className) != -1;
+}
+
+Element.prototype.hasClassNameInAncestors = function(className)
+{
+    if (this.hasClassName(className))
+        return true;
+    var parent = this.parent;
+    if (!parent)
+        return false;
+    return parent.hasClassNameInAncestors(className);
+}
+
+Element.prototype.removeClassName = function(className)
+{
+    if(!this.hasClassName(className))
+        return;
+    this.className = this.className.replace(className, "");
+}
+
+Element.prototype.addClassName = function (className)
+{
+    if(this.hasClassName(className))
+        return;
+    this.className += " " + className;
+}
+
 /*
  *  Window Controller
  */
@@ -89,44 +123,21 @@ windowController.PlatformWindow = function() {
     return window.PlatformWindow;
 }
 
-function elementHasClassName(element, className) {
-    return element.className.indexOf(className) != -1;
-}
-
-function elementOrParentHasClassName(element, className) {
-    if (elementHasClassName(element, className))
-        return true;
-    var parent = element.parent;
-    if (!parent)
-        return false;
-    return elementOrParentHasClassName(parent, className);
-}
 
 windowController.contentHasClassName = function(className) {
     var content = document.getElementById(exposed_Id.content);
-    return elementHasClassName(content, className) != -1;
+    return content.hasClassName(className) != -1;
 }
 
-function removeClassNameFromElement(element, className) {
-    if(!elementHasClassName(element, className))
-        return;
-    element.className = element.className.replace(className, "");
-}
 
 windowController.removeClassNameFromContent = function(className) {
     var content = document.getElementById(exposed_Id.content);
-    removeClassNameFromElement(content, className);
-}
-
-function addClassNameToElement(element, className) {
-    if(elementHasClassName(element, className))
-        return;
-    element.className += " " + className;
+    content.removeClassName(className);
 }
 
 windowController.addClassNameToContent = function(className) {
     var content = document.getElementById(exposed_Id.content);
-    addClassNameToElement(content, className);
+    content.addClassName(className);
 }
 
 // JS -> Core
@@ -199,8 +210,8 @@ windowController.mouseDownForWindowDrag = function(event) {
 	// It is reasonnable to only allow click in div, to mouve the window
 	// This could probaby be refined
 	if (event.srcElement.nodeName != "DIV"
-     || elementHasClassName(event.srcElement, exposed_className.resizePlatformWindow)
-     || elementOrParentHasClassName(event.srcElement, exposed_className.dontDragPlatformWindow)) {
+     || event.srcElement.hasClassName(exposed_className.resizePlatformWindow)
+     || event.srcElement.hasClassNameInAncestors(exposed_className.dontDragPlatformWindow)) {
         return;
     }
     windowController.saveMouseDownInfo(event);
@@ -223,7 +234,7 @@ windowController.mouseDraggedForWindowDrag = function(event) {
 // Window Resize
 windowController.mouseDownForWindowResize = function(event) {
 	// It is reasonnable to only allow click in element that have a resize class
-	if (event.srcElement.className.indexOf(exposed_className.resizePlatformWindow) == -1)
+	if (!event.srcElement.hasClassName(exposed_className.resizePlatformWindow))
 		return;
 
     windowController.saveMouseDownInfo(event);
@@ -276,7 +287,7 @@ windowController.revealAutoHiddenElementsAndHideAfter = function(seconds, elemen
     var timer = windowController.timer;
     if (timer)
         clearTimeout(timer);
-    if (element && elementOrParentHasClassName(element, exposed_className.exposed_className))
+    if (element && element.hasClassNameInAncestors(exposed_className.exposed_className))
         return;
     windowController.timer = setTimeout(windowController.autoHideElements, seconds * 1000);    
 }

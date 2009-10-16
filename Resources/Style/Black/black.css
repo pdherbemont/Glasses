@@ -83,10 +83,22 @@ body {
     text-align: center;
 }
 
-#content:hover .window-decoration button {
+#content:hover .titlebar,
+#content:hover .window-decoration button,
+#content:hover .controls
+ {
     opacity: 1;
     -webkit-transition: opacity 0.1s ease-in;
 }
+
+.titlebar,
+.window-decoration button,
+.controls
+ {
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-in;
+}
+
 
 .window-decoration button:active {
     -webkit-background-position: 1px 1px;
@@ -145,11 +157,11 @@ body {
 
 #video .view {
     position: absolute;
-    background: black;
-    bottom: 32px;
+    background: transparent;
+    bottom: 10px;
     right: 0px;
     left: 0px;
-    top: 21px;
+    top: 10px;
 }
 
 /*

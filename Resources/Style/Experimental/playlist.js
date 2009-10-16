@@ -1,12 +1,12 @@
 function togglePlaylistView() {
     var name = "show-playlist";
-    if (!elementHasClassName(document.body, name)) {
-        addClassNameToElement(document.getElementById("more"), "visible");
-        addClassNameToElement(document.body, name);
+    if (!document.body.hasClassName(name)) {
+        document.getElementById("more").addClassName("visible");
+        document.body.addClassName(name);
     }
     else {
-        removeClassNameFromElement(document.getElementById("more"), "visible");
-        removeClassNameFromElement(document.body, name);
+        document.getElementById("more").removeClassName("visible");
+        document.body.removeClassName(name);
     }
     removeItems();
     addItems();
@@ -21,7 +21,7 @@ function tableClicked(event) {
         object = this;
     if (!object)
         return;
-    object.className += " selected"
+    object.addClassName("selected")
 }
 
 var emptyItem = {
@@ -60,11 +60,11 @@ function removeItems() {
 var selectedElement = null;
 function itemClicked(event) {
     if (selectedElement && selectedElement != this) {
-        removeClassNameFromElement(selectedElement, "selected");
+        selectedElement.removeClassName("selected");
         selectedElement = null;
     }
     
-    addClassNameToElement(this, "selected");
+    this.addClassName("selected");
     selectedElement = this;
 }
 
