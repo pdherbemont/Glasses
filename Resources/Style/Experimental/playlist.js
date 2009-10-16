@@ -1,4 +1,5 @@
-function togglePlaylistView() {
+function togglePlaylistView()
+{
     var name = "show-playlist";
     if (!document.body.hasClassName(name)) {
         document.getElementById("more").addClassName("visible");
@@ -13,7 +14,8 @@ function togglePlaylistView() {
     window.PlatformView.videoDidResize();
 }
 
-function tableClicked(event) {
+function tableClicked(event)
+{
     var object = null;
     if (this.tagName == "TD")
         object = this.parent;
@@ -30,7 +32,8 @@ title: "No title",
 artist: "No artist"
 };
 
-function initPlaylist() {
+function initPlaylist()
+{
     var playlist = document.getElementById("playlist");
     var table = createTableWithDiv(playlist);
     playlist.table = table;
@@ -39,11 +42,13 @@ function initPlaylist() {
     setTimeout("addItems()", 0);
 }
 
-function newItem(index, title) {
+function newItem(index, title)
+{
     return { index: index, title: title, artist: "" }
 }
 
-function addItems() {
+function addItems()
+{
     var playlist = document.getElementById("playlist");
     var platformView = window.PlatformView;
     if (!platformView)
@@ -52,13 +57,15 @@ function addItems() {
         playlist.table.add(newItem(i, platformView.titleAtIndex_(i)));
 }
 
-function removeItems() {
+function removeItems()
+{
     var playlist = document.getElementById("playlist");
     playlist.innerHTML = "";
 }
 
 var selectedElement = null;
-function itemClicked(event) {
+function itemClicked(event)
+{
     if (selectedElement && selectedElement != this) {
         selectedElement.removeClassName("selected");
         selectedElement = null;
@@ -68,12 +75,14 @@ function itemClicked(event) {
     selectedElement = this;
 }
 
-function itemDoubleClicked(event) {
+function itemDoubleClicked(event)
+{
     console.log("Double clicked " + this.media);
     window.PlatformView.playMediaAtIndex_(this.media.index);
 }
 
-function createTableWithDiv(div) {
+function createTableWithDiv(div)
+{
     var table = new Object();
     table.div = div;
     

@@ -1,10 +1,12 @@
 var HUDController = new Object();
 
-HUDController.init = function() {
+HUDController.init = function()
+{
     resetHudPosition();	
 }
 
-function resetHudPosition() {
+function resetHudPosition()
+{
     var hud = document.getElementById('draggable-controls');
     var marginBottom = 100;
     var bodyWidth = parseInt(document.body.clientWidth);
@@ -19,12 +21,14 @@ function resetHudPosition() {
 /* Playlist */
 var selectionIndex = 0;
 var timer = null;
-function removeCurrentSelection() {
+function removeCurrentSelection()
+{
     var item = document.getElementById("tableItem" + selectionIndex);
     item.removeClassName("selected");
     
 }
-function gotoCurrentSelection() {
+function gotoCurrentSelection()
+{
     if (selectionIndex < 0)
         selectionIndex = 0;
     
@@ -48,14 +52,15 @@ function gotoCurrentSelection() {
 }
 
 var hideTimer = null;
-function hidePlaylist() {
+function hidePlaylist()
+{
     var elmt = document.getElementById("more");
     elmt.addClassName("hidden");
     hideTimer = null;
 }
 
-function onKeyDown(event) {
-    
+function onKeyDown(event)
+{
     var elmt = document.getElementById("more");
     elmt.removeClassName("hidden");
     

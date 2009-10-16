@@ -67,7 +67,8 @@ Element.prototype.addClassName = function (className)
 var windowController = new Object();
 
 // Called when page is loaded
-windowController.init = function() {
+windowController.init = function()
+{
 	// Bind key-equivalent
 	document.body.addEventListener('keydown', this.keyDown, false);
 	
@@ -105,80 +106,96 @@ windowController.init = function() {
 // Private method below
 
 // Utility
-function bindButtonByClassNameToMethod(className, method) {			
+function bindButtonByClassNameToMethod(className, method)
+{			
     bindByClassNameActionToMethod(className, 'click', method);
 }
 
-function bindByClassNameActionToMethod(className, action, method) {
+function bindByClassNameActionToMethod(className, action, method)
+{
     var buttons = document.getElementsByClassName(className);
     for(var i = 0; i < buttons.length; i++)
         buttons.item(i).addEventListener(action, method, false);
 }
 
-windowController.PlatformWindowController = function() {
+windowController.PlatformWindowController = function()
+{
     return window.PlatformWindowController;
 }
 
-windowController.PlatformWindow = function() {
+windowController.PlatformWindow = function()
+{
     return window.PlatformWindow;
 }
 
 
-windowController.contentHasClassName = function(className) {
+windowController.contentHasClassName = function(className)
+{
     var content = document.getElementById(exposed_Id.content);
     return content.hasClassName(className) != -1;
 }
 
 
-windowController.removeClassNameFromContent = function(className) {
+windowController.removeClassNameFromContent = function(className)
+{
     var content = document.getElementById(exposed_Id.content);
     content.removeClassName(className);
 }
 
-windowController.addClassNameToContent = function(className) {
+windowController.addClassNameToContent = function(className)
+{
     var content = document.getElementById(exposed_Id.content);
     content.addClassName(className);
 }
 
 // JS -> Core
 
-windowController.close = function() {
+windowController.close = function()
+{
     windowController.PlatformWindow().performClose();
 }
 
-windowController.miniaturize = function() {
+windowController.miniaturize = function()
+{
     windowController.PlatformWindow().miniaturize();
 }
 
-windowController.zoom = function() {
+windowController.zoom = function()
+{
     windowController.PlatformWindow().zoom();
 }
 
-windowController.togglePlaying = function() {
+windowController.togglePlaying = function()
+{
     if(windowController.contentHasClassName(imported_className.playing))
         window.PlatformView.pause();
     else
         window.PlatformView.play();
 }
 
-windowController.enterFullscreen = function() {
+windowController.enterFullscreen = function()
+{
     windowController.PlatformWindowController().enterFullscreen();
 }
 
-windowController.leaveFullscreen = function() {
+windowController.leaveFullscreen = function()
+{
     windowController.PlatformWindowController().leaveFullscreen();
 }
 
-windowController.videoResized = function() {
+windowController.videoResized = function()
+{
     window.PlatformView.videoDidResize();
 }
 
-windowController.windowResized = function() {
+windowController.windowResized = function()
+{
     windowController.videoResized();
 }
 
 
-windowController.windowFrame = function() {
+windowController.windowFrame = function()
+{
     var platformWindow = windowController.PlatformWindow();
     var origin = { x: platformWindow.frameOriginX(), y: platformWindow.frameOriginY() };
     var size = { height: platformWindow.frameSizeHeight(), width: platformWindow.frameSizeWidth() };
@@ -193,20 +210,23 @@ windowController.windowFrame = function() {
 windowController.mouseDownPoint = null;
 windowController.windowFrameAtMouseDown = null;
 
-windowController.saveMouseDownInfo = function(event) {
+windowController.saveMouseDownInfo = function(event)
+{
     windowController.mouseDownPoint = { x: event.screenX, y: event.screenY };
     windowController.windowFrameAtMouseDown = this.windowFrame();
 }
 
 // Timeline
 
-windowController.timelineValueChanged = function() {
+windowController.timelineValueChanged = function()
+{
     window.PlatformView.setPosition_(this.value / this.getAttribute('max'));
 }
 
 // Window Drag
 
-windowController.mouseDownForWindowDrag = function(event) {
+windowController.mouseDownForWindowDrag = function(event)
+{
 	// It is reasonnable to only allow click in div, to mouve the window
 	// This could probaby be refined
 	if (event.srcElement.nodeName != "DIV"
@@ -219,12 +239,14 @@ windowController.mouseDownForWindowDrag = function(event) {
 	document.addEventListener('mousemove', windowController.mouseDraggedForWindowDrag, false);
 }
 
-windowController.mouseUpForWindowDrag = function(event) {
+windowController.mouseUpForWindowDrag = function(event)
+{
 	document.removeEventListener('mouseup', windowController.mouseUpForWindowDrag, false);
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowDrag, false);
 }
 
-windowController.mouseDraggedForWindowDrag = function(event) {
+windowController.mouseDraggedForWindowDrag = function(event)
+{
 	var dx = windowController.mouseDownPoint.x - event.screenX;
 	var dy = windowController.mouseDownPoint.y - event.screenY;
 	var mouseDownOrigin = windowController.windowFrameAtMouseDown.origin;
@@ -232,7 +254,8 @@ windowController.mouseDraggedForWindowDrag = function(event) {
 }
 
 // Window Resize
-windowController.mouseDownForWindowResize = function(event) {
+windowController.mouseDownForWindowResize = function(event)
+{
 	// It is reasonnable to only allow click in element that have a resize class
 	if (!event.srcElement.hasClassName(exposed_className.resizePlatformWindow))
 		return;
@@ -245,14 +268,16 @@ windowController.mouseDownForWindowResize = function(event) {
 	document.addEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
 }
 
-windowController.mouseUpForWindowResize = function(event) {
+windowController.mouseUpForWindowResize = function(event)
+{
 	document.removeEventListener('mouseup', windowController.mouseUpForWindowResize, false);
 	document.removeEventListener('mousemove', windowController.mouseDraggedForWindowResize, false);
 
     windowController.PlatformWindow().didEndLiveResize();
 }
 
-windowController.mouseDraggedForWindowResize = function(event) {
+windowController.mouseDraggedForWindowResize = function(event)
+{
 	var dx = event.screenX - windowController.mouseDownPoint.x;
 	var dy = event.screenY - windowController.mouseDownPoint.y;
 	var mouseDownOrigin = windowController.windowFrameAtMouseDown.origin;
@@ -267,7 +292,8 @@ windowController.mouseDraggedForWindowResize = function(event) {
 windowController.timer = null;
 windowController.autohiddingTime = 0.5;
 
-windowController.autoHideElements = function(event) {
+windowController.autoHideElements = function(event)
+{
     window.PlatformView.hideCursorUntilMouseMoves();
     windowController.addClassNameToContent(exposed_className.hidden);
 }
@@ -277,7 +303,8 @@ windowController.autoHideElements = function(event) {
 // This is not what we want so skip it.
 var globalIsFirstMouseMove = true;
 
-windowController.revealAutoHiddenElementsAndHideAfter = function(seconds, element) {
+windowController.revealAutoHiddenElementsAndHideAfter = function(seconds, element)
+{
     if (globalIsFirstMouseMove) {
         globalIsFirstMouseMove = false;
         return;
@@ -292,11 +319,13 @@ windowController.revealAutoHiddenElementsAndHideAfter = function(seconds, elemen
     windowController.timer = setTimeout(windowController.autoHideElements, seconds * 1000);    
 }
 
-windowController.revealAutoHiddenElements = function(event) {
+windowController.revealAutoHiddenElements = function(event)
+{
     windowController.revealAutoHiddenElementsAndHideAfter(windowController.autohiddingTime, event.srcElement);
 }
 
-windowController.interruptAutoHide = function(event) {
+windowController.interruptAutoHide = function(event)
+{
     var timer = windowController.timer;
     if (!timer)
         return;
@@ -306,7 +335,8 @@ windowController.interruptAutoHide = function(event) {
 
 // Key events
 
-windowController.keyDown = function(event) {
+windowController.keyDown = function(event)
+{
     var key = event.keyCode;
 
     // Space" key
