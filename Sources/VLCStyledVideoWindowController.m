@@ -135,10 +135,11 @@
 
 - (void)toggleFullscreen:(id)sender
 {
-    if (![[self fullscreenController] fullscreen])
-        [[self fullscreenController] enterFullscreen:[[self window] screen]];
+    VLCFullscreenController *controller = [self fullscreenController];
+    if (![controller fullscreen])
+        [controller enterFullscreen:[[self window] screen]];
     else
-        [[self fullscreenController] leaveFullscreen];
+        [controller leaveFullscreen];
 }
 
 #pragma mark -
