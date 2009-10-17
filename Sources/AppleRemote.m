@@ -597,7 +597,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
             id object = [element valueForKey: (NSString*)CFSTR(kIOHIDElementCookieKey) ];
             if (object == nil || ![object isKindOfClass:[NSNumber class]]) continue;
             if (object == 0 || CFGetTypeID(object) != CFNumberGetTypeID()) continue;
-            cookie = (IOHIDElementCookie) [object pointerValue];
+            cookie = (IOHIDElementCookie) [object intValue];
 
 #if 0
 // Left over for documentation purpose.
@@ -635,7 +635,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 
             unsigned int i=0;
             for(i=0; i<[allCookies count]; i++) {
-                IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] pointerValue];
+                IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] intValue];
                 (*queue)->addElement(queue, cookie, 0);
             }
 
