@@ -26,9 +26,14 @@
 @interface VLCPreferencesWindowController : NSWindowController {
     IBOutlet NSTextField *_lastCheckForUpdateText;
     IBOutlet NSButton *_checkForUpdatesCheckBox;
+    IBOutlet NSView *_genericSettingsView;
+    IBOutlet NSView *_playbackSettingsView;
+    NSView *_currentView;
 }
 
 - (void)syncSettings;
+- (void)setView: (id)newView;
 - (IBAction)buttonAction:(id)sender;
+- (IBAction)toolbarAction: (id)sender;
 
 @end

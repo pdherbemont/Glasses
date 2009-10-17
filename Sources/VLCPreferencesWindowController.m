@@ -37,6 +37,14 @@
     return @"PreferencesWindow";
 }
 
+- (void)dealloc
+{
+    if (_currentView) {
+        [_currentView release];
+    }
+    [super dealloc];
+}
+
 - (void)syncSettings
 {
     SUUpdater *updater = [SUUpdater sharedUpdater];
@@ -49,6 +57,8 @@
         string = @"No check was performed yet.";
     [_lastCheckForUpdateText setStringValue:string];
     [_checkForUpdatesCheckBox setIntValue:[updater automaticallyChecksForUpdates]];
+    [self setView: _genericSettingsView];
+    [[[self window] toolbar] setSelectedItemIdentifier: @"generic"];
 }
 
 - (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
@@ -67,6 +77,49 @@
 {
     /* FIXME: this is ugly! However, using KVC with Sparkle will result in a crash on app launch */
     [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates: [_checkForUpdatesCheckBox intValue]];
+}
+
+- (IBAction)toolbarAction: (id)sender
+{
+    if( [sender tag] == 0 )
+        [self setView: _genericSettingsView];
+    else if( [sender tag] == 1 )
+        [self setView: _playbackSettingsView];
+    else
+        NSLog( @"invalid view requested by toolbar" );
+
+}
+
+- (void)setView: (id)newView
+{
+    NSRect windowRect, viewRect, oldViewRect;
+    windowRect = [[self window] frame];
+    viewRect = [newView frame];
+
+    if (_currentView != nil) {
+        /* restore our window's height, if we've shown another view previously */
+        oldViewRect = [_currentView frame];
+        windowRect.size.height = windowRect.size.height - oldViewRect.size.height;
+        windowRect.origin.y = (windowRect.origin.y + oldViewRect.size.height) - viewRect.size.height;
+        
+        /* remove our previous view */
+        [_currentView removeFromSuperviewWithoutNeedingDisplay];
+    }
+
+    windowRect.size.height = viewRect.size.height + 78; // + toolbar height...
+
+    [[self window] displayIfNeeded];
+    [[self window] setFrame: windowRect display:YES animate: YES];
+
+    [newView setFrame: NSMakeRect( 0, 0, viewRect.size.width, viewRect.size.height )];
+    [newView setNeedsDisplay: YES];
+    [newView setAutoresizesSubviews: YES];
+    [[[self window] contentView] addSubview: newView];
+
+    /* keep our current view for future reference */
+    [_currentView release];
+    _currentView = newView;
+    [_currentView retain];
 }
 
 @end

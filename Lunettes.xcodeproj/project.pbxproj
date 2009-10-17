@@ -142,6 +142,8 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
 		CC10A7B0103CA96800B4555A /* VLCPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */; };
+		CC3F96A4108A2999003249A7 /* spref_cone_Interface_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3F96A3108A2999003249A7 /* spref_cone_Interface_64.png */; };
+		CC3F96A6108A29BD003249A7 /* spref_cone_Video_64.png in Resources */ = {isa = PBXBuildFile; fileRef = CC3F96A5108A29BD003249A7 /* spref_cone_Video_64.png */; };
 		CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC566421103C9F6300FEA1D3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
@@ -424,6 +426,8 @@
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		CC10A7AE103CA96800B4555A /* VLCPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferencesWindowController.h; path = Sources/VLCPreferencesWindowController.h; sourceTree = "<group>"; };
 		CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPreferencesWindowController.m; path = Sources/VLCPreferencesWindowController.m; sourceTree = "<group>"; };
+		CC3F96A3108A2999003249A7 /* spref_cone_Interface_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spref_cone_Interface_64.png; sourceTree = "<group>"; };
+		CC3F96A5108A29BD003249A7 /* spref_cone_Video_64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spref_cone_Video_64.png; sourceTree = "<group>"; };
 		CC56641D103C9F5900FEA1D3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMiscUIElements.m; path = Sources/VLCMiscUIElements.m; sourceTree = "<group>"; };
 		CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiscUIElements.h; path = Sources/VLCMiscUIElements.h; sourceTree = "<group>"; };
@@ -684,6 +688,8 @@
 				6311DAD00FF85AC0004BC7D1 /* repeat_embedded_graphite.png */,
 				6311DAD10FF85AC0004BC7D1 /* repeat_single_embedded_blue.png */,
 				6311DAD20FF85AC0004BC7D1 /* repeat_single_embedded_graphite.png */,
+				CC3F96A3108A2999003249A7 /* spref_cone_Interface_64.png */,
+				CC3F96A5108A29BD003249A7 /* spref_cone_Video_64.png */,
 				6311DAD30FF85AC0004BC7D1 /* shuffle_embedded.png */,
 				6311DAD40FF85AC0004BC7D1 /* shuffle_embedded_blue.png */,
 				6311DAD50FF85AC0004BC7D1 /* shuffle_embedded_graphite.png */,
@@ -1163,6 +1169,8 @@
 				635D112C104A846400D34A87 /* PreferencesWindow.xib in Resources */,
 				635D112E104A847300D34A87 /* PlaylistDebugWindow.xib in Resources */,
 				635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */,
+				CC3F96A4108A2999003249A7 /* spref_cone_Interface_64.png in Resources */,
+				CC3F96A6108A29BD003249A7 /* spref_cone_Video_64.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
