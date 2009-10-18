@@ -94,10 +94,10 @@
 
 - (IBAction)toolbarAction: (id)sender
 {
-    if( [sender tag] == 0 ) {
+    if ([sender tag] == 0) {
         [[self window] setTitle:@"General"];
         [self setView: _generalSettingsView];
-    } else if( [sender tag] == 1 ) {
+    } else if ([sender tag] == 1) {
         [[self window] setTitle:@"Playback"];
         [self setView: _playbackSettingsView];
     } else
