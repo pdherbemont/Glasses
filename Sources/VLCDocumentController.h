@@ -30,5 +30,7 @@
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
 - (void)openLibraryFromMenuItem:(id)sender;
+- (IBAction)saveVideoSnapshot:(id)sender;
 
+@property (readonly) BOOL openDocuments;
 @end
