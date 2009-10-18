@@ -57,8 +57,10 @@
         string = @"No check was performed yet.";
     [_lastCheckForUpdateText setStringValue:string];
     [_checkForUpdatesCheckBox setIntValue:[updater automaticallyChecksForUpdates]];
-    [self setView: _genericSettingsView];
-    [[[self window] toolbar] setSelectedItemIdentifier: @"generic"];
+    if (!_currentView) {
+        [self setView: _genericSettingsView];
+        [[[self window] toolbar] setSelectedItemIdentifier: @"generic"];
+    }
 }
 
 - (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
