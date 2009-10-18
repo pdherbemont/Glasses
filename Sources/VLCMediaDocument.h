@@ -28,6 +28,7 @@
 	VLCMedia *_media;
 	VLCMediaList *_mediaList;
 	VLCMediaListPlayer *_mediaListPlayer;
+    BOOL _deinterlacingEnabled;
 }
 
 - (id)initWithMediaList:(VLCMediaList *)mediaList;
