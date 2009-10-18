@@ -26,7 +26,8 @@
 @interface VLCPreferencesWindowController : NSWindowController {
     IBOutlet NSTextField *_lastCheckForUpdateText;
     IBOutlet NSButton *_checkForUpdatesCheckBox;
-    IBOutlet NSView *_genericSettingsView;
+    IBOutlet NSPathControl *_snapshotPathSelector;
+    IBOutlet NSView *_generalSettingsView;
     IBOutlet NSView *_playbackSettingsView;
     NSView *_currentView;
 }

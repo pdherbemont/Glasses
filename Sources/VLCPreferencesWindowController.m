@@ -58,9 +58,17 @@
     [_lastCheckForUpdateText setStringValue:string];
     [_checkForUpdatesCheckBox setIntValue:[updater automaticallyChecksForUpdates]];
     if (!_currentView) {
-        [self setView: _genericSettingsView];
-        [[[self window] toolbar] setSelectedItemIdentifier: @"generic"];
+        /* this is only performed on the first display of this window */
+        [[self window] setTitle:@"General"];
+        [self setView: _generalSettingsView];
+        [[[[[self window] toolbar] items] objectAtIndex: 0] setImage: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
+        [[[[[self window] toolbar] items] objectAtIndex: 1] setImage: [NSImage imageNamed: NSImageNameSlideshowTemplate]];
+        [[[self window] toolbar] setSelectedItemIdentifier: @"general"];
     }
+    if ([[NSUserDefaults standardUserDefaults] stringForKey: @"SelectedSnapshotFolder"])
+        [_snapshotPathSelector setURL:[NSURL fileURLWithPath:[[[NSUserDefaults standardUserDefaults] stringForKey:@"SelectedSnapshotFolder"] stringByExpandingTildeInPath]]];
+    else
+        [_snapshotPathSelector setURL: [NSURL fileURLWithPath: [@"~/Desktop" stringByExpandingTildeInPath]]];
 }
 
 - (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
@@ -72,6 +80,7 @@
 - (IBAction)showWindow: (id)sender
 {
     [self syncSettings];
+    [[self window] center];
     [[self window] makeKeyAndOrderFront: nil];
 }
 
@@ -79,15 +88,19 @@
 {
     /* FIXME: this is ugly! However, using KVC with Sparkle will result in a crash on app launch */
     [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates: [_checkForUpdatesCheckBox intValue]];
+    /* saving URLs with KVC is impossible within IB, so let's do it this way... */
+    [[NSUserDefaults standardUserDefaults] setObject: [[_snapshotPathSelector URL] path] forKey: @"SelectedSnapshotFolder"];
 }
 
 - (IBAction)toolbarAction: (id)sender
 {
-    if( [sender tag] == 0 )
-        [self setView: _genericSettingsView];
-    else if( [sender tag] == 1 )
+    if( [sender tag] == 0 ) {
+        [[self window] setTitle:@"General"];
+        [self setView: _generalSettingsView];
+    } else if( [sender tag] == 1 ) {
+        [[self window] setTitle:@"Playback"];
         [self setView: _playbackSettingsView];
-    else
+    } else
         NSLog( @"invalid view requested by toolbar" );
 
 }

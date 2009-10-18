@@ -113,7 +113,6 @@
         [mediaListPlayer setMediaList:_mediaList];
     [mediaListPlayer play];
 
-    [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:@"YES" forKey:@"UseDeinterlaceFilter"]];
     [self coreChangedSetting: nil];
     [mediaListPlayer release];
 
