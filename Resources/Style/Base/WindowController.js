@@ -57,12 +57,12 @@ WindowController.prototype = {
         document.body.addEventListener('keydown', this.keyDown, false);
         
         // Bind the buttons.
-        bindButtonByClassNameToMethod(this.Exported.ClassNames.close, this.close);
-        bindButtonByClassNameToMethod(this.Exported.ClassNames.miniaturize, this.miniaturize);
-        bindButtonByClassNameToMethod(this.Exported.ClassNames.zoom, this.zoom);
-        bindButtonByClassNameToMethod(this.Exported.ClassNames.togglePlaying, this.togglePlaying);
-        bindButtonByClassNameToMethod(this.Exported.ClassNames.enterFullscreen, this.enterFullscreen);
-        bindButtonByClassNameToMethod(this.Exported.ClassNames.leaveFullscreen, this.leaveFullscreen);
+        bindButtonByClassNameToMethod(this.Exported.ClassNames.close, this.close.bind(this));
+        bindButtonByClassNameToMethod(this.Exported.ClassNames.miniaturize, this.miniaturize.bind(this));
+        bindButtonByClassNameToMethod(this.Exported.ClassNames.zoom, this.zoom.bind(this));
+        bindButtonByClassNameToMethod(this.Exported.ClassNames.togglePlaying, this.togglePlaying.bind(this));
+        bindButtonByClassNameToMethod(this.Exported.ClassNames.enterFullscreen, this.enterFullscreen.bind(this));
+        bindButtonByClassNameToMethod(this.Exported.ClassNames.leaveFullscreen, this.leaveFullscreen.bind(this));
         
         // Deal with HUD hidding.
         var buttons = document.getElementsByClassName(this.Exported.ClassNames.autohideWhenMouseLeaves);
@@ -201,8 +201,22 @@ WindowController.prototype = {
         return { origin: origin, size: size };
     },
     
-    // ------------------------------------------
-    // Event handlers
+    /*************************************************
+     * Event handlers
+     */
+
+    /**
+     * Key events
+     * @param {Event} event
+     */
+    keyDown: function(event)
+    {
+        var key = event.keyCode;
+        
+        // Space" key
+        if (key == 0x20) 
+            this.togglePlaying();
+    },
     
     // Common
     
@@ -218,20 +232,21 @@ WindowController.prototype = {
         this.windowFrameAtMouseDown = this.windowFrame();
     },
     
-    // Timeline
-    
-    timelineValueChanged: function()
+    timelineValueChanged: function(event)
     {
         window.PlatformView.setPosition_(this.value / this.getAttribute('max'));
     },
-    
-    // Window Drag
+
+    /*************************************************
+     * Window Drag
+     */
 
     /**
      * @param {Event} event
      */    
     mouseDownForWindowDrag: function(event)
     {
+        console.log("mouse down");
         // It is reasonnable to only allow click in div, to mouve the window
         // This could probaby be refined
         if (event.srcElement.nodeName != "DIV"
@@ -241,7 +256,7 @@ WindowController.prototype = {
         }
         this.saveMouseDownInfo(event);
         this._mouseUpListener = this.mouseUpForWindowDrag.bind(this);
-        this._mouseDragListener = this.mouseUpForWindowDrag.bind(this);
+        this._mouseDragListener = this.mouseDraggedForWindowDrag.bind(this);
         document.addEventListener('mouseup', this._mouseUpListener, false);
         document.addEventListener('mousemove', this._mouseDragListener, false);
     },
@@ -266,8 +281,10 @@ WindowController.prototype = {
         this.PlatformWindow().setFrameOrigin__(mouseDownOrigin.x - dx, mouseDownOrigin.y + dy);
     },
     
-    // Window Resize
-
+    /*************************************************
+     * Window Resize
+     */
+    
     /**
      * @param {Event} event
      */    
@@ -311,7 +328,9 @@ WindowController.prototype = {
         this.windowResized();
     },
     
-    // HUD autohidding
+    /*************************************************
+     * HUD autohide
+     */
     timer: null,
     autohiddingTime: 0.5,
 
@@ -363,21 +382,7 @@ WindowController.prototype = {
             return;
         window.clearTimeout(timer);
         timer = null;
-    },
-    
-    /**
-     * Key events
-     * @param {Event} event
-     */
-    keyDown: function(event)
-    {
-        var key = event.keyCode;
-        
-        // Space" key
-        if (key == 0x20) 
-            this.togglePlaying();
     }
-    
 }
 
 window.windowController = new WindowController;
