@@ -301,8 +301,10 @@ WindowController.prototype = {
         
         this.PlatformWindow().willStartLiveResize();
         
-        document.addEventListener('mouseup', this.mouseUpForWindowResize.bind(this), false);
-        document.addEventListener('mousemove', this.mouseDraggedForWindowResize.bind(this), false);
+        this._mouseUpForWindowResizeListener = this.mouseUpForWindowResize.bind(this);
+        this._mouseDragForWindowResizeListener = this.mouseDraggedForWindowResize.bind(this);
+        document.addEventListener('mouseup', this._mouseUpForWindowResizeListener, false);
+        document.addEventListener('mousemove', this._mouseDragForWindowResizeListener, false);
     },
 
     /**
@@ -310,8 +312,8 @@ WindowController.prototype = {
      */    
     mouseUpForWindowResize: function(event)
     {
-        document.removeEventListener('mouseup', this.mouseUpForWindowResize.bind(this), false);
-        document.removeEventListener('mousemove', this.mouseDraggedForWindowResize.bind(this), false);
+        document.removeEventListener('mouseup', this._mouseUpForWindowResizeListener, false);
+        document.removeEventListener('mousemove', this._mouseDragForWindowResizeListener, false);
         
         this.PlatformWindow().didEndLiveResize();
     },
