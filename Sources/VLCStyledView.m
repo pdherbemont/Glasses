@@ -219,10 +219,20 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     if (!_isFrameLoaded)
         return;
 
-    double currentTime = [[time numberValue] doubleValue];
-    double position = [[self mediaPlayer] position];
-    double remaining = currentTime / position * (1 - position);
-    VLCTime *remainingTime = [VLCTime timeWithNumber:[NSNumber numberWithDouble:-remaining]];
+    NSNumber *timeAsNumber = [time numberValue];
+    VLCTime *remainingTime;
+    if (!timeAsNumber) {
+        // There is no time as number,
+        // it means we have no time,
+        // just display "--:--"
+        remainingTime = [VLCTime nullTime];
+    }
+    else {
+        double currentTime = [[time numberValue] doubleValue];
+        double position = [[self mediaPlayer] position];
+        double remaining = currentTime / position * (1 - position);
+        remainingTime = [VLCTime timeWithNumber:[NSNumber numberWithDouble:-remaining]];        
+    }
     [self setInnerText:[remainingTime stringValue] forElementsOfClass:@"remaining-time"];
 }
 
