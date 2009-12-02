@@ -74,7 +74,7 @@ WindowController.prototype = {
         // Make "draggable" elements draggable.
         var draggableElements = document.getElementsByClassName(this.Exported.ClassNames.draggable);
         for (var i = 0; i < draggableElements.length; i++)
-            window.Drag.init(draggableElements[i]);        
+            window.dragController.init(draggableElements[i]);        
         
         var elements = document.getElementsByClassName("ellapsed-time");
         for (i = 0; i < elements.length; i++)
