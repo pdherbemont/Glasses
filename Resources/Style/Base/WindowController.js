@@ -232,9 +232,13 @@ WindowController.prototype = {
         this.windowFrameAtMouseDown = this.windowFrame();
     },
     
+    /**
+     * @param {Event} event
+     */        
     timelineValueChanged: function(event)
     {
-        window.PlatformView.setPosition_(this.value / this.getAttribute('max'));
+        var target = event.currentTarget;
+        window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
     },
 
     /*************************************************
@@ -246,7 +250,6 @@ WindowController.prototype = {
      */    
     mouseDownForWindowDrag: function(event)
     {
-        console.log("mouse down");
         // It is reasonnable to only allow click in div, to mouve the window
         // This could probaby be refined
         if (event.srcElement.nodeName != "DIV"
