@@ -22,6 +22,12 @@
 #import <VLCKit/VLCKit.h>
 #import "VLCMediaDocument.h"
 
+
+@interface WebCoreStatistics : NSObject
++ (BOOL)shouldPrintExceptions;
++ (void)setShouldPrintExceptions:(BOOL)print;
+@end
+
 static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 
 @interface VLCStyledView ()
@@ -45,6 +51,7 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 
 - (void)setup
 {
+    [WebCoreStatistics setShouldPrintExceptions:YES];
     [self setDrawsBackground:NO];
     
     [self setFrameLoadDelegate:self];
@@ -117,12 +124,15 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     [self didFinishLoadForFrame:frame];
 }
 
+- (void)webView:(WebView *)webView windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject
+{
+    [windowScriptObject setValue:self forKey:@"PlatformView"];
+    [windowScriptObject setValue:[[self window] windowController] forKey:@"PlatformWindowController"];
+}
+
 - (void)didFinishLoadForFrame:(WebFrame *)frame
 {
-    id win = [self windowScriptObject];
     NSWindow *window = [self window];
-    [win setValue:self forKey:@"PlatformView"];
-    [win setValue:[window windowController] forKey:@"PlatformWindowController"];
     [self setWindowTitle:[window title]];
     [self setViewedPlaying:_viewedPlaying];
     [self setViewedPosition:_viewedPosition];
@@ -208,7 +218,6 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     }
     if (!_isFrameLoaded)
         return;
-    [self setInnerText:[time stringValue] forElementsOfClass:@"ellapsed-time"];
 
     double currentTime = [[time numberValue] doubleValue];
     double position = [[self mediaPlayer] position];

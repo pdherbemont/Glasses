@@ -24,5 +24,4 @@
     // FIXME: This has to be wrong.
     return NSMakeRect(origin.x + 1, [view frame].size.height - origin.y - self.clientHeight - 1, self.clientWidth, self.clientHeight);
 }
-
 @end

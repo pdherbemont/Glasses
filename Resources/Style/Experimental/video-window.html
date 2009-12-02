@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
-    <script type="text/ecmascript" defer="defer" encoding="utf-8" src="playlist.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/base.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="playlist.js"></script>
 	<link id="style" rel="stylesheet" type="text/css" href="default.css" />
 
 	<title>Video Window</title>
 </head>
-<body onload="initPlaylist(); windowController.init();" id="content" class="key-window">
+<body onload="initPlaylist(); window.windowController.init();" id="content" class="key-window">
 
 
 <div id="main-window" class="drag-platform-window">
@@ -39,6 +39,7 @@
             <div class="status">Playing</div>
         </div>
     </div>
+
     <div class="bottombar-fixup"></div>
 
     <div class="resize resize-platform-window"></div>
@@ -50,9 +51,9 @@
         <div class="titlebar"></div>
     </div>
     <div class="textcontent">
-        <ul id="playlist">
+        <div id="mediaList">
 
-        </ul>
+        </div>
 
     </div>
     <div class="controls"><input type="search" class="search" placeholder="Search" value=""></div>

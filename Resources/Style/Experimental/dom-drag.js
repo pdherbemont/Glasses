@@ -7,7 +7,11 @@
  * sometimes fired off the handle, not the root.
  **************************************************/
 
-var Drag = {
+window.parseIntDec = function parseIntDec(a) {
+    parseInt(a, 10);
+};
+
+window.Drag = {
 	
 	obj : null,
 	
@@ -20,10 +24,10 @@ var Drag = {
 		
 		o.root = oRoot && oRoot != null ? oRoot : o ;
 		
-		if (o.hmode  && isNaN(parseInt(o.root.style.left  ))) o.root.style.left   = "0px";
-		if (o.vmode  && isNaN(parseInt(o.root.style.top   ))) o.root.style.top    = "0px";
-		if (!o.hmode && isNaN(parseInt(o.root.style.right ))) o.root.style.right  = "0px";
-		if (!o.vmode && isNaN(parseInt(o.root.style.bottom))) o.root.style.bottom = "0px";
+		if (o.hmode  && isNaN(parseIntDec(o.root.style.left))) o.root.style.left   = "0px";
+		if (o.vmode  && isNaN(parseIntDec(o.root.style.top))) o.root.style.top    = "0px";
+		if (!o.hmode && isNaN(parseIntDec(o.root.style.right))) o.root.style.right  = "0px";
+		if (!o.vmode && isNaN(parseIntDec(o.root.style.bottom))) o.root.style.bottom = "0px";
 		
 		o.minX	= typeof minX != 'undefined' ? minX : null;
 		o.minY	= typeof minY != 'undefined' ? minY : null;
@@ -45,8 +49,8 @@ var Drag = {
 		
 		var o = Drag.obj = this;
 		e = Drag.fixE(e);
-		var y = parseInt(o.vmode ? o.root.style.top  : o.root.style.bottom);
-		var x = parseInt(o.hmode ? o.root.style.left : o.root.style.right );
+		var y = parseIntDec(o.vmode ? o.root.style.top  : o.root.style.bottom);
+		var x = parseIntDec(o.hmode ? o.root.style.left : o.root.style.right );
 		o.root.onDragStart(x, y);
 		
 		o.lastMouseX	= e.clientX;
@@ -81,8 +85,8 @@ var Drag = {
 		
 		var ey	= e.clientY;
 		var ex	= e.clientX;
-		var y = parseInt(o.vmode ? o.root.style.top  : o.root.style.bottom);
-		var x = parseInt(o.hmode ? o.root.style.left : o.root.style.right );
+		var y = parseIntDec(o.vmode ? o.root.style.top  : o.root.style.bottom);
+		var x = parseIntDec(o.hmode ? o.root.style.left : o.root.style.right );
 		var nx, ny;
 		
 		if (o.minX != null) ex = o.hmode ? Math.max(ex, o.minMouseX) : Math.min(ex, o.maxMouseX);
@@ -94,7 +98,7 @@ var Drag = {
 		ny = y + ((ey - o.lastMouseY) * (o.vmode ? 1 : -1));
 		
 		if (o.xMapper)		nx = o.xMapper(y)
-			else if (o.yMapper)	ny = o.yMapper(x)
+            else if (o.yMapper)	ny = o.yMapper(x)
 				
 				Drag.obj.root.style[o.hmode ? "left" : "right"] = nx + "px";
 		Drag.obj.root.style[o.vmode ? "top" : "bottom"] = ny + "px";
@@ -109,8 +113,8 @@ var Drag = {
 	{
 		document.onmousemove = null;
 		document.onmouseup   = null;
-		Drag.obj.root.onDragEnd(	parseInt(Drag.obj.root.style[Drag.obj.hmode ? "left" : "right"]), 
-								parseInt(Drag.obj.root.style[Drag.obj.vmode ? "top" : "bottom"]));
+		Drag.obj.root.onDragEnd(parseIntDec(Drag.obj.root.style[Drag.obj.hmode ? "left" : "right"]), 
+								parseIntDec(Drag.obj.root.style[Drag.obj.vmode ? "top" : "bottom"]));
 		Drag.obj = null;
 	},
 	

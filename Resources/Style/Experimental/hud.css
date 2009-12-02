@@ -248,13 +248,39 @@ ul li {
 }
 
 ul li.selected {
+    height: 40px;
+    -webkit-transition: all 0.2s ease-out;
+}
+
+ul li .name {
+    display: inline-block;
+}
+
+ul li.selected .name {
     color: white;
     -webkit-text-stroke: 0px; 
     text-shadow: 0px 0px 3px black;
     font-size: 35px;
-    height: 40px;
     -webkit-transition: all 0.2s ease-out;
 }
+
+ul li .reveal-subitems {
+    display: inline-block;
+}
+
+ul li .reveal-subitems.hidden {
+    display: none;
+}
+
+.header .back {
+    display: none;
+}
+
+.header .name {
+    color: white;
+    font-size: 35px;
+}
+
 
 
 /* If there is only one element don't show the playlist */
@@ -265,6 +291,28 @@ ul li.selected {
 .multiple-play-items .textcontent {
     display: block;
 }
+
+.textcontent .left {
+    -webkit-transform: translateX(-300px);
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+}
+
+.textcontent .current {
+    -webkit-transform: translateX(0px);
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+}
+
+.textcontent .right {
+    -webkit-transform: translateX(300px);
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+}
+
+.textcontent .left,
+.textcontent .current,
+.textcontent .right {
+    display: block;
+}
+
 
 /* Animate between the hidden and the visible state */
 .hidden .playlist-selection {

@@ -38,11 +38,15 @@
 {
     NSAssert(!_contentTracking, @"_contentTracking should have been released");
     NSAssert(!_videoWindow, @"_videoWindow should have been released");
+    NSAssert(!_bindings, @"_bindings should have been released");
     [super dealloc];
 }
 
 - (void)close
 {
+    [_bindings clearBindings];
+    [_bindings release];
+    _bindings = nil;
 #if SUPPORT_VIDEO_BELOW_CONTENT
     [self _removeBelowWindow];
 #endif
@@ -64,6 +68,9 @@
     // Clear the below window here.
     [self _removeBelowWindow];
 #endif
+    [_bindings clearBindings];
+    [_bindings release];
+    _bindings = [[VLCWebBindingsController alloc] init];
     [super setup];
 }
 
@@ -249,12 +256,12 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 }
 
 
-- (VLCMediaListAspect *)rootMediaList
+- (VLCMediaList *)rootMediaList
 {
     VLCMediaListPlayer *player = [self mediaListPlayer];
-    VLCMediaListAspect *mainMediaContent = player.rootMedia.subitems.flatAspect;
+    VLCMediaList *mainMediaContent = player.rootMedia.subitems;
     BOOL isPlaylistDocument = mainMediaContent.count > 0;
-    return isPlaylistDocument ? mainMediaContent : player.mediaList.flatAspect;
+    return isPlaylistDocument ? mainMediaContent : player.mediaList;
 }
 
 - (void)playMediaAtIndex:(NSUInteger)index
@@ -272,6 +279,32 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     return [[self rootMediaList] count];
 }
 
+- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toKeyPath:(NSString *)keyPath
+{
+    [_bindings bindDOMObject:domObject property:property toObject:self withKeyPath:keyPath];
+}
+
+- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject*)object withKeyPath:(NSString *)keyPath
+{
+    [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];
+}
+
+- (void)unbindDOMObject:(DOMNode *)domObject property:(NSString *)property
+{
+    [_bindings unbindDOMObject:domObject property:property];
+}
+
+- (void)addObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
+{
+    [_bindings observe:object ? [object valueForKey:@"backendObject"] : self withKeyPath:keyPath observer:observer];
+}
+
+- (void)playCocoaObject:(WebScriptObject *)object
+{
+    [[self mediaListPlayer] playMedia:[object valueForKey:@"backendObject"]];
+}
+
+
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(playMediaAtIndex:))
@@ -288,8 +321,33 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         return NO;
     if (sel == @selector(setPosition:))
         return NO;
+    if (sel == @selector(bindDOMObject:property:toKeyPath:))
+        return NO;    
+    if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
+        return NO;
+    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
+        return NO;   
+    if (sel == @selector(unbindDOMObject:property:))
+        return NO;
+    if (sel == @selector(playCocoaObject:))
+        return NO;   
     
     return YES;
+}
+
++ (NSString *)webScriptNameForSelector:(SEL)sel
+{
+    if (sel == @selector(bindDOMObject:property:toKeyPath:))
+        return @"bindPropertyTo";
+    if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
+        return @"addObserverForCocoaObjectWithKeyPath";
+    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
+        return @"bindDOMObjectToCocoaObject";
+    if (sel == @selector(unbindDOMObject:property:))
+        return @"unbindDOMObject";
+    if (sel == @selector(playCocoaObject:))
+        return @"playCocoaObject";
+    return nil;
 }
 
 + (BOOL)isKeyExcludedFromWebScript:(const char *)name

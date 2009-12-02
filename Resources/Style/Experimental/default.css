@@ -77,22 +77,77 @@ input[type=search] {
 }
 
 .more .textcontent {
+    position: absolute;
+    width: 100%;
+    top: 20px; right: 0; left: 0; bottom: 32px;
     margin-top: 2px;
-}
-.more .textcontent ul {
+    overflow: hidden;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#303030));
+}
+
+.more .textcontent .left {
+    -webkit-transform: translateX(-200px);
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+}
+
+.more .textcontent .current {
+    -webkit-transform: translateX(0px);
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+}
+
+.more .textcontent .right {
+    -webkit-transform: translateX(200px);
+    -webkit-transition: -webkit-transform 0.2s ease-out;
+}
+
+.more .textcontent .left,
+.more .textcontent .current,
+.more .textcontent .right  {
     display: block;
     position: absolute;
     width: 100%;
+    top: 0; right: 0; left: 0; bottom: 0;
+    overflow: auto;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#303030));
+}
+
+.more .textcontent .header {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#303030));
+    width: 100%; height: 32px;
+    text-align: center;
+}
+
+.more .textcontent .header .name {
+    color: white;
+    padding-top: 10px;
+}
+
+.more .textcontent .header .back {
+    float: left;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222255), to(#303044));
+    border: none;
+    position: absolute;
+    color: white;
+    -webkit-border-radius: 5px;
+    height: 30px;
+}
+
+
+.more .textcontent ul>.name {
+    background: white;
+}
+
+.more .textcontent ul {
+    list-style-type: none;
     margin: 0px;
     padding: 0px;
-    top: 22px; right: 0; left: 0; bottom: 32px;
-    overflow: auto;
 }
 
 .more .textcontent ul li {
     height: 50px;
+    position: relative;
 }
+
 .more .textcontent ul li {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222222), to(#303030));
     border-bottom: thin rgba(255,255,255,0.2) solid;
@@ -101,11 +156,27 @@ input[type=search] {
 .more .textcontent ul li.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#cfcfcf), color-stop(0.2, #aaaaaa), color-stop(0.8, #bbbbbb), to(#999999));
     border-bottom: thin rgba(255,255,255,0.2) solid;
+}
+
+.more .textcontent ul li.selected .name {
     color: rgba(0,0,0,1);
     text-shadow: 0 1px 1px rgba(255,255,255,1);
 }
 
-.more .textcontent ul li {
+.reveal-subitems {
+    height: 14px;
+    margin: auto;
+    position: absolute;
+    top: 0px; bottom: 0px; right: 0px;
+
+    color: white;
+    text-align: right;
+}
+
+.more .textcontent ul li .hidden {
+    display: none;
+}
+.more .textcontent ul li .name {
     text-overflow: ellipsis;
     word-wrap: break-word;
 

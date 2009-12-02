@@ -26,6 +26,28 @@
 
 @implementation VLCStyledFullscreenHUDWindowView
 
+- (void) dealloc
+{
+    NSAssert(!_bindings, @"_bindings should have been released");
+    [super dealloc];
+}
+
+- (void)close
+{
+    [_bindings clearBindings];
+    [_bindings release];
+    _bindings = nil;
+    [super close];
+}
+
+- (void)setup
+{
+    [_bindings clearBindings];
+    [_bindings release];
+    _bindings = [[VLCWebBindingsController alloc] init];
+    [super setup];
+}
+
 - (void)awakeFromNib
 {
     [self setup];    
@@ -120,6 +142,38 @@
     return [[self rootMediaList] count];
 }
 
+- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toKeyPath:(NSString *)keyPath
+{
+    NSAssert(_bindings, @"No bindings created");
+    NSLog(@"Binding %@.%@ to %@.%@", domObject, property, self, keyPath);
+    [_bindings bindDOMObject:domObject property:property toObject:self withKeyPath:keyPath];
+}
+
+- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject*)object withKeyPath:(NSString *)keyPath
+{
+    NSAssert(_bindings, @"No bindings created");
+    NSLog(@"Binding %@.%@ to %@.%@", domObject, property, [object valueForKey:@"backendObject"], keyPath);
+    [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];
+}
+
+- (void)unbindDOMObject:(DOMNode *)domObject property:(NSString *)property
+{
+    NSAssert(_bindings, @"No bindings created");
+    NSLog(@"un %@.%@", domObject, property);
+    [_bindings unbindDOMObject:domObject property:property];
+}
+
+- (void)addObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
+{
+    NSAssert(_bindings, @"No bindings created");
+    [_bindings observe:object ? [object valueForKey:@"backendObject"] : self withKeyPath:keyPath observer:observer];
+}
+
+- (void)playCocoaObject:(WebScriptObject *)object
+{
+    [[self mediaListPlayer] playMedia:[object valueForKey:@"backendObject"]];
+}
+
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(playMediaAtIndex:))
@@ -136,7 +190,32 @@
         return NO;
     if (sel == @selector(hideCursorUntilMouseMoves))
         return NO;
+    if (sel == @selector(bindDOMObject:property:toKeyPath:))
+        return NO;    
+    if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
+        return NO;
+    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
+        return NO;
+    if (sel == @selector(unbindDOMObject:property:))
+        return NO;
+    if (sel == @selector(playCocoaObject:))
+        return NO;       
     return YES;
+}
+
++ (NSString *)webScriptNameForSelector:(SEL)sel
+{
+    if (sel == @selector(bindDOMObject:property:toKeyPath:))
+        return @"bindPropertyTo";
+    if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
+        return @"addObserverForCocoaObjectWithKeyPath";
+    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
+        return @"bindDOMObjectToCocoaObject";
+    if (sel == @selector(unbindDOMObject:property:))
+        return @"unbindDOMObject";
+    if (sel == @selector(playCocoaObject:))
+        return @"playCocoaObject";
+    return nil;
 }
 
 + (BOOL)isKeyExcludedFromWebScript:(const char *)name

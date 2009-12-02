@@ -11,8 +11,8 @@
     <script>
     function init() {
         initPlaylist();
-        HUDController.init();
-        windowController.init();
+        Experimental.HUDController.init();
+        window.windowController.init();
     }
     </script>
 	<title>Video Window</title>
@@ -35,8 +35,8 @@
 
 <div id="more" class="hidden">
     <div class="textcontent">
-        <ul id="playlist" class="playlist">
-        </ul>
+        <div id="mediaList">
+        </div>
         <div class="overlay-top"></div>
         <div class="overlay-bottom"></div>
     </div>

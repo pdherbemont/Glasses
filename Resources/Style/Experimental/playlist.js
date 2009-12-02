@@ -1,3 +1,4 @@
+
 function togglePlaylistView()
 {
     var name = "show-playlist";
@@ -9,8 +10,7 @@ function togglePlaylistView()
         document.getElementById("more").removeClassName("visible");
         document.body.removeClassName(name);
     }
-    removeItems();
-    addItems();
+
     window.PlatformView.videoDidResize();
 }
 
@@ -35,11 +35,13 @@ artist: "No artist"
 function initPlaylist()
 {
     var playlist = document.getElementById("playlist");
+    if (!playlist)
+        return;
     var table = createTableWithDiv(playlist);
     playlist.table = table;
 
     removeItems();
-    setTimeout("addItems()", 0);
+    window.setTimeout("addItems()", 0);
 }
 
 function newItem(index, title)
@@ -50,16 +52,20 @@ function newItem(index, title)
 function addItems()
 {
     var playlist = document.getElementById("playlist");
+    if (!playlist)
+        return;
     var platformView = window.PlatformView;
     if (!platformView)
         return;
-    for(i = 0; i < platformView.count(); i++)
+    for (var i = 0; i < platformView.count(); i++)
         playlist.table.add(newItem(i, platformView.titleAtIndex_(i)));
 }
 
 function removeItems()
 {
     var playlist = document.getElementById("playlist");
+    if (!playlist)
+        return;
     playlist.innerHTML = "";
 }
 
@@ -77,7 +83,7 @@ function itemClicked(event)
 
 function itemDoubleClicked(event)
 {
-    console.log("Double clicked " + this.media);
+    window.console.log("Double clicked " + this.media);
     window.PlatformView.playMediaAtIndex_(this.media.index);
 }
 

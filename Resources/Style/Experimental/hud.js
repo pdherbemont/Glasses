@@ -1,18 +1,20 @@
-var HUDController = new Object();
+var Experimental = new Object();
 
-HUDController.init = function()
+Experimental.HUDController = new Object();
+
+Experimental.HUDController.init = function()
 {
-    resetHudPosition();	
+    Experimental.HUDController.resetHudPosition();
 }
 
-function resetHudPosition()
+Experimental.HUDController.resetHudPosition =  function resetHudPosition()
 {
     var hud = document.getElementById('draggable-controls');
     var marginBottom = 100;
-    var bodyWidth = parseInt(document.body.clientWidth);
-    var bodyHeight = parseInt(document.body.clientHeight);
-    var hudWidth = parseInt(hud.clientWidth);
-    var hudHeight = parseInt(hud.clientHeight);
+    var bodyWidth = parseInt(document.body.clientWidth, 10);
+    var bodyHeight = parseInt(document.body.clientHeight, 10);
+    var hudWidth = parseInt(hud.clientWidth, 10);
+    var hudHeight = parseInt(hud.clientHeight, 10);
     
     hud.style.left = (bodyWidth - hudWidth) / 2 + 'px';
     hud.style.top = (bodyHeight - hudHeight - marginBottom) + 'px';
@@ -25,10 +27,11 @@ function removeCurrentSelection()
 {
     var item = document.getElementById("tableItem" + selectionIndex);
     item.removeClassName("selected");
-    
 }
+
 function gotoCurrentSelection()
 {
+    return;
     if (selectionIndex < 0)
         selectionIndex = 0;
     
@@ -46,8 +49,8 @@ function gotoCurrentSelection()
     item.addClassName("selected");
     
     if (timer)
-        clearTimeout(timer);
-    timer = setTimeout(function (){playlist.style.top = - (selectionIndex - 7) * (25) + "px"; timer = null;}, 0);
+        window.clearTimeout(timer);
+    timer = window.setTimeout(function (){playlist.style.top = - (selectionIndex - 7) * (25) + "px"; timer = null;}, 0);
     
 }
 
@@ -55,7 +58,8 @@ var hideTimer = null;
 function hidePlaylist()
 {
     var elmt = document.getElementById("more");
-    elmt.addClassName("hidden");
+    if (elmt)
+        elmt.addClassName("hidden");
     hideTimer = null;
 }
 
@@ -65,26 +69,17 @@ function onKeyDown(event)
     elmt.removeClassName("hidden");
     
     if (hideTimer)
-        clearTimeout(hideTimer);
+        window.clearTimeout(hideTimer);
     
-    hideTimer = setTimeout(function () { hidePlaylist(); }, 1000);
-    
+    // hideTimer = window.setTimeout(function () { hidePlaylist(); }, 6000);
+    var handled = window.windowController.navigationController.currentView.keyDown(event);
     switch (event.keyCode) {
-        case 40: // Up
-            removeCurrentSelection();
-            selectionIndex++;
-            gotoCurrentSelection();
+        case Global.EventKey.Enter:
+            hidePlaylist();
             break;
-        case 38: // Down
-            removeCurrentSelection();
-            selectionIndex--;
-            gotoCurrentSelection();
-            break;
-        case 13: // Enter
-            window.PlatformView.playMediaAtIndex_(selectionIndex);
-            elmt.addClassName("hidden");
-            break;
-        case 00: // Escape
+        case Global.EventKey.LeftArrow:
+            if (!handled)
+                hidePlaylist();
             break;
     }
 }
