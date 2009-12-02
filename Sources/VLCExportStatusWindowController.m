@@ -38,13 +38,12 @@
 
 - (id)transformedValue:(id)value
 {
-    if( !value ) return nil;
+    if (!value)
+        return nil;
     
-    if(![value respondsToSelector: @selector(floatValue)])
-    {
-        [NSException raise: NSInternalInconsistencyException
-                    format: @"Value (%@) does not respond to -floatValue.",
-         [value class]];
+    if (![value respondsToSelector: @selector(floatValue)]) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Value (%@) does not respond to -floatValue.", [value class]];
         return nil;
     }
     
@@ -53,17 +52,16 @@
 
 - (id)reverseTransformedValue:(id)value
 {
-    if( !value ) return nil;
+    if (!value)
+        return nil;
     
-    if(![value respondsToSelector: @selector(floatValue)])
-    {
-        [NSException raise: NSInternalInconsistencyException
-                    format: @"Value (%@) does not respond to -floatValue.",
-         [value class]];
+    if (![value respondsToSelector: @selector(floatValue)]) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Value (%@) does not respond to -floatValue.", [value class]];
         return nil;
     }
     
-    return [NSNumber numberWithFloat: [value floatValue]/10000.];
+    return [NSNumber numberWithFloat:[value floatValue] / 10000.];
 }
 @end
 

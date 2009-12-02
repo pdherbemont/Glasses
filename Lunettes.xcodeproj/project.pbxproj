@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3222CB9C10498BE300D4708C /* hud.js in Resources */ = {isa = PBXBuildFile; fileRef = 3222CB9A10498BD300D4708C /* hud.js */; };
-		329965CE10496F2800EF342B /* dom-drag.js in Resources */ = {isa = PBXBuildFile; fileRef = 329965CD10496F1100EF342B /* dom-drag.js */; };
 		6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
 		630143AB1040726600534090 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 630143AA1040726600534090 /* WebKit.framework */; };
 		6301464C104098C500534090 /* VLCVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464B104098C500534090 /* VLCVideoWindowController.m */; };
@@ -51,6 +50,14 @@
 		6311DB330FF85BE3004BC7D1 /* fullscreen_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */; };
 		6312758510C5F0B300A01F33 /* ExportStatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6312758410C5F0B300A01F33 /* ExportStatusWindow.xib */; };
 		6312758B10C5F0D000A01F33 /* VLCExportStatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6312758A10C5F0D000A01F33 /* VLCExportStatusWindowController.m */; };
+		6312768610C6A57A00A01F33 /* Lunettes.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768110C6A57A00A01F33 /* Lunettes.js */; };
+		6312768710C6A57A00A01F33 /* MediaListView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768210C6A57A00A01F33 /* MediaListView.js */; };
+		6312768810C6A57A00A01F33 /* MediaView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768310C6A57A00A01F33 /* MediaView.js */; };
+		6312768910C6A57A00A01F33 /* NavigationController.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768410C6A57A00A01F33 /* NavigationController.js */; };
+		6312768A10C6A57A00A01F33 /* WindowController.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768510C6A57A00A01F33 /* WindowController.js */; };
+		6312768C10C6A5C400A01F33 /* Utilities.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768B10C6A5C400A01F33 /* Utilities.js */; };
+		6312768E10C6A61200A01F33 /* CocoaObject.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768D10C6A61200A01F33 /* CocoaObject.js */; };
+		6312778610C6C4E500A01F33 /* dom-drag.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312778510C6C4E500A01F33 /* dom-drag.js */; };
 		631AF8291095DAA900F8ED1A /* VLCWebBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */; };
 		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
@@ -71,7 +78,6 @@
 		6380A499107E4F84008263B9 /* fs_pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A491107E4F84008263B9 /* fs_pause.png */; };
 		6380A49A107E4F84008263B9 /* fs_play_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A492107E4F84008263B9 /* fs_play_highlight.png */; };
 		6380A49B107E4F84008263B9 /* fs_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 6380A493107E4F84008263B9 /* fs_play.png */; };
-		6380A4FE107E51A0008263B9 /* dom-drag.js in Resources */ = {isa = PBXBuildFile; fileRef = 6380A480107E4DC8008263B9 /* dom-drag.js */; };
 		6380A4FF107E51A0008263B9 /* hud.js in Resources */ = {isa = PBXBuildFile; fileRef = 6380A481107E4DC8008263B9 /* hud.js */; };
 		6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */; };
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
@@ -104,8 +110,6 @@
 		639F68B01046EA5E00117832 /* window-close-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68951046EA5E00117832 /* window-close-on.png */; };
 		639F68B11046EA5E00117832 /* window-minimize-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68961046EA5E00117832 /* window-minimize-on.png */; };
 		639F68B21046EA5E00117832 /* window-zoom-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F68971046EA5E00117832 /* window-zoom-on.png */; };
-		639F693F1046F1C400117832 /* base.js in Resources */ = {isa = PBXBuildFile; fileRef = 639F687C1046EA5E00117832 /* base.js */; };
-		639F69C41046F54400117832 /* base.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 639F687C1046EA5E00117832 /* base.js */; };
 		639F6CB01047220E00117832 /* TV.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F6CAB104721BD00117832 /* TV.lunettesstyle */; };
 		639F6DC110473E5100117832 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F6C6D104721AE00117832 /* default.css */; };
 		639F6DC410473E5100117832 /* tv.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F6C70104721AE00117832 /* tv.png */; };
@@ -216,7 +220,14 @@
 			dstPath = "Lunettes Style Root";
 			dstSubfolderSpec = 7;
 			files = (
-				639F69C41046F54400117832 /* base.js in Create Lunettes Style Root */,
+				6312778610C6C4E500A01F33 /* dom-drag.js in Create Lunettes Style Root */,
+				6312768610C6A57A00A01F33 /* Lunettes.js in Create Lunettes Style Root */,
+				6312768710C6A57A00A01F33 /* MediaListView.js in Create Lunettes Style Root */,
+				6312768810C6A57A00A01F33 /* MediaView.js in Create Lunettes Style Root */,
+				6312768910C6A57A00A01F33 /* NavigationController.js in Create Lunettes Style Root */,
+				6312768A10C6A57A00A01F33 /* WindowController.js in Create Lunettes Style Root */,
+				6312768C10C6A5C400A01F33 /* Utilities.js in Create Lunettes Style Root */,
+				6312768E10C6A61200A01F33 /* CocoaObject.js in Create Lunettes Style Root */,
 			);
 			name = "Create Lunettes Style Root";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,7 +253,6 @@
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		3222CB9A10498BD300D4708C /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = hud.js; path = Resources/Style/Default/hud.js; sourceTree = "<group>"; };
-		329965CD10496F1100EF342B /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "dom-drag.js"; path = "Resources/Style/Default/dom-drag.js"; sourceTree = "<group>"; };
 		630141D5104062B300534090 /* Common Settings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Common Settings.xcconfig"; sourceTree = "<group>"; };
 		630143AA1040726600534090 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6301464B104098C500534090 /* VLCVideoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindowController.m; path = Sources/VLCVideoWindowController.m; sourceTree = "<group>"; };
@@ -327,6 +337,14 @@
 		6312758410C5F0B300A01F33 /* ExportStatusWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ExportStatusWindow.xib; path = Resources/ExportStatusWindow.xib; sourceTree = "<group>"; };
 		6312758910C5F0D000A01F33 /* VLCExportStatusWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExportStatusWindowController.h; path = Sources/VLCExportStatusWindowController.h; sourceTree = "<group>"; };
 		6312758A10C5F0D000A01F33 /* VLCExportStatusWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExportStatusWindowController.m; path = Sources/VLCExportStatusWindowController.m; sourceTree = "<group>"; };
+		6312768110C6A57A00A01F33 /* Lunettes.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Lunettes.js; sourceTree = "<group>"; };
+		6312768210C6A57A00A01F33 /* MediaListView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MediaListView.js; sourceTree = "<group>"; };
+		6312768310C6A57A00A01F33 /* MediaView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = MediaView.js; sourceTree = "<group>"; };
+		6312768410C6A57A00A01F33 /* NavigationController.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NavigationController.js; sourceTree = "<group>"; };
+		6312768510C6A57A00A01F33 /* WindowController.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = WindowController.js; sourceTree = "<group>"; };
+		6312768B10C6A5C400A01F33 /* Utilities.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Utilities.js; sourceTree = "<group>"; };
+		6312768D10C6A61200A01F33 /* CocoaObject.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CocoaObject.js; sourceTree = "<group>"; };
+		6312778510C6C4E500A01F33 /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "dom-drag.js"; sourceTree = "<group>"; };
 		631AF8271095DAA900F8ED1A /* VLCWebBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCWebBindingsController.h; path = Sources/VLCWebBindingsController.h; sourceTree = "<group>"; };
 		631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCWebBindingsController.m; path = Sources/VLCWebBindingsController.m; sourceTree = "<group>"; };
 		6323FF9F104ECB5E00FBEC60 /* hud.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = hud.html; sourceTree = "<group>"; };
@@ -336,7 +354,6 @@
 		635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaylistDebugWindow.xib; path = Resources/PlaylistDebugWindow.xib; sourceTree = "<group>"; };
 		635D14ED104AE3BE00D34A87 /* hud.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = hud.css; path = Resources/Style/Default/hud.css; sourceTree = "<group>"; };
 		6380A47E107E4DA5008263B9 /* hud.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = hud.css; sourceTree = "<group>"; };
-		6380A480107E4DC8008263B9 /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "dom-drag.js"; sourceTree = "<group>"; };
 		6380A481107E4DC8008263B9 /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = hud.js; sourceTree = "<group>"; };
 		6380A48E107E4F84008263B9 /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
 		6380A48F107E4F84008263B9 /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_exit_fullscreen.png; sourceTree = "<group>"; };
@@ -353,7 +370,6 @@
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
 		639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSplashScreenWindowController.m; path = Sources/VLCSplashScreenWindowController.m; sourceTree = "<group>"; };
 		639F68401046E98400117832 /* Default.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Default.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
-		639F687C1046EA5E00117832 /* base.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = base.js; path = Resources/Style/Default/base.js; sourceTree = "<group>"; };
 		639F687D1046EA5E00117832 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = black.css; path = Resources/Style/Default/black.css; sourceTree = "<group>"; };
 		639F687E1046EA5E00117832 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/Style/Default/default.css; sourceTree = "<group>"; };
 		639F687F1046EA5E00117832 /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Resources/Style/Default/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
@@ -579,7 +595,6 @@
 		630143B11040727F00534090 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				329965CD10496F1100EF342B /* dom-drag.js */,
 				3222CB9A10498BD300D4708C /* hud.js */,
 				639F687D1046EA5E00117832 /* black.css */,
 				639F687E1046EA5E00117832 /* default.css */,
@@ -706,6 +721,22 @@
 			path = Resources/Images;
 			sourceTree = "<group>";
 		};
+		6312768010C6A57A00A01F33 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				6312768110C6A57A00A01F33 /* Lunettes.js */,
+				6312768B10C6A5C400A01F33 /* Utilities.js */,
+				6312768D10C6A61200A01F33 /* CocoaObject.js */,
+				6312768210C6A57A00A01F33 /* MediaListView.js */,
+				6312768310C6A57A00A01F33 /* MediaView.js */,
+				6312768410C6A57A00A01F33 /* NavigationController.js */,
+				6312768510C6A57A00A01F33 /* WindowController.js */,
+				6312778510C6C4E500A01F33 /* dom-drag.js */,
+			);
+			name = Base;
+			path = Resources/Style/Base;
+			sourceTree = "<group>";
+		};
 		631CA0D20FF8645100CA511E /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -777,7 +808,7 @@
 		639F68DC1046F18700117832 /* Style */ = {
 			isa = PBXGroup;
 			children = (
-				639F687C1046EA5E00117832 /* base.js */,
+				6312768010C6A57A00A01F33 /* Base */,
 				639F775810480FCE00117832 /* Experimental */,
 				639F72161047541D00117832 /* Black */,
 				639F6C4B1047216300117832 /* TV */,
@@ -809,7 +840,6 @@
 		639F775810480FCE00117832 /* Experimental */ = {
 			isa = PBXGroup;
 			children = (
-				6380A480107E4DC8008263B9 /* dom-drag.js */,
 				6380A481107E4DC8008263B9 /* hud.js */,
 				6380A47E107E4DA5008263B9 /* hud.css */,
 				639F775910480FCE00117832 /* default.css */,
@@ -1046,7 +1076,6 @@
 			files = (
 				639F68981046EA5E00117832 /* black.css in Resources */,
 				639F68991046EA5E00117832 /* default.css in Resources */,
-				329965CE10496F2800EF342B /* dom-drag.js in Resources */,
 				3222CB9C10498BE300D4708C /* hud.js in Resources */,
 				639F689A1046EA5E00117832 /* fs_exit_fullscreen_highlight.png in Resources */,
 				639F689B1046EA5E00117832 /* fs_exit_fullscreen.png in Resources */,
@@ -1100,7 +1129,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6380A4FE107E51A0008263B9 /* dom-drag.js in Resources */,
 				6380A4FF107E51A0008263B9 /* hud.js in Resources */,
 				639F777A10480FD500117832 /* playlist.js in Resources */,
 				639F776A10480FCE00117832 /* default.css in Resources */,
@@ -1136,7 +1164,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				639F693F1046F1C400117832 /* base.js in Resources */,
 				6311DAF60FF85AC0004BC7D1 /* pause_embedded.png in Resources */,
 				6311DAF70FF85AC0004BC7D1 /* pause_embedded_blue.png in Resources */,
 				6311DAF80FF85AC0004BC7D1 /* pause_embedded_graphite.png in Resources */,

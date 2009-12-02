@@ -32,25 +32,25 @@ function removeCurrentSelection()
 function gotoCurrentSelection()
 {
     return;
-    if (selectionIndex < 0)
-        selectionIndex = 0;
-    
-    var item = document.getElementById("tableItem" + selectionIndex);
-    var playlist = document.getElementById("playlist");
-    if (!item) {
-        selectionIndex--;
-        if (selectionIndex > 0)
-            gotoCurrentSelection();
-        else
-            selectionIndex = 0;
-        return;
-    }
-    
-    item.addClassName("selected");
-    
-    if (timer)
-        window.clearTimeout(timer);
-    timer = window.setTimeout(function (){playlist.style.top = - (selectionIndex - 7) * (25) + "px"; timer = null;}, 0);
+//    if (selectionIndex < 0)
+//        selectionIndex = 0;
+//    
+//    var item = document.getElementById("tableItem" + selectionIndex);
+//    var playlist = document.getElementById("playlist");
+//    if (!item) {
+//        selectionIndex--;
+//        if (selectionIndex > 0)
+//            gotoCurrentSelection();
+//        else
+//            selectionIndex = 0;
+//        return;
+//    }
+//    
+//    item.addClassName("selected");
+//    
+//    if (timer)
+//        window.clearTimeout(timer);
+//    timer = window.setTimeout(function (){playlist.style.top = - (selectionIndex - 7) * (25) + "px"; timer = null;}, 0);
     
 }
 
@@ -74,10 +74,10 @@ function onKeyDown(event)
     // hideTimer = window.setTimeout(function () { hidePlaylist(); }, 6000);
     var handled = window.windowController.navigationController.currentView.keyDown(event);
     switch (event.keyCode) {
-        case Global.EventKey.Enter:
+        case Lunettes.EventKey.Enter:
             hidePlaylist();
             break;
-        case Global.EventKey.LeftArrow:
+        case Lunettes.EventKey.LeftArrow:
             if (!handled)
                 hidePlaylist();
             break;
