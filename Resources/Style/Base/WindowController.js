@@ -82,11 +82,7 @@ WindowController.prototype = {
         
         var mediaList = document.getElementById("mediaList");
         if (mediaList) {
-            this.rootMediaList = new MediaListView(null);
-//            this.rootMediaList.observe = function () {
-//                window.PlatformView.observe(null, "rootMediaList.media", this);
-//            };
-            
+            this.rootMediaList = new MediaListView(null);            
             this.navigationController = new NavigationController;
             this.navigationController.attach(mediaList);
             this.navigationController.push(this.rootMediaList);
