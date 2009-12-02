@@ -71,4 +71,6 @@
 #ifdef SUPPORT_VIDEO_BELOW_CONTENT
 - (void)windowDidChangeAlphaValue:(CGFloat)alpha;
 #endif
+
+- (NSRect)representedWindowRect;
 @end

@@ -107,6 +107,21 @@
     return YES;
 }
 
+- (NSRect)representedWindowRect
+{
+    DOMElement *element = [self htmlElementForId:@"main-window"];
+    
+    NSAssert(element, @"No content element in this style");
+    NSRect frame = [element frameInView:self];
+    
+    DOMHTMLElement *more = [self htmlElementForId:@"more" canBeNil:YES] ;
+    if (more && [more hasClassName:@"visible"]) {
+        NSRect frameMore = [more frameInView:self];
+        frame = NSUnionRect(frameMore, frame);
+    }
+    return frame;    
+}
+
 #pragma mark -
 #pragma mark Core -> Javascript setters
 
@@ -383,16 +398,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
    if ([VLCStyledVideoWindow debugStyledWindow])
        return;
 
-    DOMElement *element = [self htmlElementForId:@"main-window"];
-
-    NSAssert(element, @"No content element in this style");
-    NSRect frame = [element frameInView:self];
-
-    DOMHTMLElement *more = [self htmlElementForId:@"more" canBeNil:YES] ;
-    if (more && [more hasClassName:@"visible"]) {
-        NSRect frameMore = [more frameInView:self];
-        frame = NSUnionRect(frameMore, frame);
-    }
+    NSRect frame = [self representedWindowRect];
 
     if (!_contentTracking || !NSEqualRects([_contentTracking rect], frame)) {
         [self removeTrackingArea:_contentTracking];

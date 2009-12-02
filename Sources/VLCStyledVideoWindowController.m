@@ -96,6 +96,7 @@
     [NSApp addWindowsItem:window title:[window title] filename:NO];
 }
 
+
 #pragma mark -
 #pragma mark fullscreen Delegate
 
@@ -107,6 +108,15 @@
 
 #pragma mark -
 #pragma mark Window Delegate
+
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect
+{
+    NSRect frame = [_styledWindowView representedWindowRect];
+    rect.size.width = MIN(NSWidth(rect), NSWidth(frame));
+    rect.origin.x = NSMinX(frame);
+    rect.origin.y = NSMinY(frame) + NSHeight(frame) - 22;
+    return rect;
+}
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
