@@ -23,6 +23,7 @@
 #import "VLCStyledVideoWindowController.h"
 #import "VLCVideoWindowController.h"
 #import "VLCPlaylistDebugWindowController.h"
+#import "VLCExportStatusWindowController.h"
 
 #define DEFAULT_DEINTERLACE_FILTER @"yadif"
 
@@ -140,6 +141,25 @@
     return YES;
 }
 
+
+- (void)saveToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo
+{
+    NSLog(@"%@", absoluteURL);
+    VLCStreamSession *streamSession = [VLCStreamSession streamSession];
+    streamSession.media = _media;
+    streamSession.streamOutput = [VLCStreamOutput ipodStreamOutputWithFilePath:[[[absoluteURL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""]];
+    
+    VLCExportStatusWindowController *exportWindowController = [[VLCExportStatusWindowController alloc] init];
+    [[exportWindowController window] makeKeyAndOrderFront:self];
+    exportWindowController.streamSession = streamSession;
+    
+    [streamSession startStreaming];
+}
+
+- (NSArray *)writableTypesForSaveOperation:(NSSaveOperationType)saveOperation
+{
+    return [NSArray arrayWithObject:(NSString*)kUTTypeMPEG4];
+}
 
 #pragma mark -
 #pragma mark VLCMediaPlayer delegate
