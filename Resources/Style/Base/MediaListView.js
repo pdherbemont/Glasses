@@ -101,7 +101,7 @@ MediaListView.prototype = {
                 return true;
             case Lunettes.EventKey.Escape:
             case Lunettes.EventKey.LeftArrow:
-                if (!this.navigationcontroller.hasElementToPop())
+                if (!this.navigationController.hasElementToPop())
                     return false;
                 this.navigationcontroller.pop();
                 return true;

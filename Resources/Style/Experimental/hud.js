@@ -4,7 +4,7 @@ Experimental.HUDController = new Object();
 
 Experimental.HUDController.init = function()
 {
-    window.windowController.navigationController.styleUsesScrollBar = false;
+    window.windowController.navigationController.elementStyleUsesScrollBar = false;
     Experimental.HUDController.resetHudPosition();
 }
 

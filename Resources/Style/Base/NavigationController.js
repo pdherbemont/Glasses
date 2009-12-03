@@ -67,7 +67,7 @@ NavigationController.prototype = {
 
         this.items.push(item);
     
-        item.navigationcontroller = this;
+        item.navigationController = this;
 
         
         // New container start at the right
