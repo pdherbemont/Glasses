@@ -52,6 +52,7 @@ MediaView.prototype = {
         parentElement.appendChild(this.element);
 
         this.element.addEventListener('click', this.mouseClicked.bind(this), false);
+        this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
         this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
 
         this.isAttached = true;
@@ -103,6 +104,15 @@ MediaView.prototype = {
         event.stopPropagation();
     },
 
+    /**
+     * Event Handler
+     * @param {Event} event
+     */                    
+    mouseDown: function(event)
+    {
+        event.stopPropagation();
+    },
+    
     /**
      * Event Handler
      * @param {Event} event
