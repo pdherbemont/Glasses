@@ -21,6 +21,8 @@ var NavigationController = function()
 
 NavigationController.prototype = {
 
+    elementStyleUsesScrollBar: true,
+
     /**
      * @param {Element} parentElement
      */        

@@ -190,10 +190,17 @@ MediaListView.prototype = {
         this.navigationcontroller.pop();
     },
 
+    scrollToSelection: function()
+    {
+        if (this.navigationController.elementStyleUsesScrollBar)
+            this.scrollToSelectionForScrollBar();
+        else
+            this.scrollToSelectionForNonScrollBar();
+    },
     /**
      * Expects the container div to have a scroll bar.
-     */        
-    scrollToSelection: function()
+     */     
+    scrollToSelectionForScrollBar: function()
     {
         var selectionElement = this.selection[0].element;
         var top = selectionElement.offsetTop;
@@ -207,6 +214,17 @@ MediaListView.prototype = {
             this.element.scrollTop = top;
         if (this.element.scrollTop < 0 || this.element.scrollTop < height)
             this.element.scrollTop = 0;
+    },
+
+    scrollToSelectionForNonScrollBar: function()
+    {
+        var selectionElement = this.selection[0].element;
+        var top = selectionElement.offsetTop;
+        var height = selectionElement.clientHeight;
+
+        var containerHeight = 342; //this.element.clientHeight;
+        
+        this.subviewsElement.style.top = -top + containerHeight/2 + height/2 + "px";
     },
     
     /**

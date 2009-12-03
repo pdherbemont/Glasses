@@ -50,7 +50,7 @@ WindowController.prototype = {
             playing: "playing"
         }
     },
-
+    
     init: function()
     {
         // Bind key-equivalent

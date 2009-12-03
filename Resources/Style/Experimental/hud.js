@@ -4,6 +4,7 @@ Experimental.HUDController = new Object();
 
 Experimental.HUDController.init = function()
 {
+    window.windowController.navigationController.styleUsesScrollBar = false;
     Experimental.HUDController.resetHudPosition();
 }
 
@@ -15,7 +16,7 @@ Experimental.HUDController.resetHudPosition =  function resetHudPosition()
     var bodyHeight = parseInt(document.body.clientHeight, 10);
     var hudWidth = parseInt(hud.clientWidth, 10);
     var hudHeight = parseInt(hud.clientHeight, 10);
-    
+
     hud.style.left = (bodyWidth - hudWidth) / 2 + 'px';
     hud.style.top = (bodyHeight - hudHeight - marginBottom) + 'px';
 }

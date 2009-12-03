@@ -55,7 +55,7 @@ Drag.prototype = {
 		if (e.srcElement.nodeName != "DIV")
 			return;
 		
-		var o = this.obj = this;
+		var o = this.obj = e.currentTarget;
 		e = this.fixE(e);
 		var y = this.parseIntDec(o.vmode ? o.root.style.top  : o.root.style.bottom);
 		var x = this.parseIntDec(o.hmode ? o.root.style.left : o.root.style.right );
