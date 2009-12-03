@@ -89,9 +89,11 @@ MediaListView.prototype = {
         switch (event.keyCode) {
             case Lunettes.EventKey.UpArrow:
                 this.selectPrevious();
+                this.scrollToSelection();
                 return true;
             case Lunettes.EventKey.DownArrow:
                 this.selectNext();
+                this.scrollToSelection();
                 return true;
             case Lunettes.EventKey.Enter:
             case Lunettes.EventKey.RightArrow:
@@ -189,6 +191,25 @@ MediaListView.prototype = {
     },
 
     /**
+     * Expects the container div to have a scroll bar.
+     */        
+    scrollToSelection: function()
+    {
+        var selectionElement = this.selection[0].element;
+        var top = selectionElement.offsetTop;
+        var height = selectionElement.clientHeight;
+        var containerTop = this.element.scrollTop;
+        var containerHeight = this.element.clientHeight;
+
+        if (containerTop < top && containerHeight + containerTop < top + height)
+            this.element.scrollTop = top + height - containerHeight;
+        else if (containerTop > top)
+            this.element.scrollTop = top;
+        if (this.element.scrollTop < 0 || this.element.scrollTop < height)
+            this.element.scrollTop = 0;
+    },
+    
+    /**
      * Unselect selected elements
      */    
     unselectAll: function()
@@ -210,8 +231,11 @@ MediaListView.prototype = {
 
         if (index < 0 || index >= this.subviews.length) {
             //beep();
+            console.log("too down");
             return;
         }
+        console.log("selecting " + index);
+
         this.select(this.subviews[index]);
     },
 
