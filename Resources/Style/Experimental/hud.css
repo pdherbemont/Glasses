@@ -32,7 +32,7 @@ body {
     -webkit-border-radius: 15px;
     border: 2px solid white;
     
-    top: auto; bottom: 100px; left: 0; right: 0;
+    top: -10000px; bottom: auto; left: 0; right: auto;
     
     height: 70px;
     width: 400px;
@@ -272,6 +272,9 @@ ul li .reveal-subitems.hidden {
     display: none;
 }
 
+.header {
+    position: absolute;
+}
 .header .back {
     display: none;
 }
