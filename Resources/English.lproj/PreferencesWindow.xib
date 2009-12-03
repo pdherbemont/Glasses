@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10C527f</string>
-		<string key="IBDocument.InterfaceBuilderVersion">740</string>
-		<string key="IBDocument.AppKitVersion">1038.13</string>
-		<string key="IBDocument.HIToolboxVersion">438.00</string>
+		<string key="IBDocument.SystemVersion">10C540</string>
+		<string key="IBDocument.InterfaceBuilderVersion">732</string>
+		<string key="IBDocument.AppKitVersion">1038.25</string>
+		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">740</string>
+			<string key="NS.object.0">732</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="77"/>
 			<integer value="75"/>
+			<integer value="77"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -114,10 +114,13 @@
 				<string key="NSFrameAutosaveName">Preferences Window</string>
 			</object>
 			<object class="NSUserDefaultsController" id="242931913">
+				<array class="NSMutableArray" key="NSDeclaredKeys">
+					<string>StartPlaybackInFullscreen</string>
+				</array>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSCustomView" id="439030223">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTextField" id="912679882">
@@ -125,7 +128,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{36, 20}, {384, 16}}</string>
 						<reference key="NSSuperview" ref="439030223"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="730820651">
 							<int key="NSCellFlags">68288064</int>
@@ -162,7 +164,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 43}, {375, 18}}</string>
 						<reference key="NSSuperview" ref="439030223"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="996256686">
 							<int key="NSCellFlags">-2080244224</int>
@@ -194,7 +195,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 88}, {375, 18}}</string>
 						<reference key="NSSuperview" ref="439030223"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="1027901998">
 							<int key="NSCellFlags">-2080244224</int>
@@ -214,8 +214,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{455, 124}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="140880452">
@@ -301,7 +299,7 @@
 						<object class="NSButtonCell" key="NSCell" id="649827395">
 							<int key="NSCellFlags">-2080244224</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Use Deinterlace filter on all videos</string>
+							<string key="NSContents">Always start playback in Fullscreen</string>
 							<reference key="NSSupport" ref="737195053"/>
 							<reference key="NSControlView" ref="397243785"/>
 							<int key="NSButtonFlags">1211912703</int>
@@ -483,22 +481,6 @@
 					<int key="connectionID">56</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.UseDeinterlaceFilter</string>
-						<reference key="source" ref="397243785"/>
-						<reference key="destination" ref="242931913"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="397243785"/>
-							<reference key="NSDestination" ref="242931913"/>
-							<string key="NSLabel">value: values.UseDeinterlaceFilter</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.UseDeinterlaceFilter</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">81</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">toolbarAction:</string>
 						<reference key="source" ref="1001"/>
@@ -545,6 +527,22 @@
 						<reference key="destination" ref="439030223"/>
 					</object>
 					<int key="connectionID">121</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.StartPlaybackInFullscreen</string>
+						<reference key="source" ref="397243785"/>
+						<reference key="destination" ref="242931913"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="397243785"/>
+							<reference key="NSDestination" ref="242931913"/>
+							<string key="NSLabel">value: values.StartPlaybackInFullscreen</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.StartPlaybackInFullscreen</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">122</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -766,9 +764,9 @@
 				</array>
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="3.IBEditorWindowLastContentRect">{{499, 505}, {455, 93}}</string>
+				<string key="3.IBEditorWindowLastContentRect">{{259, 505}, {455, 93}}</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="3.IBWindowTemplateEditedContentRect">{{499, 505}, {455, 93}}</string>
+				<string key="3.IBWindowTemplateEditedContentRect">{{259, 505}, {455, 93}}</string>
 				<boolean value="NO" key="3.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="3.WindowOrigin">{196, 240}</string>
 				<string key="3.editorWindowContentRectSynchronizationRect">{{202, 428}, {480, 270}}</string>
@@ -786,7 +784,7 @@
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="66.IBEditorWindowLastContentRect">{{418, 429}, {617, 169}}</string>
+				<string key="66.IBEditorWindowLastContentRect">{{178, 429}, {617, 169}}</string>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -797,7 +795,7 @@
 				<boolean value="YES" key="75.toolbarItem.selectable"/>
 				<string key="76.IBEditorWindowLastContentRect">{{343, 621}, {455, 124}}</string>
 				<string key="76.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="77.IBEditorWindowLastContentRect">{{346, 460}, {455, 193}}</string>
+				<string key="77.IBEditorWindowLastContentRect">{{259, 460}, {455, 193}}</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="78.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="78.ImportedFromIB2"/>
@@ -808,7 +806,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">121</int>
+			<int key="maxID">122</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

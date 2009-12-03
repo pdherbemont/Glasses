@@ -19,6 +19,8 @@
  *****************************************************************************/
 
 #import "VLCStyledVideoWindow.h"
+#import "VLCStyledVideoWindowController.h"
+#import "VLCStyledVideoWindowView.h"
 
 //#define DEBUG_STYLED_WINDOW
 
@@ -62,6 +64,19 @@ static inline BOOL debugStyledWindow(void)
 - (BOOL)canBecomeMainWindow
 {
     return YES;
+}
+
+- (void)orderFront:(id)sender
+{
+    // Don't orderFront the window if the frame is not loaded and that we plan
+    // to go fullscreen directly. Because we need to wait for the styled window
+    // to be ready (see -[VLCStyledWindowView frameDidLoad]) we have to
+    // ensure we won't go on screen prematuraly
+    BOOL shouldGoFullscreen = [[NSUserDefaults standardUserDefaults] boolForKey:@"StartPlaybackInFullscreen"];
+    if (shouldGoFullscreen && ![[[self windowController] styledWindowView] isFrameLoaded])
+        return;
+
+    [super orderFront: self];
 }
 
 // Because we are borderless, a certain number of thing don't work out of the box.

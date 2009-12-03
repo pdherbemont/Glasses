@@ -30,6 +30,8 @@
 
 @implementation VLCStyledVideoWindowController
 @synthesize videoView=_videoView;
+@synthesize styledWindowView=_styledWindowView;
+
 - (void)dealloc
 {
     [super dealloc];
@@ -89,7 +91,8 @@
 
 - (void)showWindow:(id)sender
 {
-    [super showWindow:self];
+    // Don't makeKeyAndOrderFront, we'll do that from the StyledWindowView
+    
     // Because our window is borderless this is not properly done by NSDocument.
     // Work around by doing it ourselves.
     NSWindow *window = [self window];

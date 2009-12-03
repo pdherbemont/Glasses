@@ -62,7 +62,7 @@
 }
 
 - (void)setup
-{
+{        
 #if SUPPORT_VIDEO_BELOW_CONTENT
     // When a style is reloaded, this method gets called.
     // Clear the below window here.
@@ -89,10 +89,19 @@
     [window setIgnoresMouseEvents:NO];
 
     [self videoDidResize];
+
     [self setKeyWindow:[window isKeyWindow]];
     [self setMainWindow:[window isMainWindow]];
     [self updateTrackingAreas];
-    
+
+
+    // Time to go fullscreen, this can't be done before,
+    // because we need (for fullscreen exit) to have the video view
+    // properly setuped. A bit of coding could fix that, but that's enough
+    // for now.
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"StartPlaybackInFullscreen"])
+        [[window windowController] enterFullscreen];
+
     [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
     [window performSelector:@selector(display) withObject:self afterDelay:0.];
 }
@@ -127,6 +136,8 @@
 
 - (void)setKeyWindow:(BOOL)isKeyWindow
 {
+    if (![self isFrameLoaded])
+        return;
     if (isKeyWindow)
         [self addClassToContent:@"key-window"];
     else
@@ -136,6 +147,8 @@
 
 - (void)setMainWindow:(BOOL)isMainWindow
 {
+    if (![self isFrameLoaded])
+        return;
     if (isMainWindow)
         [self addClassToContent:@"main-window"];
     else

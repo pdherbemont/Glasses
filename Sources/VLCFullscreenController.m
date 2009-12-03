@@ -173,8 +173,8 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
             CGDisplayFadeReservationToken token = fadeScreens();
 
             SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
-            [self _installPlaceholderView];
             [_fullscreenWindow setFrame:[screen frame] display:NO];
+            [self _installPlaceholderView];
             [_fullscreenWindow makeKeyAndOrderFront:self];
 
             unfadeScreens(token);
@@ -186,7 +186,6 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
         // Make sure we don't see the _view disappearing of the screen during this operation
         NSDisableScreenUpdates();
         [self _installPlaceholderView];
-        [_fullscreenWindow setContentView:_view];
         [_fullscreenWindow makeKeyAndOrderFront:self];
         NSEnableScreenUpdates();
     }
@@ -288,9 +287,10 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 {
     NSAssert(!_placeholderView, @"There shouldn't be a place holder view at this time");
     _placeholderView = [[NSView alloc] init];
+    NSAssert([_view superview], @"This view has no superview, this means that we won't be able to re-attach it.");
     [[_view superview] replaceSubview:_view with:_placeholderView];
     [_placeholderView setFrame:[_view frame]];
-    [_fullscreenWindow setContentView:_view];    
+    [_fullscreenWindow setContentView:_view];
 }
 
 - (void)_restoreViewFromPlaceholderView

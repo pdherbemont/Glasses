@@ -25,8 +25,6 @@
 #import "VLCPlaylistDebugWindowController.h"
 #import "VLCExportStatusWindowController.h"
 
-#define DEFAULT_DEINTERLACE_FILTER @"yadif"
-
 @interface VLCMediaDocument ()
 @property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;
 @end
@@ -72,24 +70,8 @@
     [super close];
 }
 
-- (void)coreChangedSetting:(NSNotification *)notification
-{
-    /* a little more logic here than you'd expect so we don't re-enable the deinterlacer on every window action event */
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL deinterlacingEnabled = [defaults boolForKey:@"UseDeinterlaceFilter"];
-
-    if (deinterlacingEnabled != _deinterlacingEnabled) {
-        _deinterlacingEnabled = deinterlacingEnabled;
-        if ([self mediaListPlayer] && [[[self mediaListPlayer]mediaPlayer]hasVideoOut])
-            [[[self mediaListPlayer] mediaPlayer] setDeinterlaceFilter:DEFAULT_DEINTERLACE_FILTER enabled:deinterlacingEnabled];
-    }
-}
-
 - (void)makeWindowControllers
 {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(coreChangedSetting:) name:@"NSUserDefaultsDidChangeNotification" object:nil];
-
 #if USE_STYLED_WINDOW
     VLCStyledVideoWindowController *windowController = [[VLCStyledVideoWindowController alloc] init];
 #else
@@ -114,7 +96,6 @@
         [mediaListPlayer setMediaList:_mediaList];
     [mediaListPlayer play];
 
-    [self coreChangedSetting: nil];
     [mediaListPlayer release];
 
     [windowController release];
@@ -179,9 +160,6 @@
             break;            
         }
         case VLCMediaPlayerStatePlaying:
-        {
-            [self coreChangedSetting: nil];
-        }
         default:
             break;
     }

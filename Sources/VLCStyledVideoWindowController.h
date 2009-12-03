@@ -31,5 +31,7 @@
     VLCFullscreenController *_fullscreenController;
 }
 - (void)toggleFullscreen:(id)sender;
+- (void)enterFullscreen;
 @property (readonly, retain) VLCExtendedVideoView *videoView;
+@property (readonly, retain) VLCStyledVideoWindowView *styledWindowView;
 @end
