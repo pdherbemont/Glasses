@@ -10,6 +10,9 @@ var NavigationController = function()
 {
     this.element = document.createElement("div");
 
+    // Make sure this is focusable
+    this.element.setAttribute('tabIndex', 1);
+
     /**
      * @type {Array.<MediaListView>}
      */
@@ -23,7 +26,25 @@ NavigationController.prototype = {
      */        
     attach: function(parentElement)
     {
+        this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
+        this.element.addEventListener('keydown', this.keyDown.bind(this));
         parentElement.appendChild(this.element);
+    },
+
+    detach: function()
+    {
+        this.element.removeEventListener('keydown');
+    },
+
+    mouseDown: function(event)
+    {
+        // Block the event, so that's it's not interpreted as a drag event.
+        event.stopPropagation();
+    },
+    
+    keyDown: function(event)
+    {
+        this.currentView.keyDown(event);
     },
 
     /**
