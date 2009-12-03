@@ -30,31 +30,6 @@ function removeCurrentSelection()
     item.removeClassName("selected");
 }
 
-function gotoCurrentSelection()
-{
-    return;
-//    if (selectionIndex < 0)
-//        selectionIndex = 0;
-//    
-//    var item = document.getElementById("tableItem" + selectionIndex);
-//    var playlist = document.getElementById("playlist");
-//    if (!item) {
-//        selectionIndex--;
-//        if (selectionIndex > 0)
-//            gotoCurrentSelection();
-//        else
-//            selectionIndex = 0;
-//        return;
-//    }
-//    
-//    item.addClassName("selected");
-//    
-//    if (timer)
-//        window.clearTimeout(timer);
-//    timer = window.setTimeout(function (){playlist.style.top = - (selectionIndex - 7) * (25) + "px"; timer = null;}, 0);
-    
-}
-
 var hideTimer = null;
 function hidePlaylist()
 {
@@ -66,13 +41,13 @@ function hidePlaylist()
 
 function onKeyDown(event)
 {
+    
     var elmt = document.getElementById("more");
     elmt.removeClassName("hidden");
     
     if (hideTimer)
         window.clearTimeout(hideTimer);
     
-    // hideTimer = window.setTimeout(function () { hidePlaylist(); }, 6000);
     var handled = window.windowController.navigationController.currentView.keyDown(event);
     switch (event.keyCode) {
         case Lunettes.EventKey.Enter:
