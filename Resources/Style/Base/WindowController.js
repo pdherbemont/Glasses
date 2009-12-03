@@ -87,13 +87,6 @@ WindowController.prototype = {
             this.navigationController.attach(mediaList);
             this.navigationController.push(this.rootMediaList);
         }
-        
-        // Deal with HUD hidding.
-        buttons = document.getElementsByClassName(this.Exported.ClassNames.autohideWhenMouseLeaves);
-        if (buttons.length > 0) {
-            document.body.addEventListener('mousemove', this.revealAutoHiddenElements.bind(this), false);
-            bindByClassNameActionToMethod(this.Exported.ClassNames.dontHideWhenMouseIsInside, 'mouseover', this.interruptAutoHide.bind(this));        
-        }
 		
         // Bind the timeline.
         bindByClassNameActionToMethod(this.Exported.ClassNames.timeline, 'change', this.timelineValueChanged.bind(this));
@@ -355,7 +348,7 @@ WindowController.prototype = {
             this.globalIsFirstMouseMove = false;
             return;
         }
-        
+
         this.removeClassNameFromContent(this.Exported.ClassNames.hidden);
         var timer = this.timer;
         if (timer)
