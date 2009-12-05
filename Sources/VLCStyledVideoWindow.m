@@ -66,6 +66,17 @@ static inline BOOL debugStyledWindow(void)
     return YES;
 }
 
+- (void)orderWindow:(NSWindowOrderingMode)place relativeTo:(NSInteger)otherWin
+{
+    [super orderWindow:place relativeTo:otherWin];
+
+    // There is a bug in Cocoa here, our child windows
+    // won't appear if we don't do this.
+    // XXX - file a bug report.
+    for (NSWindow *child in [self childWindows])
+        [child orderFront:self];
+}
+
 - (void)orderFront:(id)sender
 {
     // Don't orderFront the window if the frame is not loaded and that we plan
