@@ -10,12 +10,12 @@
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaListView.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/NavigationController.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/WindowController.js"></script>
-    <script type="text/ecmascript" encoding="utf-8" src="playlist.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="PlaylistController.js"></script>
 	<link id="style" rel="stylesheet" type="text/css" href="default.css" />
 
 	<title>Video Window</title>
 </head>
-<body onload="initPlaylist(); window.windowController.init();" id="content" class="key-window">
+<body onload="window.windowController.init(); window.playlistController.init();" id="content" class="key-window">
 
 
 <div id="main-window" class="drag-platform-window">
