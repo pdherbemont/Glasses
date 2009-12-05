@@ -75,7 +75,7 @@ static inline BOOL debugStyledWindow(void)
     // XXX - file a bug report.
     // XXX - we only support below child window
     for (NSWindow *child in [self childWindows])
-        [child orderWindow:NSWindowBelow relativeTo:otherWin];
+        [child orderWindow:NSWindowBelow relativeTo:[self windowNumber]];
 }
 
 - (void)orderFront:(id)sender
