@@ -10,7 +10,7 @@ var HUDController = function ()
 HUDController.prototype.init = function()
 {
     window.windowController.navigationController.elementStyleUsesScrollBar = false;
-    Experimental.HUDController.resetHudPosition();
+    this.resetHudPosition();
 }
 
 HUDController.prototype.resetHudPosition =  function resetHudPosition()
@@ -39,7 +39,6 @@ function hidePlaylist()
         elmt.addClassName("hidden");
     hideTimer = null;
 }
-
 function onKeyDown(event)
 {
     
