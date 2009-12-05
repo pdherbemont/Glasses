@@ -22,6 +22,9 @@
 #import "VLCSplashScreenWindowController.h"
 
 
+@interface VLCSplashScreenWindowController () <NSWindowDelegate>
+@end
+
 @implementation VLCSplashScreenWindowController
 
 - (NSString *)windowNibName
