@@ -10,16 +10,37 @@
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaListView.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/NavigationController.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/WindowController.js"></script>
-    <script type="text/ecmascript" encoding="utf-8" src="PlaylistController.js"></script>
 	<link id="style" rel="stylesheet" type="text/css" href="default.css" />
 
 	<title>Video Window</title>
 </head>
-<body onload="window.windowController.init(); window.playlistController.init();" id="content" class="key-window">
+<!--
+ - Special className used by base.js and by the backend:
+ "drag-platform-window": Dragging will drag the platformWindow. [Not in fullscreen].
+ "timeline": Backend will change the "value" attribute of those elements.
+ "ellapsed-time": Backend will change the innerText attribute of those elements.
+ "remaining-time": Backend will change the innerText attribute of those elements.
+ "title": Backend will change set the innertText of those element to the title of the playing movie.
 
+ "close": base.js will make a click on those element to close the platform window. [Not in fullscreen].
+ "miniaturize": base.js will make a click on those element to miniaturize the platform window. [Not in fullscreen].
+ "zoom": base.js will make a click on those element to zoom the platform window. [Not in fullscreen].
+ "enter-fullscreen": base.js will make a click on those element to enterFullscreen on the platform window. [Not in fullscreen].
+ "leave-fullscreen": base.js will make a click on those element to leaveFullscreen on the platform window. [Not in window].
+ "toggle-playing": base.js will make a click on those element to leaveFullscreen on the platform window. [Not in window].
 
-<div id="main-window" class="drag-platform-window">
-    
+ "resize-platform-window": base.js will make a drag on those element to resize the platform window. [Not in fullscreen].
+ "drag-platform-window": base.js will make a drag on those element to move the platform window. [Not in fullscreen].
+
+ - Special id used by base.js and by the backend:
+ "content": Backend will add
+    "key-window", and "main-window" on the this item to reflect the platform window state. [Not in fullscreen].
+    "playing" when the video is playing. (this can be used to display a different image when we are playing or not.
+ "video-view": Backend will put the platform video view on top of this element. [Not in fullscreen]
+-->
+
+<body onload="windowController.init()" id="content">
+<div id="main-window" class="drag-platform-window key-window">
     <div class="window-decoration">
         <div class="titlebar">
             <div class="window-buttons">
@@ -28,13 +49,11 @@
                 <button class="zoom"></button>
             </div>
             <div id="window-title" class="title">Window Title</div>
-            <div class="number-items" onclick="togglePlaylistView();"><span id="items-count">1</span> items</div>
-            <div class="titlebar-fixup"></div>
         </div>
     </div>
 
     <div id="video">
-        <div id="video-view" class="view" ondblclick="windowController.enterFullscreen()"></div>
+        <div id="video-view" class="view"></div>
         <div class="controls">
             <button class="enter-fullscreen"></button>
             <button class="toggle-playing"></button>
@@ -46,25 +65,8 @@
         </div>
     </div>
 
-    <div class="bottombar-fixup"></div>
-
     <div class="resize resize-platform-window"></div>
     <div class="preloader"></div>
 </div>
-
-<div id="more" class="more drag-platform-window">
-    <div class="window-decoration">
-        <div class="titlebar"></div>
-    </div>
-    <div class="textcontent">
-        <div id="mediaList">
-
-        </div>
-
-    </div>
-    <div class="controls"><input type="search" class="search" placeholder="Search" value=""></div>
-    <div class="resize resize-platform-window"></div>
-</div>
-
 </body>
 </html>

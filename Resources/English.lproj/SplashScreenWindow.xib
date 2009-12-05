@@ -1377,7 +1377,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="442217908">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="891303155">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Sources/VLCCollectionView.h</string>
 					</object>
@@ -1392,7 +1392,7 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCCollectionView</string>
 					<string key="superclassName">NSCollectionView</string>
-					<reference key="sourceIdentifier" ref="442217908"/>
+					<reference key="sourceIdentifier" ref="891303155"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCSplashScreenWindowController</string>

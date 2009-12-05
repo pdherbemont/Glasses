@@ -1,0 +1,329 @@
+* {
+    cursor: default;
+    -webkit-user-select: none;
+}
+
+body {
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 0;
+}
+
+/* Make sure all (non visible) images are loaded to avoid flickering. */
+.preloader {
+    position: fixed;
+    z-index: -1;
+    background-image: url(window-close-on.png);
+    background-image: url(window-buttons-over.png);
+    background-image: url(window-buttons-off.png);
+    background-image: url(window-minimize-on.png);
+    background-image: url(window-zoom-on.png);
+
+    background-image: url(fullscreen_blue.png);
+    background-image: url(play_blue.png);
+    background-image: url(pause.png);
+    background-image: url(pause_blue.png);
+}
+
+/*
+ * The window
+ */
+
+#main-window {
+    position: absolute;
+/* rgb(0.90,.90,.90) rgb(0.50,0.50,0.50) rgb(0.59,0.59,0.59) */
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 35px;
+    -webkit-border-radius: 4px;
+    border-left: 1px rgba(136, 136, 136, 1.0) solid;
+    border-right: 1px #434343 solid;
+    border-top: 1px rgba(136, 136, 136, 0.5) solid;
+    border-bottom: thin #434343 solid;
+    overflow: hidden;
+}
+
+/*
+ * Window decoration
+ */
+
+.key-window .titlebar {
+    /* Window is key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
+}
+.titlebar {
+    /* Window is non key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cfcfcf));
+}
+
+.titlebar {
+    -webkit-user-select: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    border-bottom: thin #404040 solid;
+    border-top: 1px rgba(255, 255, 255, 0.8) solid;
+    -webkit-border-top-left-radius: 3px; 
+    -webkit-border-top-right-radius: 3px;
+    padding-left: 8px;
+}
+
+.window-decoration {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+}
+
+.window-decoration button {
+    cursor: default;
+    background-color: transparent;
+    border: none;
+
+    height: 15px; width: 14px;
+    padding: 0px;
+    margin: 0;
+    margin-top: 3px;
+    margin-right: 4px;
+}
+
+.key-window .window-buttons>button {
+    background-image: url(window-buttons.png);
+}
+
+.window-buttons>button {
+    background-repeat: no-repeat;
+    background-image: url(window-buttons-off.png);
+}
+
+.window-buttons:hover>button {
+    background-image: url(window-buttons-over.png);
+}
+
+.window-buttons>.close:active {
+    background: url(window-close-on.png) no-repeat 0 0;
+}
+
+.window-buttons>.miniaturize:active {
+    background: url(window-minimize-on.png) no-repeat 0 0;
+}
+
+.window-buttons>.zoom:active {
+    background: url(window-zoom-on.png) no-repeat 0 0;
+}
+
+.close {
+    background-position-x: 0px;
+}
+.miniaturize {
+    background-position-x: -21px;
+}
+.zoom {
+    background-position-x: -42px;
+}
+
+.key-window .title {
+    color: black;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+.title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    padding-top: 1px;
+    top: 0px;
+    left: 80px;
+    right: 80px;
+    vertical-align: centerline;
+    text-align: center;
+    font-family: LucidaGrande;
+    font-size: 13px;
+    color: rgba(0,0,0,0.6);
+}
+
+.resize {
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    display: block;
+    bottom: 0px;
+    right: 0px;
+}
+
+/*
+ * Video view
+ */
+
+#video .view {
+    position: absolute;
+    background: black;
+    bottom: 32px;
+    right: 0px;
+    left: 0px;
+    top: 22px;
+}
+
+/*
+ * Controls
+ */
+
+.key-window .controls {
+    /* Window is key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
+}
+
+.controls {
+    /* Window is non key window */
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cfcfcf));
+}
+
+.controls {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    padding-left: 5px;
+    padding-right: 10px;
+    border-top: thin rgba(255,255,255, 0.8) solid;
+    box-sizing: border-box;
+    height: 31px;
+}
+/*
+#content .controls  {
+    -webkit-transform: translateY(40px);
+    -webkit-transition: -webkit-transform 1.0s ease-in-out;
+}
+
+#content:hover .controls  {
+    -webkit-transform: translateY(0);
+    -webkit-transition: -webkit-transform 0.2s ease-in-out;
+}*/
+.controls button {
+    background-color: transparent;
+    border: none;
+    height: 20px;
+    width: 33px;
+}
+
+.controls>button {
+    display: -webkit-box;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.toggle-playing {
+    background-image: url(play.png);
+}
+
+.toggle-playing:active {
+    background-image: url(play_blue.png);
+}
+
+.playing .toggle-playing {
+    background-image: url(pause.png);
+}
+
+.playing .toggle-playing:active {
+    background-image: url(pause_blue.png);
+}
+
+.enter-fullscreen {
+    background-image: url(fullscreen.png);
+}
+
+.enter-fullscreen:active {
+    background-image: url(fullscreen_blue.png);
+}
+
+/*
+ * Time display
+ */
+
+.timeinfo {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-flex: 1;
+    -webkit-border-image: url(timeinfo_border.png) 6 7 6 7 repeat repeat;
+    height: 14px;
+    margin-left: 10px;
+    overflow: hidden;
+}
+
+.timeinfo>:nth-child(n) {
+    display: -webkit-box;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.seekable .timeinfo>:nth-child(n) {
+    -webkit-transform: translateY(0px);
+    -webkit-transition: -webkit-transform 0.3s ease-in;
+}
+
+.timeinfo>:nth-child(n) {
+    -webkit-transform: translateY(-20px);
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+}
+
+.seekable .status {
+    -webkit-transform: translateY(0px);
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-out;
+}
+
+.status {
+    -webkit-transform: translateY(0px);
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease-out;
+}
+
+.status {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+
+    font-family: LucidaGrande;
+    font-size: 10px;
+}
+
+
+.timeline {
+    -webkit-appearance: none;
+    -webkit-box-flex: 1;
+    height: 2px;
+    background-color: transparent;
+    -webkit-border-image: url(timeline_border.png) 3 3 3 3 repeat repeat;
+    box-sizing: border-box;
+    margin-top: 3px;
+    margin-bottom: 2px;
+    padding: 0;
+    padding-bottom: 2px;
+}
+
+.timeline::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: url(timeline_thumb.png) no-repeat 0 0;
+    -webkit-background-size: 100%;
+    height: 5px;
+    width: 7px;
+}
+
+.ellapsed-time {
+    color: black;
+    font-family: LucidaGrande;
+    font-size: 10px;
+}
+

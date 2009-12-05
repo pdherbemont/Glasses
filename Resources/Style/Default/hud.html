@@ -11,12 +11,21 @@
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/NavigationController.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/WindowController.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/dom-drag.js"></script>
-	<script type="text/ecmascript" defer="defer" encoding="utf-8" src="hud.js"></script>
+	<script type="text/ecmascript" encoding="utf-8" src="hud.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="playlist.js"></script>
 	<link id="style" rel="stylesheet" type="text/css" href="hud.css" />
-	<title>HUD</title>
+    <script>
+    function init() {
+        window.windowController.init();
+        initPlaylist();
+        Experimental.HUDController.init();
+    }
+    </script>
+	<title>Video Window</title>
 </head>
-<body onload="HUDController.init(); windowController.init(); ">
-<div id="content" class="hidden autohide-when-mouse-leaves dont-hide-when-mouse-is-inside draggable"> <!-- Be hidden by default -->
+<body  id="content" class="key-window hidden" onkeydown="onKeyDown(event)" onload="init()" ondblclick="windowController.leaveFullscreen()">
+
+<div id="draggable-controls" class="autohide-when-mouse-leaves dont-hide-when-mouse-is-inside draggable hidden"> <!-- Be hidden by default -->
     <div class="controls">
         <div id="title" class="title">Movie title</div>
         <div class="timeinfo">
@@ -29,5 +38,15 @@
     </div>
     <div class="preloader"></div>
 </div>
+
+<div id="more" class="hidden">
+    <div class="textcontent">
+        <div id="mediaList">
+        </div>
+        <div class="overlay-top"></div>
+        <div class="overlay-bottom"></div>
+    </div>
+</div>
+
 </body>
 </html>
