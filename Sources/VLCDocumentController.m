@@ -122,9 +122,9 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     }
 }
 
-- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList
+- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name
 {
-    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:mediaList];
+    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:mediaList andName:name];
     [self addDocument:mediaDocument];
     [mediaDocument makeWindowControllers];
     [mediaDocument showWindows];
@@ -134,9 +134,9 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
 - (void)makeDocumentWithObject:(id)object
 {
     if ([object isKindOfClass:[VLCMediaList class]])
-         [self makeDocumentWithMediaList:object];
+        [self makeDocumentWithMediaList:object andName:nil];
     else if ([object isKindOfClass:[VLCMediaDiscoverer class]])
-        [self makeDocumentWithMediaList:[object discoveredMedia]];
+        [self makeDocumentWithMediaList:[object discoveredMedia] andName:[object localizedName]];
     else
         VLCAssertNotReached(@"No idea how to open that object");
 }

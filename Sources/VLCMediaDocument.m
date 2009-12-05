@@ -38,21 +38,23 @@
 	if(!self)
         return nil;
     _media = [[VLCMedia mediaWithURL:absoluteURL] retain];
+
 	return self;
 }
 
-- (id)initWithMediaList:(VLCMediaList *)mediaList
+- (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name
 {
     self = [super init];
 	if(!self)
         return nil;
     _mediaList = [mediaList retain];
+    _name = [name copy];
 	return self;
 }
 
-
 - (void)dealloc
 {
+    [_name release];
 	[_media release];
 	[_mediaList release];
 
@@ -68,6 +70,13 @@
     [_mediaListPlayer.mediaPlayer setDelegate:nil];
     self.mediaListPlayer = nil;
     [super close];
+}
+
+- (NSString *)displayName
+{
+    if (_name)
+        return _name;
+    return [super displayName];
 }
 
 - (void)makeWindowControllers
