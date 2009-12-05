@@ -25,7 +25,7 @@
 #import "VLCMediaDocument.h"
 #import "VLCStyledFullscreenHUDWindowController.h"
 
-@interface VLCStyledVideoWindowController () <VLCFullscreenDelegate>
+@interface VLCStyledVideoWindowController () <VLCFullscreenDelegate, NSWindowDelegate>
 @end
 
 @implementation VLCStyledVideoWindowController
