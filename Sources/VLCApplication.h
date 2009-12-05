@@ -40,4 +40,7 @@
 - (void)sendEvent:(NSEvent*)event;
 - (void)resetJump;
 
+- (IBAction)reportBug:(id)sender;
+- (IBAction)showVideoLANWebsite:(id)sender;
+
 @end

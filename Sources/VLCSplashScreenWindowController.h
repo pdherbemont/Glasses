@@ -23,5 +23,5 @@
 
 
 @interface VLCSplashScreenWindowController : NSWindowController
-- (IBAction)reportBug:(id)sender;
+
 @end

@@ -39,11 +39,6 @@
     [[self window] setDelegate: self];
 }
 
-- (IBAction)reportBug:(id)sender
-{
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://trac.videolan.org"]];
-}
-
 - (void)windowWillClose:(NSNotification *)notification
 {
     [self autorelease];
