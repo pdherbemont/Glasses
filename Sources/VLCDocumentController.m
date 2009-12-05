@@ -98,6 +98,16 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     return menuItem;
 }
 
+- (NSArray *)availableMediaDiscoverer
+{
+    return [VLCMediaDiscoverer availableMediaDiscoverer];
+}
+
+- (NSPredicate *)predicateThatFiltersEmptyDiscoverer
+{
+    return [NSPredicate predicateWithFormat:@"discoveredMedia.media.@count != 0"];
+}
+
 - (void)rebuildOpenLibraryMenu
 {
     NSMenu *menu = [_openLibraryMenu submenu];
@@ -105,20 +115,36 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
          [menu removeItemAtIndex:i];
 
     NSUInteger i = 1;
-    for (VLCMediaDiscoverer *mediaDiscoverer in [VLCMediaDiscoverer availableMediaDiscoverer]) {
+    for (VLCMediaDiscoverer *mediaDiscoverer in [self availableMediaDiscoverer]) {
         NSMenuItem *menuItem = createOpenLibraryMenuItemWithDiscoverer(mediaDiscoverer, i++);
         [menu addItem:menuItem];
         [menuItem release];
     }
 }
 
-- (void)openLibraryFromMenuItem:(id)sender
+- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList
 {
-    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:[[sender representedObject] discoveredMedia]];
+    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:mediaList];
     [self addDocument:mediaDocument];
     [mediaDocument makeWindowControllers];
     [mediaDocument showWindows];
-    [mediaDocument release];
+    [mediaDocument release];    
+}
+
+- (void)makeDocumentWithObject:(id)object
+{
+    if ([object isKindOfClass:[VLCMediaList class]])
+         [self makeDocumentWithMediaList:object];
+    else if ([object isKindOfClass:[VLCMediaDiscoverer class]])
+        [self makeDocumentWithMediaList:[object discoveredMedia]];
+    else
+        VLCAssertNotReached(@"No idea how to open that object");
+}
+
+
+- (void)openLibraryFromMenuItem:(id)sender
+{
+    [self makeDocumentWithObject:[sender representedObject]];
 }
 
 - (IBAction)saveVideoSnapshot:(id)sender

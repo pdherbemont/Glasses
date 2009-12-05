@@ -20,7 +20,7 @@
  *****************************************************************************/
 
 #import "VLCSplashScreenWindowController.h"
-
+#import "VLCDocumentController.h"
 
 @implementation VLCSplashScreenWindowController
 
@@ -39,5 +39,18 @@
 - (void)windowWillClose:(NSNotification *)notification
 {
     [self autorelease];
+}
+
+/**
+ * This methods is being used by the bindings of the services view.
+ */
+- (VLCDocumentController *)documentController
+{
+    return [VLCDocumentController sharedDocumentController];
+}
+
+- (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItem:(NSCollectionViewItem *)item
+{
+    [[VLCDocumentController sharedDocumentController] makeDocumentWithObject:[item representedObject]];
 }
 @end
