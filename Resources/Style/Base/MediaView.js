@@ -38,11 +38,7 @@ MediaView.prototype = {
     {
         console.assert(!this.isAttached, "shouldn't be attached", console.trace());
         
-        console.log("MediaView.attach()...");
-
         this.cocoaObject.bindToObjectProperty("metaDictionary.title", this.nameElement, "innerText");
-
-        console.log("... MediaView.attach() " + this.nameElement.innerText + this);
 
         this.cocoaObject.bindToObjectProperty("subitems.media.@count", this, "subitemsCount");
 
@@ -58,9 +54,7 @@ MediaView.prototype = {
         this.isAttached = true;
     },
     detach: function()
-    {
-        console.log("MediaView.detach() " + this.nameElement.innerText);
-        
+    {        
         this.cocoaObject.unbindOfObjectProperty(this.nameElement, "innerText");
         this.cocoaObject.unbindOfObjectProperty(this, "subitemsCount");
         

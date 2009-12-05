@@ -294,10 +294,7 @@ MediaListView.prototype = {
      * @param {number} index
      */                
     insertCocoaObject: function(cocoaObject, index)
-    {
-        console.log("insertCocoaObject "+ this.isAttached);
-
-            
+    {            
         var mediaView = new MediaView(cocoaObject, this, "li");
         this.subviews.push(mediaView);
 
@@ -316,8 +313,6 @@ MediaListView.prototype = {
      */                    
     removeCocoaObjectAtIndex: function(index)
     {
-        console.log("removeCocoaObjectAtIndex " + index);
-
         if (this.isAttached)
             this.subviews[index].detach();
 
@@ -329,8 +324,6 @@ MediaListView.prototype = {
      */                        
     removeAllInsertedCocoaObjects: function()
     {
-        console.log("removeAllInsertedCocoaObjects");
-
         if (this.isAttached) {
             for (var i = 0; i < this.subviews.length; i++)
                 this.subviews[i].detach();
@@ -345,7 +338,6 @@ MediaListView.prototype = {
         else
         {
             // FIXME: Better abstraction?
-            console.log("observing root media list");
             window.PlatformView.addObserverForCocoaObjectWithKeyPath(this, null, "rootMediaList.media");
         }
     }
