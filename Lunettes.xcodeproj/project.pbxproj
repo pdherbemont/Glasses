@@ -112,6 +112,8 @@
 		63161C2710CAC4190091974E /* window-zoom-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 63161C1110CAC4190091974E /* window-zoom-on.png */; };
 		63161C3110CAC48B0091974E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63161C3010CAC48B0091974E /* Info.plist */; };
 		63161C7610CAC5810091974E /* No Playlist.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F772010480F8300117832 /* No Playlist.lunettesstyle */; };
+		63161CB910CAC68A0091974E /* hud.js in Resources */ = {isa = PBXBuildFile; fileRef = 63161BF210CAC3EF0091974E /* hud.js */; };
+		63161CBA10CAC68A0091974E /* PlaylistController.js in Resources */ = {isa = PBXBuildFile; fileRef = 63161BF310CAC3EF0091974E /* PlaylistController.js */; };
 		631AF8291095DAA900F8ED1A /* VLCWebBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */; };
 		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
@@ -592,12 +594,12 @@
 			children = (
 				63161BEF10CAC3EF0091974E /* default.css */,
 				63161BF010CAC3EF0091974E /* hud.css */,
-				63161BF110CAC3EF0091974E /* hud.html */,
 				63161BF210CAC3EF0091974E /* hud.js */,
-				63161BF910CAC3FA0091974E /* Images */,
 				63161BF310CAC3EF0091974E /* PlaylistController.js */,
-				63161C3010CAC48B0091974E /* Info.plist */,
+				63161BF110CAC3EF0091974E /* hud.html */,
 				63161BF410CAC3EF0091974E /* video-window.html */,
+				63161C3010CAC48B0091974E /* Info.plist */,
+				63161BF910CAC3FA0091974E /* Images */,
 			);
 			name = Default;
 			sourceTree = "<group>";
@@ -1068,6 +1070,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63161CB910CAC68A0091974E /* hud.js in Resources */,
+				63161CBA10CAC68A0091974E /* PlaylistController.js in Resources */,
 				63161BF510CAC3EF0091974E /* default.css in Resources */,
 				63161BF610CAC3EF0091974E /* hud.css in Resources */,
 				63161BF710CAC3EF0091974E /* hud.html in Resources */,
