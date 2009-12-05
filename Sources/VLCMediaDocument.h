@@ -28,10 +28,10 @@
 	VLCMedia *_media;
 	VLCMediaList *_mediaList;
 	VLCMediaListPlayer *_mediaListPlayer;
-    BOOL _deinterlacingEnabled;
+    NSString *_name;
 }
 
-- (id)initWithMediaList:(VLCMediaList *)mediaList;
+- (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name;
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
 
