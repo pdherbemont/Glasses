@@ -10,15 +10,28 @@
 
 @implementation VLCCollectionView
 
+- (void)sendActionOnSelectedItem
+{
+    id delegate = self.delegate;
+    if ([delegate respondsToSelector: @selector(collectionView:doubleClickedOnItem:)]) {
+        NSInteger selection = [[self selectionIndexes] firstIndex];
+        if (selection != NSNotFound)
+            [delegate collectionView:self doubleClickedOnItem:[self itemAtIndex:selection]];
+    }    
+}
+
+- (void)keyDown:(NSEvent *)theEvent
+{
+    if ([[theEvent characters] characterAtIndex:0] == 13)
+        [self sendActionOnSelectedItem];
+    else
+        [super keyDown:theEvent];
+}
+
 - (void)mouseDown:(NSEvent *)theEvent
 {
-    if ([theEvent clickCount] == 2) {
-        id delegate = self.delegate;
-        if ([delegate respondsToSelector: @selector(collectionView:doubleClickedOnItem:)]) {
-            NSInteger selection = [[self selectionIndexes] firstIndex];
-            [delegate collectionView:self doubleClickedOnItem:[self itemAtIndex:selection]];
-        }
-    }
+    if ([theEvent clickCount] == 2)
+        [self sendActionOnSelectedItem];
 
     [super mouseDown:theEvent];
 }

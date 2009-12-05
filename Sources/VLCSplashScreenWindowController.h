@@ -23,5 +23,8 @@
 
 
 @interface VLCSplashScreenWindowController : NSWindowController
-
+{
+    IBOutlet NSCollectionView *_mediaDiscoverCollection;
+}
+- (IBAction)openSelectedMediaDiscoverer:(id)sender;
 @end

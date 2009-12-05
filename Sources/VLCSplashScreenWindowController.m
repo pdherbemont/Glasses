@@ -55,5 +55,16 @@
 - (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItem:(NSCollectionViewItem *)item
 {
     [[VLCDocumentController sharedDocumentController] makeDocumentWithObject:[item representedObject]];
+    [[self window] resignMainWindow];
+}
+
+- (IBAction)openSelectedMediaDiscoverer:(id)sender
+{
+    NSAssert(_mediaDiscoverCollection, @"Should be binded");
+    NSInteger index = [[_mediaDiscoverCollection selectionIndexes] firstIndex];
+    NSAssert(index != NSNotFound, @"We shouldn't have received this action in the first place");
+    id object = [[_mediaDiscoverCollection itemAtIndex:index] representedObject];
+    [[VLCDocumentController sharedDocumentController] makeDocumentWithObject:object];
+    [[self window] resignMainWindow];
 }
 @end
