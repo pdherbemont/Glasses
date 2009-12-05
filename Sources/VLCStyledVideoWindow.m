@@ -73,8 +73,9 @@ static inline BOOL debugStyledWindow(void)
     // There is a bug in Cocoa here, our child windows
     // won't appear if we don't do this.
     // XXX - file a bug report.
+    // XXX - we only support below child window
     for (NSWindow *child in [self childWindows])
-        [child orderFront:self];
+        [child orderWindow:NSWindowBelow relativeTo:otherWin];
 }
 
 - (void)orderFront:(id)sender
