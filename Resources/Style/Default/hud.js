@@ -1,14 +1,19 @@
-var Experimental = new Object();
+/**
+ * @constructor
+ */
 
-Experimental.HUDController = new Object();
+var HUDController = function ()
+{
+    
+}
 
-Experimental.HUDController.init = function()
+HUDController.prototype.init = function()
 {
     window.windowController.navigationController.elementStyleUsesScrollBar = false;
     Experimental.HUDController.resetHudPosition();
 }
 
-Experimental.HUDController.resetHudPosition =  function resetHudPosition()
+HUDController.prototype.resetHudPosition =  function resetHudPosition()
 {
     var hud = document.getElementById('draggable-controls');
     var marginBottom = 100;
@@ -21,15 +26,11 @@ Experimental.HUDController.resetHudPosition =  function resetHudPosition()
     hud.style.top = (bodyHeight - hudHeight - marginBottom) + 'px';
 }
 
-/* Playlist */
-var selectionIndex = 0;
-var timer = null;
-function removeCurrentSelection()
-{
-    var item = document.getElementById("tableItem" + selectionIndex);
-    item.removeClassName("selected");
-}
+window.hudController = new HUDController();
 
+/* Playlist */
+
+var timer = null;
 var hideTimer = null;
 function hidePlaylist()
 {
