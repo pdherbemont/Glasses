@@ -187,7 +187,7 @@ MediaListView.prototype = {
      */
     backClicked: function(event)
     {
-        this.navigationcontroller.pop();
+        this.navigationController.pop();
     },
 
     scrollToSelection: function()
