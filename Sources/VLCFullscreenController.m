@@ -102,7 +102,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 }
 
 
-@interface VLCFullscreenController () <NSAnimationDelegate>
+@interface VLCFullscreenController ()
 - (void)_installPlaceholderView;
 - (void)_restoreViewFromPlaceholderView;
 - (void)_stopAnimationsIfNeeded;

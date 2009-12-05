@@ -21,9 +21,6 @@
 
 #import "VLCAboutWindowController.h"
 
-@interface VLCAboutWindowController (Delegate) <NSAnimationDelegate, NSWindowDelegate>
-@end
-
 #pragma mark -
 
 @interface VLCTextScrollAnimation : NSAnimation {
@@ -83,7 +80,6 @@
 @end
 
 #pragma mark -
-
 
 @implementation VLCAboutWindowController
 
