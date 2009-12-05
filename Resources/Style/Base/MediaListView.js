@@ -142,7 +142,6 @@ MediaListView.prototype = {
             this.subviews[i].attach(this.subviewsElement);
         }
     
-        console.log("attach MediaListView " + this.name);
         parentElement.appendChild(this.element);
 
         this.isAttached = true;
@@ -156,8 +155,7 @@ MediaListView.prototype = {
             this.detachTimer = null;
         }
 
-        console.log("detach MediaListView " + this.name);
-
+        
         for (var i = 0; i < this.subviews.length; i++)
             this.subviews[i].detach();
         
@@ -249,10 +247,8 @@ MediaListView.prototype = {
 
         if (index < 0 || index >= this.subviews.length) {
             //beep();
-            console.log("too down");
             return;
         }
-        console.log("selecting " + index);
 
         this.select(this.subviews[index]);
     },

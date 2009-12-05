@@ -120,6 +120,7 @@ MediaView.prototype = {
     mouseDoubleClicked: function(event)
     {
         this.action();
+        event.stopPropagation();
     },
 
     /**
