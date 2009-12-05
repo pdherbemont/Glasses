@@ -40,6 +40,7 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 
 @implementation VLCStyledView
 @synthesize isFrameLoaded=_isFrameLoaded;
+@synthesize hasLoadedAFirstFrame=_hasLoadedAFirstFrame;
 @synthesize pluginName=_pluginName;
 
 - (void)dealloc
@@ -51,9 +52,11 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 
 - (void)setup
 {
+    self.isFrameLoaded = NO;
+
     [WebCoreStatistics setShouldPrintExceptions:YES];
     [self setDrawsBackground:NO];
-    
+
     [self setFrameLoadDelegate:self];
     [self setUIDelegate:self];
     [self setResourceLoadDelegate:self];
@@ -122,6 +125,7 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 {
     self.isFrameLoaded = YES;      
     [self didFinishLoadForFrame:frame];
+    self.hasLoadedAFirstFrame = YES;      
 }
 
 - (void)webView:(WebView *)webView windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject

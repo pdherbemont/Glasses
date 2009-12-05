@@ -90,6 +90,10 @@
 
     [self videoDidResize];
 
+    BOOL enterFS = [[NSUserDefaults standardUserDefaults] boolForKey:@"StartPlaybackInFullscreen"];
+    if (!enterFS || [self hasLoadedAFirstFrame])
+        [window makeKeyAndOrderFront:self];
+    
     [self setKeyWindow:[window isKeyWindow]];
     [self setMainWindow:[window isMainWindow]];
     [self updateTrackingAreas];
@@ -99,7 +103,7 @@
     // because we need (for fullscreen exit) to have the video view
     // properly setuped. A bit of coding could fix that, but that's enough
     // for now.
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"StartPlaybackInFullscreen"])
+    if (enterFS && ![self hasLoadedAFirstFrame])
         [[window windowController] enterFullscreen];
 
     [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];

@@ -29,6 +29,7 @@
 
 @interface VLCStyledView : WebView {
     BOOL _isFrameLoaded;
+    BOOL _hasLoadedAFirstFrame;
     float _viewedPosition;
     BOOL _viewedPlaying;
     BOOL _seekable;
@@ -59,6 +60,12 @@
 - (void)didFinishLoadForFrame:(WebFrame *)frame;
 
 @property (readonly) BOOL isFrameLoaded;
+
+/**
+ * -setup has been called, and we have been loading
+ * one first frame.
+ */
+@property BOOL hasLoadedAFirstFrame;
 
 /**
  * DOM manipulation: Add and remove a className from

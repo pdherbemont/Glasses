@@ -84,10 +84,10 @@ static inline BOOL debugStyledWindow(void)
     // to be ready (see -[VLCStyledWindowView frameDidLoad]) we have to
     // ensure we won't go on screen prematuraly
     BOOL shouldGoFullscreen = [[NSUserDefaults standardUserDefaults] boolForKey:@"StartPlaybackInFullscreen"];
-    if (shouldGoFullscreen && ![[[self windowController] styledWindowView] isFrameLoaded])
+    if (shouldGoFullscreen && ![[[self windowController] styledWindowView] hasLoadedAFirstFrame])
         return;
 
-    [super orderFront: self];
+    [super orderFront:sender];
 }
 
 // Because we are borderless, a certain number of thing don't work out of the box.
