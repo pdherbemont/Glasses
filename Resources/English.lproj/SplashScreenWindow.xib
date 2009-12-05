@@ -1276,7 +1276,6 @@
 					<string>44.CustomClassName</string>
 					<string>44.IBCollectionViewIntegration.primaryColor</string>
 					<string>44.IBPluginDependency</string>
-					<string>46.CustomClassName</string>
 					<string>46.IBEditorWindowLastContentRect</string>
 					<string>49.IBPluginDependency</string>
 					<string>50.IBPluginDependency</string>
@@ -1333,7 +1332,6 @@
 					<string>VLCCollectionView</string>
 					<reference ref="757709804"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>VLCSplashScreenCollectionItemView</string>
 					<string>{{407, 371}, {318, 56}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1379,7 +1377,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="717156455">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="442217908">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Sources/VLCCollectionView.h</string>
 					</object>
@@ -1394,7 +1392,7 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCCollectionView</string>
 					<string key="superclassName">NSCollectionView</string>
-					<reference key="sourceIdentifier" ref="717156455"/>
+					<reference key="sourceIdentifier" ref="442217908"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCSplashScreenWindowController</string>
