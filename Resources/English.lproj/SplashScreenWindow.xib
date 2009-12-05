@@ -303,7 +303,7 @@
 										<bytes key="NSWhite">MSAwAA</bytes>
 									</object>
 									<object class="NSCursor" key="NSCursor">
-										<string key="NSHotSpot">{4, 4}</string>
+										<string key="NSHotSpot">{1, -1}</string>
 										<int key="NSCursorType">0</int>
 									</object>
 									<int key="NScvFlags">2</int>
@@ -707,6 +707,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">reportBug:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="500510721"/>
+					</object>
+					<int key="connectionID">35</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">openDocument:</string>
 						<reference key="source" ref="1003"/>
 						<reference key="destination" ref="879266832"/>
@@ -1063,6 +1071,20 @@
 						<reference key="parent" ref="879266832"/>
 					</object>
 					<object class="IBObjectRecord">
+						<int key="objectID">20</int>
+						<reference key="object" ref="500510721"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="1061108840"/>
+						</object>
+						<reference key="parent" ref="1006"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">21</int>
+						<reference key="object" ref="1061108840"/>
+						<reference key="parent" ref="500510721"/>
+					</object>
+					<object class="IBObjectRecord">
 						<int key="objectID">26</int>
 						<reference key="object" ref="442786029"/>
 						<object class="NSMutableArray" key="children">
@@ -1237,6 +1259,8 @@
 					<string>14.IBPluginDependency</string>
 					<string>15.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
+					<string>20.IBPluginDependency</string>
+					<string>21.IBPluginDependency</string>
 					<string>26.IBPluginDependency</string>
 					<string>27.IBPluginDependency</string>
 					<string>29.IBPluginDependency</string>
@@ -1289,6 +1313,8 @@
 					<reference ref="635397995"/>
 					<real value="-1"/>
 					<real value="-1"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1353,30 +1379,22 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="717156455">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Sources/VLCCollectionView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSObject</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Sources/VLCStyledVideoWindow.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="281980477">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">VLCCollectionView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
 					<string key="className">VLCCollectionView</string>
 					<string key="superclassName">NSCollectionView</string>
-					<reference key="sourceIdentifier" ref="281980477"/>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCSplashScreenCollectionItemView</string>
-					<string key="superclassName">NSView</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Sources/VLCSplashScreenCollectionItemView.h</string>
-					</object>
+					<reference key="sourceIdentifier" ref="717156455"/>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCSplashScreenWindowController</string>
@@ -2069,7 +2087,7 @@
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
-			<integer value="1060" key="NS.object.0"/>
+			<integer value="1050" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.InterfaceBuilder3</string>
