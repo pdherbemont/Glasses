@@ -36,8 +36,6 @@ NSInteger VLCFullscreenHUDWindowLevel(void)
     return debugFullscreen() ? 0 : 4;
 }
 
-#import <Carbon/Carbon.h> // For SetSystemUIMode
-
 static NSViewAnimation *createViewAnimationWithDefaultsSettingsAndDictionary(NSDictionary *dict)
 {
     NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:dict]];
@@ -172,7 +170,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
             // simply fade the display
             CGDisplayFadeReservationToken token = fadeScreens();
 
-            SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+            [NSApp setPresentationOptions:NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar];
             [_fullscreenWindow setFrame:[screen frame] display:NO];
             [self _installPlaceholderView];
             [_fullscreenWindow makeKeyAndOrderFront:self];
@@ -192,7 +190,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     [self _stopAnimationsIfNeeded];
 
-    SetSystemUIMode(kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+    [NSApp setPresentationOptions:NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar];
 
     _animation1 = createFadeAnimation([self _windowToHide], FadeOut);
     _animation2 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], [screen frame]);
@@ -233,7 +231,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     
     if (fadeout) {
         CGDisplayFadeReservationToken token = fadeScreens();
-        SetSystemUIMode(kUIModeNormal, kUIOptionAutoShowMenuBar);
+        [NSApp setPresentationOptions:NSApplicationPresentationDefault];
         [self fullscreenDidEnd];
         unfadeScreens(token);
         return;
@@ -241,7 +239,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     [self _stopAnimationsIfNeeded];
     
-    SetSystemUIMode(kUIModeNormal, kUIOptionAutoShowMenuBar);
+    [NSApp setPresentationOptions:NSApplicationPresentationDefault];
 
     NSRect screenRect = screenRectForView(_placeholderView);
 
