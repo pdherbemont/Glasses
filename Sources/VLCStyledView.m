@@ -180,6 +180,48 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 }
 
 #pragma mark -
+#pragma mark Remote Control events
+
+- (void)sendRemoteButtonEvent:(NSString *)name selector:(SEL)sel
+{
+    id ret = [[[self mainFrame] windowObject] callWebScriptMethod:@"remoteButtonHandler" withArguments:[NSArray arrayWithObject:name]];
+    if ([ret isKindOfClass:[NSNumber class]] && [ret boolValue])
+        return; // Event was handled with success.
+
+    // FIXME continue the responder chain to send the event.
+}
+
+- (void)remoteMiddleButtonPressed:(id)sender
+{
+    [self sendRemoteButtonEvent:@"middle" selector:_cmd];
+}
+
+- (void)remoteMenuButtonPressed:(id)sender
+{
+    [self sendRemoteButtonEvent:@"menu" selector:_cmd];
+}
+
+- (void)remoteUpButtonPressed:(id)sender
+{
+    [self sendRemoteButtonEvent:@"up" selector:_cmd];
+}
+
+- (void)remoteDownButtonPressed:(id)sender
+{
+    [self sendRemoteButtonEvent:@"down" selector:_cmd];
+}
+
+- (void)remoteRightButtonPressed:(id)sender
+{
+    [self sendRemoteButtonEvent:@"right" selector:_cmd];
+}
+
+- (void)remoteLeftButtonPressed:(id)sender
+{
+    [self sendRemoteButtonEvent:@"left" selector:_cmd];
+}
+
+#pragma mark -
 #pragma mark Util
 
 - (DOMHTMLElement *)htmlElementForId:(NSString *)idName canBeNil:(BOOL)canBeNil

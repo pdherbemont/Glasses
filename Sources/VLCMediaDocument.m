@@ -185,4 +185,53 @@
     [windowController release];
 }
 
+
+- (void)remoteMiddleButtonPressed:(id)sender
+{
+    if (![_mediaListPlayer.mediaPlayer isPlaying]) {
+        [_mediaListPlayer play];
+    }
+    else {
+        [_mediaListPlayer.mediaPlayer pause];
+    }
+
+}
+
+- (void)remoteMenuButtonPressed:(id)sender
+{
+    [NSApp sendAction:@selector(toggleFullscreen:) to:nil];
+}
+
+- (void)remoteUpButtonPressed:(id)sender
+{
+    [_mediaListPlayer.mediaPlayer.audio volumeUp];
+}
+
+- (void)remoteDownButtonPressed:(id)sender
+{
+    [_mediaListPlayer.mediaPlayer.audio volumeDown];
+}
+
+- (void)remoteRightButtonPressed:(id)sender
+{
+    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+    if (![mediaPlayer isSeekable]) {
+        NSBeep();
+        return;
+    }
+    
+    [mediaPlayer mediumJumpForward];
+}
+
+- (void)remoteLeftButtonPressed:(id)sender
+{
+    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+    if (![mediaPlayer isSeekable]) {
+        NSBeep();
+        return;
+    }
+    
+    [mediaPlayer mediumJumpBackward];
+}
+
 @end

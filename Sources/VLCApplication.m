@@ -32,6 +32,15 @@
  *    the user can actually jump through his media
  *****************************************************************************/
 
+@interface NSObject (RemoteResponder)
+- (void)remoteMiddleButtonPressed:(id)sender;
+- (void)remoteMenuButtonPressed:(id)sender;
+- (void)remoteUpButtonPressed:(id)sender;
+- (void)remoteDownButtonPressed:(id)sender;
+- (void)remoteRightButtonPressed:(id)sender;
+- (void)remoteLeftButtonPressed:(id)sender;
+@end
+
 @implementation VLCApplication
 
 - (void)awakeFromNib
@@ -131,20 +140,18 @@
 {
     if (_remoteButtonIsHold)
     {
-        VLCMediaPlayer *mediaPlayer = [[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer];
-        VLCAudio *audio = [mediaPlayer audio];
         switch ([buttonIdentifierNumber intValue]) {
             case kRemoteButtonRight_Hold:
-                [mediaPlayer mediumJumpForward];
+                [NSApp sendAction:@selector(remoteRightButtonPressed:) to:nil from:self];
                 break;
             case kRemoteButtonLeft_Hold:
-                [mediaPlayer mediumJumpBackward];
+                [NSApp sendAction:@selector(remoteLeftButtonPressed:) to:nil from:self];
                 break;
             case kRemoteButtonVolume_Plus_Hold:
-                [audio volumeUp];
+                [NSApp sendAction:@selector(remoteUpButtonPressed:) to:nil from:self];
                 break;
             case kRemoteButtonVolume_Minus_Hold:
-                [audio volumeDown];
+                [NSApp sendAction:@selector(remoteDownButtonPressed:) to:nil from:self];
                 break;
         }
         if (_remoteButtonIsHold) {
@@ -159,30 +166,27 @@
 /* Apple Remote callback */
 - (void) appleRemoteButton:(AppleRemoteEventIdentifier)buttonIdentifier pressedDown:(BOOL)pressedDown clickCount:(unsigned int)count
 {
-    VLCMediaPlayer *mediaPlayer = [[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer];
-    VLCAudio *audio = [mediaPlayer audio];
+    BOOL ret = NO;
     switch (buttonIdentifier)
     {
         case kRemoteButtonPlay:
-            if (count < 2) {
-                [mediaPlayer pause];
-                break;
-            }
+            ret = [NSApp sendAction:@selector(remoteMiddleButtonPressed:) to:nil from:self];
             break;
         case kRemoteButtonMenu:
-            [NSApp sendAction:@selector(toggleFullscreen:) to:nil from:self];
+            ret = [NSApp sendAction:@selector(remoteMenuButtonPressed:) to:nil from:self];
             break;
         case kRemoteButtonVolume_Plus:
-            [audio volumeUp];
+            ret = [NSApp sendAction:@selector(remoteUpButtonPressed:) to:nil from:self];
             break;
         case kRemoteButtonVolume_Minus:
-            [audio volumeDown];
+            ret = [NSApp sendAction:@selector(remoteDownButtonPressed:) to:nil from:self];
             break;
-/* FIXME:any useful idea for those?
         case kRemoteButtonRight:
+            ret = [NSApp sendAction:@selector(remoteRightButtonPressed:) to:nil from:self];
             break;
         case kRemoteButtonLeft:
-            break; */
+            ret = [NSApp sendAction:@selector(remoteLeftButtonPressed:) to:nil from:self];
+            break;
         case kRemoteButtonRight_Hold:
         case kRemoteButtonLeft_Hold:
         case kRemoteButtonVolume_Plus_Hold:
@@ -194,14 +198,14 @@
                 [self performSelector:@selector(executeHoldActionForRemoteButton:)
                            withObject:buttonIdentifierNumber];
             }
+            ret = YES; // FIXME?
             break;
-/* FIXME:we might want to show the current position here like in VLC
-        case kRemoteButtonMenu:
-            break; */
         default:
             /* Add here whatever you want other buttons to do */
             break;
     }
+    if (!ret)
+        NSBeep();
 }
 
 - (IBAction)reportBug:(id)sender
