@@ -185,7 +185,7 @@ body {
 .textcontent {
     display: block;
     position: absolute;
-    top: 40px; bottom: auto; right: 20px; left: auto;
+    top: 40px; bottom: auto; left: auto;
     height: 400px;
     width: 300px;
     overflow: hidden;
@@ -199,13 +199,13 @@ body {
     border: 1px solid rgba(0,0,0,0.4);
 }
 
-#content>.hidden .textcontent {
+.textcontent {
     right: -500px;
     opacity: 0;
     -webkit-transition: all 0.3s ease-in-out;
 }
 
-.textcontent {
+#content.show-playlist .textcontent {
     right: 20px;
     opacity: 1;
     -webkit-transition: all 0.3s ease-in-out;

@@ -22,6 +22,8 @@ Lunettes.EventKey = {
     Escape: 0
 };
 
+window.remoteButtonHandlerIsInPlaylistMode = false;
+
 /**
  * This method is called by the core when the remote button was pressed.
  * This default behaviour is to handle nothing.
@@ -33,18 +35,54 @@ Lunettes.EventKey = {
  */
 window.remoteButtonHandler = function (name)
 {
+    /**
+     * @type {NavigationController}
+     */    
+    var navigationController = window.windowController.navigationController;
+    if (!navigationController)
+        return false;
+    /**
+     * @type {MediaListView}
+     */
+    var currentMediaListView = navigationController.currentView;
+    if (!currentMediaListView)
+        return false;
+
+    // For now let the backend handle the remote when there is no
+    // playlist.
+    if (currentMediaListView.subitemsCount <= 1 )
+        return false;
+
+    window.remoteButtonHandlerIsInPlaylistMode = document.body.hasClassName("show-playlist");
+    
+    if (name == "menu") {
+        window.remoteButtonHandlerIsInPlaylistMode = !window.remoteButtonHandlerIsInPlaylistMode;
+        window.playlistController.setShowPlaylistView(window.remoteButtonHandlerIsInPlaylistMode);
+        return true;
+    }
+
+    if (!window.remoteButtonHandlerIsInPlaylistMode)
+        return false;
+
     switch (name)
     {
         case "up":
-            break;
+            currentMediaListView.selectPrevious();
+            currentMediaListView.scrollToSelection();
+            return true;
         case "down":
-            break;
+            currentMediaListView.selectNext();
+            currentMediaListView.scrollToSelection();
+            return true;
         case "left":
-            break;
+            if (navigationController.hasElementToPop())
+                navigationController.pop();
+            return true;
         case "right":
-            break;
-        case "down":
-            break;
+        case "middle":
+            currentMediaListView.selection[0].action();
+            window.playlistController.setShowPlaylistView(false);
+            return true;
     }
     return false;
 }

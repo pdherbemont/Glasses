@@ -272,7 +272,6 @@
 
 - (void)remoteMenuButtonPressed:(id)sender
 {
-    [NSApp sendAction:@selector(toggleFullscreen:) to:nil];
 }
 
 - (void)remoteUpButtonPressed:(id)sender

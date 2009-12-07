@@ -38,7 +38,8 @@ PlaylistController.prototype = {
             document.getElementById("more").removeClassName("visible");
             document.body.removeClassName(name);
         }
-        window.PlatformView.videoDidResize();
+        if (window.PlatformView.videoDidResize)
+            window.PlatformView.videoDidResize();
     },
     togglePlaylistView: function()
     {

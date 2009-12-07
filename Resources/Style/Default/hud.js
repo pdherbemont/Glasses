@@ -34,19 +34,21 @@ var timer = null;
 var hideTimer = null;
 function hidePlaylist()
 {
-    var elmt = document.getElementById("more");
-    if (elmt)
-        elmt.addClassName("hidden");
-    hideTimer = null;
+    var name = "show-playlist";
+    document.getElementById("more").removeClassName("visible");
+    document.body.removeClassName(name);
 }
+
+function showPlaylist()
+{
+    var name = "show-playlist";
+    document.getElementById("more").addClassName("visible");
+    document.body.addClassName(name);
+}
+
 function onKeyDown(event)
 {
-    
-    var elmt = document.getElementById("more");
-    elmt.removeClassName("hidden");
-    
-    if (hideTimer)
-        window.clearTimeout(hideTimer);
+    showPlaylist();
     
     var handled = window.windowController.navigationController.currentView.keyDown(event);
     switch (event.keyCode) {
