@@ -54,8 +54,13 @@
 
 - (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItem:(NSCollectionViewItem *)item
 {
-    [[VLCDocumentController sharedDocumentController] makeDocumentWithObject:[item representedObject]];
-    [[self window] resignMainWindow];
+    VLCDocumentController *controller = [VLCDocumentController sharedDocumentController];
+    if (collectionView == _mediaDiscoverCollection)
+        [controller makeDocumentWithObject:[item representedObject]];
+    else {
+        NSURL *url = [NSURL URLWithString:[[item representedObject] objectForKey:@"url"]];
+        [controller openDocumentWithContentsOfURL:url display:YES error:nil];
+    }
 }
 
 - (IBAction)openSelectedMediaDiscoverer:(id)sender

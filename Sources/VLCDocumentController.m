@@ -184,4 +184,32 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     return NO;
 }
 
+/**
+ * Remember a movie that wasn't finished
+ */
+
+- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position withRemainingTime:(VLCTime *)remainingTime
+{
+    NSString *fileName = [[media url] lastPathComponent];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *unfinishedMovies = [NSMutableDictionary dictionaryWithDictionary:[defaults dictionaryForKey:@"UnfinishedMovies"]];
+    NSMutableDictionary *thisMovie = [unfinishedMovies objectForKey:fileName];
+    if (position > 0.99) {
+        if (thisMovie)
+            [unfinishedMovies removeObjectForKey:fileName];
+    }
+    else {
+        NSNumber *oldtime = [thisMovie objectForKey:@"remainingTime"];
+        if (!oldtime || [oldtime intValue] > [remainingTime intValue]) {
+            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
+             [[media url] absoluteString], @"url",
+             [NSNumber numberWithDouble:position], @"position",
+             [remainingTime numberValue], @"remainingTime",
+             nil];
+            [unfinishedMovies setObject:dict forKey:fileName];
+        }
+    }
+    [defaults setObject:unfinishedMovies forKey:@"UnfinishedMovies"];
+}
+
 @end

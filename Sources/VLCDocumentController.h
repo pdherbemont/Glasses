@@ -20,8 +20,10 @@
  *****************************************************************************/
 
 #import <Cocoa/Cocoa.h>
+#import <VLCKit/VLCKit.h>
 
 @class VLCSplashScreenWindowController;
+
 @interface VLCDocumentController : NSDocumentController {
     VLCSplashScreenWindowController *_splashScreen;
     IBOutlet NSMenuItem *_styleMenu;
@@ -32,6 +34,8 @@
 - (void)makeDocumentWithObject:(id)object;
 - (void)openLibraryFromMenuItem:(id)sender;
 - (IBAction)saveVideoSnapshot:(id)sender;
+
+- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position withRemainingTime:(VLCTime *)time;
 
 @property (readonly) BOOL openDocuments;
 @end

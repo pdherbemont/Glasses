@@ -120,6 +120,8 @@
 		635D112C104A846400D34A87 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112B104A846400D34A87 /* PreferencesWindow.xib */; };
 		635D112E104A847300D34A87 /* PlaylistDebugWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */; };
 		635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */; };
+		635F0F7B10CC63DC006EC30E /* VLCValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */; };
+		635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */; };
 		6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */; };
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
 		639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
@@ -401,6 +403,10 @@
 		635D1125104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/OpenURLWindow.xib; sourceTree = "<group>"; };
 		635D1126104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
 		635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaylistDebugWindow.xib; path = Resources/PlaylistDebugWindow.xib; sourceTree = "<group>"; };
+		635F0F7910CC63DC006EC30E /* VLCValueTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCValueTransformers.h; path = Sources/VLCValueTransformers.h; sourceTree = "<group>"; };
+		635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCValueTransformers.m; path = Sources/VLCValueTransformers.m; sourceTree = "<group>"; };
+		635F109110CC7E29006EC30E /* VLCPlayedProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayedProgressIndicator.h; path = Sources/VLCPlayedProgressIndicator.h; sourceTree = "<group>"; };
+		635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayedProgressIndicator.m; path = Sources/VLCPlayedProgressIndicator.m; sourceTree = "<group>"; };
 		6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMHTMLElement_Additions.h; path = Sources/DOMHTMLElement_Additions.h; sourceTree = "<group>"; };
 		6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DOMHTMLElement_Additions.m; path = Sources/DOMHTMLElement_Additions.m; sourceTree = "<group>"; };
 		639F647C1046BDEF00117832 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
@@ -910,6 +916,10 @@
 				CCABEBA7107FD06B004A471E /* AppleRemote.m */,
 				63161B1110CAADDF0091974E /* VLCCollectionView.h */,
 				63161B1210CAADDF0091974E /* VLCCollectionView.m */,
+				635F0F7910CC63DC006EC30E /* VLCValueTransformers.h */,
+				635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */,
+				635F109110CC7E29006EC30E /* VLCPlayedProgressIndicator.h */,
+				635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1243,6 +1253,8 @@
 				631AF8291095DAA900F8ED1A /* VLCWebBindingsController.m in Sources */,
 				6312758B10C5F0D000A01F33 /* VLCExportStatusWindowController.m in Sources */,
 				63161B1310CAADDF0091974E /* VLCCollectionView.m in Sources */,
+				635F0F7B10CC63DC006EC30E /* VLCValueTransformers.m in Sources */,
+				635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

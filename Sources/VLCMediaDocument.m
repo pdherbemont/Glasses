@@ -24,6 +24,7 @@
 #import "VLCVideoWindowController.h"
 #import "VLCPlaylistDebugWindowController.h"
 #import "VLCExportStatusWindowController.h"
+#import "VLCDocumentController.h"
 
 @interface VLCMediaDocument ()
 @property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;
@@ -66,7 +67,17 @@
 - (void)close
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+    BOOL seekable = [mediaPlayer isSeekable];
+    double position = [mediaPlayer position];
+    VLCTime *remainingTime = [mediaPlayer remainingTime];
+
     [_mediaListPlayer stop];
+
+    if (_media && seekable) {
+        VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
+        [documentController media:_media wasClosedAtPosition:position withRemainingTime:remainingTime];
+    }
     [_mediaListPlayer.mediaPlayer setDelegate:nil];
     self.mediaListPlayer = nil;
     [super close];
