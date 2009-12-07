@@ -247,8 +247,12 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     _animation2 = createFadeAnimation([self _windowToHide], FadeIn);
 
     NSWindow *windowToHide = [self _windowToHide];
+
+    [_fullscreenWindow makeKeyAndOrderFront:nil];
     [windowToHide orderWindow:NSWindowBelow relativeTo:[_fullscreenWindow windowNumber]];
     [windowToHide makeMainWindow];
+    [windowToHide makeKeyWindow];
+
 
     [_animation2 setDelegate:self];
     [_animation2 startWhenAnimation:_animation1 reachesProgress:1.0];
