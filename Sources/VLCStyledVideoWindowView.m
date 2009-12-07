@@ -44,15 +44,19 @@
 
 - (void)close
 {
-    [_bindings clearBindings];
+    [_bindings clearBindingsAndObservers];
     [_bindings release];
     _bindings = nil;
+    
 #if SUPPORT_VIDEO_BELOW_CONTENT
     [self _removeBelowWindow];
 #endif
-    [self removeTrackingArea:_contentTracking];
-    [_contentTracking release];
-    _contentTracking = nil;
+    if (_contentTracking) {
+        [self removeTrackingArea:_contentTracking];
+        [_contentTracking release];
+        _contentTracking = nil;        
+    }
+
     [super close];
 }
 
@@ -68,7 +72,7 @@
     // Clear the below window here.
     [self _removeBelowWindow];
 #endif
-    [_bindings clearBindings];
+    [_bindings clearBindingsAndObservers];
     [_bindings release];
     _bindings = [[VLCWebBindingsController alloc] init];
     [super setup];

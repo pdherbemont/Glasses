@@ -84,6 +84,9 @@
 
 - (void)close
 {
+    [_styledWindowView close];
+    // Detach ourselves from the fullscreen controller which may be still running on its own.
+    _fullscreenController.delegate = nil;
     [_fullscreenController release];
     _fullscreenController = nil;
     [super close];

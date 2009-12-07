@@ -34,7 +34,7 @@
 
 - (void)close
 {
-    [_bindings clearBindings];
+    [_bindings clearBindingsAndObservers];
     [_bindings release];
     _bindings = nil;
     [super close];
@@ -42,7 +42,7 @@
 
 - (void)setup
 {
-    [_bindings clearBindings];
+    [_bindings clearBindingsAndObservers];
     [_bindings release];
     _bindings = [[VLCWebBindingsController alloc] init];
     [super setup];

@@ -24,7 +24,9 @@
 
 - (void)dealloc
 {
+    NSAssert([_bindings anyObject] == nil, @"Bindings should be empty");
     [_bindings release];
+    NSAssert([_observers anyObject] == nil, @"Observers should be empty");
     [_observers release];
     [super dealloc];
 }
@@ -43,7 +45,7 @@
     return set;
 }
 
-- (NSSet *)observerDictForObserver:(WebScriptObject *)observer withObject:(id)object andKeypath:(NSString *)keyPath
+- (NSDictionary *)observerDictForObserver:(WebScriptObject *)observer withObject:(id)object andKeypath:(NSString *)keyPath
 {
     for (NSDictionary *dict in _observers) {
         if ([[dict objectForKey:@"object"] isEqual:object] &&
@@ -83,7 +85,6 @@
 
         switch (kind) {
             case NSKeyValueChangeSetting:
-                NSLog(@"NSKeyValueChangeSetting %@ %@", old, new);
                 [observer callWebScriptMethod:@"removeAllInsertedCocoaObjects" withArguments:[NSArray array]];
                 NSAssert([new isKindOfClass:[NSArray class]], @"Only support array");
                 for (NSUInteger i = 0; i < [new count]; i++) {
@@ -104,7 +105,6 @@
                 }                
                 break;
             case NSKeyValueChangeRemoval:
-                NSLog(@"Removing %@", old);
                 for (NSUInteger i = 0; i < [setAsArray count]; i++)
                     [observer callWebScriptMethod:@"removeCocoaObjectAtIndex" withArguments:[NSArray arrayWithObject:[setAsArray objectAtIndex:i]]];
                 break;
@@ -117,6 +117,15 @@
         
     }
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+- (void)_removeObserverWithDict:(NSDictionary *)dict
+{
+    id object = [dict objectForKey:@"object"];
+    NSString *keyPath = [dict objectForKey:@"keyPath"];
+        
+    [object removeObserver:self forKeyPath:keyPath];
+    [_observers removeObject:dict];
 }
 
 #pragma mark -
@@ -134,12 +143,9 @@
 
 - (void)unobserve:(id)object withKeyPath:(NSString *)keyPath observer:(WebScriptObject *)observer
 {
-    NSDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                          observer, @"observer",
-                          object, @"object",
-                          keyPath, @"keyPath", nil];
-    [_observers addObject:dict];
-    [object removeObserver:self forKeyPath:keyPath];
+    NSDictionary *dict = [self observerDictForObserver:observer withObject:object andKeypath:keyPath];
+    NSAssert(dict, @"No registered observer");
+    [self _removeObserverWithDict:dict];
 }
 
 #pragma mark -
@@ -209,8 +215,6 @@
 {
     NSAssert(![self bindingForDOMObject:domObject property:property], ([NSString stringWithFormat:@"Binding of %@.%@ already exists", domObject, property]));
 
-    //[domObject setValue:[ forKey:property];
-
     NSDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:domObject, @"domObject", property, @"property", keyPath, @"keyPath", object, @"object", nil];
     [_bindings addObject:dict];
     if ([domObject isKindOfClass:[DOMNode class]]) {
@@ -228,11 +232,13 @@
     [self _removeBindingWithDict:dict];
 }
 
-- (void)clearBindings
+- (void)clearBindingsAndObservers
 {
     NSDictionary *dict;
     while ((dict = [_bindings anyObject]))
         [self _removeBindingWithDict:dict];
+    while ((dict = [_observers anyObject]))
+        [self _removeObserverWithDict:dict];
 }
 
 @end

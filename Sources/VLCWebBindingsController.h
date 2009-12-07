@@ -16,9 +16,9 @@
 
 - (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toObject:(id)object withKeyPath:(NSString *)keyPath;
 - (void)unbindDOMObject:(DOMObject *)domObject property:(NSString *)property;
-- (void)clearBindings;
 
 - (void)observe:(id)object withKeyPath:(NSString *)keyPath observer:(WebScriptObject *)observer;
 - (void)unobserve:(id)object withKeyPath:(NSString *)keyPath observer:(WebScriptObject *)observer;
 
+- (void)clearBindingsAndObservers;
 @end

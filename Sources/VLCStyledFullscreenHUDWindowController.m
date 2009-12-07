@@ -43,6 +43,12 @@
     [_styledWindowView bind:@"sublistCount" toObject:self withKeyPath:@"document.mediaListPlayer.rootMedia.subitems.media.@count" options:options];
 }
 
+- (void)close
+{
+    [_styledWindowView close];
+    [super close];
+}
+
 #pragma mark -
 #pragma mark VLCFullscreenHUD protocol
 

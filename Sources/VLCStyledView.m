@@ -67,6 +67,12 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     [[self mainFrame] loadHTMLString:content baseURL:url];
 }
 
+- (void)close
+{
+    self.isFrameLoaded = NO;
+    [super close];
+}
+
 - (VLCMediaPlayer *)mediaPlayer
 {
     return [[[[self window] windowController] document] mediaListPlayer].mediaPlayer;

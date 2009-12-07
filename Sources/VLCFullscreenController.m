@@ -223,11 +223,16 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     // We are already exiting fullscreen
     if (!_fullscreen)
         return;
+
     self.fullscreen = NO;
 
     [_hud fullscreenControllerWillLeaveFullscreen:self];
 
     NSAssert(_fullscreenWindow, @"There should be a fullscreen Window at this time");
+
+    // This might happen if we quickly exit fullscreen and release us.
+    // Balanced in -fullscreenDidEnd
+    [self retain];
     
     if (fadeout) {
         CGDisplayFadeReservationToken token = fadeScreens();
@@ -257,10 +262,6 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     [_animation2 setDelegate:self];
     [_animation2 startWhenAnimation:_animation1 reachesProgress:1.0];
     [_animation1 startAnimation];
-
-    // This might happen if we quickly exit fullscreen and release us.
-    // Balanced in -fullscreenDidEnd
-    [self retain];
 }
 
 - (void)leaveFullscreen
