@@ -58,6 +58,8 @@ const int REMOTE_SWITCH_COOKIE=19;
 const NSTimeInterval DEFAULT_MAXIMUM_CLICK_TIME_DIFFERENCE=0.35;
 const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 
+#define Log(...)
+
 @implementation AppleRemote
 
 - (id) init {
@@ -70,7 +72,7 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
         if( NSAppKitVersionNumber < 1038.13 )
         {
             /* Leopard and early Snow Leopard Cookies */
-            NSLog( @"using Leopard AR cookies" );
+            Log( @"using Leopard AR cookies" );
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonVolume_Plus]  forKey:@"31_29_28_18_"];
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonVolume_Minus] forKey:@"31_30_28_18_"];
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu]         forKey:@"31_20_18_31_20_18_"];
@@ -86,7 +88,7 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
         else
         {
             /* current Snow Leopard cookies */
-            NSLog( @"using Snow Leopard AR cookies" );
+            Log( @"using Snow Leopard AR cookies" );
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonVolume_Plus]  forKey:@"33_31_30_21_20_2_"];
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonVolume_Minus] forKey:@"33_32_30_21_20_2_"];
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu]         forKey:@"33_22_21_20_2_33_22_21_20_2_"];
@@ -442,7 +444,7 @@ static AppleRemote* sharedInstance=nil;
     /*
     if (previousRemainingCookieString) {
         cookieString = [previousRemainingCookieString stringByAppendingString: cookieString];
-        NSLog(@"New cookie string is %@", cookieString);
+        Log(@"New cookie string is %@", cookieString);
         [previousRemainingCookieString release], previousRemainingCookieString=nil;
     }*/
     if (cookieString == nil || [cookieString length] == 0) return;
@@ -463,11 +465,11 @@ static AppleRemote* sharedInstance=nil;
             // process the last event of the backlog and assume that the button is not pressed down any longer.
             // The events in the backlog do not seem to be in order and therefore (in rare cases) the last event might be
             // a button pressed down event while in reality the user has released it.
-            // NSLog(@"processing last event of backlog");
+            // Log(@"processing last event of backlog");
             [self handleEventWithCookieString: lastSubCookieString sumOfValues:0];
         }
         if ([cookieString length] > 0) {
-            NSLog( @"Warning: Unknown AR button for cookiestring %@", cookieString );
+            Log( @"Warning: Unknown AR button for cookiestring %@", cookieString );
         }
     }
 }
@@ -519,10 +521,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 
     ioReturnValue = IOObjectGetClass(hidDevice, className);
 
-    if (ioReturnValue != kIOReturnSuccess) {
-        NSLog( @"Error: Failed to get IOKit class name.");
-        return NULL;
-    }
+    NSAssert(ioReturnValue == kIOReturnSuccess, @"Error: Failed to get IOKit class name.");
 
     ioReturnValue = IOCreatePlugInInterfaceForService(hidDevice,
                                                       kIOHIDDeviceUserClientTypeID,
@@ -534,9 +533,8 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
         //Call a method of the intermediate plug-in to create the device interface
         plugInResult = (*plugInInterface)->QueryInterface(plugInInterface, CFUUIDGetUUIDBytes(kIOHIDDeviceInterfaceID), (LPVOID) &hidDeviceInterface);
 
-        if (plugInResult != S_OK) {
-            NSLog( @"Error: Couldn't create HID class device interface");
-        }
+        NSAssert(plugInResult == S_OK, @"Error: Couldn't create HID class device interface");
+
         // Release
         if (plugInInterface) (*plugInInterface)->Release(plugInInterface);
     }
@@ -627,38 +625,32 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
     if ([self isOpenInExclusiveMode]) openMode = kIOHIDOptionsTypeSeizeDevice;
     IOReturn ioReturnValue = (*hidDeviceInterface)->open(hidDeviceInterface, openMode);
 
-    if (ioReturnValue == KERN_SUCCESS) {
-        queue = (*hidDeviceInterface)->allocQueue(hidDeviceInterface);
-        if (queue) {
-            result = (*queue)->create(queue, 0, 12);    //depth: maximum number of elements in queue before oldest elements in queue begin to be lost.
-            NSAssert(result == kIOReturnSuccess, @"Can't init the remote");
-
-            unsigned int i=0;
-            for(i=0; i<[allCookies count]; i++) {
-                IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] intValue];
-                (*queue)->addElement(queue, cookie, 0);
-            }
-
-            // add callback for async events
-            ioReturnValue = (*queue)->createAsyncEventSource(queue, &eventSource);
-            if (ioReturnValue == KERN_SUCCESS) {
-                ioReturnValue = (*queue)->setEventCallout(queue,QueueCallbackFunction, self, NULL);
-                if (ioReturnValue == KERN_SUCCESS) {
-                    CFRunLoopAddSource(CFRunLoopGetCurrent(), eventSource, kCFRunLoopDefaultMode);
-                    //start data delivery to queue
-                    (*queue)->start(queue);
-                    return YES;
-                } else {
-                    NSLog(@"Error when setting event callout");
-                }
-            } else {
-                NSLog(@"Error when creating async event source");
-            }
-        } else {
-            NSLog(@"Error when opening HUD device");
-        }
+    if (ioReturnValue != KERN_SUCCESS) {
+        NSLog(@"Can't open the Remote Control");
+        return FALSE;
     }
-    return NO;
+    //NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when opening HUD device");
+    
+    queue = (*hidDeviceInterface)->allocQueue(hidDeviceInterface);
+    NSAssert(queue, @"Error when creating async event source");
+    result = (*queue)->create(queue, 0, 12);    //depth: maximum number of elements in queue before oldest elements in queue begin to be lost.
+    NSAssert(result == kIOReturnSuccess, @"Can't init the remote");
+    
+    unsigned int i=0;
+    for(i=0; i<[allCookies count]; i++) {
+        IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] intValue];
+        (*queue)->addElement(queue, cookie, 0);
+    }
+    
+    // add callback for async events
+    ioReturnValue = (*queue)->createAsyncEventSource(queue, &eventSource);
+    NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when creating async event source");
+    ioReturnValue = (*queue)->setEventCallout(queue,QueueCallbackFunction, self, NULL);
+    NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when setting event callout");
+    CFRunLoopAddSource(CFRunLoopGetCurrent(), eventSource, kCFRunLoopDefaultMode);
+    //start data delivery to queue
+    (*queue)->start(queue);
+    return YES;
 }
 
 @end
