@@ -24,6 +24,7 @@
 #import "VLCApplication.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCMediaDocument.h"
+#import "VLCDocumentController.h"
 #import <IOKit/hidsystem/ev_keymap.h>         /* for the media key support */
 
 /*****************************************************************************
@@ -69,66 +70,6 @@
     [_remote stopListening:self];
     [_remote release];
     [super dealloc];
-}
-
-- (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification
-{
-    BOOL hasResignedActive = [[notification name] isEqualToString:@"NSApplicationWillResignActiveNotification"];
-    if ((hasResignedActive && !_isActiveInBackground ) || !_hasMediaKeySupport)
-        _isActive = NO;
-    else
-        _isActive = YES;
-}
-
-- (void)coreChangedMediaKeySupportSetting:(NSNotification *)notification
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _isActive = _hasMediaKeySupport = [defaults boolForKey:@"ControlWithMediaKeys"];
-    _isActiveInBackground = [defaults boolForKey:@"ControlWithMediaKeysInBackground"];
-    if ([defaults boolForKey:@"ControlWithHIDRemote"])
-        [_remote startListening:self];
-    else
-        [_remote stopListening:self];
-}
-
-
-- (void)sendEvent:(NSEvent*)event
-{
-    if (_isActive) {
-        if ([event type] == NSSystemDefined && [event subtype] == 8) {
-            int keyCode =  ([event data1] & 0xFFFF0000) >> 16;
-            int keyFlags = [event data1] & 0x0000FFFF;
-            int keyState = ((keyFlags & 0xFF00) >> 8) == 0xA;
-            int keyRepeat = keyFlags & 0x1;
-
-            VLCMediaPlayer *mediaPlayer = [[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer];
-        
-            if (keyCode == NX_KEYTYPE_PLAY && keyState == 0 && [mediaPlayer canPause])
-                [mediaPlayer pause];
- 
-            if (keyCode == NX_KEYTYPE_FAST && !_hasJustJumped) {
-                if (keyRepeat == 1) {
-                    [mediaPlayer shortJumpForward];
-                    _hasJustJumped = YES;
-                    [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.25];
-                }
-            }
-            
-            if (keyCode == NX_KEYTYPE_REWIND && !_hasJustJumped) {
-                if (keyRepeat == 1) {
-                    [mediaPlayer shortJumpBackward];
-                    _hasJustJumped = YES;
-                    [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.25];
-                }
-            }
-        }
-    }
-    [super sendEvent:event];
-}
-
-- (void)resetJump
-{
-    _hasJustJumped = NO;
 }
 
 #pragma mark -
@@ -207,6 +148,70 @@
     if (!ret)
         NSBeep();
 }
+
+- (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification
+{
+    BOOL hasResignedActive = [[notification name] isEqualToString:@"NSApplicationWillResignActiveNotification"];
+    if ((hasResignedActive && !_isActiveInBackground ) || !_hasMediaKeySupport)
+        _isActive = NO;
+    else
+        _isActive = YES;
+}
+
+- (void)coreChangedMediaKeySupportSetting:(NSNotification *)notification
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _isActive = _hasMediaKeySupport = [defaults boolForKey:@"ControlWithMediaKeys"];
+    _isActiveInBackground = [defaults boolForKey:@"ControlWithMediaKeysInBackground"];
+    if ([defaults boolForKey:@"ControlWithHIDRemote"])
+        [_remote startListening:self];
+    else
+        [_remote stopListening:self];
+}
+
+
+- (void)sendEvent:(NSEvent*)event
+{
+    if (_isActive) {
+        if ([event type] == NSSystemDefined && [event subtype] == 8) {
+            int keyCode =  ([event data1] & 0xFFFF0000) >> 16;
+            int keyFlags = [event data1] & 0x0000FFFF;
+            int keyState = ((keyFlags & 0xFF00) >> 8) == 0xA;
+            int keyRepeat = keyFlags & 0x1;
+            
+            VLCMediaPlayer *mediaPlayer = [[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer];
+            
+            if (keyCode == NX_KEYTYPE_PLAY && keyState == 0 && [mediaPlayer canPause])
+                [mediaPlayer pause];
+            
+            if (keyCode == NX_KEYTYPE_FAST && !_hasJustJumped) {
+                if (keyRepeat == 1) {
+                    [mediaPlayer shortJumpForward];
+                    _hasJustJumped = YES;
+                    [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.25];
+                }
+            }
+            
+            if (keyCode == NX_KEYTYPE_REWIND && !_hasJustJumped) {
+                if (keyRepeat == 1) {
+                    [mediaPlayer shortJumpBackward];
+                    _hasJustJumped = YES;
+                    [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.25];
+                }
+            }
+        }
+    }
+    [super sendEvent:event];
+}
+
+- (void)resetJump
+{
+    _hasJustJumped = NO;
+}
+
+#pragma mark -
+#pragma mark IB Action
+
 
 - (IBAction)reportBug:(id)sender
 {
