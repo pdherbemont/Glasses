@@ -132,3 +132,41 @@
 }
 
 @end
+
+@implementation VLCStringToURL
+
++ (void)load
+{
+    id transformer = [[self alloc] init];
+    [NSValueTransformer setValueTransformer:transformer forName:@"StringToURL"];
+    [transformer release];
+}
+
++ (Class)transformedValueClass
+{
+    return [NSString class];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+    return YES;
+}
+
+- (id)transformedValue:(id)value
+{
+    if (!value)
+        return nil;
+    
+    return [NSURL fileURLWithPath:value];
+}
+
+- (id)reverseTransformedValue:(id)value
+{
+    if (!value)
+        return nil;
+    
+    return [value absoluteURL];
+}
+
+@end
+

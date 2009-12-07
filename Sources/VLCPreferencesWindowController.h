@@ -32,9 +32,7 @@
     NSView *_currentView;
 }
 
-- (void)syncSettings;
 - (void)setView: (id)newView;
-- (IBAction)buttonAction:(id)sender;
 - (IBAction)toolbarAction: (id)sender;
 
 @end

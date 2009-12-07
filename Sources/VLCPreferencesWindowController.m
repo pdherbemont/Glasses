@@ -28,8 +28,9 @@
 
 - (void)awakeFromNib
 {
-    [[SUUpdater sharedUpdater] setDelegate: self];
-    [self syncSettings];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults stringForKey:@"SelectedSnapshotFolder"])
+        [defaults setObject:[@"~/Desktop" stringByExpandingTildeInPath] forKey:@"SelectedSnapshotFolder"];
 }
 
 - (NSString *)windowNibName
@@ -39,57 +40,27 @@
 
 - (void)dealloc
 {
-    if (_currentView) {
-        [_currentView release];
-    }
+    NSAssert(!_currentView, @"This should have been released");
     [super dealloc];
 }
 
-- (void)syncSettings
+- (void)windowDidLoad
 {
-    SUUpdater *updater = [SUUpdater sharedUpdater];
-    NSDate *lastUpdateCheckDate = [[SUUpdater sharedUpdater] lastUpdateCheckDate];
-    NSString *string;
-    if (lastUpdateCheckDate) {
-        NSString *date = [lastUpdateCheckDate descriptionWithLocale:[NSLocale currentLocale]];
-        string = [NSString stringWithFormat: @"Last check on: %@", date];
-    } else
-        string = @"No check was performed yet.";
-    [_lastCheckForUpdateText setStringValue:string];
-    [_checkForUpdatesCheckBox setIntValue:[updater automaticallyChecksForUpdates]];
-    if (!_currentView) {
-        /* this is only performed on the first display of this window */
-        [[self window] setTitle:@"General"];
-        [self setView: _generalSettingsView];
-        [[[[[self window] toolbar] items] objectAtIndex: 0] setImage: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
-        [[[[[self window] toolbar] items] objectAtIndex: 1] setImage: [NSImage imageNamed: NSImageNameSlideshowTemplate]];
-        [[[self window] toolbar] setSelectedItemIdentifier: @"general"];
-    }
-    if ([[NSUserDefaults standardUserDefaults] stringForKey: @"SelectedSnapshotFolder"])
-        [_snapshotPathSelector setURL:[NSURL fileURLWithPath:[[[NSUserDefaults standardUserDefaults] stringForKey:@"SelectedSnapshotFolder"] stringByExpandingTildeInPath]]];
-    else
-        [_snapshotPathSelector setURL: [NSURL fileURLWithPath: [@"~/Desktop" stringByExpandingTildeInPath]]];
+    [super windowDidLoad];
+    [self setView:_generalSettingsView];
+    NSWindow *window = [self window];
+    NSArray *items = [[window toolbar] items];
+
+    // FIXME - seems to be a bug, it doesn't work from the preferences
+    [[items objectAtIndex: 0] setImage: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
+    [[items objectAtIndex: 1] setImage: [NSImage imageNamed: NSImageNameSlideshowTemplate]];
+
+    [window center];
 }
 
-- (void)updater:(SUUpdater *)updater didFinishLoadingAppcast:(SUAppcast *)appcast
+- (SUUpdater *)updater
 {
-    if ([[self window] isVisible])
-        [self syncSettings];
-}
-
-- (IBAction)showWindow: (id)sender
-{
-    [self syncSettings];
-    [[self window] center];
-    [[self window] makeKeyAndOrderFront: nil];
-}
-
-- (IBAction)buttonAction: (id)sender
-{
-    /* FIXME: this is ugly! However, using KVC with Sparkle will result in a crash on app launch */
-    [[SUUpdater sharedUpdater] setAutomaticallyChecksForUpdates: [_checkForUpdatesCheckBox intValue]];
-    /* saving URLs with KVC is impossible within IB, so let's do it this way... */
-    [[NSUserDefaults standardUserDefaults] setObject: [[_snapshotPathSelector URL] path] forKey: @"SelectedSnapshotFolder"];
+    return [SUUpdater sharedUpdater];
 }
 
 - (IBAction)toolbarAction: (id)sender
@@ -105,10 +76,12 @@
 
 }
 
-- (void)setView: (id)newView
+- (void)setView:(id)newView
 {
     NSRect windowRect, viewRect, oldViewRect;
-    windowRect = [[self window] frame];
+    NSWindow *window = [self window];
+
+    windowRect = [window frame];
     viewRect = [newView frame];
 
     if (_currentView != nil) {
@@ -123,18 +96,14 @@
 
     windowRect.size.height = viewRect.size.height + 78; // + toolbar height...
 
-    [[self window] displayIfNeeded];
-    [[self window] setFrame: windowRect display:YES animate: YES];
+    [window displayIfNeeded];
+    [window setFrame: windowRect display:YES animate: YES];
 
     [newView setFrame: NSMakeRect( 0, 0, viewRect.size.width, viewRect.size.height )];
     [newView setNeedsDisplay: YES];
     [newView setAutoresizesSubviews: YES];
-    [[[self window] contentView] addSubview: newView];
-
-    /* keep our current view for future reference */
-    [_currentView release];
+    [[window contentView] addSubview: newView];
     _currentView = newView;
-    [_currentView retain];
 }
 
 @end

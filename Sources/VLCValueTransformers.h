@@ -16,3 +16,6 @@
 
 @interface VLCTimeAsNumberToPrettyTime : NSObject
 @end
+
+@interface VLCStringToURL : NSObject
+@end
