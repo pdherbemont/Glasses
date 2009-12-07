@@ -188,8 +188,8 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
             [unfinishedMovies removeObjectForKey:fileName];
     }
     else {
-        NSNumber *oldtime = [thisMovie objectForKey:@"remainingTime"];
-        if (!oldtime || [oldtime intValue] < [remainingTime intValue]) {
+        NSNumber *oldposition = [thisMovie objectForKey:@"position"];
+        if (!oldposition || position > [oldposition doubleValue]) {
             NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
              [[media url] absoluteString], @"url",
              [NSNumber numberWithDouble:position], @"position",
