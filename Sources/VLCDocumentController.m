@@ -165,29 +165,6 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     [[[[self currentDocument] mediaListPlayer] mediaPlayer] saveVideoSnapshotAt:[path stringByExpandingTildeInPath] withWidth:0 andHeight:0];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
-    [self rebuildStyleMenu];
-    [self rebuildOpenLibraryMenu];
-
-    // We have some document open already, don't bother to show the splashScreen.
-    if ([[self documents] count] > 0)
-        return;
-
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    static NSString *dontShowSplashScreenKey = @"DontShowSplashScreen";
-    if ([defaults boolForKey:dontShowSplashScreenKey])
-        return;
-
-    // auto-releases itself when the window is closed
-    _splashScreen = [[VLCSplashScreenWindowController alloc] init];
-    [[_splashScreen window] makeKeyAndOrderFront:self];
-    [_splashScreen setShouldCloseDocument:NO];
-
-    // The _splashScreen will autorelease itself when done, forget about the reference now.
-    _splashScreen = nil;
-}
-
 /* this is needed to enable some main menu items with KVC */
 - (BOOL)openDocuments
 {
@@ -212,7 +189,7 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     }
     else {
         NSNumber *oldtime = [thisMovie objectForKey:@"remainingTime"];
-        if (!oldtime || [oldtime intValue] > [remainingTime intValue]) {
+        if (!oldtime || [oldtime intValue] < [remainingTime intValue]) {
             NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
              [[media url] absoluteString], @"url",
              [NSNumber numberWithDouble:position], @"position",
@@ -222,6 +199,32 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
         }
     }
     [defaults setObject:unfinishedMovies forKey:@"UnfinishedMovies"];
+}
+
+#pragma mark -
+#pragma mark NSApp delegate
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    [self rebuildStyleMenu];
+    [self rebuildOpenLibraryMenu];
+    
+    // We have some document open already, don't bother to show the splashScreen.
+    if ([[self documents] count] > 0)
+        return;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    static NSString *dontShowSplashScreenKey = @"DontShowSplashScreen";
+    if ([defaults boolForKey:dontShowSplashScreenKey])
+        return;
+    
+    // auto-releases itself when the window is closed
+    _splashScreen = [[VLCSplashScreenWindowController alloc] init];
+    [[_splashScreen window] makeKeyAndOrderFront:self];
+    [_splashScreen setShouldCloseDocument:NO];
+    
+    // The _splashScreen will autorelease itself when done, forget about the reference now.
+    _splashScreen = nil;
 }
 
 @end

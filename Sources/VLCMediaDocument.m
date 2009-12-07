@@ -28,6 +28,8 @@
 
 @interface VLCMediaDocument ()
 @property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;
+- (void)startToRememberMediaPosition;
+- (void)stopRememberMediaPosition;
 @end
 
 @implementation VLCMediaDocument
@@ -63,6 +65,8 @@
 
 - (void)dealloc
 {
+    NSAssert(!_rememberTimer, @"This timer should be closed");
+
     [_name release];
 	[_media release];
 	[_mediaList release];
@@ -72,23 +76,46 @@
 	[super dealloc];
 }
 
-- (void)close
+/**
+ * This is also by VLCApplication, at app exit.
+ * FIXME: This probably need a reiteration.
+ */
+- (void)saveUnfinishedMovieState
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+
     BOOL seekable = [mediaPlayer isSeekable];
     double position = [mediaPlayer position];
     VLCTime *remainingTime = [mediaPlayer remainingTime];
+    VLCMedia *media = _media ? _media : mediaPlayer.media;
+
+    if (media && seekable) {
+        VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
+        [documentController media:media wasClosedAtPosition:position withRemainingTime:remainingTime];
+    }
+}
+
+- (void)close
+{
+    // Cocoa might call -close multiple time for each Window Controller, do -close only once.
+    if (_isClosed)
+        return;
+    _isClosed = YES;
+
+    [self stopRememberMediaPosition];
+    [self saveUnfinishedMovieState];
 
     [_mediaListPlayer stop];
-
-    if (_media && seekable) {
-        VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
-        [documentController media:_media wasClosedAtPosition:position withRemainingTime:remainingTime];
-    }
     [_mediaListPlayer.mediaPlayer setDelegate:nil];
-    self.mediaListPlayer = nil;
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+    // Make sure we remove the MediaListPlayer at the very last
+    // Because our window needs to be closed first.
+    // That's what [super close] does.
     [super close];
+
+    self.mediaListPlayer = nil;
 }
 
 - (NSString *)displayName
@@ -173,27 +200,52 @@
 }
 
 #pragma mark -
+#pragma mark Remember current playing state
+
+// To support sudden termination to save the last playing position
+// we setup a timer during playback that will fire and save the current playing
+// position.
+// The other cool benefit is that we resist to crash. This makes an other
+// IO every now and then. But this is low, and we hope the system will cache it.
+- (void)startToRememberMediaPosition
+{
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DontRememberMediaPosition"])
+        return;
+    static const NSTimeInterval mediaPositionPollingInterval = 10.0;
+    _rememberTimer = [[NSTimer timerWithTimeInterval:mediaPositionPollingInterval target:self selector:@selector(saveUnfinishedMovieState) userInfo:nil repeats:YES] retain];
+    [[NSRunLoop mainRunLoop] addTimer:_rememberTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)stopRememberMediaPosition
+{
+    [_rememberTimer invalidate];
+    [_rememberTimer release];
+    _rememberTimer = nil;
+}
+
+
+#pragma mark -
 #pragma mark VLCMediaPlayer delegate
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
 {
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
     VLCMediaPlayerState state = [mediaPlayer state];
-    switch (state) {
-        case VLCMediaPlayerStateError:
-        {
-            // we've got an error here, unknown button set to display
-            NSAlert *alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil
-                                 informativeTextWithFormat:@"An unknown error occured when playing %@", [[mediaPlayer media] url]];
-            [alert runModal];
-            //[self close];
-            break;            
-        }
-        case VLCMediaPlayerStatePlaying:
-        default:
-            break;
+    if (state == VLCMediaPlayerStateError) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil
+                             informativeTextWithFormat:@"An unknown error occured when playing %@", [[mediaPlayer media] url]];
+        [alert runModal];
+        
+    }
+
+    if (state == VLCMediaPlayerStatePlaying)
+        [self startToRememberMediaPosition];
+    else {
+        [self stopRememberMediaPosition];
+        [self saveUnfinishedMovieState];
     }
 }
+             
 
 #pragma mark -
 #pragma mark First responder

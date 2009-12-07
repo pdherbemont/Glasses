@@ -30,6 +30,8 @@
 	VLCMediaListPlayer *_mediaListPlayer;
     NSString *_name;
     double _startingPosition;
+    BOOL _isClosed;
+    NSTimer *_rememberTimer;
 }
 
 - (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name;
@@ -37,4 +39,5 @@
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
 
+- (void)saveUnfinishedMovieState;
 @end
