@@ -194,7 +194,17 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     if ([ret isKindOfClass:[NSNumber class]] && [ret boolValue])
         return; // Event was handled with success.
 
-    // FIXME continue the responder chain to send the event.
+    // try to emulate what [NSApp sendAction:] does, ie reach NSDocument.
+    BOOL success = [[self nextResponder] tryToPerform:sel with:nil];
+    if (!success) {
+        id document = [[[self window] windowController] document];
+        if ([document respondsToSelector:sel]) {
+            [document performSelector:sel withObject:nil];
+            success = YES;
+        }
+    }
+    if (!success)
+        NSBeep();
 }
 
 - (void)remoteMiddleButtonPressed:(id)sender
