@@ -29,9 +29,11 @@
 	VLCMediaList *_mediaList;
 	VLCMediaListPlayer *_mediaListPlayer;
     NSString *_name;
+    double _startingPosition;
 }
 
 - (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name;
+- (id)initWithContentsOfURL:(NSURL *)absoluteURL andStartingPosition:(double)position;
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
 

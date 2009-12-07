@@ -39,7 +39,15 @@
 	if(!self)
         return nil;
     _media = [[VLCMedia mediaWithURL:absoluteURL] retain];
+	return self;
+}
 
+- (id)initWithContentsOfURL:(NSURL *)absoluteURL andStartingPosition:(double)position
+{
+    self = [self initWithContentsOfURL:absoluteURL ofType:(NSString *)kUTTypeMovie error:nil];
+	if(!self)
+        return nil;
+    _startingPosition = position;
 	return self;
 }
 
@@ -115,6 +123,8 @@
     else
         [mediaListPlayer setMediaList:_mediaList];
     [mediaListPlayer play];
+
+    [mediaListPlayer.mediaPlayer setPosition:_startingPosition];
 
     [mediaListPlayer release];
 

@@ -122,12 +122,24 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     }
 }
 
-- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name
+- (void)bakeDocument:(VLCMediaDocument *)mediaDocument
 {
-    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:mediaList andName:name];
     [self addDocument:mediaDocument];
     [mediaDocument makeWindowControllers];
     [mediaDocument showWindows];
+}
+
+- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name
+{
+    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:mediaList andName:name];
+    [self bakeDocument:mediaDocument];
+    [mediaDocument release];    
+}
+
+- (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position
+{
+    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithContentsOfURL:url andStartingPosition:position];
+    [self bakeDocument:mediaDocument];
     [mediaDocument release];    
 }
 

@@ -58,8 +58,10 @@
     if (collectionView == _mediaDiscoverCollection)
         [controller makeDocumentWithObject:[item representedObject]];
     else {
-        NSURL *url = [NSURL URLWithString:[[item representedObject] objectForKey:@"url"]];
-        [controller openDocumentWithContentsOfURL:url display:YES error:nil];
+        id representedObject = [item representedObject];
+        NSURL *url = [NSURL URLWithString:[representedObject objectForKey:@"url"]];
+        double position = [[representedObject objectForKey:@"position"] doubleValue];
+        [controller makeDocumentWithURL:url andStartingPosition:position];
     }
 }
 

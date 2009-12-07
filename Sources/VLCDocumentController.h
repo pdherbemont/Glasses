@@ -32,6 +32,7 @@
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
 - (void)makeDocumentWithObject:(id)object;
+- (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position;
 - (void)openLibraryFromMenuItem:(id)sender;
 - (IBAction)saveVideoSnapshot:(id)sender;
 
