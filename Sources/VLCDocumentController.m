@@ -181,11 +181,19 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
 {
     NSString *fileName = [[media url] lastPathComponent];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *unfinishedMovies = [NSMutableDictionary dictionaryWithDictionary:[defaults dictionaryForKey:@"UnfinishedMovies"]];
-    NSMutableDictionary *thisMovie = [unfinishedMovies objectForKey:fileName];
+    NSMutableArray *unfinishedMovies = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"UnfinishedMoviesAsArray"]];
+    NSDictionary *thisMovie = nil;
+    for (NSDictionary *dict in unfinishedMovies)
+    {
+        if ([[[dict objectForKey:@"url"] lastPathComponent] isEqualToString:fileName]) {
+            thisMovie = [[dict retain] autorelease];
+            break;
+        }
+            
+    }
     if (position > 0.99) {
         if (thisMovie)
-            [unfinishedMovies removeObjectForKey:fileName];
+            [unfinishedMovies removeObject:thisMovie];
     }
     else {
         NSNumber *oldposition = [thisMovie objectForKey:@"position"];
@@ -195,10 +203,13 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
              [NSNumber numberWithDouble:position], @"position",
              [remainingTime numberValue], @"remainingTime",
              nil];
-            [unfinishedMovies setObject:dict forKey:fileName];
+            if (thisMovie)
+                [unfinishedMovies replaceObjectAtIndex:[unfinishedMovies indexOfObject:thisMovie] withObject:dict];
+            else
+                [unfinishedMovies insertObject:dict atIndex:0];
         }
     }
-    [defaults setObject:unfinishedMovies forKey:@"UnfinishedMovies"];
+    [defaults setObject:unfinishedMovies forKey:@"UnfinishedMoviesAsArray"];
 }
 
 #pragma mark -
