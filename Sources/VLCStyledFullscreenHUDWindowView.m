@@ -21,6 +21,7 @@
 #import <VLCKit/VLCKit.h>
 
 #import "VLCStyledFullscreenHUDWindowView.h"
+#import "VLCStyledFullscreenHUDWindowController.h"
 
 #import "VLCMediaDocument.h"
 

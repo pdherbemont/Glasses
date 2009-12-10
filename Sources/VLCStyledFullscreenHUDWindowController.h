@@ -28,4 +28,6 @@
 
     VLCFullscreenController *_fullscreenController; // Weak
 }
+
+- (void)leaveFullscreen;
 @end
