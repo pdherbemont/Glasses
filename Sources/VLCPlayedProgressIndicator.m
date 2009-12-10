@@ -22,7 +22,7 @@
     bounds.size.height -= 4;
     bounds.size.width -= 4;
     
-    NSBezierPath *border = [NSBezierPath bezierPathWithRoundedRect:bounds xRadius:4 yRadius:4];
+    NSRect originalBounds = bounds;
 
     bounds.origin.x += 1;
     bounds.origin.y += 1;
@@ -34,23 +34,28 @@
     if (scale > 0)
         bounds.size.width *= [self doubleValue] / scale;
 
-    NSBezierPath *content = [NSBezierPath bezierPathWithRoundedRect:bounds xRadius:4 yRadius:4];
-    
-    NSGradient *gradient = [[NSGradient alloc] initWithColorsAndLocations:
-                            [NSColor colorWithDeviceWhite:0.3 alpha:1], 0.0,
-                            [NSColor colorWithDeviceWhite:0.4 alpha:1], 0.1,
-                            [NSColor colorWithDeviceWhite:0.5 alpha:1], 0.9,
-                            [NSColor colorWithDeviceWhite:0.55 alpha:1], 1.0, nil];
-    [gradient drawInBezierPath:border angle:90];
-    [gradient release];
+    if (!NSIsEmptyRect(originalBounds)) {
+        NSBezierPath *border = [NSBezierPath bezierPathWithRoundedRect:originalBounds xRadius:4 yRadius:4];
 
-    gradient = [[NSGradient alloc] initWithColorsAndLocations:
-                           [NSColor colorWithDeviceWhite:0.8 alpha:1], 0.0,
-                           [NSColor colorWithDeviceWhite:0.75 alpha:1], 0.4,
-                           [NSColor colorWithDeviceWhite:0.7 alpha:1], 0.6,
-                           [NSColor colorWithDeviceWhite:0.65 alpha:1], 1.0, nil];;
-    [gradient drawInBezierPath:content angle:90];
-    [gradient release];
+        NSGradient *gradient = [[NSGradient alloc] initWithColorsAndLocations:
+                                [NSColor colorWithDeviceWhite:0.3 alpha:1], 0.0,
+                                [NSColor colorWithDeviceWhite:0.4 alpha:1], 0.1,
+                                [NSColor colorWithDeviceWhite:0.5 alpha:1], 0.9,
+                                [NSColor colorWithDeviceWhite:0.55 alpha:1], 1.0, nil];
+        [gradient drawInBezierPath:border angle:90];
+        [gradient release];
+    }
+
+    if (!NSIsEmptyRect(bounds)) {
+        NSBezierPath *content = [NSBezierPath bezierPathWithRoundedRect:bounds xRadius:4 yRadius:4];
+        NSGradient *gradient = [[NSGradient alloc] initWithColorsAndLocations:
+                    [NSColor colorWithDeviceWhite:0.8 alpha:1], 0.0,
+                    [NSColor colorWithDeviceWhite:0.75 alpha:1], 0.4,
+                    [NSColor colorWithDeviceWhite:0.7 alpha:1], 0.6,
+                    [NSColor colorWithDeviceWhite:0.65 alpha:1], 1.0, nil];;
+        [gradient drawInBezierPath:content angle:90];
+        [gradient release];        
+    }
 }
 
 - (void)mouseDown:(NSEvent *)theEvent
