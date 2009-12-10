@@ -183,9 +183,9 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *unfinishedMovies = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"UnfinishedMoviesAsArray"]];
     NSDictionary *thisMovie = nil;
-    for (NSDictionary *dict in unfinishedMovies)
-    {
-        if ([[[dict objectForKey:@"url"] lastPathComponent] isEqualToString:fileName]) {
+    for (NSDictionary *dict in unfinishedMovies) {
+        NSString *otherFileName = [[[dict objectForKey:@"url"] lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if ([otherFileName isEqualToString:fileName]) {
             thisMovie = [[dict retain] autorelease];
             break;
         }
