@@ -1,1 +1,2 @@
 WARNING_CFLAGS = -Wall -W -Wextra -Werror -Wcast-align -Wchar-subscripts -Wformat-security -Wmissing-format-attribute -Wpointer-arith -Wwrite-strings -Wno-format-y2k -Wno-unused-parameter -Wbad-function-cast -Wmissing-declarations -Wnested-externs
+LUNETTES_VISIBLE_VERSION = 1.0 Beta

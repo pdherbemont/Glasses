@@ -1016,6 +1016,7 @@
 				8D15AC300486D014006FF6A4 /* Sources */,
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				637D39AC10AB51060012FC0C /* Check Javascript code */,
+				63F15C3910D143B2003B99BE /* Set Git Version */,
 			);
 			buildRules = (
 			);
@@ -1220,6 +1221,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd $SRCROOT/Resources/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\nprettyfiles=\"\"\n\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Resources/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
+		};
+		63F15C3910D143B2003B99BE /* Set Git Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set Git Version";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env ruby";
+			shellScript = "#!/usr/bin/env ruby\n \n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n \n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n \n# Create new tags with \"git tag <version> -m <message>\"\n \n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n \n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n \n \ngitnum = `/usr/bin/env git describe --always`.chomp()\nversion = \"#{gitnum}\"\ninfo_file = File.join(ENV['BUILT_PRODUCTS_DIR'], ENV['INFOPLIST_PATH'])\ninfo = File.open(info_file, \"r\").read\n \nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbefore = $1\nafter = $2\nif !after || !before\n   puts \"Invalid Info.plist (no CFBundleVersion key).\"\n\tputs info\n   exit 1\nend\n\nbundle_version_string = before + version + after\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -67,6 +67,8 @@
 	<string>org.videolan.Lunettes</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${LUNETTES_VISIBLE_VERSION}</string>
 	<key>CFBundleName</key>
 	<string>Lunettes</string>
 	<key>CFBundlePackageType</key>
@@ -74,9 +76,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>filled by Set Git Version Script Phase</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.6</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2009 VideoLAN</string>
 	<key>NSPrincipalClass</key>
