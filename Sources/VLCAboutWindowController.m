@@ -24,6 +24,13 @@
 @interface VLCAboutWindowController (Delegate) <NSAnimationDelegate, NSWindowDelegate>
 @end
 
+static NSString *contentOfTextResource(NSString *resource)
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource:resource ofType:@"txt"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    return [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+}
+
 #pragma mark -
 
 @interface VLCTextScrollAnimation : NSAnimation {
@@ -74,7 +81,8 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [_gplTextField setString:[NSString stringWithUTF8String:psz_license]];
+
+    [_gplTextField setString:contentOfTextResource(@"License")];
     [_gplTextField setFont: [NSFont fontWithName:@"Lucida Grande" size:11.0]];
 
     NSWindow *window = [self window];
@@ -113,9 +121,9 @@
 
     /* setup the authors and thanks field */
     [_creditsTextView setString: [NSString stringWithFormat:@"%@\n%@\n\n%@",
-                                  [NSString stringWithUTF8String:psz_genericAbout],
-                                  [NSString stringWithUTF8String:psz_authors],
-                                  [NSString stringWithUTF8String:psz_thanks]]];
+                                  contentOfTextResource(@"About"),
+                                  contentOfTextResource(@"Authors"),
+                                  contentOfTextResource(@"Thanks")]];
     [_creditsTextView setFont: [NSFont fontWithName:@"Lucida Grande" size:11.0]];
 
     /* Setup the window */

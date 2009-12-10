@@ -144,6 +144,10 @@
 		63D441D0100469A60086772A /* VideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441CF100469A60086772A /* VideoWindow.xib */; };
 		63D441D2100469AD0086772A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441D1100469AD0086772A /* MainMenu.xib */; };
 		63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */; };
+		63F161FA10D1BBAC003B99BE /* Authors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F161F910D1BBAC003B99BE /* Authors.txt */; };
+		63F161FE10D1BBD2003B99BE /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F161FD10D1BBD2003B99BE /* License.txt */; };
+		63F1620210D1BBE9003B99BE /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620110D1BBE9003B99BE /* About.txt */; };
+		63F1621010D1BC30003B99BE /* Thanks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620F10D1BC30003B99BE /* Thanks.txt */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
@@ -442,6 +446,10 @@
 		63D441CC100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = ../vlc/projects/macosx/framework/VLCKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
+		63F161F910D1BBAC003B99BE /* Authors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Authors.txt; path = Resources/Authors.txt; sourceTree = "<group>"; };
+		63F161FD10D1BBD2003B99BE /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = Resources/License.txt; sourceTree = "<group>"; };
+		63F1620110D1BBE9003B99BE /* About.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = About.txt; path = Resources/About.txt; sourceTree = "<group>"; };
+		63F1620F10D1BC30003B99BE /* Thanks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Thanks.txt; path = Resources/Thanks.txt; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Lunettes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunettes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
@@ -568,6 +576,10 @@
 				6311DAAC0FF85AC0004BC7D1 /* Images */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				CC10A7A5103CA66B00B4555A /* dsa_pub.pem */,
+				63F161F910D1BBAC003B99BE /* Authors.txt */,
+				63F161FD10D1BBD2003B99BE /* License.txt */,
+				63F1620110D1BBE9003B99BE /* About.txt */,
+				63F1620F10D1BC30003B99BE /* Thanks.txt */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1202,6 +1214,10 @@
 				635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */,
 				6312758510C5F0B300A01F33 /* ExportStatusWindow.xib in Resources */,
 				635F15E010CDB4D8006EC30E /* GPLWindow.xib in Resources */,
+				63F161FA10D1BBAC003B99BE /* Authors.txt in Resources */,
+				63F161FE10D1BBD2003B99BE /* License.txt in Resources */,
+				63F1620210D1BBE9003B99BE /* About.txt in Resources */,
+				63F1621010D1BC30003B99BE /* Thanks.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

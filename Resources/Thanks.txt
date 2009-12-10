@@ -1,0 +1,9 @@
+Some VLC plugins use external libraries and makes extensive use of the following persons' or companies' code:
+
+FFmpeg - Copyright (c) 2000-2007 Fabrice Bellard, et al.
+liba52 - Aaron Holtzman & Michel Lespinasse, et al.
+FAAD2 - \"Code from FAAD2 is copyright (c) Nero AG, www.nero.com\"
+libmpeg2 - Aaron Holtzman & Michel Lespinasse, et al.
+ogg, theora, vorbis - Monty & the Xiph.org Foundation
+flac - Josh Coalson et al.
+Sparkle - Andy Matuschak et al.

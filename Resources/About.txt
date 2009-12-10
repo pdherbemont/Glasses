@@ -1,0 +1,13 @@
+Lunettes is written by:
+Pierre d'Herbemont, Felix Paul Kühne
+
+Based upon VLC media player 1.1-git using VLCKit.
+
+Lunettes is brought to you by VideoLAN.
+
+
+
+
+
+
+The following people made VLC possible:

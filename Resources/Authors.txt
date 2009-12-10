@@ -1,0 +1,60 @@
+Laurent Aimar
+Marc Ariberti
+Stephan Assmus
+Olivier Aubert
+Sigmund Augdal Helberg
+Pierre Baillet
+Gildas Bazin
+Rocky Bernstein
+Johan Bilien
+Stéphane Borel
+Arnaud de Bossoreille de Ribou
+Filippo Carone 
+Rafaël "Hanz, David" Carré
+Tony Castley
+Antoine Cellerier
+Renaud Dartus
+Cyril Deguet
+Rémi Denis-Courmont
+Colin Delacroix
+Pierre d'Herbemont
+Boris Dorès
+Jean-Marc Dressler
+Henri Fallon
+Andrew Flintham
+Damien Fouilleul
+Alexis Guillard
+Gerald Hansink
+Shane Harper
+Dugal Harris
+Derk-Jan Hartman
+Gaël Hendryckx
+Samuel Hocevar
+Eugenio Jarosiewicz
+Jon Lech Johansen
+Michel Kaempf
+Jean-Baptiste Kempf
+Pavlov Konstantin
+Felix Paul Kühne
+Simon Latapie
+Pascal Levesque
+Christophe Massiot
+Loïc Minier
+Christophe Mutricy
+Florian G. Pflug
+Heiko Panther
+Vincent Penne
+Eric Petit
+Benjamin Pracht
+Emmanuel Puig
+Frédéric Ruget
+Jean-Paul Saman
+Arnaud Schauly
+Vincent Seguin
+Ken Self
+Richard Shepherd
+Clément Stenac
+Peter Surda
+Olivier Teulière
+Yuehua Zhao
+Bo Wang
