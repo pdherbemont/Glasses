@@ -99,7 +99,8 @@
 {
     [super windowDidLoad];
 
-    [[self window] setDelegate:self];
+    NSWindow *window = [self window];
+    [window setDelegate:self];
 
     /* Get the localized info dictionary (InfoPlist.strings) */
     NSDictionary *localDict = [[NSBundle mainBundle] infoDictionary];
@@ -120,16 +121,16 @@
     /* Setup the window */
     [_creditsTextView setDrawsBackground:NO];
     [_creditsScrollView setDrawsBackground:NO];
-    [[self window] setExcludedFromWindowsMenu:YES];
-    [[self window] setMenu:nil];
-    [[self window] center];
+    [window setExcludedFromWindowsMenu:YES];
+    [window setMenu:nil];
+    [window center];
 }
 
 - (void)dealloc
 {
     NSAssert(!_animation, @"Should have been released");
     NSAssert(!_rewindAnimation, @"Should have been released");
-    [_gplWindowController release];
+    NSAssert(!_gplWindowController, @"Should have been released");
 
     [super dealloc];
 }
