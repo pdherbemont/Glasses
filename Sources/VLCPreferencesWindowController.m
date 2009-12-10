@@ -65,14 +65,15 @@
 
 - (IBAction)toolbarAction: (id)sender
 {
-    if ([sender tag] == 0) {
+    NSInteger tag = [sender tag];
+    if (tag == 0) {
         [[self window] setTitle:@"General"];
         [self setView: _generalSettingsView];
-    } else if ([sender tag] == 1) {
+    } else if (tag == 1) {
         [[self window] setTitle:@"Playback"];
         [self setView: _playbackSettingsView];
     } else
-        NSLog( @"invalid view requested by toolbar" );
+        VLCAssertNotReached( @"invalid view requested by toolbar" );
 
 }
 
