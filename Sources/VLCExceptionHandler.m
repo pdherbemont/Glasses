@@ -47,14 +47,19 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
 /* From Apple's guide on exception */
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask
 {
-    [self printStackTrace:exception];
-    NSLog(@"*** Exception Handled! %@: %@", [exception name], [exception reason]);
-    int ret = NSRunCriticalAlertPanel(@"Exception not handled!",
-                            [NSString stringWithFormat:@"%@: %@\n\nBack trace has been printed to Console.\n\nWe will now wait for debugger connection...\n",
-                                [exception name], [exception reason]],
-                            @"Quit", @"Wait Debugger", nil);
-    if (ret == NSOKButton)
-        [NSApp terminate:self];
+    @try {
+        NSLog(@"*** Exception Handled! %@: %@", [exception name], [exception reason]);
+        [self printStackTrace:exception];
+        int ret = NSRunCriticalAlertPanel(@"Exception not handled!",
+                                          [NSString stringWithFormat:@"%@: %@\n\nBack trace has been printed to Console.\n\nWe will now wait for debugger connection...\n",
+                                           [exception name], [exception reason]],
+                                          @"Quit", @"Wait Debugger", nil);        
+        if (ret == NSOKButton)
+            [NSApp terminate:self];
+    }
+    @catch (NSException *e) {
+        abort();
+    }
     return YES;
 }
 
