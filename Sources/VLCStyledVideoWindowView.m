@@ -102,7 +102,6 @@
     [self setMainWindow:[window isMainWindow]];
     [self updateTrackingAreas];
 
-
     // Time to go fullscreen, this can't be done before,
     // because we need (for fullscreen exit) to have the video view
     // properly setuped. A bit of coding could fix that, but that's enough
@@ -428,6 +427,11 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         [self addTrackingArea:_contentTracking];
     }
     
+    NSRect locationInWindow = [self convertRect:frame toView:nil];
+    NSPoint mouseInWindow = [[self window] convertScreenToBase:[NSEvent mouseLocation]];
+    BOOL isMouseActiveInWindow = NSPointInRect(mouseInWindow, locationInWindow);
+    [[self window] setIgnoresMouseEvents:!isMouseActiveInWindow];
+
     [super updateTrackingAreas];
 }
 
