@@ -159,20 +159,6 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     [self makeDocumentWithObject:[sender representedObject]];
 }
 
-- (IBAction)saveVideoSnapshot:(id)sender
-{
-    NSString *path = [[NSUserDefaults standardUserDefaults] stringForKey:@"SelectedSnapshotFolder"];
-    [[[[self currentDocument] mediaListPlayer] mediaPlayer] saveVideoSnapshotAt:[path stringByExpandingTildeInPath] withWidth:0 andHeight:0];
-}
-
-/* this is needed to enable some main menu items with KVC */
-- (BOOL)openDocuments
-{
-    if ([[self documents] count] > 0)
-        return YES;
-    return NO;
-}
-
 /**
  * Remember a movie that wasn't finished
  */
@@ -231,10 +217,12 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     
     // auto-releases itself when the window is closed
     _splashScreen = [[VLCSplashScreenWindowController alloc] init];
-    [[_splashScreen window] makeKeyAndOrderFront:self];
-    [_splashScreen setShouldCloseDocument:NO];
-    
-    // The _splashScreen will autorelease itself when done, forget about the reference now.
+    [_splashScreen showWindow:self];
+}
+
+- (void)closeSplashScreen
+{
+    [_splashScreen release];
     _splashScreen = nil;
 }
 

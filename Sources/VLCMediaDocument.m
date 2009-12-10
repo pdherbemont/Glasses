@@ -76,6 +76,12 @@
 	[super dealloc];
 }
 
+- (IBAction)saveVideoSnapshot:(id)sender
+{
+    NSString *path = [[NSUserDefaults standardUserDefaults] stringForKey:@"SelectedSnapshotFolder"];
+    [[self mediaListPlayer].mediaPlayer saveVideoSnapshotAt:[path stringByExpandingTildeInPath] withWidth:0 andHeight:0];
+}
+
 /**
  * This is also by VLCApplication, at app exit.
  * FIXME: This probably need a reiteration.

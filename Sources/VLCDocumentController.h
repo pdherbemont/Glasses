@@ -34,9 +34,8 @@
 - (void)makeDocumentWithObject:(id)object;
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position;
 - (void)openLibraryFromMenuItem:(id)sender;
-- (IBAction)saveVideoSnapshot:(id)sender;
 
 - (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position withRemainingTime:(VLCTime *)time;
 
-@property (readonly) BOOL openDocuments;
+- (void)closeSplashScreen;
 @end
