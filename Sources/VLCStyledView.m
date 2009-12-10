@@ -160,7 +160,6 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     // This way we wont overload the CPU, during opening.
     if (!self.hasLoadedAFirstFrame)
     {
-        [[self mediaListPlayer] play];
         NSWindowController *controller = [[self window] windowController];
         [[controller document] didFinishLoadingWindowController:controller];
     }
