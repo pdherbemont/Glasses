@@ -63,7 +63,7 @@
 
 - (void)fullscreenControllerWillLeaveFullscreen:(VLCFullscreenController *)controller
 {
-    [[self window] orderOut:self];
+    [self close];
 }
 
 #pragma mark -
