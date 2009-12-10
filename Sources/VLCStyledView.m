@@ -154,6 +154,16 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     // We are coming out of a style change, let's fade in back
     if (![window alphaValue])
         [[[self window] animator] setAlphaValue:1];
+
+    // Tell our Document that we are now ready and initialized.
+    // This is to make sure that we play only once the webview is loaded.
+    // This way we wont overload the CPU, during opening.
+    if (!self.hasLoadedAFirstFrame)
+    {
+        [[self mediaListPlayer] play];
+        NSWindowController *controller = [[self window] windowController];
+        [[controller document] didFinishLoadingWindowController:controller];
+    }
 }
 
 #pragma mark -

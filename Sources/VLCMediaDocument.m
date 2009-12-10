@@ -149,9 +149,6 @@
         [mediaListPlayer setRootMedia:_media];
     else
         [mediaListPlayer setMediaList:_mediaList];
-    [mediaListPlayer play];
-
-    [mediaListPlayer.mediaPlayer setPosition:_startingPosition];
 
     [mediaListPlayer release];
 
@@ -197,6 +194,21 @@
 - (NSArray *)writableTypesForSaveOperation:(NSSaveOperationType)saveOperation
 {
     return [NSArray arrayWithObject:(NSString*)kUTTypeMPEG4];
+}
+
+- (void)didFinishLoadingWindowController:(NSWindowController *)controller
+{
+    // Initiate playback only when the window controller tells us that it
+    // is fully loaded. Our window controller do async loading because
+    // they load webview.
+    // This is to make sure that we play only once the webview is loaded.
+    // This way we wont overload the CPU during opening.
+    
+    if (_hasInitiatedPlayback)
+        return;
+    _hasInitiatedPlayback = YES;
+    [[self mediaListPlayer] play];
+    [[self mediaListPlayer].mediaPlayer setPosition:_startingPosition];
 }
 
 #pragma mark -
