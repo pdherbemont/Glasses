@@ -145,21 +145,18 @@
 - (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toKeyPath:(NSString *)keyPath
 {
     NSAssert(_bindings, @"No bindings created");
-    NSLog(@"Binding %@.%@ to %@.%@", domObject, property, self, keyPath);
     [_bindings bindDOMObject:domObject property:property toObject:self withKeyPath:keyPath];
 }
 
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject*)object withKeyPath:(NSString *)keyPath
 {
     NSAssert(_bindings, @"No bindings created");
-    NSLog(@"Binding %@.%@ to %@.%@", domObject, property, [object valueForKey:@"backendObject"], keyPath);
     [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];
 }
 
 - (void)unbindDOMObject:(DOMNode *)domObject property:(NSString *)property
 {
     NSAssert(_bindings, @"No bindings created");
-    NSLog(@"un %@.%@", domObject, property);
     [_bindings unbindDOMObject:domObject property:property];
 }
 
