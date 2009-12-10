@@ -36,12 +36,12 @@
 {
     [super windowDidLoad];
     [[self window] center];
-    [[self window] setDelegate: self];
+    [[self window] setDelegate:self];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    [self autorelease];
+    [[VLCDocumentController sharedDocumentController] closeSplashScreen];
 }
 
 /**
