@@ -36,7 +36,7 @@ MediaView.prototype = {
      */            
     attach: function(parentElement)
     {
-        console.assert(!this.isAttached, "shouldn't be attached", console.trace());
+        console.assert(!this.isAttached, "shouldn't be attached");
         
         this.cocoaObject.bindToObjectProperty("metaDictionary.title", this.nameElement, "innerText");
 
