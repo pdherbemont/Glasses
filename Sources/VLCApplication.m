@@ -21,11 +21,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
+#import <WebKit/WebKit.h>
+
+#import <IOKit/hidsystem/ev_keymap.h>         /* for the media key support */
+
 #import "VLCApplication.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCMediaDocument.h"
 #import "VLCDocumentController.h"
-#import <IOKit/hidsystem/ev_keymap.h>         /* for the media key support */
 
 /*****************************************************************************
  * exclusively used to implement media key support on Al Apple keyboards
@@ -46,6 +49,12 @@
 
 - (void)awakeFromNib
 {
+    // FIXME: -awakeFromNib is certainly not the right place to do the following
+    WebPreferences *preferences = [WebPreferences standardPreferences];
+    [preferences setCacheModel:WebCacheModelDocumentViewer];
+    [preferences setPrivateBrowsingEnabled:YES];
+    [preferences setUsesPageCache:NO];
+
     /* register our default values... */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:@"YES", @"ControlWithMediaKeys", @"YES", @"ControlWithMediaKeysInBackground", @"YES", @"ControlWithHIDRemote", @"YES", @"UseDeinterlaceFilter", @"~/Desktop", @"SelectedSnapshotFolder", nil]];
