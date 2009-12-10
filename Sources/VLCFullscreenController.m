@@ -192,6 +192,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     [NSApp setPresentationOptions:NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar];
 
+    NSAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
     _animation1 = createFadeAnimation([self _windowToHide], FadeOut);
     _animation2 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], [screen frame]);
 
@@ -248,6 +249,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     NSRect screenRect = screenRectForView(_placeholderView);
 
+    NSAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
     _animation1 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], screenRect);
     _animation2 = createFadeAnimation([self _windowToHide], FadeIn);
 
