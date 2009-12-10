@@ -39,8 +39,6 @@
     VLCTextScrollAnimation *_animation;
     VLCTextScrollAnimation *_rewindAnimation;
 
-    BOOL _isSetUp;
-
     IBOutlet VLCGPLWindowController *_gplWindowController;
 }
 
