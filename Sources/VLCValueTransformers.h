@@ -19,3 +19,6 @@
 
 @interface VLCStringToURL : NSObject
 @end
+
+@interface VLCStringURLToFileName : NSObject
+@end
