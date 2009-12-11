@@ -45,6 +45,12 @@
 - (void)remoteLeftButtonPressed:(id)sender;
 @end
 
+@interface VLCApplication ()
+@property BOOL controlWithMediaKeysInBackground;
+@property BOOL controlWithRemote;
+@property BOOL controlWithMediaKeys;
+@end
+
 @implementation VLCApplication
 
 - (void)awakeFromNib
@@ -57,11 +63,12 @@
 
     /* register our default values... */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *yes = [NSNumber numberWithBool:YES];
     [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-                                @"YES", @"ControlWithMediaKeys",
-                                @"YES", @"ControlWithMediaKeysInBackground",
-                                @"YES", @"ControlWithHIDRemote",
-                                @"YES", @"UseDeinterlaceFilter",
+                                yes, @"ControlWithMediaKeys",
+                                yes, @"ControlWithMediaKeysInBackground",
+                                yes, @"ControlWithHIDRemote",
+                                yes, @"UseDeinterlaceFilter",
                                 @"~/Desktop", @"SelectedSnapshotFolder", nil]];
 
     // Always reset if the WebKitInspector was attached.
@@ -69,9 +76,9 @@
     [defaults setBool:NO forKey:@"WebKitInspectorAttached"];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(coreChangedMediaKeySupportSetting:) name:@"NSUserDefaultsDidChangeNotification" object:nil];
     [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationDidBecomeActiveNotification" object:nil];
     [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationWillResignActiveNotification" object:nil];
+
 
     /* init Apple Remote support */
     _remote = [[AppleRemote alloc] init];
@@ -79,7 +86,10 @@
     [_remote setListeningOnAppActivate:YES];
     [_remote setDelegate:self];
 
-    [self coreChangedMediaKeySupportSetting:nil];
+    NSUserDefaultsController *controller = [NSUserDefaultsController sharedUserDefaultsController];
+    [self bind:@"controlWithRemote" toObject:controller withKeyPath:@"values.ControlWithHIDRemote" options:nil];
+    [self bind:@"controlWithMediaKeys" toObject:controller withKeyPath:@"values.ControlWithMediaKeys" options:nil];
+    [self bind:@"controlWithMediaKeysInBackground" toObject:controller withKeyPath:@"values.ControlWithMediaKeysInBackground" options:nil];    
 }
 
 - (void)dealloc
@@ -176,17 +186,37 @@
         _isActive = YES;
 }
 
-- (void)coreChangedMediaKeySupportSetting:(NSNotification *)notification
+#pragma mark -
+#pragma mark Preferences Bindings
+
+@synthesize controlWithMediaKeysInBackground=_isActiveInBackground;
+
+- (BOOL)controlWithRemote
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _isActive = _hasMediaKeySupport = [defaults boolForKey:@"ControlWithMediaKeys"];
-    _isActiveInBackground = [defaults boolForKey:@"ControlWithMediaKeysInBackground"];
-    if ([defaults boolForKey:@"ControlWithHIDRemote"])
+    return _controlWithRemote;
+}
+
+- (void)setControlWithRemote:(BOOL)support
+{
+    _controlWithRemote = support;
+    if (support)
         [_remote startListening:self];
     else
         [_remote stopListening:self];
 }
 
+- (BOOL)controlWithMediaKeys
+{
+    return _hasMediaKeySupport;
+}
+
+- (void)setControlWithMediaKeys:(BOOL)support
+{
+    _isActive = _hasMediaKeySupport = support;
+}
+
+
+#pragma mark -
 
 - (void)sendEvent:(NSEvent*)event
 {

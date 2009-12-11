@@ -30,13 +30,13 @@
     BOOL _hasMediaKeySupport;
     BOOL _isActiveInBackground;
     BOOL _isActive;
+    BOOL _controlWithRemote;
 
     AppleRemote * _remote;
     BOOL _remoteButtonIsHold; /* true as long as the user holds the left,right,plus or minus on the remote control */
 }
 
 - (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification;
-- (void)coreChangedMediaKeySupportSetting:(NSNotification *)notification;
 - (void)sendEvent:(NSEvent*)event;
 - (void)resetJump;
 
