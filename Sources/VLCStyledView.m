@@ -149,7 +149,10 @@ static BOOL watchForStyleModification(void)
         [_pathWatcher stop];
         [_pathWatcher release];
         _pathWatcher = nil;
-        [_resourcesFilePathArray removeAllObjects];
+        if (!_resourcesFilePathArray)
+            _resourcesFilePathArray = [[NSMutableArray alloc] init];
+        else
+            [_resourcesFilePathArray removeAllObjects];
     }
 }
 
