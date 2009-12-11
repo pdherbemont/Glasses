@@ -37,5 +37,6 @@
 
 - (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position withRemainingTime:(VLCTime *)time;
 
+- (IBAction)openSplashScreen:(id)sender;
 - (void)closeSplashScreen;
 @end

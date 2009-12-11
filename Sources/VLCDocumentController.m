@@ -98,28 +98,9 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     return menuItem;
 }
 
-- (NSArray *)availableMediaDiscoverer
-{
-    return [VLCMediaDiscoverer availableMediaDiscoverer];
-}
-
 - (NSPredicate *)predicateThatFiltersEmptyDiscoverer
 {
     return [NSPredicate predicateWithFormat:@"discoveredMedia.media.@count != 0"];
-}
-
-- (void)rebuildOpenLibraryMenu
-{
-    NSMenu *menu = [_openLibraryMenu submenu];
-    for (NSInteger i = 0; i < [menu numberOfItems]; i++)
-         [menu removeItemAtIndex:i];
-
-    NSUInteger i = 1;
-    for (VLCMediaDiscoverer *mediaDiscoverer in [self availableMediaDiscoverer]) {
-        NSMenuItem *menuItem = createOpenLibraryMenuItemWithDiscoverer(mediaDiscoverer, i++);
-        [menu addItem:menuItem];
-        [menuItem release];
-    }
 }
 
 - (void)bakeDocument:(VLCMediaDocument *)mediaDocument
@@ -204,7 +185,6 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self rebuildStyleMenu];
-    [self rebuildOpenLibraryMenu];
     
     // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)
@@ -220,6 +200,14 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
     [_splashScreen showWindow:self];
 }
 
+- (IBAction)openSplashScreen:(id)sender
+{
+    if (!_splashScreen) {
+        // auto-releases itself when the window is closed
+        _splashScreen = [[VLCSplashScreenWindowController alloc] init];
+    }
+    [_splashScreen showWindow:self];    
+}
 - (void)closeSplashScreen
 {
     [_splashScreen release];
