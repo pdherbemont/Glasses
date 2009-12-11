@@ -18,9 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-#import "VLCStyledView.h"
 #import <VLCKit/VLCKit.h>
+
+#import "VLCStyledView.h"
 #import "VLCMediaDocument.h"
+#import "VLCPathWatcher.h"
 
 
 @interface WebCoreStatistics : NSObject
@@ -29,6 +31,11 @@
 @end
 
 static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
+
+static BOOL watchForStyleModification(void)
+{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"WatchForStyleModification"];
+}
 
 @interface VLCStyledView ()
 @property (readwrite, assign) BOOL isFrameLoaded;
@@ -45,6 +52,8 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 
 - (void)dealloc
 {
+    NSAssert(!_pathWatcher, @"Should not be here");
+    [_resourcesFilePathArray release];
     [_lunettesStyleRoot release];
     [_title release];
     [_currentTime release];
@@ -54,6 +63,9 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 - (void)setup
 {
     self.isFrameLoaded = NO;
+
+    if (watchForStyleModification() && !_resourcesFilePathArray)
+        _resourcesFilePathArray = [[NSMutableArray alloc] init];
 
     [WebCoreStatistics setShouldPrintExceptions:YES];
     [self setDrawsBackground:NO];
@@ -66,26 +78,13 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     [[self mainFrame] loadRequest:request];
 }
 
-- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
-{
-    // Search for %lunettes_style_root%, and replace it by the root.
-
-    NSString *filePathURL = [[[request URL] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSRange range = [filePathURL rangeOfString:@"%lunettes_style_root%"];
-    if (range.location == NSNotFound)
-        return request;
-
-    NSString *resource = [filePathURL substringFromIndex:range.location + range.length];
-    if (!_lunettesStyleRoot)
-        _lunettesStyleRoot = [[[NSBundle mainBundle] pathForResource:@"Lunettes Style Root" ofType:nil] retain];
-
-    NSURL *url = [NSURL fileURLWithPath:[_lunettesStyleRoot stringByAppendingString:resource]];
-    
-    return [NSURLRequest requestWithURL:url];
-}
-
 - (void)close
 {
+    if (watchForStyleModification()) {
+        [_pathWatcher stop];
+        [_pathWatcher release];
+        _pathWatcher = nil;        
+    }
     self.isFrameLoaded = NO;
     [super close];
 }
@@ -144,6 +143,45 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     return filePath;
 }
 
+- (void)webView:(WebView *)sender didStartProvisionalLoadForFrame:(WebFrame *)frame
+{
+    if (watchForStyleModification()) {
+        [_pathWatcher stop];
+        [_pathWatcher release];
+        _pathWatcher = nil;
+        [_resourcesFilePathArray removeAllObjects];
+    }
+}
+
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
+{
+    // Search for %lunettes_style_root%, and replace it by the root.
+    
+    NSString *filePathURL = [[[request URL] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSRange range = [filePathURL rangeOfString:@"%lunettes_style_root%"];
+    if (range.location == NSNotFound) {
+        if (watchForStyleModification()) {
+            // FIXME - do we have any better?
+            filePathURL = [filePathURL stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+            [_resourcesFilePathArray addObject:filePathURL];
+        }
+        return request;
+        
+    }
+    
+    NSString *resource = [filePathURL substringFromIndex:range.location + range.length];
+    if (!_lunettesStyleRoot)
+        _lunettesStyleRoot = [[[NSBundle mainBundle] pathForResource:@"Lunettes Style Root" ofType:nil] retain];
+    
+    NSString *newFilePathURL = [_lunettesStyleRoot stringByAppendingString:resource];
+    
+    if (watchForStyleModification())
+        [_resourcesFilePathArray addObject:newFilePathURL];
+    
+    NSURL *url = [NSURL fileURLWithPath:newFilePathURL];
+    return [NSURLRequest requestWithURL:url];
+}
+
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
     self.isFrameLoaded = YES;      
@@ -158,7 +196,16 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
         [[controller document] didFinishLoadingWindowController:controller];
     }
     
-    self.hasLoadedAFirstFrame = YES;      
+    self.hasLoadedAFirstFrame = YES;
+
+    if (watchForStyleModification()) {
+        NSAssert(!_pathWatcher, @"Shouldn't be created");
+        _pathWatcher = [[VLCPathWatcher alloc] initWithFilePathArray:_resourcesFilePathArray];
+        [_pathWatcher startWithBlock:^{
+            NSLog(@"Reloading because of style change");
+            [[self mainFrame] reload];
+        }];
+    }
 }
 
 - (void)webView:(WebView *)webView windowScriptObjectAvailable:(WebScriptObject *)windowScriptObject

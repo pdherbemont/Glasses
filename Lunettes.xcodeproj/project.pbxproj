@@ -148,6 +148,7 @@
 		63F161FE10D1BBD2003B99BE /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F161FD10D1BBD2003B99BE /* License.txt */; };
 		63F1620210D1BBE9003B99BE /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620110D1BBE9003B99BE /* About.txt */; };
 		63F1621010D1BC30003B99BE /* Thanks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620F10D1BC30003B99BE /* Thanks.txt */; };
+		63F163E310D2941C003B99BE /* VLCPathWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F163E210D2941C003B99BE /* VLCPathWatcher.m */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
@@ -450,6 +451,8 @@
 		63F161FD10D1BBD2003B99BE /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = Resources/License.txt; sourceTree = "<group>"; };
 		63F1620110D1BBE9003B99BE /* About.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = About.txt; path = Resources/About.txt; sourceTree = "<group>"; };
 		63F1620F10D1BC30003B99BE /* Thanks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Thanks.txt; path = Resources/Thanks.txt; sourceTree = "<group>"; };
+		63F163E110D2941C003B99BE /* VLCPathWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPathWatcher.h; path = Sources/VLCPathWatcher.h; sourceTree = "<group>"; };
+		63F163E210D2941C003B99BE /* VLCPathWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPathWatcher.m; path = Sources/VLCPathWatcher.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Lunettes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunettes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
@@ -935,6 +938,8 @@
 				635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */,
 				635F109110CC7E29006EC30E /* VLCPlayedProgressIndicator.h */,
 				635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */,
+				63F163E110D2941C003B99BE /* VLCPathWatcher.h */,
+				63F163E210D2941C003B99BE /* VLCPathWatcher.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1290,6 +1295,7 @@
 				63161B1310CAADDF0091974E /* VLCCollectionView.m in Sources */,
 				635F0F7B10CC63DC006EC30E /* VLCValueTransformers.m in Sources */,
 				635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */,
+				63F163E310D2941C003B99BE /* VLCPathWatcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
