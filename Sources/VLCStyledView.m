@@ -45,6 +45,7 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
 
 - (void)dealloc
 {
+    [_lunettesStyleRoot release];
     [_title release];
     [_currentTime release];
     [super dealloc];
@@ -60,11 +61,27 @@ static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
     [self setFrameLoadDelegate:self];
     [self setUIDelegate:self];
     [self setResourceLoadDelegate:self];
-    NSURL *url = [self url];
-    NSString *rawContent = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    NSURL *lunettesstyleRoot = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Lunettes Style Root" ofType:nil]];
-    NSString *content = [rawContent stringByReplacingOccurrencesOfString:@"%lunettes_style_root%" withString:[lunettesstyleRoot absoluteString]];
-    [[self mainFrame] loadHTMLString:content baseURL:url];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:[self url]];
+    [[self mainFrame] loadRequest:request];
+}
+
+- (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
+{
+    // Search for %lunettes_style_root%, and replace it by the root.
+
+    NSString *filePathURL = [[[request URL] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSRange range = [filePathURL rangeOfString:@"%lunettes_style_root%"];
+    if (range.location == NSNotFound)
+        return request;
+
+    NSString *resource = [filePathURL substringFromIndex:range.location + range.length];
+    if (!_lunettesStyleRoot)
+        _lunettesStyleRoot = [[[NSBundle mainBundle] pathForResource:@"Lunettes Style Root" ofType:nil] retain];
+
+    NSURL *url = [NSURL fileURLWithPath:[_lunettesStyleRoot stringByAppendingString:resource]];
+    
+    return [NSURLRequest requestWithURL:url];
 }
 
 - (void)close

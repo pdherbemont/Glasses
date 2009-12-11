@@ -41,6 +41,8 @@
     NSString *_title;
 
     NSString *_pluginName;
+
+    NSString *_lunettesStyleRoot;
 }
 
 /**
