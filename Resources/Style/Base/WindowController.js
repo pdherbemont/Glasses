@@ -54,7 +54,7 @@ WindowController.prototype = {
     init: function()
     {
         // Bind key-equivalent
-        document.body.addEventListener('keydown', this.keyDown, false);
+        document.body.addEventListener('keydown', this.keyDown.bind(this), false);
         
         // Bind the buttons.
         bindButtonByClassNameToMethod(this.Exported.ClassNames.close, this.close.bind(this));
