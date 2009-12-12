@@ -11,9 +11,9 @@
 			<string key="NS.object.0">740</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<integer value="76"/>
 			<integer value="3"/>
 			<integer value="77"/>
-			<integer value="76"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -115,11 +115,6 @@
 				<string key="NSFrameAutosaveName">Preferences Window</string>
 			</object>
 			<object class="NSUserDefaultsController" id="242931913">
-				<array class="NSMutableArray" key="NSDeclaredKeys">
-					<string>SULastCheckTimeKey</string>
-					<string>SelectedSnapshotFolder</string>
-					<string>SUScheduledCheckInterval</string>
-				</array>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSCustomView" id="439030223">
@@ -493,14 +488,6 @@
 					<int key="connectionID">98</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">buttonAction:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="1034605849"/>
-					</object>
-					<int key="connectionID">119</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">_snapshotPathSelector</string>
 						<reference key="source" ref="1001"/>
@@ -810,9 +797,9 @@
 				</array>
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="3.IBEditorWindowLastContentRect">{{259, 505}, {455, 93}}</string>
+				<string key="3.IBEditorWindowLastContentRect">{{343, 505}, {455, 93}}</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="3.IBWindowTemplateEditedContentRect">{{259, 505}, {455, 93}}</string>
+				<string key="3.IBWindowTemplateEditedContentRect">{{343, 505}, {455, 93}}</string>
 				<boolean value="NO" key="3.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="3.WindowOrigin">{196, 240}</string>
 				<string key="3.editorWindowContentRectSynchronizationRect">{{202, 428}, {480, 270}}</string>
@@ -841,7 +828,7 @@
 				<boolean value="YES" key="75.toolbarItem.selectable"/>
 				<string key="76.IBEditorWindowLastContentRect">{{343, 621}, {455, 124}}</string>
 				<string key="76.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="77.IBEditorWindowLastContentRect">{{259, 460}, {455, 193}}</string>
+				<string key="77.IBEditorWindowLastContentRect">{{343, 460}, {455, 193}}</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="78.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="78.ImportedFromIB2"/>

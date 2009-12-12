@@ -66,8 +66,7 @@
         
         NSInteger kind = [[change objectForKey:NSKeyValueChangeKindKey] intValue];
         id new = [change objectForKey:NSKeyValueChangeNewKey];
-        id old = [change objectForKey:NSKeyValueChangeOldKey];
-        
+
         // Get all modified indexes.
         NSMutableArray *setAsArray = nil;
         NSIndexSet *set = [change objectForKey:NSKeyValueChangeIndexesKey];
