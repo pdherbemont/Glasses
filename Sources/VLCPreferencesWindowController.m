@@ -47,11 +47,16 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [self setView:_generalSettingsView];
     NSWindow *window = [self window];
-    NSArray *items = [[window toolbar] items];
 
-    // FIXME - seems to be a bug, it doesn't work from the preferences
+    // we want to re-open with the same view we were closed with, so just revert to default on first display
+    if(! _currentView ) {
+        [self setView:_generalSettingsView];
+        [[window toolbar] setSelectedItemIdentifier:@"general"];
+    }
+
+    // FIXME - seems to be a bug, it doesn't work from the xib
+    NSArray *items = [[window toolbar] items];
     [[items objectAtIndex: 0] setImage: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
     [[items objectAtIndex: 1] setImage: [NSImage imageNamed: NSImageNameSlideshowTemplate]];
 
