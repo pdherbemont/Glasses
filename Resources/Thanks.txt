@@ -6,4 +6,9 @@ FAAD2 - \"Code from FAAD2 is copyright (c) Nero AG, www.nero.com\"
 libmpeg2 - Aaron Holtzman & Michel Lespinasse, et al.
 ogg, theora, vorbis - Monty & the Xiph.org Foundation
 flac - Josh Coalson et al.
+
+Lunettes makes use of the following third party code:
 Sparkle - Andy Matuschak et al.
+Apple Remote support based upon works by Martin Kahr (c) 2006
+
+
