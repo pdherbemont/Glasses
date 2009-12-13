@@ -185,21 +185,36 @@
 
 - (void)saveToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName forSaveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo
 {
-    NSLog(@"%@", absoluteURL);
-    VLCStreamSession *streamSession = [VLCStreamSession streamSession];
-    streamSession.media = _media;
-    streamSession.streamOutput = [VLCStreamOutput ipodStreamOutputWithFilePath:[[[absoluteURL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""]];
-    
+    VLCStreamSession * theStreamSession;
+    VLCMedia * ourMedia = _media;
+    if (!ourMedia)
+    {
+        NSRunCriticalAlertPanel(@"Export failed", @"Lunettes cannot export media from list-based players yet. Please open the file separately to convert it.", @"Hum, okay", nil, nil);
+        return;
+    }
+    theStreamSession = [VLCStreamSession streamSession];
+    theStreamSession.media = ourMedia;
+    if ([typeName isEqualToString:(NSString*)kUTTypeMPEG])
+        theStreamSession.streamOutput = [VLCStreamOutput mpeg2StreamOutputWithFilePath:[[[absoluteURL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""]];
+    else if ([typeName isEqualToString:(NSString*)kUTTypeMPEG4])
+    {
+        theStreamSession.streamOutput = [VLCStreamOutput mpeg2StreamOutputWithFilePath:[[[absoluteURL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""]];
+    }
+    else
+    {
+        NSLog(@"unsupported file type requested");
+    }
+
     VLCExportStatusWindowController *exportWindowController = [[VLCExportStatusWindowController alloc] init];
     [[exportWindowController window] makeKeyAndOrderFront:self];
-    exportWindowController.streamSession = streamSession;
+    exportWindowController.streamSession = theStreamSession;
     
-    [streamSession startStreaming];
+    [exportWindowController.streamSession startStreaming];
 }
 
 - (NSArray *)writableTypesForSaveOperation:(NSSaveOperationType)saveOperation
 {
-    return [NSArray arrayWithObject:(NSString*)kUTTypeMPEG4];
+    return [NSArray arrayWithObjects:(NSString*)kUTTypeMPEG, (NSString*)kUTTypeMPEG4, nil];
 }
 
 - (void)didFinishLoadingWindowController:(NSWindowController *)controller

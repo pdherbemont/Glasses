@@ -12,8 +12,10 @@
 
 @interface VLCExportStatusWindowController : NSWindowController {
     VLCStreamSession *_streamSession;
+    NSTimer *_theUpdateTimer;
 }
 
 @property (readwrite, retain) VLCStreamSession *streamSession;
 - (IBAction)cancel:(id)sender;
+- (void)updateWindowState;
 @end
