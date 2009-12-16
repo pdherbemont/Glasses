@@ -169,11 +169,13 @@ static inline BOOL debugStyledWindow(void)
     NSScreen *screen = [self screen];
     if ([screen isMainScreen]) {
         NSRect rect = [[[self windowController] styledWindowView] representedWindowRect];
-        CGFloat screenHeight = [screen frame].size.height;
-        CGFloat windowHeight = [self frame].size.height;
-        
-        if (screenHeight - y - windowHeight + rect.origin.y < 22 /* MenuBar height. FIXME: a define? */)
-            y = screenHeight + rect.origin.y - (22 + windowHeight);        
+        if (rect.size.width != 0) {
+            CGFloat screenHeight = [screen frame].size.height;
+            CGFloat windowHeight = [self frame].size.height;
+            
+            if (screenHeight - y - windowHeight + rect.origin.y < 22 /* MenuBar height. FIXME: a define? */)
+                y = screenHeight + rect.origin.y - (22 + windowHeight);                    
+        }
     }
     [self setFrameOrigin:NSMakePoint(x, y)];
 }

@@ -131,10 +131,10 @@
 
 - (NSRect)representedWindowRect
 {
-    DOMElement *element = [self htmlElementForId:@"main-window"];
+    DOMElement *element = [self htmlElementForId:@"main-window" canBeNil:YES];
     
     NSAssert(element, @"No content element in this style");
-    NSRect frame = [element frameInView:self];
+    NSRect frame = element ? [element frameInView:self] : NSMakeRect(0, 0, 0, 0);
     
     DOMHTMLElement *more = [self htmlElementForId:@"more" canBeNil:YES] ;
     if (more && [more hasClassName:@"visible"]) {
