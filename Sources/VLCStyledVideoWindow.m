@@ -21,6 +21,7 @@
 #import "VLCStyledVideoWindow.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCStyledVideoWindowView.h"
+#import "NSScreen_Additions.h"
 
 //#define DEBUG_STYLED_WINDOW
 
@@ -163,6 +164,17 @@ static inline BOOL debugStyledWindow(void)
 
 - (void)setFrameOrigin:(float)x :(float)y
 {
+    // Make sure we don't
+    // FIXME: Potentially slow.
+    NSScreen *screen = [self screen];
+    if ([screen isMainScreen]) {
+        NSRect rect = [[[self windowController] styledWindowView] representedWindowRect];
+        CGFloat screenHeight = [screen frame].size.height;
+        CGFloat windowHeight = [self frame].size.height;
+        
+        if (screenHeight - y - windowHeight + rect.origin.y < 22 /* MenuBar height. FIXME: a define? */)
+            y = screenHeight + rect.origin.y - (22 + windowHeight);        
+    }
     [self setFrameOrigin:NSMakePoint(x, y)];
 }
 
@@ -188,7 +200,7 @@ static inline BOOL debugStyledWindow(void)
 
 - (void)setFrame:(float)x :(float)y :(float)width :(float)height
 {
-    NSRect frame = [self frame];
+    NSRect frame;
     frame.origin.x = x;
     frame.origin.y = y;
     frame.size.height = height;
