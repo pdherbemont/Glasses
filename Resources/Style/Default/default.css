@@ -132,6 +132,9 @@ input[type=search] {
     height: 30px;
 }
 
+.item-playing .name:before {
+    content: url(volume_high.png);
+}
 
 .more .textcontent ul>.name {
     background: white;

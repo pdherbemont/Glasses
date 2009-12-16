@@ -39,6 +39,7 @@ MediaView.prototype = {
         console.assert(!this.isAttached, "shouldn't be attached");
         
         this.cocoaObject.bindToObjectProperty("metaDictionary.title", this.nameElement, "innerText");
+        this.cocoaObject.bindToObjectProperty("state", this, "state");
 
         this.cocoaObject.bindToObjectProperty("subitems.media.@count", this, "subitemsCount");
 
@@ -62,6 +63,27 @@ MediaView.prototype = {
         this.isAttached = false;
     },
 
+    /**
+     * @type {number}
+     */                
+    _state: 0,
+    set state(state){
+        
+        // Make sure if count is undef (which might be the case, especially
+        // if one in the object of the binding is nil.
+        // Default it to 0 instead of undefined.
+        if (!state)
+            state = 0;
+        this._state = state;
+        if (this._state)
+            this.element.addClassName("item-playing");
+        else
+            this.element.removeClassName("item-playing");
+    },
+    get state(){
+        return this._state;
+    },
+    
     /**
      * @type {number}
      */                

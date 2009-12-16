@@ -252,6 +252,10 @@ ul li.selected {
     -webkit-transition: all 0.2s ease-out;
 }
 
+.item-playing .name:before {
+    content: url(volume_high.png);
+}
+
 ul li .name {
     display: inline-block;
 }

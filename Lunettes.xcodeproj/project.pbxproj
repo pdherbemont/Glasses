@@ -57,6 +57,7 @@
 		6312768C10C6A5C400A01F33 /* Utilities.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768B10C6A5C400A01F33 /* Utilities.js */; };
 		6312768E10C6A61200A01F33 /* CocoaObject.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768D10C6A61200A01F33 /* CocoaObject.js */; };
 		6312778610C6C4E500A01F33 /* dom-drag.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312778510C6C4E500A01F33 /* dom-drag.js */; };
+		6314289D10D96B3200363AB7 /* volume_high.png in Resources */ = {isa = PBXBuildFile; fileRef = 6314289C10D96B3200363AB7 /* volume_high.png */; };
 		63161B1310CAADDF0091974E /* VLCCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63161B1210CAADDF0091974E /* VLCCollectionView.m */; };
 		63161BD410CAC3DA0091974E /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 63161BB710CAC3DA0091974E /* default.css */; };
 		63161BD710CAC3DA0091974E /* fs_exit_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 63161BBC10CAC3DA0091974E /* fs_exit_fullscreen.png */; };
@@ -348,6 +349,7 @@
 		6312768B10C6A5C400A01F33 /* Utilities.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Utilities.js; sourceTree = "<group>"; };
 		6312768D10C6A61200A01F33 /* CocoaObject.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = CocoaObject.js; sourceTree = "<group>"; };
 		6312778510C6C4E500A01F33 /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "dom-drag.js"; sourceTree = "<group>"; };
+		6314289C10D96B3200363AB7 /* volume_high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volume_high.png; path = Resources/Style/Default/volume_high.png; sourceTree = "<group>"; };
 		63161B1110CAADDF0091974E /* VLCCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCollectionView.h; path = Sources/VLCCollectionView.h; sourceTree = "<group>"; };
 		63161B1210CAADDF0091974E /* VLCCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCollectionView.m; path = Sources/VLCCollectionView.m; sourceTree = "<group>"; };
 		63161BB710CAC3DA0091974E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = "Resources/Style/No Playlist/default.css"; sourceTree = SOURCE_ROOT; };
@@ -783,6 +785,7 @@
 		63161BF910CAC3FA0091974E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6314289C10D96B3200363AB7 /* volume_high.png */,
 				63161BFC10CAC4190091974E /* fs_exit_fullscreen_highlight.png */,
 				63161BFD10CAC4190091974E /* fs_exit_fullscreen.png */,
 				63161BFE10CAC4190091974E /* fs_pause_highlight.png */,
@@ -1120,6 +1123,7 @@
 				63161C2610CAC4190091974E /* window-minimize-on.png in Resources */,
 				63161C2710CAC4190091974E /* window-zoom-on.png in Resources */,
 				63161C3110CAC48B0091974E /* Info.plist in Resources */,
+				6314289D10D96B3200363AB7 /* volume_high.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
