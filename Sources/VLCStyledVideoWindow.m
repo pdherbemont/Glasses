@@ -169,7 +169,7 @@ static inline BOOL debugStyledWindow(void)
     NSScreen *screen = [self screen];
     if ([screen isMainScreen]) {
         NSRect rect = [[[self windowController] styledWindowView] representedWindowRect];
-        if (rect.size.width != 0) {
+        if (!NSIsEmptyRect(rect)) {
             CGFloat screenHeight = [screen frame].size.height;
             CGFloat windowHeight = [self frame].size.height;
             
