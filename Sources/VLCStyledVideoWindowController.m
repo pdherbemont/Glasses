@@ -146,6 +146,11 @@
     [_styledWindowView windowDidChangeAlphaValue:alpha];
 }
 
+- (NSRect)windowWillUseStandardFrame:(NSWindow *)window defaultFrame:(NSRect)newFrame
+{
+    return [[window screen] frame];
+}
+
 #pragma mark -
 #pragma mark First responder handler (Respond to menu)
 
