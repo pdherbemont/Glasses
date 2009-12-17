@@ -26,13 +26,11 @@
 @end
 
 @implementation VLCSplashScreenWindowController
-@synthesize availableMediaDiscoverer=_availableMediaDiscoverer;
-- (void) dealloc
-{
-    [_availableMediaDiscoverer release];
-    [super dealloc];
-}
 
+- (NSArray *)availableMediaDiscoverer
+{
+    return [VLCMediaDiscoverer availableMediaDiscoverer];
+}
 - (NSString *)windowNibName
 {
     return @"SplashScreenWindow";
@@ -41,16 +39,6 @@
 
 - (void)windowDidLoad
 {
-    NSAssert(!_availableMediaDiscoverer, @"Already setup");
-    [self willChangeValueForKey:@"availableMediaDiscoverer"];
-    _availableMediaDiscoverer = [[NSArray arrayWithObjects:
-      [[[VLCMediaDiscoverer alloc] initWithName:@"sap"] autorelease],
-      [[[VLCMediaDiscoverer alloc] initWithName:@"freebox"] autorelease],
-      [[[VLCMediaDiscoverer alloc] initWithName:@"video_dir"] autorelease],
-      [[[VLCMediaDiscoverer alloc] initWithName:@"shoutcast"] autorelease],
-      [[[VLCMediaDiscoverer alloc] initWithName:@"shoutcasttv"] autorelease], nil] retain];
-    [self didChangeValueForKey:@"availableMediaDiscoverer"];
-
     [super windowDidLoad];
     [[self window] center];
     [[self window] setDelegate:self];

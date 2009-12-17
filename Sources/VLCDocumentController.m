@@ -182,6 +182,12 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
 #pragma mark -
 #pragma mark NSApp delegate
 
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visibleWindows
+{
+    [self openSplashScreen:self];
+    return NO;
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self rebuildStyleMenu];
@@ -206,8 +212,9 @@ static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *m
         // auto-releases itself when the window is closed
         _splashScreen = [[VLCSplashScreenWindowController alloc] init];
     }
-    [_splashScreen showWindow:self];    
+    [_splashScreen showWindow:self];
 }
+
 - (void)closeSplashScreen
 {
     [_splashScreen release];
