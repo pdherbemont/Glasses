@@ -54,7 +54,7 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 - (void)startWithBlock:(void (^)(void))block
 {
     Block_release(_block);
-    _block = Block_copy(block);
+    _block = Block_copy((void*)block);
     FSEventStreamScheduleWithRunLoop(_stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     FSEventStreamStart(_stream);
 }
