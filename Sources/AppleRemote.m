@@ -100,6 +100,8 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonMenu_Hold]    forKey:@"33_21_20_2_33_21_20_2_"];
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteButtonPlay_Sleep]   forKey:@"37_33_21_20_2_37_33_21_20_2_"];
             [cookieToButtonMapping setObject:[NSNumber numberWithInt:kRemoteControl_Switched]   forKey:@"19_"];
+            [cookieToButtonMapping setObject:[NSNumber numberWithInt:k2009RemoteButtonPlay]       forKey:@"33_21_20_8_2_33_21_20_8_2_"];
+            [cookieToButtonMapping setObject:[NSNumber numberWithInt:k2009RemoteButtonMiddlePlay] forKey:@"33_21_20_3_2_33_21_20_3_2_"];
         }
     }
 
@@ -169,7 +171,7 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
 }
 - (void) setClickCountingEnabled: (BOOL) value {
     if (value) {
-        [self setClickCountEnabledButtons: kRemoteButtonVolume_Plus | kRemoteButtonVolume_Minus | kRemoteButtonPlay | kRemoteButtonLeft | kRemoteButtonRight | kRemoteButtonMenu];
+        [self setClickCountEnabledButtons: kRemoteButtonVolume_Plus | kRemoteButtonVolume_Minus | kRemoteButtonPlay | kRemoteButtonLeft | kRemoteButtonRight | kRemoteButtonMenu | k2009RemoteButtonPlay | k2009RemoteButtonMiddlePlay];
     } else {
         [self setClickCountEnabledButtons: 0];
     }
@@ -451,6 +453,14 @@ static AppleRemote* sharedInstance=nil;
     NSNumber* buttonId = [[self cookieToButtonMapping] objectForKey: cookieString];
     if (buttonId != nil) {
         [self sendRemoteButtonEvent: [buttonId intValue] pressedDown: (sumOfValues>0)];
+        switch ([buttonId intValue]) {
+            case k2009RemoteButtonPlay:
+            case k2009RemoteButtonMiddlePlay:
+                buttonId = [NSNumber numberWithInt:kRemoteButtonPlay];
+                break;
+            default:
+                break;
+        }
     } else {
         // let's see if a number of events are stored in the cookie string. this does
         // happen when the main thread is too busy to handle all incoming events in time.
