@@ -27,6 +27,6 @@
     IBOutlet NSCollectionView *_mediaDiscoverCollection;
 }
 
-@property (retain) NSArray *availableMediaDiscoverer;
+@property (retain, readonly) NSArray *availableMediaDiscoverer;
 - (IBAction)openSelectedMediaDiscoverer:(id)sender;
 @end
