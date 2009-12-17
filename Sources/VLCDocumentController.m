@@ -89,15 +89,6 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     }
 }
 
-static NSMenuItem *createOpenLibraryMenuItemWithDiscoverer(VLCMediaDiscoverer *mediaDiscoverer, NSUInteger n)
-{
-    NSString *keyEquivalent = [NSString stringWithFormat:@"%d", n];
-    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[mediaDiscoverer localizedName] action:@selector(openLibraryFromMenuItem:) keyEquivalent:keyEquivalent];
-    [menuItem setKeyEquivalentModifierMask:NSAlternateKeyMask | NSCommandKeyMask];
-    [menuItem setRepresentedObject:mediaDiscoverer];
-    return menuItem;
-}
-
 - (NSPredicate *)predicateThatFiltersEmptyDiscoverer
 {
     return [NSPredicate predicateWithFormat:@"discoveredMedia.media.@count != 0"];
