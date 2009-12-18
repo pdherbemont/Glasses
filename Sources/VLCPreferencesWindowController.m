@@ -26,13 +26,6 @@
 
 @implementation VLCPreferencesWindowController
 
-- (void)awakeFromNib
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![defaults stringForKey:@"SelectedSnapshotFolder"])
-        [defaults setObject:[@"~/Desktop" stringByExpandingTildeInPath] forKey:@"SelectedSnapshotFolder"];
-}
-
 - (NSString *)windowNibName
 {
     return @"PreferencesWindow";

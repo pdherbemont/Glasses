@@ -69,7 +69,8 @@
                                 yes, @"ControlWithMediaKeysInBackground",
                                 yes, @"ControlWithHIDRemote",
                                 yes, @"UseDeinterlaceFilter",
-                                @"~/Desktop", @"SelectedSnapshotFolder", nil]];
+                                [@"~/Desktop" stringByExpandingTildeInPath], @"SelectedSnapshotFolder",
+                                yes, @"ShowDebugMenu", nil]];
 
     // Always reset if the WebKitInspector was attached.
     // Because its mostly unusable else.
