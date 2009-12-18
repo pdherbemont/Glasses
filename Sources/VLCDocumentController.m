@@ -147,7 +147,6 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
             thisMovie = [[dict retain] autorelease];
             break;
         }
-            
     }
     if (position > 0.99) {
         if (thisMovie)
@@ -157,7 +156,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
         NSNumber *oldposition = [thisMovie objectForKey:@"position"];
         if (!oldposition || position > [oldposition doubleValue]) {
             NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-             [[media url] absoluteString], @"url",
+             [[[media url] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"url",
              [NSNumber numberWithDouble:position], @"position",
              [remainingTime numberValue], @"remainingTime",
              nil];
