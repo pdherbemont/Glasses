@@ -21,6 +21,7 @@
 #import "VLCStyledVideoWindow.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCStyledVideoWindowView.h"
+#import "VLCMediaDocument.h"
 #import "NSScreen_Additions.h"
 
 //#define DEBUG_STYLED_WINDOW
@@ -92,12 +93,30 @@ static inline BOOL debugStyledWindow(void)
     [super orderFront:sender];
 }
 
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo
+{
+    if ([[alert suppressionButton] state] == NSOnState)
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey: @"SuppressShareOnLANReminder"];
+
+    if (returnCode == NSOKButton)
+        [(VLCMediaDocument *)contextInfo close];
+}
+
 // Because we are borderless, a certain number of thing don't work out of the box.
 // For instance the NSDocument patterns don't apply, we have to reimplement them.
 - (void)performClose:(id)sender
 {
-    NSDocument *doc = [[NSDocumentController sharedDocumentController] documentForWindow:self];
-    [doc close];
+    VLCMediaDocument *doc = [[NSDocumentController sharedDocumentController] documentForWindow:self];
+    if ([doc sharedOnLAN] && ![[NSUserDefaults standardUserDefaults] boolForKey:@"SuppressShareOnLANReminder"])
+    {
+        NSAlert *ourAlert;
+        ourAlert = [NSAlert alertWithMessageText:@"This document is shared on your local network" defaultButton:@"Close" alternateButton:@"Cancel" otherButton: nil informativeTextWithFormat:@"This document is currently shared on your local network. If you close the window, users on your network will no longer be able to see its content."];
+        [ourAlert setShowsSuppressionButton: YES];
+        [[ourAlert suppressionButton] setTitle: @"Always close shared documents without asking"];
+        [ourAlert beginSheetModalForWindow: self modalDelegate: self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:doc];
+    }
+    else
+        [doc close];
 }
 
 - (void)performZoom:(id)sender

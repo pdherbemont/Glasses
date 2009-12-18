@@ -232,7 +232,7 @@
         }
         _theLANStreamingSession = [VLCStreamSession streamSession];
         _theLANStreamingSession.media = ourMedia;
-        _theLANStreamingSession.streamOutput = [VLCStreamOutput rtpBroadcastStreamOutputWithSAPAnnounce: @"blabla"];
+        _theLANStreamingSession.streamOutput = [VLCStreamOutput rtpBroadcastStreamOutputWithSAPAnnounce: [self displayName]];
         _sharedOnLAN = YES;
         [_theLANStreamingSession startStreaming];
         if ([_mediaListPlayer.mediaPlayer isSeekable])
