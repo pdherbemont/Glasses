@@ -99,9 +99,9 @@
     if (media && seekable) {
         VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
         [documentController media:media wasClosedAtPosition:position withRemainingTime:remainingTime];
+        if (_sharedOnLAN)
+            [_theLANStreamingSession setPosition: position];
     }
-    if (_sharedOnLAN)
-        [_theLANStreamingSession setPosition: position];
 }
 
 - (void)close
@@ -217,7 +217,7 @@
     VLCExportStatusWindowController *exportWindowController = [[VLCExportStatusWindowController alloc] init];
     [[exportWindowController window] makeKeyAndOrderFront:self];
     exportWindowController.streamSession = theStreamSession;
-    
+
     [exportWindowController.streamSession startStreaming];
 }
 
@@ -249,7 +249,14 @@
 {
     // This method is triggered by the VLCStyledVideoWindowView, when the position slider is moved by the user
     if (_sharedOnLAN)
-        [_theLANStreamingSession setPosition: _mediaListPlayer.mediaPlayer.position];
+    {
+        VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+
+        double position = [mediaPlayer position];
+
+        if ([mediaPlayer isSeekable])
+            [_theLANStreamingSession setPosition: [mediaPlayer position]];
+    }
 }
 
 - (NSArray *)writableTypesForSaveOperation:(NSSaveOperationType)saveOperation
