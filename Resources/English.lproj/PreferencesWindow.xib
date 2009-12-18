@@ -33,7 +33,7 @@
 				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{500, 505}, {455, 93}}</string>
-				<int key="NSWTFlags">536870912</int>
+				<int key="NSWTFlags">536871936</int>
 				<string key="NSWindowTitle">Preferences</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="379754886">
@@ -191,18 +191,18 @@
 							<int key="NSPeriodicInterval">25</int>
 						</object>
 					</object>
-					<object class="NSButton" id="705451769">
+					<object class="NSButton" id="44303372">
 						<reference key="NSNextResponder" ref="439030223"/>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 77}, {375, 18}}</string>
 						<reference key="NSSuperview" ref="439030223"/>
 						<bool key="NSEnabled">YES</bool>
-						<object class="NSButtonCell" key="NSCell" id="467248505">
+						<object class="NSButtonCell" key="NSCell" id="651936485">
 							<int key="NSCellFlags">-2080244224</int>
 							<int key="NSCellFlags2">0</int>
 							<string key="NSContents">Show Debug menu in menu bar</string>
 							<reference key="NSSupport" ref="737195053"/>
-							<reference key="NSControlView" ref="705451769"/>
+							<reference key="NSControlView" ref="44303372"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
 							<reference key="NSNormalImage" ref="714326291"/>
@@ -605,10 +605,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.ShowDebugMenu</string>
-						<reference key="source" ref="705451769"/>
+						<reference key="source" ref="44303372"/>
 						<reference key="destination" ref="242931913"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="705451769"/>
+							<reference key="NSSource" ref="44303372"/>
 							<reference key="NSDestination" ref="242931913"/>
 							<string key="NSLabel">value: values.ShowDebugMenu</string>
 							<string key="NSBinding">value</string>
@@ -691,7 +691,7 @@
 							<reference ref="1048130553"/>
 							<reference ref="734935445"/>
 							<reference ref="912679882"/>
-							<reference ref="705451769"/>
+							<reference ref="44303372"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">General</string>
@@ -829,16 +829,16 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">161</int>
-						<reference key="object" ref="705451769"/>
+						<reference key="object" ref="44303372"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="467248505"/>
+							<reference ref="651936485"/>
 						</array>
 						<reference key="parent" ref="439030223"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">162</int>
-						<reference key="object" ref="467248505"/>
-						<reference key="parent" ref="705451769"/>
+						<reference key="object" ref="651936485"/>
+						<reference key="parent" ref="44303372"/>
 					</object>
 				</array>
 			</object>

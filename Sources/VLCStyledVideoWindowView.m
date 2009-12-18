@@ -176,6 +176,7 @@
 - (void)setPosition:(float)position
 {
     [[self mediaPlayer] setPosition:position];
+    [[[[self window] windowController] document] playbackPositionChanged];
 }
 
 - (void)play

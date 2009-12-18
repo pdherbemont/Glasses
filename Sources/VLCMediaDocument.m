@@ -34,6 +34,7 @@
 
 @implementation VLCMediaDocument
 @synthesize mediaListPlayer=_mediaListPlayer;
+@synthesize sharedOnLAN=_sharedOnLAN;
 
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
@@ -99,6 +100,8 @@
         VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
         [documentController media:media wasClosedAtPosition:position withRemainingTime:remainingTime];
     }
+    if (_sharedOnLAN)
+        [_theLANStreamingSession setPosition: position];
 }
 
 - (void)close
@@ -110,6 +113,12 @@
 
     [self stopRememberMediaPosition];
     [self saveUnfinishedMovieState];
+
+    if (_sharedOnLAN)
+    {
+        [_theLANStreamingSession stopStreaming];
+        [_theLANStreamingSession release];
+    }
 
     [_mediaListPlayer stop];
     [_mediaListPlayer.mediaPlayer setDelegate:nil];
@@ -189,7 +198,7 @@
     VLCMedia * ourMedia = _media;
     if (!ourMedia)
     {
-        NSRunCriticalAlertPanel(@"Export failed", @"Lunettes cannot export media from list-based players yet. Please open the file separately to convert it.", @"Hum, okay", nil, nil);
+        NSRunCriticalAlertPanel(@"Export failed", @"Lunettes cannot export media from list-based players yet. Please open the input separately to convert it.", @"Hum, okay", nil, nil);
         return;
     }
     theStreamSession = [VLCStreamSession streamSession];
@@ -210,6 +219,37 @@
     exportWindowController.streamSession = theStreamSession;
     
     [exportWindowController.streamSession startStreaming];
+}
+
+- (IBAction)shareMovieOnLAN:(NSMenuItem *)sender
+{
+    if (!_sharedOnLAN) {
+        VLCMedia *ourMedia = _media;
+        if (!ourMedia)
+        {
+            NSRunCriticalAlertPanel(@"Sharing failed", @"Lunettes cannot share media from list-based players yet. Please open the input separately.", @"Hum, okay", nil, nil);
+            return;
+        }
+        _theLANStreamingSession = [VLCStreamSession streamSession];
+        _theLANStreamingSession.media = ourMedia;
+        _theLANStreamingSession.streamOutput = [VLCStreamOutput rtpBroadcastStreamOutputWithSAPAnnounce: @"blabla"];
+        _sharedOnLAN = YES;
+        [_theLANStreamingSession startStreaming];
+        if ([_mediaListPlayer.mediaPlayer isSeekable])
+            [_theLANStreamingSession setPosition: _mediaListPlayer.mediaPlayer.position];
+        [_theLANStreamingSession retain];
+    } else {
+        [_theLANStreamingSession stopStreaming];
+        [_theLANStreamingSession release];
+        _sharedOnLAN = NO;
+    }
+}
+
+- (void)playbackPositionChanged
+{
+    // This method is triggered by the VLCStyledVideoWindowView, when the position slider is moved by the user
+    if (_sharedOnLAN)
+        [_theLANStreamingSession setPosition: _mediaListPlayer.mediaPlayer.position];
 }
 
 - (NSArray *)writableTypesForSaveOperation:(NSSaveOperationType)saveOperation
