@@ -64,7 +64,7 @@
         [controller makeDocumentWithObject:[item representedObject]];
     else {
         id representedObject = [item representedObject];
-        NSURL *url = [NSURL URLWithString:[representedObject objectForKey:@"url"]];
+        NSURL *url = [NSURL URLWithString:[[representedObject objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         double position = [[representedObject objectForKey:@"position"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
     }
