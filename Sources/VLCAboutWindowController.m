@@ -19,6 +19,8 @@
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
 *****************************************************************************/
 
+#import <VLCKit/VLCKit.h>
+
 #import "VLCAboutWindowController.h"
 
 @interface VLCAboutWindowController (Delegate) <NSAnimationDelegate, NSWindowDelegate>
@@ -114,10 +116,13 @@ static NSString *contentOfTextResource(NSString *resource)
     NSDictionary *localDict = [[NSBundle mainBundle] infoDictionary];
 
     /* Setup the copyright field */
-    [_copyrightField setStringValue:[NSString stringWithFormat:@"%@", [localDict objectForKey:@"NSHumanReadableCopyright"]]];
+    [_copyrightField setStringValue:[NSString stringWithFormat:@"%@ - libvlc version %@",
+                                     [localDict objectForKey:@"NSHumanReadableCopyright"],
+                                     [[VLCLibrary sharedLibrary] changeset]]];
 
     /* Setup the nameversion field */
-    [_versionField setStringValue:[NSString stringWithFormat:@"Version %@", [localDict objectForKey:@"CFBundleVersion"]]];
+    [_versionField setStringValue:[NSString stringWithFormat:@"Version %@",
+                                   [localDict objectForKey:@"CFBundleVersion"]]];
 
     /* setup the authors and thanks field */
     [_creditsTextView setString: [NSString stringWithFormat:@"%@\n%@\n\n%@",
