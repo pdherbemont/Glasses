@@ -55,11 +55,6 @@
         [[window toolbar] setSelectedItemIdentifier:@"general"];
     }
 
-    // FIXME - seems to be a bug, it doesn't work from the xib
-    NSArray *items = [[window toolbar] items];
-    [[items objectAtIndex: 0] setImage: [NSImage imageNamed: NSImageNamePreferencesGeneral]];
-    [[items objectAtIndex: 1] setImage: [NSImage imageNamed: NSImageNameSlideshowTemplate]];
-
     [window center];
 }
 
