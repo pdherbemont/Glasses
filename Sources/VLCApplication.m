@@ -65,12 +65,12 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSNumber *yes = [NSNumber numberWithBool:YES];
     [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
-                                yes, @"ControlWithMediaKeys",
-                                yes, @"ControlWithMediaKeysInBackground",
-                                yes, @"ControlWithHIDRemote",
-                                yes, @"UseDeinterlaceFilter",
-                                [@"~/Desktop" stringByExpandingTildeInPath], @"SelectedSnapshotFolder",
-                                yes, @"ShowDebugMenu", nil]];
+                                yes, kControlWithMediaKeys,
+                                yes, kControlWithMediaKeysInBackground,
+                                yes, kControlWithHIDRemote,
+                                yes, kUseDeinterlaceFilter,
+                                yes, kShowDebugMenu, nil]];
+                                @"~/Desktop", kSelectedSnapshotFolder, nil]];
 
     // Always reset if the WebKitInspector was attached.
     // Because its mostly unusable else.

@@ -139,7 +139,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
 {
     NSString *fileName = [[media url] lastPathComponent];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *unfinishedMovies = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"UnfinishedMoviesAsArray"]];
+    NSMutableArray *unfinishedMovies = [NSMutableArray arrayWithArray:[defaults arrayForKey:kUnfinishedMoviesAsArray]];
     NSDictionary *thisMovie = nil;
     for (NSDictionary *dict in unfinishedMovies) {
         NSString *otherFileName = [[[dict objectForKey:@"url"] lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -166,7 +166,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
                 [unfinishedMovies insertObject:dict atIndex:0];
         }
     }
-    [defaults setObject:unfinishedMovies forKey:@"UnfinishedMoviesAsArray"];
+    [defaults setObject:unfinishedMovies forKey:kUnfinishedMoviesAsArray];
 }
 
 #pragma mark -
@@ -187,8 +187,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
         return;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    static NSString *dontShowSplashScreenKey = @"DontShowSplashScreen";
-    if ([defaults boolForKey:dontShowSplashScreenKey])
+    if ([defaults boolForKey:kDontShowSplashScreen])
         return;
     
     // auto-releases itself when the window is closed

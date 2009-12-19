@@ -100,7 +100,7 @@
      
     [self videoDidResize];
 
-    BOOL enterFS = [[NSUserDefaults standardUserDefaults] boolForKey:@"StartPlaybackInFullscreen"];
+    BOOL enterFS = [[NSUserDefaults standardUserDefaults] boolForKey:kStartPlaybackInFullscreen];
     if (!enterFS || [self hasLoadedAFirstFrame])
         [window makeKeyAndOrderFront:self];
     

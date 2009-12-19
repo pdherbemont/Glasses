@@ -30,11 +30,9 @@
 + (void)setShouldPrintExceptions:(BOOL)print;
 @end
 
-static NSString *defaultPluginNamePreferencesKey = @"LastSelectedStyle";
-
 static BOOL watchForStyleModification(void)
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"WatchForStyleModification"];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kWatchForStyleModification];
 }
 
 @interface VLCStyledView ()
@@ -96,7 +94,7 @@ static BOOL watchForStyleModification(void)
 
 - (NSString *)defaultPluginName
 {
-    NSString *pluginName = [[NSUserDefaults standardUserDefaults] stringForKey:defaultPluginNamePreferencesKey];
+    NSString *pluginName = [[NSUserDefaults standardUserDefaults] stringForKey:kLastSelectedStyle];
     if (!pluginName)
         return @"Default";
     return pluginName;
@@ -105,7 +103,7 @@ static BOOL watchForStyleModification(void)
 - (void)setDefaultPluginName:(NSString *)pluginName
 {
     NSAssert(pluginName, @"We shouldn't set a null pluginName");
-    [[NSUserDefaults standardUserDefaults] setObject:pluginName forKey:defaultPluginNamePreferencesKey];
+    [[NSUserDefaults standardUserDefaults] setObject:pluginName forKey:kLastSelectedStyle];
 }
 
 - (NSString *)pageName

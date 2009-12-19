@@ -5,6 +5,7 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
     #import "VLCFeatures.h"
+    #import "VLCPreferencesKeys.h"
 #endif
 
 #define VLCLogDebug NSLog

@@ -37,7 +37,7 @@ static inline BOOL debugStyledWindow(void)
 #ifdef DEBUG_STYLED_WINDOW
     return YES;
 #endif
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"DebugStyledWindow"];    
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugStyledWindow];    
 }
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
@@ -86,7 +86,7 @@ static inline BOOL debugStyledWindow(void)
     // to go fullscreen directly. Because we need to wait for the styled window
     // to be ready (see -[VLCStyledWindowView frameDidLoad]) we have to
     // ensure we won't go on screen prematuraly
-    BOOL shouldGoFullscreen = [[NSUserDefaults standardUserDefaults] boolForKey:@"StartPlaybackInFullscreen"];
+    BOOL shouldGoFullscreen = [[NSUserDefaults standardUserDefaults] boolForKey:kStartPlaybackInFullscreen];
     if (shouldGoFullscreen && ![[[self windowController] styledWindowView] hasLoadedAFirstFrame])
         return;
 

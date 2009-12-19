@@ -24,8 +24,6 @@
 #import "VLCOpenURLWindowController.h"
 #import "VLCDocumentController.h"
 
-static NSString *recentNetworkItemsPreferencesKey = @"RecentNetworkItems";
-static NSString *lastNetworkItemsPreferencesKey = @"LastNetworkItems";
 @implementation VLCOpenURLWindowController
 
 - (NSString *)windowNibName
@@ -38,14 +36,14 @@ static NSString *lastNetworkItemsPreferencesKey = @"LastNetworkItems";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
     // Save it as the last item added to the list.
-    [defaults setValue:urlString forKey:lastNetworkItemsPreferencesKey];
+    [defaults setValue:urlString forKey:kLastNetworkItems];
 
     // Now add this item to the recent list
-    NSArray *originalRecents = [defaults arrayForKey:recentNetworkItemsPreferencesKey];
+    NSArray *originalRecents = [defaults arrayForKey:kRecentNetworkItems];
     
     // No previous item
     if (!originalRecents) {
-        [defaults setValue:[NSArray arrayWithObject:urlString] forKey:recentNetworkItemsPreferencesKey];
+        [defaults setValue:[NSArray arrayWithObject:urlString] forKey:kRecentNetworkItems];
         return;
     }
     
@@ -62,7 +60,7 @@ static NSString *lastNetworkItemsPreferencesKey = @"LastNetworkItems";
     [recents insertObject:urlString atIndex:0];
     
     // Save it.
-    [defaults setValue:recents forKey:recentNetworkItemsPreferencesKey];
+    [defaults setValue:recents forKey:kRecentNetworkItems];
     
 }
 
@@ -80,8 +78,8 @@ static NSString *lastNetworkItemsPreferencesKey = @"LastNetworkItems";
 
 - (IBAction)clearRecentItems:(id)sender
 {
-    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:lastNetworkItemsPreferencesKey];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:recentNetworkItemsPreferencesKey];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:kLastNetworkItems];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:kRecentNetworkItems];
 }
 
 - (IBAction)networkPanelAction:(id)sender

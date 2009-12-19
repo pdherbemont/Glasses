@@ -79,7 +79,7 @@
 
 - (IBAction)saveVideoSnapshot:(id)sender
 {
-    NSString *path = [[NSUserDefaults standardUserDefaults] stringForKey:@"SelectedSnapshotFolder"];
+    NSString *path = [[NSUserDefaults standardUserDefaults] stringForKey:kSelectedSnapshotFolder];
     [[self mediaListPlayer].mediaPlayer saveVideoSnapshotAt:[path stringByExpandingTildeInPath] withWidth:0 andHeight:0];
 }
 
@@ -275,7 +275,7 @@
     if (_hasInitiatedPlayback)
         return;
     _hasInitiatedPlayback = YES;
-    VLCMediaList *mediaListPlayer = [self mediaListPlayer];
+    VLCMediaListPlayer *mediaListPlayer = [self mediaListPlayer];
     [mediaListPlayer play];
     [mediaListPlayer.mediaPlayer setPosition:_startingPosition];
 }
@@ -290,7 +290,7 @@
 // IO every now and then. But this is low, and we hope the system will cache it.
 - (void)startToRememberMediaPosition
 {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"DontRememberMediaPosition"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberMediaPosition])
         return;
     static const NSTimeInterval mediaPositionPollingInterval = 10.0;
     _rememberTimer = [[NSTimer timerWithTimeInterval:mediaPositionPollingInterval target:self selector:@selector(saveUnfinishedMovieState) userInfo:nil repeats:YES] retain];

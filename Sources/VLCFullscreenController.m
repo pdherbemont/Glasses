@@ -23,7 +23,7 @@
 
 static inline BOOL debugFullscreen(void)
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"DebugFullscreen"];    
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugFullscreen];    
 }
 
 NSInteger VLCFullscreenWindowLevel(void)
