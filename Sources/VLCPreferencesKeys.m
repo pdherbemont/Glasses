@@ -26,3 +26,4 @@ DEFINE(UnfinishedMoviesAsArray);
 
 DEFINE(DebugStyledWindow);
 DEFINE(DebugFullscreen);
+DEFINE(ShowDebugMenu);

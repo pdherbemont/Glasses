@@ -25,3 +25,4 @@ extern NSString *kUnfinishedMoviesAsArray;
 
 extern NSString *kDebugFullscreen;
 extern NSString *kDebugStyledWindow;
+extern NSString *kShowDebugMenu;
