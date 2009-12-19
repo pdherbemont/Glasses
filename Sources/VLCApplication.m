@@ -69,7 +69,7 @@
                                 yes, kControlWithMediaKeysInBackground,
                                 yes, kControlWithHIDRemote,
                                 yes, kUseDeinterlaceFilter,
-                                yes, kShowDebugMenu, nil]
+                                yes, kShowDebugMenu,
                                 @"~/Desktop", kSelectedSnapshotFolder, nil]];
 
     // Always reset if the WebKitInspector was attached.
