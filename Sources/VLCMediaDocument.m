@@ -219,6 +219,8 @@
     exportWindowController.streamSession = theStreamSession;
 
     [exportWindowController.streamSession startStreaming];
+    [self addWindowController:exportWindowController];
+    [exportWindowController release];
 }
 
 - (IBAction)shareMovieOnLAN:(NSMenuItem *)sender

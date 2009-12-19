@@ -30,6 +30,7 @@
 - (IBAction)cancel:(id)sender
 {
     [_streamSession stopStreaming];
+    [self close];
 }
 
 - (void)windowDidLoad
