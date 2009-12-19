@@ -211,7 +211,7 @@
     }
     else
     {
-        NSLog(@"unsupported file type requested");
+        VLCAssertNotReached(@"unsupported file type requested");
     }
 
     VLCExportStatusWindowController *exportWindowController = [[VLCExportStatusWindowController alloc] init];
