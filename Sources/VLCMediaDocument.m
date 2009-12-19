@@ -275,8 +275,9 @@
     if (_hasInitiatedPlayback)
         return;
     _hasInitiatedPlayback = YES;
-    [[self mediaListPlayer] play];
-    [[self mediaListPlayer].mediaPlayer setPosition:_startingPosition];
+    VLCMediaList *mediaListPlayer = [self mediaListPlayer];
+    [mediaListPlayer play];
+    [mediaListPlayer.mediaPlayer setPosition:_startingPosition];
 }
 
 #pragma mark -
