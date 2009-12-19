@@ -252,8 +252,6 @@
     {
         VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
 
-        double position = [mediaPlayer position];
-
         if ([mediaPlayer isSeekable])
             [_theLANStreamingSession setPosition: [mediaPlayer position]];
     }
