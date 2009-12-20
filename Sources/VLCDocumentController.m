@@ -105,7 +105,7 @@ menuItem = [[NSMenuItem alloc] initWithTitle:@"Disable" action:@selector(selMeth
 [[parentMenuItem submenu] addItem:[NSMenuItem separatorItem]]; \
 while (x < [thePlayer itemCount]) \
 { \
-    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:label,x] action:@selector(selMeth) keyEquivalent:@""]; \
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[[thePlayer label] objectAtIndex:x] action:@selector(selMeth) keyEquivalent:@""]; \
     [menuItem setTag:x]; \
     [[parentMenuItem submenu] addItem:menuItem]; \
     [menuItem release]; \
@@ -137,32 +137,36 @@ x = 1;
         NSMenuItem *menuItem;
 
         // Subtitle menu
-        // this is a special case to allow opening of external subtitle files
+        // this is a special case to allow opening of external subtitle file
+        [thePlayer currentVideoSubTitles];
+
         [[_subtitleTrackSelectorMenuItem submenu] removeAllItems];
         menuItem = [[NSMenuItem alloc] initWithTitle:@"Open Subtitle File..." action:@selector(setSubtitleTrackFromMenuItem:) keyEquivalent:@""];
         [menuItem setTag:-100];
         [[_subtitleTrackSelectorMenuItem submenu] addItem:menuItem];
         [menuItem release];
+        [_subtitleTrackSelectorMenuItem setEnabled:YES];
         [[_subtitleTrackSelectorMenuItem submenu] addItem:[NSMenuItem separatorItem]];
-        setupTrackMenu(_subtitleTrackSelectorMenuItem, setSubtitleTrackFromMenuItem:, countOfVideoSubTitles, @"Track %i", currentVideoSubTitles);
+        setupTrackMenu(_subtitleTrackSelectorMenuItem, setSubtitleTrackFromMenuItem:, countOfVideoSubTitles, videoSubTitles, currentVideoSubTitles);
         if ([[_subtitleTrackSelectorMenuItem submenu] numberOfItems] == 4)
         {
             [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 3]; // separator
             [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 2]; // "Disable"
             [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 1]; // separator
         }
+        [thePlayer audioTracks];
 
         // Audiotrack menu
         [[_audioTrackSelectorMenuItem submenu] removeAllItems];
-        setupTrackMenu(_audioTrackSelectorMenuItem, setAudioTrackFromMenuItem:, countOfAudioTracks, @"Track %i", currentAudioTrack);
+        setupTrackMenu(_audioTrackSelectorMenuItem, setAudioTrackFromMenuItem:, countOfAudioTracks, audioTracks, currentAudioTrack);
 
         // Chapter Selector menu
         [[_chapterSelectorMenuItem submenu] removeAllItems];
-        setupTrackMenu(_chapterSelectorMenuItem, setChapterFromMenuItem:, countOfChapters, @"Chapter %i", currentChapter);
+        setupTrackMenu(_chapterSelectorMenuItem, setChapterFromMenuItem:, countOfChapters, chaptersForTitle:[thePlayer currentTitle], currentChapter);
 
         // Title selector menu
         [[_titleSelectorMenuItem submenu] removeAllItems];
-        setupTrackMenu(_titleSelectorMenuItem, setTitleFromMenuItem:, countOfTitles, @"Title %i", currentTitle);
+        setupTrackMenu(_titleSelectorMenuItem, setTitleFromMenuItem:, countOfTitles, titles, currentTitle);
     }
 }
 
