@@ -28,6 +28,15 @@
     VLCSplashScreenWindowController *_splashScreen;
     IBOutlet NSMenuItem *_styleMenu;
     IBOutlet NSMenuItem *_openLibraryMenu;
+
+    /* various menu items containing information about our documents */
+    IBOutlet NSMenuItem * _sharedOnLANMenuItem;
+    IBOutlet NSMenuItem * _repeatsCurrentItemMenuItem;
+    IBOutlet NSMenuItem * _repeatsAllItemsMenuItem;
+    IBOutlet NSMenuItem * _subtitleTrackSelectorMenuItem;
+    IBOutlet NSMenuItem * _audioTrackSelectorMenuItem;
+    IBOutlet NSMenuItem * _chapterSelectorMenuItem;
+    IBOutlet NSMenuItem * _titleSelectorMenuItem;
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
@@ -39,4 +48,6 @@
 
 - (IBAction)openSplashScreen:(id)sender;
 - (void)closeSplashScreen;
+
+- (void)cleanAndRecreateMainMenu;
 @end

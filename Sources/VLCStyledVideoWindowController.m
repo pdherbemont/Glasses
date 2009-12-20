@@ -24,6 +24,7 @@
 #import "VLCStyledVideoWindowView.h"
 #import "VLCMediaDocument.h"
 #import "VLCStyledFullscreenHUDWindowController.h"
+#import "VLCDocumentController.h"
 
 @interface VLCStyledVideoWindowController () <VLCFullscreenDelegate, NSWindowDelegate>
 @end
@@ -126,6 +127,7 @@
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
     [_styledWindowView setKeyWindow:YES];
 }
 - (void)windowDidResignKey:(NSNotification *)notification
@@ -138,7 +140,7 @@
 }
 - (void)windowDidResignMain:(NSNotification *)notification
 {
-    [_styledWindowView setMainWindow:YES];
+    [_styledWindowView setMainWindow:NO];
 }
 
 - (void)window:(NSWindow *)window didChangeAlphaValue:(CGFloat)alpha

@@ -25,6 +25,10 @@
 
 @interface NSResponder (StyleMenuItemHandling)
 - (void)setStyleFromMenuItem:(id)sender;
+- (void)setSubtitleTrackFromMenuItem:(NSMenuItem *)sender;
+- (void)setAudioTrackFromMenuItem:(NSMenuItem *)sender;
+- (void)setChapterFromMenuItem:(NSMenuItem *)sender;
+- (void)setTitleFromMenuItem:(NSMenuItem *)sender;
 @end
 
 @implementation VLCDocumentController
@@ -57,6 +61,9 @@
     return [VLCMediaDocument class];
 }
 
+#pragma mark -
+#pragma mark Main Menu Cleanup and Recreation
+
 static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
 {
     return [[NSMenuItem alloc] initWithTitle:name action:@selector(setStyleFromMenuItem:) keyEquivalent:@""];
@@ -86,6 +93,139 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
         [[_styleMenu submenu] addItem:menuItem];
         [menuItem release];
         
+    }
+}
+
+static NSMenuItem *createSubtitleTrackMenuItemWithTrackName(NSString *name)
+{
+    return [[NSMenuItem alloc] initWithTitle:name action:@selector(setSubtitleTrackFromMenuItem:) keyEquivalent:@""];
+}
+
+static NSMenuItem *createAudioTrackMenuItemWithTrackName(NSString *name)
+{
+    return [[NSMenuItem alloc] initWithTitle:name action:@selector(setAudioTrackFromMenuItem:) keyEquivalent:@""];
+}
+
+static NSMenuItem *createChapterMenuItemWithChapterName(NSString *name)
+{
+    return [[NSMenuItem alloc] initWithTitle:name action:@selector(setChapterFromMenuItem:) keyEquivalent:@""];
+}
+
+static NSMenuItem *createTitleMenuItemWithTitleName(NSString *name)
+{
+    return [[NSMenuItem alloc] initWithTitle:name action:@selector(setTitleFromMenuItem:) keyEquivalent:@""];
+}
+
+- (void)cleanAndRecreateMainMenu
+{
+    [_sharedOnLANMenuItem setState: [[self currentDocument] sharedOnLAN] ? NSOnState : NSOffState];
+    [_repeatsCurrentItemMenuItem setState: [[self currentDocument] repeatsCurrentItem] ? NSOnState : NSOffState];
+    [_repeatsAllItemsMenuItem setState: [[self currentDocument] repeatsAllItems] ? NSOnState : NSOffState];
+
+    [_subtitleTrackSelectorMenuItem setEnabled:NO];
+    [_audioTrackSelectorMenuItem setEnabled:NO];
+    [_titleSelectorMenuItem setEnabled:NO];
+    [_chapterSelectorMenuItem setEnabled:NO];
+
+    VLCMediaPlayer * thePlayer = [[[self currentDocument] mediaListPlayer] mediaPlayer];
+    if ([thePlayer state] == VLCMediaPlayerStatePlaying || [thePlayer state] == VLCMediaPlayerStatePaused)
+    {
+        NSInteger x = 1;
+        // Subtitle Menu
+        [[_subtitleTrackSelectorMenuItem submenu] removeAllItems];
+        NSMenuItem *menuItem = createSubtitleTrackMenuItemWithTrackName(@"Disable");
+        [menuItem setTag: 0];
+        [menuItem setAlternate: YES];
+        [[_subtitleTrackSelectorMenuItem submenu] addItem:menuItem];
+        [menuItem release];
+        [[_subtitleTrackSelectorMenuItem submenu] addItem:[NSMenuItem separatorItem]];
+        while (x < [thePlayer countOfVideoSubTitles])
+        {
+            NSMenuItem *menuItem = createSubtitleTrackMenuItemWithTrackName([NSString stringWithFormat:@"Track %i",x]);
+            [menuItem setTag: x];
+            [menuItem setAlternate: YES];
+            [[_subtitleTrackSelectorMenuItem submenu] addItem:menuItem];
+            [menuItem release];
+            x++;
+        }
+        if ([[_subtitleTrackSelectorMenuItem submenu] numberOfItems] > 2)
+        {
+            [[[_subtitleTrackSelectorMenuItem submenu] itemWithTag:[thePlayer currentVideoSubTitles]] setState: NSOnState];
+            [_subtitleTrackSelectorMenuItem setEnabled:YES];
+        }
+
+        // Audiotrack menu
+        x = 1;
+        [[_audioTrackSelectorMenuItem submenu] removeAllItems];
+        menuItem = createAudioTrackMenuItemWithTrackName(@"Disable");
+        [menuItem setTag: 0];
+        [menuItem setAlternate: YES];
+        [[_audioTrackSelectorMenuItem submenu] addItem:menuItem];
+        [menuItem release];
+        [[_audioTrackSelectorMenuItem submenu] addItem:[NSMenuItem separatorItem]];        
+        while (x < [thePlayer countOfAudioTracks])
+        {
+            NSMenuItem *menuItem = createAudioTrackMenuItemWithTrackName([NSString stringWithFormat:@"Track %i",x]);
+            [menuItem setTag: x];
+            [menuItem setAlternate: YES];
+            [[_audioTrackSelectorMenuItem submenu] addItem:menuItem];
+            [menuItem release];
+            x++;
+        }
+        if ([[_audioTrackSelectorMenuItem submenu] numberOfItems] > 2)
+        {
+            [[[_audioTrackSelectorMenuItem submenu] itemWithTag:[thePlayer currentAudioTrack]] setState: NSOnState];
+            [_audioTrackSelectorMenuItem setEnabled:YES];
+        }
+
+        // Chapter Selector menu
+        x = 1;
+        [[_chapterSelectorMenuItem submenu] removeAllItems];
+        menuItem = createChapterMenuItemWithChapterName(@"Disable");
+        [menuItem setTag: 0];
+        [menuItem setAlternate: YES];
+        [[_chapterSelectorMenuItem submenu] addItem:menuItem];
+        [menuItem release];
+        [[_chapterSelectorMenuItem submenu] addItem:[NSMenuItem separatorItem]];        
+        while (x < [thePlayer countOfChapters])
+        {
+            NSMenuItem *menuItem = createChapterMenuItemWithChapterName([NSString stringWithFormat:@"Chapter %i",x]);
+            [menuItem setTag: x];
+            [menuItem setAlternate: YES];
+            [[_chapterSelectorMenuItem submenu]addItem: menuItem];
+            [menuItem release];
+            x++;
+        }
+        if ([[_chapterSelectorMenuItem submenu] numberOfItems] > 2)
+        {
+            [_chapterSelectorMenuItem setEnabled:YES];
+            [[[_chapterSelectorMenuItem submenu] itemWithTag:[thePlayer currentChapter]] setState: NSOnState];
+        }
+
+
+        // Title selector menu
+        x = 1;
+        [[_titleSelectorMenuItem submenu] removeAllItems];
+        menuItem = createTitleMenuItemWithTitleName(@"Disable");
+        [menuItem setTag: 0];
+        [menuItem setAlternate: YES];
+        [[_titleSelectorMenuItem submenu] addItem:menuItem];
+        [menuItem release];
+        [[_titleSelectorMenuItem submenu] addItem:[NSMenuItem separatorItem]];        
+        while (x < [thePlayer countOfTitles])
+        {
+            NSMenuItem *menuItem = createTitleMenuItemWithTitleName([NSString stringWithFormat:@"Title %i",x]);
+            [menuItem setTag: x];
+            [menuItem setAlternate: YES];
+            [[_titleSelectorMenuItem submenu]addItem: menuItem];
+            [menuItem release];
+            x++;
+        }
+        if ([[_titleSelectorMenuItem submenu] numberOfItems] > 2)
+        {
+            [_titleSelectorMenuItem setEnabled:YES];
+            [[[_titleSelectorMenuItem submenu] itemWithTag:[thePlayer currentTitle]] setState: NSOnState];
+        }
     }
 }
 

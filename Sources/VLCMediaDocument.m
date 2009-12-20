@@ -35,6 +35,8 @@
 @implementation VLCMediaDocument
 @synthesize mediaListPlayer=_mediaListPlayer;
 @synthesize sharedOnLAN=_sharedOnLAN;
+@synthesize repeatsCurrentItem=_repeatsCurrentItem;
+@synthesize repeatsAllItems=_repeatsAllItems;
 
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
@@ -245,6 +247,7 @@
         [_theLANStreamingSession release];
         _sharedOnLAN = NO;
     }
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
 
 - (void)playbackPositionChanged
@@ -304,7 +307,6 @@
     _rememberTimer = nil;
 }
 
-
 #pragma mark -
 #pragma mark VLCMediaPlayer delegate
 
@@ -320,13 +322,14 @@
     }
 
     if (state == VLCMediaPlayerStatePlaying)
+    {
         [self startToRememberMediaPosition];
-    else {
+        [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    } else {
         [self stopRememberMediaPosition];
         [self saveUnfinishedMovieState];
     }
 }
-             
 
 #pragma mark -
 #pragma mark First responder
@@ -339,6 +342,29 @@
     [windowController release];
 }
 
+- (void)repeatCurrentItem:(id)sender
+{
+    if (_repeatsAllItems)
+    {
+        [_mediaListPlayer repeatAllItems];
+        _repeatsAllItems = !_repeatsAllItems;
+    }
+    [_mediaListPlayer repeatCurrentItem];
+    _repeatsCurrentItem = !_repeatsCurrentItem;
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+}
+
+- (void)repeatAllItems:(id)sender
+{
+    if (_repeatsCurrentItem)
+    {
+        [_mediaListPlayer repeatCurrentItem];
+        _repeatsCurrentItem = !_repeatsCurrentItem;
+    }
+    [_mediaListPlayer repeatAllItems];
+    _repeatsAllItems = !_repeatsAllItems;
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+}
 
 - (void)remoteMiddleButtonPressed:(id)sender
 {
@@ -370,9 +396,10 @@
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
     if (![mediaPlayer isSeekable]) {
         NSBeep();
+        NSLog(@"not seekable");
         return;
     }
-    
+    NSLog(@"mediumJumpForward");
     [mediaPlayer mediumJumpForward];
 }
 
@@ -385,6 +412,30 @@
     }
     
     [mediaPlayer mediumJumpBackward];
+}
+
+- (void)setSubtitleTrackFromMenuItem:(NSMenuItem *)sender
+{
+    [[[self mediaListPlayer]mediaPlayer]setVideoSubTitles:[sender tag]];
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+}
+
+- (void)setAudioTrackFromMenuItem:(NSMenuItem *)sender
+{
+    [[[self mediaListPlayer]mediaPlayer]setAudioTrack:[sender tag]];
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+}
+
+- (void)setChapterFromMenuItem:(NSMenuItem *)sender
+{
+    [[[self mediaListPlayer]mediaPlayer]setChapter:[sender tag]];
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+}
+
+- (void)setTitleFromMenuItem:(NSMenuItem *)sender
+{
+    [[[self mediaListPlayer]mediaPlayer]setCurrentTitle:[sender tag]];
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
 
 @end
