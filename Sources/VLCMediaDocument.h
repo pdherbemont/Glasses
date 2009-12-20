@@ -52,4 +52,5 @@
 
 - (IBAction)shareMovieOnLAN:(id)sender;
 - (void)playbackPositionChanged;
+- (void)openSubtitleFileFromPanel:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void  *)contextInfo;
 @end

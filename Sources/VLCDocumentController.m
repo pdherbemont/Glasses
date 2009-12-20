@@ -97,7 +97,6 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
 }
 
 #define setupTrackMenu(parentMenuItem, selMeth, itemCount, label, currentItem)  \
-[[parentMenuItem submenu] removeAllItems]; \
 menuItem = [[NSMenuItem alloc] initWithTitle:@"Disable" action:@selector(selMeth) keyEquivalent:@""]; \
 [menuItem setTag:0]; \
 [menuItem setAlternate:YES]; \
@@ -108,7 +107,6 @@ while (x < [thePlayer itemCount]) \
 { \
     NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:label,x] action:@selector(selMeth) keyEquivalent:@""]; \
     [menuItem setTag:x]; \
-    [menuItem setAlternate:YES]; \
     [[parentMenuItem submenu] addItem:menuItem]; \
     [menuItem release]; \
     x++; \
@@ -138,16 +136,32 @@ x = 1;
         NSInteger x = 1;
         NSMenuItem *menuItem;
 
-        // Subtitle Menu
+        // Subtitle menu
+        // this is a special case to allow opening of external subtitle files
+        [[_subtitleTrackSelectorMenuItem submenu] removeAllItems];
+        menuItem = [[NSMenuItem alloc] initWithTitle:@"Open Subtitle File..." action:@selector(setSubtitleTrackFromMenuItem:) keyEquivalent:@""];
+        [menuItem setTag:-100];
+        [[_subtitleTrackSelectorMenuItem submenu] addItem:menuItem];
+        [menuItem release];
+        [[_subtitleTrackSelectorMenuItem submenu] addItem:[NSMenuItem separatorItem]];
         setupTrackMenu(_subtitleTrackSelectorMenuItem, setSubtitleTrackFromMenuItem:, countOfVideoSubTitles, @"Track %i", currentVideoSubTitles);
+        if ([[_subtitleTrackSelectorMenuItem submenu] numberOfItems] == 4)
+        {
+            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 3]; // separator
+            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 2]; // "Disable"
+            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 1]; // separator
+        }
 
         // Audiotrack menu
+        [[_audioTrackSelectorMenuItem submenu] removeAllItems];
         setupTrackMenu(_audioTrackSelectorMenuItem, setAudioTrackFromMenuItem:, countOfAudioTracks, @"Track %i", currentAudioTrack);
 
         // Chapter Selector menu
+        [[_chapterSelectorMenuItem submenu] removeAllItems];
         setupTrackMenu(_chapterSelectorMenuItem, setChapterFromMenuItem:, countOfChapters, @"Chapter %i", currentChapter);
 
         // Title selector menu
+        [[_titleSelectorMenuItem submenu] removeAllItems];
         setupTrackMenu(_titleSelectorMenuItem, setTitleFromMenuItem:, countOfTitles, @"Title %i", currentTitle);
     }
 }

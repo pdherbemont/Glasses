@@ -416,8 +416,36 @@
 
 - (void)setSubtitleTrackFromMenuItem:(NSMenuItem *)sender
 {
-    [[[self mediaListPlayer]mediaPlayer]setVideoSubTitles:[sender tag]];
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    if ([sender tag] != -100)
+    {
+        [[[self mediaListPlayer]mediaPlayer]setVideoSubTitles:[sender tag]];
+        [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    }
+    else
+    {
+        NSOpenPanel * openPanel = [NSOpenPanel openPanel];
+        [openPanel setCanChooseFiles: YES];
+        [openPanel setCanChooseDirectories: NO];
+        [openPanel setAllowsMultipleSelection: YES];
+        [openPanel beginSheetForDirectory: nil 
+                                     file: nil 
+                                    types:[NSArray arrayWithObjects: @"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil] 
+                           modalForWindow:[self windowForSheet] 
+                            modalDelegate:self 
+                           didEndSelector:@selector(openSubtitleFileFromPanel: returnCode: contextInfo:)
+                              contextInfo:nil];
+    }
+}
+- (void)openSubtitleFileFromPanel:(NSOpenPanel *)panel 
+                       returnCode:(NSInteger)returnCode  
+                      contextInfo:(void  *)contextInfo
+{
+    if (returnCode == NSOKButton)
+    {
+        for (NSUInteger i = 0; i < [[panel filenames] count] ; i++)
+            [[[self mediaListPlayer] mediaPlayer] openVideoSubTitlesFromFile: [[panel filenames] objectAtIndex: i]];
+        [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    }
 }
 
 - (void)setAudioTrackFromMenuItem:(NSMenuItem *)sender
