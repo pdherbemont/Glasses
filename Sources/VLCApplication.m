@@ -223,10 +223,10 @@
 {
     if (_isActive) {
         if ([event type] == NSSystemDefined && [event subtype] == 8) {
-            int keyCode =  ([event data1] & 0xFFFF0000) >> 16;
-            int keyFlags = [event data1] & 0x0000FFFF;
-            int keyState = ((keyFlags & 0xFF00) >> 8) == 0xA;
-            int keyRepeat = keyFlags & 0x1;
+            NSInteger keyCode =  ([event data1] & 0xFFFF0000) >> 16;
+            NSInteger keyFlags = [event data1] & 0x0000FFFF;
+            NSInteger keyState = ((keyFlags & 0xFF00) >> 8) == 0xA;
+            NSInteger keyRepeat = keyFlags & 0x1;
             
             VLCMediaPlayer *mediaPlayer = [[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer];
             

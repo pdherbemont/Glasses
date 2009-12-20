@@ -700,7 +700,7 @@
 									<reference key="NSOnImage" ref="1033313550"/>
 									<reference key="NSMixedImage" ref="310636482"/>
 								</object>
-								<object class="NSMenuItem" id="120953586">
+								<object class="NSMenuItem" id="695947039">
 									<reference key="NSMenu" ref="428469495"/>
 									<string key="NSTitle">Repeat All Items</string>
 									<string key="NSKeyEquiv">l</string>
@@ -1616,7 +1616,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">repeatAllItems:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="120953586"/>
+						<reference key="destination" ref="695947039"/>
 					</object>
 					<int key="connectionID">676</int>
 				</object>
@@ -1643,10 +1643,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">enabled: currentDocument</string>
-						<reference key="source" ref="120953586"/>
+						<reference key="source" ref="695947039"/>
 						<reference key="destination" ref="517467475"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="120953586"/>
+							<reference key="NSSource" ref="695947039"/>
 							<reference key="NSDestination" ref="517467475"/>
 							<string key="NSLabel">enabled: currentDocument</string>
 							<string key="NSBinding">enabled</string>
@@ -1680,7 +1680,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">_repeatsAllItemsMenuItem</string>
 						<reference key="source" ref="517467475"/>
-						<reference key="destination" ref="120953586"/>
+						<reference key="destination" ref="695947039"/>
 					</object>
 					<int key="connectionID">717</int>
 				</object>
@@ -2463,7 +2463,7 @@
 							<reference ref="521777832"/>
 							<reference ref="975362044"/>
 							<reference ref="822359598"/>
-							<reference ref="120953586"/>
+							<reference ref="695947039"/>
 						</object>
 						<reference key="parent" ref="1029401264"/>
 					</object>
@@ -2572,7 +2572,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">667</int>
-						<reference key="object" ref="120953586"/>
+						<reference key="object" ref="695947039"/>
 						<reference key="parent" ref="428469495"/>
 					</object>
 				</object>
@@ -2913,7 +2913,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{192, 549}, {552, 20}}</string>
+					<string>{{384, 608}, {552, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -2978,7 +2978,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{422, 336}, {217, 213}}</string>
+					<string>{{614, 395}, {217, 213}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

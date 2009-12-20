@@ -646,7 +646,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
     result = (*queue)->create(queue, 0, 12);    //depth: maximum number of elements in queue before oldest elements in queue begin to be lost.
     NSAssert(result == kIOReturnSuccess, @"Can't init the remote");
     
-    unsigned int i=0;
+    NSUInteger i=0;
     for(i=0; i<[allCookies count]; i++) {
         IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] intValue];
         (*queue)->addElement(queue, cookie, 0);

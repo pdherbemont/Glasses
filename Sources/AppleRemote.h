@@ -102,12 +102,12 @@ The class is not thread safe
     AppleRemoteEventIdentifier lastPlusMinusEvent;
     NSTimeInterval lastPlusMinusEventTime;
 
-    int remoteId;
-    unsigned int clickCountEnabledButtons;
+    NSInteger remoteId;
+    NSUInteger clickCountEnabledButtons;
     NSTimeInterval maxClickTimeDifference;
     NSTimeInterval lastClickCountEventTime;
     AppleRemoteEventIdentifier lastClickCountEvent;
-    unsigned int eventClickCount;
+    NSUInteger eventClickCount;
 
     IBOutlet id delegate;
 }

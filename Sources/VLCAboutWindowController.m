@@ -29,8 +29,7 @@
 static NSString *contentOfTextResource(NSString *resource)
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:resource ofType:@"txt"];
-    NSURL *url = [NSURL fileURLWithPath:path];
-    return [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    return [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 }
 
 #pragma mark -
@@ -121,12 +120,14 @@ static NSString *contentOfTextResource(NSString *resource)
                                      [[VLCLibrary sharedLibrary] changeset]]];
 
     /* Setup the nameversion field */
-    [_versionField setStringValue:[NSString stringWithFormat:@"Version %@",
+    [_versionField setStringValue:[NSString stringWithFormat:@"Version %@ (%@)",
+                                   [localDict objectForKey:@"CFBundleShortVersionString"],
                                    [localDict objectForKey:@"CFBundleVersion"]]];
 
     /* setup the authors and thanks field */
     [_creditsTextView setString: [NSString stringWithFormat:@"%@\n%@\n\n%@",
-                                  contentOfTextResource(@"About"),
+                                  [NSString stringWithFormat: contentOfTextResource(@"About"), 
+                                   [[VLCLibrary sharedLibrary] version]],
                                   contentOfTextResource(@"Authors"),
                                   contentOfTextResource(@"Thanks")]];
     [_creditsTextView setFont: [NSFont fontWithName:@"Lucida Grande" size:11.0]];
