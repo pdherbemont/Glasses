@@ -19,8 +19,7 @@
 - (void)dealloc
 {
     [_streamSession release];
-    if (_theUpdateTimer)
-    {
+    if (_theUpdateTimer) {
         [_theUpdateTimer invalidate];
         [_theUpdateTimer release];
     }
@@ -45,9 +44,7 @@
 
 -(void)updateWindowState
 {
-    NSLog(@"position:%f", _streamSession.position );
-    if (_streamSession.isComplete)
-    {
+    if (_streamSession.isComplete) {
         [_theUpdateTimer invalidate];
         [[self window] orderOut:nil];
     }
