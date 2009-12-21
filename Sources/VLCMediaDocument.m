@@ -86,7 +86,13 @@
 }
 
 /**
- * This is also by VLCApplication, at app exit.
+ * This methods calls back the VLCDocumentController,
+ * asking it to save the state of this movie.
+ * By state we mean the position, in order to be able
+ * to reset back to where we were at next opening.
+ *
+ * This is called at periodic intervals.
+ *
  * FIXME: This probably need a reiteration.
  */
 - (void)saveUnfinishedMovieState
