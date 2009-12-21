@@ -425,7 +425,7 @@
 {
     if ([sender tag] != -100)
     {
-        [[[self mediaListPlayer]mediaPlayer]setVideoSubTitles:[sender tag]];
+        [[[self mediaListPlayer] mediaPlayer] setCurrentVideoSubTitleIndex:[sender tag]];
         [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
     }
     else
@@ -457,19 +457,19 @@
 
 - (void)setAudioTrackFromMenuItem:(NSMenuItem *)sender
 {
-    [[[self mediaListPlayer]mediaPlayer]setAudioTrack:[sender tag]];
+    [[[self mediaListPlayer] mediaPlayer] setCurrentAudioTrackIndex:[sender tag]];
     [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
 
 - (void)setChapterFromMenuItem:(NSMenuItem *)sender
 {
-    [[[self mediaListPlayer]mediaPlayer]setChapter:[sender tag]];
+    [[[self mediaListPlayer] mediaPlayer] setCurrentChapterIndex:[sender tag]];
     [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
 
 - (void)setTitleFromMenuItem:(NSMenuItem *)sender
 {
-    [[[self mediaListPlayer]mediaPlayer]setCurrentTitle:[sender tag]];
+    [[[self mediaListPlayer] mediaPlayer] setCurrentTitleIndex:[sender tag]];
     [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
 

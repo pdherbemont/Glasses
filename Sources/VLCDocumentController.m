@@ -96,76 +96,80 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     }
 }
 
-#define setupTrackMenu(parentMenuItem, selMeth, itemCount, label, currentItem)  \
-menuItem = [[NSMenuItem alloc] initWithTitle:@"Disable" action:@selector(selMeth) keyEquivalent:@""]; \
-[menuItem setTag:0]; \
-[menuItem setAlternate:YES]; \
-[[parentMenuItem submenu] addItem:menuItem]; \
-[menuItem release]; \
-[[parentMenuItem submenu] addItem:[NSMenuItem separatorItem]]; \
-while (x < [thePlayer itemCount]) \
-{ \
-    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:[[thePlayer label] objectAtIndex:x] action:@selector(selMeth) keyEquivalent:@""]; \
-    [menuItem setTag:x]; \
-    [[parentMenuItem submenu] addItem:menuItem]; \
-    [menuItem release]; \
-    x++; \
-} \
-if ([[parentMenuItem submenu] numberOfItems] > 2) \
-{ \
-    [[[parentMenuItem submenu] itemWithTag:[thePlayer currentItem]] setState:NSOnState]; \
-    [parentMenuItem setEnabled:YES]; \
-} \
-x = 1;
+static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *items, NSUInteger currentItemIndex)
+{
+    NSMenu *parentMenu = [parentMenuItem submenu];
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"Disable" action:sel keyEquivalent:@""];
+    [menuItem setTag:0];
+    [menuItem setAlternate:YES];
+    [parentMenu addItem:menuItem];
+    [menuItem release];
 
+    [parentMenu addItem:[NSMenuItem separatorItem]];
+
+    // Start at 1 since the first item of the NSArray is the disabled state.
+    for (NSInteger x = 1; x < [items count]; x++) {
+        menuItem = [[NSMenuItem alloc] initWithTitle:[items objectAtIndex:x] action:sel keyEquivalent:@""];
+        [menuItem setTag:x];
+        [parentMenu addItem:menuItem];
+        [menuItem release];
+    }
+    if ([parentMenu numberOfItems] > 2) {
+        [[parentMenu itemWithTag:currentItemIndex] setState:NSOnState];
+        [parentMenuItem setEnabled:YES];
+    }
+}
+    
 - (void)cleanAndRecreateMainMenu
 {
-    [_sharedOnLANMenuItem setState:[[self currentDocument] sharedOnLAN] ? NSOnState : NSOffState];
-    [_repeatsCurrentItemMenuItem setState:[[self currentDocument] repeatsCurrentItem] ? NSOnState : NSOffState];
-    if ([[[[self currentDocument] mediaListPlayer] mediaList] count] > 2)
-        [_repeatsAllItemsMenuItem setState:[[self currentDocument] repeatsAllItems] ? NSOnState : NSOffState];
+    VLCMediaDocument *currentDocument = [self currentDocument];
+    VLCMediaListPlayer *mediaListPlayer = [currentDocument mediaListPlayer];
+    [_repeatsCurrentItemMenuItem setState:[currentDocument repeatsCurrentItem] ? NSOnState : NSOffState];
+    if ([[mediaListPlayer mediaList] count] > 2)
+        [_repeatsAllItemsMenuItem setState:[currentDocument repeatsAllItems] ? NSOnState : NSOffState];
 
     [_subtitleTrackSelectorMenuItem setEnabled:NO];
     [_audioTrackSelectorMenuItem setEnabled:NO];
     [_titleSelectorMenuItem setEnabled:NO];
     [_chapterSelectorMenuItem setEnabled:NO];
 
-    VLCMediaPlayer * thePlayer = [[[self currentDocument] mediaListPlayer] mediaPlayer];
+    VLCMediaPlayer * thePlayer = [mediaListPlayer mediaPlayer];
     if ([thePlayer state] == VLCMediaPlayerStatePlaying || [thePlayer state] == VLCMediaPlayerStatePaused)
     {
-        NSInteger x = 1;
-        NSMenuItem *menuItem;
-
         // Subtitle menu
         // this is a special case to allow opening of external subtitle file
-        [thePlayer currentVideoSubTitles];
-
-        [[_subtitleTrackSelectorMenuItem submenu] removeAllItems];
-        menuItem = [[NSMenuItem alloc] initWithTitle:@"Open Subtitle File..." action:@selector(setSubtitleTrackFromMenuItem:) keyEquivalent:@""];
+        NSMenu *menu = [_subtitleTrackSelectorMenuItem submenu];
+        [menu removeAllItems];
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"Open Subtitle File..." action:@selector(setSubtitleTrackFromMenuItem:) keyEquivalent:@""];
         [menuItem setTag:-100];
-        [[_subtitleTrackSelectorMenuItem submenu] addItem:menuItem];
+        [menu addItem:menuItem];
         [menuItem release];
         [_subtitleTrackSelectorMenuItem setEnabled:YES];
-        [[_subtitleTrackSelectorMenuItem submenu] addItem:[NSMenuItem separatorItem]];
-        setupTrackMenu(_subtitleTrackSelectorMenuItem, setSubtitleTrackFromMenuItem:, countOfVideoSubTitles, videoSubTitles, currentVideoSubTitles);
-        if ([[_subtitleTrackSelectorMenuItem submenu] numberOfItems] == 4)
-        {
-            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex:3]; // separator
-            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex:2]; // "Disable"
-            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex:1]; // separator
+        [menu addItem:[NSMenuItem separatorItem]];
+        addTrackMenuItems(_subtitleTrackSelectorMenuItem, @selector(setSubtitleTrackFromMenuItem:), [thePlayer videoSubTitles], [thePlayer currentVideoSubTitleIndex]);
+
+        if ([menu numberOfItems] == 4) {
+            [menu removeItemAtIndex:3]; // separator
+            [menu removeItemAtIndex:2]; // "Disable"
+            [menu removeItemAtIndex:1]; // separator
         }
 
         // Audiotrack menu
         [[_audioTrackSelectorMenuItem submenu] removeAllItems];
-        setupTrackMenu(_audioTrackSelectorMenuItem, setAudioTrackFromMenuItem:, countOfAudioTracks, audioTracks, currentAudioTrack);
+        addTrackMenuItems(_audioTrackSelectorMenuItem, @selector(setAudioTrackFromMenuItem:), [thePlayer audioTracks], [thePlayer currentAudioTrackIndex]);
 
-        // Chapter Selector menu
-        [[_chapterSelectorMenuItem submenu] removeAllItems];
-        setupTrackMenu(_chapterSelectorMenuItem, setChapterFromMenuItem:, countOfChapters, chaptersForTitle:[thePlayer currentTitle], currentChapter);
+        NSArray *titles = [thePlayer titles];
 
         // Title selector menu
         [[_titleSelectorMenuItem submenu] removeAllItems];
-        setupTrackMenu(_titleSelectorMenuItem, setTitleFromMenuItem:, countOfTitles, titles, currentTitle);
+        addTrackMenuItems(_titleSelectorMenuItem, @selector(setTitleFromMenuItem:), titles, [thePlayer currentTitleIndex]);
+
+        // Chapter Selector menu
+        [[_chapterSelectorMenuItem submenu] removeAllItems];
+
+        NSArray *chapters = [titles count] > 0 ? [thePlayer chaptersForTitleIndex:[thePlayer currentTitleIndex]] : [NSArray array];
+        NSUInteger currentChapterIndex = [titles count] > 0 ? [thePlayer currentChapterIndex] : NSNotFound;
+        addTrackMenuItems(_chapterSelectorMenuItem, @selector(setChapterFromMenuItem:), chapters, currentChapterIndex);            
     }
 }
 
