@@ -234,6 +234,7 @@
             NSRunCriticalAlertPanel(@"Sharing failed", @"Lunettes cannot share media from list-based players yet. Please open the input separately.", @"Hum, okay", nil, nil);
             return;
         }
+        NSAssert(!_theLANStreamingSession, @"There should not be a _theLANStreamingSession at this time.");
         _theLANStreamingSession = [VLCStreamSession streamSession];
         _theLANStreamingSession.media = ourMedia;
         _theLANStreamingSession.streamOutput = [VLCStreamOutput rtpBroadcastStreamOutputWithSAPAnnounce: [self displayName]];
