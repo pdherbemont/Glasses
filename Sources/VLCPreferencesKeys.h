@@ -23,6 +23,8 @@ extern NSString *kRecentNetworkItems;
 extern NSString *kLastNetworkItems;
 extern NSString *kUnfinishedMoviesAsArray;
 
+extern NSString *kSuppressShareOnLANReminder;
+
 extern NSString *kDebugFullscreen;
 extern NSString *kDebugStyledWindow;
 extern NSString *kShowDebugMenu;

@@ -21,8 +21,8 @@ DEFINE(WatchForStyleModification);
 DEFINE(StartPlaybackInFullscreen);
 DEFINE(RecentNetworkItems);
 DEFINE(LastNetworkItems);
-
 DEFINE(UnfinishedMoviesAsArray);
+DEFINE(SuppressShareOnLANReminder);
 
 DEFINE(DebugStyledWindow);
 DEFINE(DebugFullscreen);
