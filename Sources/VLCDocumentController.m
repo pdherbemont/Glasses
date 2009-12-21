@@ -23,9 +23,10 @@
 #import "VLCMediaDocument.h"
 #import "VLCSplashScreenWindowController.h"
 
-@interface NSResponder (StyleMenuItemHandling)
+@interface NSResponder (FirstResponder)
 - (void)setStyleFromMenuItem:(id)sender;
 - (void)setSubtitleTrackFromMenuItem:(NSMenuItem *)sender;
+- (void)setSubtitleTrackFromFileWithMenuItem:(NSMenuItem *)sender;
 - (void)setAudioTrackFromMenuItem:(NSMenuItem *)sender;
 - (void)setChapterFromMenuItem:(NSMenuItem *)sender;
 - (void)setTitleFromMenuItem:(NSMenuItem *)sender;
@@ -140,8 +141,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         // this is a special case to allow opening of external subtitle file
         NSMenu *menu = [_subtitleTrackSelectorMenuItem submenu];
         [menu removeAllItems];
-        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"Open Subtitle File..." action:@selector(setSubtitleTrackFromMenuItem:) keyEquivalent:@""];
-        [menuItem setTag:-100];
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"Open Subtitle File..." action:@selector(setSubtitleTrackFromFileWithMenuItem:) keyEquivalent:@""];
         [menu addItem:menuItem];
         [menuItem release];
         [_subtitleTrackSelectorMenuItem setEnabled:YES];

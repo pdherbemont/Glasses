@@ -434,26 +434,25 @@
 #pragma mark Playback Menu Items
 - (void)setSubtitleTrackFromMenuItem:(NSMenuItem *)sender
 {
-    if ([sender tag] != -100)
-    {
-        [[[self mediaListPlayer] mediaPlayer] setCurrentVideoSubTitleIndex:[sender tag]];
-        [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
-    }
-    else
-    {
-        NSOpenPanel * openPanel = [NSOpenPanel openPanel];
-        [openPanel setCanChooseFiles:YES];
-        [openPanel setCanChooseDirectories:NO];
-        [openPanel setAllowsMultipleSelection:YES];
-        [openPanel beginSheetForDirectory:nil 
-                                     file:nil 
-                                    types:[NSArray arrayWithObjects:@"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil] 
-                           modalForWindow:[self windowForSheet] 
-                            modalDelegate:self 
-                           didEndSelector:@selector(openSubtitleFileFromPanel:returnCode:contextInfo:)
-                              contextInfo:nil];
-    }
+    [[[self mediaListPlayer] mediaPlayer] setCurrentVideoSubTitleIndex:[sender tag]];
+    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
+
+- (void)setSubtitleTrackFromFileWithMenuItem:(NSMenuItem *)sender
+{
+    NSOpenPanel * openPanel = [NSOpenPanel openPanel];
+    [openPanel setCanChooseFiles: YES];
+    [openPanel setCanChooseDirectories: NO];
+    [openPanel setAllowsMultipleSelection: YES];
+    [openPanel beginSheetForDirectory: nil 
+                                 file: nil 
+                                types:[NSArray arrayWithObjects: @"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil] 
+                       modalForWindow:[self windowForSheet] 
+                        modalDelegate:self 
+                       didEndSelector:@selector(openSubtitleFileFromPanel:returnCode:contextInfo:)
+                          contextInfo:nil];
+}
+
 - (void)openSubtitleFileFromPanel:(NSOpenPanel *)panel 
                        returnCode:(NSInteger)returnCode  
                       contextInfo:(void  *)contextInfo
