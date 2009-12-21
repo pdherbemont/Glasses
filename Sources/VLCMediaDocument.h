@@ -33,7 +33,7 @@
     NSTimer *_rememberTimer;
     BOOL _hasInitiatedPlayback;
     BOOL _isClosed;
-    BOOL _sharedOnLAN;
+    BOOL _isSharedOnLAN;
     BOOL _repeatsCurrentItem;
     BOOL _repeatsAllItems;
     VLCStreamSession *_theLANStreamingSession;
@@ -43,14 +43,13 @@
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL andStartingPosition:(double)position;
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
-@property (readonly) BOOL sharedOnLAN;
 @property (readonly) BOOL repeatsCurrentItem;
 @property (readonly) BOOL repeatsAllItems;
+@property (readonly) BOOL isSharedOnLAN;
 
 - (void)saveUnfinishedMovieState;
 - (void)didFinishLoadingWindowController:(NSWindowController *)controller;
 
-- (IBAction)shareMovieOnLAN:(id)sender;
 - (void)playbackPositionChanged;
 - (void)openSubtitleFileFromPanel:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void  *)contextInfo;
 @end

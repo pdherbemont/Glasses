@@ -107,7 +107,7 @@ static inline BOOL debugStyledWindow(void)
 - (void)performClose:(id)sender
 {
     VLCMediaDocument *doc = [[NSDocumentController sharedDocumentController] documentForWindow:self];
-    if ([doc sharedOnLAN] && ![[NSUserDefaults standardUserDefaults] boolForKey:@"SuppressShareOnLANReminder"])
+    if ([doc isSharedOnLAN] && ![[NSUserDefaults standardUserDefaults] boolForKey:@"SuppressShareOnLANReminder"])
     {
         NSAlert *ourAlert;
         ourAlert = [NSAlert alertWithMessageText:@"This document is shared on your local network" defaultButton:@"Close" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"This document is currently shared on your local network. If you close the window, users on your network will no longer be able to see its content."];

@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="613"/>
+			<integer value="81"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -294,7 +294,7 @@
 								</object>
 								<object class="NSMenuItem" id="307144205">
 									<reference key="NSMenu" ref="720053764"/>
-									<string key="NSTitle">Share on Local Network...</string>
+									<string key="NSTitle">Share on Local Network</string>
 									<string key="NSKeyEquiv">b</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -1054,10 +1054,6 @@
 				<string key="NSClassName">VLCAboutWindowController</string>
 			</object>
 			<object class="NSUserDefaultsController" id="968351115">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>currentDocument</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
@@ -1493,14 +1489,6 @@
 					<int key="connectionID">586</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">shareMovieOnLAN:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="307144205"/>
-					</object>
-					<int key="connectionID">589</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">enabled: currentDocument</string>
 						<reference key="source" ref="307144205"/>
@@ -1709,12 +1697,20 @@
 					<int key="connectionID">720</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">_sharedOnLANMenuItem</string>
-						<reference key="source" ref="517467475"/>
-						<reference key="destination" ref="307144205"/>
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: currentDocument.isSharedOnLAN</string>
+						<reference key="source" ref="307144205"/>
+						<reference key="destination" ref="517467475"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="307144205"/>
+							<reference key="NSDestination" ref="517467475"/>
+							<string key="NSLabel">value: currentDocument.isSharedOnLAN</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">currentDocument.isSharedOnLAN</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
 					</object>
-					<int key="connectionID">721</int>
+					<int key="connectionID">746</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2913,7 +2909,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{384, 608}, {552, 20}}</string>
+					<string>{{97, 608}, {552, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -2978,7 +2974,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{614, 395}, {217, 213}}</string>
+					<string>{{327, 395}, {217, 213}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3008,7 +3004,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{336, 386}, {264, 163}}</string>
+					<string>{{241, 445}, {251, 163}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{155, 774}, {199, 203}}</string>
@@ -3034,7 +3030,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">742</int>
+			<int key="maxID">746</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3175,14 +3171,12 @@
 							<string>_openLibraryMenu</string>
 							<string>_repeatsAllItemsMenuItem</string>
 							<string>_repeatsCurrentItemMenuItem</string>
-							<string>_sharedOnLANMenuItem</string>
 							<string>_styleMenu</string>
 							<string>_subtitleTrackSelectorMenuItem</string>
 							<string>_titleSelectorMenuItem</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
@@ -3214,18 +3208,6 @@
 						<string key="NS.object.0">NSTextView</string>
 					</object>
 					<reference key="sourceIdentifier" ref="884732115"/>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">VLCMediaDocument</string>
-					<string key="superclassName">NSDocument</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">shareMovieOnLAN:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Sources/VLCMediaDocument.h</string>
-					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">VLCOpenURLWindowController</string>
