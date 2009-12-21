@@ -346,10 +346,10 @@
 {
     if (_repeatsAllItems)
     {
-        [_mediaListPlayer repeatAllItems];
+        [_mediaListPlayer setRepeatMode:VLCRepeatAllItems];
         _repeatsAllItems = !_repeatsAllItems;
     }
-    [_mediaListPlayer repeatCurrentItem];
+    [_mediaListPlayer setRepeatMode:VLCRepeatCurrentItem];
     _repeatsCurrentItem = !_repeatsCurrentItem;
     [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
@@ -358,10 +358,10 @@
 {
     if (_repeatsCurrentItem)
     {
-        [_mediaListPlayer repeatCurrentItem];
+        [_mediaListPlayer setRepeatMode:VLCRepeatCurrentItem];
         _repeatsCurrentItem = !_repeatsCurrentItem;
     }
-    [_mediaListPlayer repeatAllItems];
+    [_mediaListPlayer setRepeatMode:VLCRepeatAllItems];
     _repeatsAllItems = !_repeatsAllItems;
     [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
