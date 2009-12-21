@@ -30,8 +30,6 @@
     IBOutlet NSMenuItem *_openLibraryMenu;
 
     /* various menu items containing information about our documents */
-    IBOutlet NSMenuItem * _repeatsCurrentItemMenuItem;
-    IBOutlet NSMenuItem * _repeatsAllItemsMenuItem;
     IBOutlet NSMenuItem * _subtitleTrackSelectorMenuItem;
     IBOutlet NSMenuItem * _audioTrackSelectorMenuItem;
     IBOutlet NSMenuItem * _chapterSelectorMenuItem;

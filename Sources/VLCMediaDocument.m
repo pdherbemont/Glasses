@@ -34,8 +34,6 @@
 
 @implementation VLCMediaDocument
 @synthesize mediaListPlayer=_mediaListPlayer;
-@synthesize repeatsCurrentItem=_repeatsCurrentItem;
-@synthesize repeatsAllItems=_repeatsAllItems;
 
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
@@ -325,6 +323,50 @@
 }
 
 #pragma mark -
+#pragma mark Playback mode
+- (void)setRepeatCurrentItem:(BOOL)repeat
+{
+    // This depends on repeatAllItems.
+    // When we set this to true, we need to invalidate
+    // repeatAllItems.
+    // And we want to set the no repeat flag only if both
+    // of the two options are not selected.
+    
+    _repeatCurrentItem = repeat;
+    if (repeat) {
+        [_mediaListPlayer setRepeatMode:VLCRepeatCurrentItem];
+        [self setRepeatAllItems:NO];
+    }
+    
+    if (!_repeatAllItems && !_repeatCurrentItem)
+        [_mediaListPlayer setRepeatMode:VLCDoNotRepeat];
+}
+
+- (BOOL)repeatCurrentItem
+{
+    return _repeatCurrentItem;
+}
+
+- (void)setRepeatAllItems:(BOOL)repeat
+{
+    // See comment in -setRepeatCurrentItem:.
+    
+    _repeatAllItems = repeat;
+    if (repeat) {
+        [_mediaListPlayer setRepeatMode:VLCRepeatAllItems];
+        [self setRepeatCurrentItem:NO];
+    }
+    
+    if (!_repeatAllItems && !_repeatCurrentItem)
+        [_mediaListPlayer setRepeatMode:VLCDoNotRepeat];
+}
+
+- (BOOL)repeatAllItems
+{
+    return _repeatAllItems;
+}
+
+#pragma mark -
 #pragma mark VLCMediaPlayer delegate
 
 - (void)mediaPlayerStateChanged:(NSNotification *)aNotification
@@ -357,30 +399,6 @@
     [self addWindowController:windowController];
     [[windowController window] makeKeyAndOrderFront:self];
     [windowController release];
-}
-
-- (void)repeatCurrentItem:(id)sender
-{
-    if (_repeatsAllItems)
-    {
-        [_mediaListPlayer setRepeatMode:VLCRepeatAllItems];
-        _repeatsAllItems = !_repeatsAllItems;
-    }
-    [_mediaListPlayer setRepeatMode:VLCRepeatCurrentItem];
-    _repeatsCurrentItem = !_repeatsCurrentItem;
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
-}
-
-- (void)repeatAllItems:(id)sender
-{
-    if (_repeatsCurrentItem)
-    {
-        [_mediaListPlayer setRepeatMode:VLCRepeatCurrentItem];
-        _repeatsCurrentItem = !_repeatsCurrentItem;
-    }
-    [_mediaListPlayer setRepeatMode:VLCRepeatAllItems];
-    _repeatsAllItems = !_repeatsAllItems;
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
 }
 
 #pragma mark Remote Control

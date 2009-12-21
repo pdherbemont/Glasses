@@ -34,8 +34,8 @@
     BOOL _hasInitiatedPlayback;
     BOOL _isClosed;
     BOOL _isSharedOnLAN;
-    BOOL _repeatsCurrentItem;
-    BOOL _repeatsAllItems;
+    BOOL _repeatCurrentItem;
+    BOOL _repeatAllItems;
     VLCStreamSession *_theLANStreamingSession;
 }
 
@@ -43,9 +43,9 @@
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL andStartingPosition:(double)position;
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
-@property (readonly) BOOL repeatsCurrentItem;
-@property (readonly) BOOL repeatsAllItems;
-@property (readonly) BOOL isSharedOnLAN;
+@property BOOL repeatCurrentItem;
+@property BOOL repeatAllItems;
+@property BOOL isSharedOnLAN;
 
 - (void)saveUnfinishedMovieState;
 - (void)didFinishLoadingWindowController:(NSWindowController *)controller;

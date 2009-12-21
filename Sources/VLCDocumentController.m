@@ -124,17 +124,13 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 - (void)cleanAndRecreateMainMenu
 {
     VLCMediaDocument *currentDocument = [self currentDocument];
-    VLCMediaListPlayer *mediaListPlayer = [currentDocument mediaListPlayer];
-    [_repeatsCurrentItemMenuItem setState:[currentDocument repeatsCurrentItem] ? NSOnState : NSOffState];
-    if ([[mediaListPlayer mediaList] count] > 2)
-        [_repeatsAllItemsMenuItem setState:[currentDocument repeatsAllItems] ? NSOnState : NSOffState];
 
     [_subtitleTrackSelectorMenuItem setEnabled:NO];
     [_audioTrackSelectorMenuItem setEnabled:NO];
     [_titleSelectorMenuItem setEnabled:NO];
     [_chapterSelectorMenuItem setEnabled:NO];
 
-    VLCMediaPlayer * thePlayer = [mediaListPlayer mediaPlayer];
+    VLCMediaPlayer *thePlayer = [[currentDocument mediaListPlayer] mediaPlayer];
     if ([thePlayer state] == VLCMediaPlayerStatePlaying || [thePlayer state] == VLCMediaPlayerStatePaused)
     {
         // Subtitle menu

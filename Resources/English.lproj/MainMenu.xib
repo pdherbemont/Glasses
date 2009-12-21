@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="81"/>
+			<integer value="613"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1593,42 +1593,6 @@
 					<int key="connectionID">663</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">repeatCurrentItem:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="872595038"/>
-					</object>
-					<int key="connectionID">675</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">repeatAllItems:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="695947039"/>
-					</object>
-					<int key="connectionID">676</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: currentDocument</string>
-						<reference key="source" ref="872595038"/>
-						<reference key="destination" ref="517467475"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="872595038"/>
-							<reference key="NSDestination" ref="517467475"/>
-							<string key="NSLabel">enabled: currentDocument</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">currentDocument</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">NSIsNotNil</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">679</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">enabled: currentDocument</string>
 						<reference key="source" ref="695947039"/>
@@ -1666,22 +1630,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">_repeatsAllItemsMenuItem</string>
-						<reference key="source" ref="517467475"/>
-						<reference key="destination" ref="695947039"/>
-					</object>
-					<int key="connectionID">717</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">_repeatsCurrentItemMenuItem</string>
-						<reference key="source" ref="517467475"/>
-						<reference key="destination" ref="872595038"/>
-					</object>
-					<int key="connectionID">718</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">_subtitleTrackSelectorMenuItem</string>
 						<reference key="source" ref="517467475"/>
 						<reference key="destination" ref="287285473"/>
@@ -1711,6 +1659,66 @@
 						</object>
 					</object>
 					<int key="connectionID">746</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: currentDocument.repeatCurrentItem</string>
+						<reference key="source" ref="872595038"/>
+						<reference key="destination" ref="517467475"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="872595038"/>
+							<reference key="NSDestination" ref="517467475"/>
+							<string key="NSLabel">value: currentDocument.repeatCurrentItem</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">currentDocument.repeatCurrentItem</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValidatesImmediately</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">755</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: currentDocument</string>
+						<reference key="source" ref="872595038"/>
+						<reference key="destination" ref="517467475"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="872595038"/>
+							<reference key="NSDestination" ref="517467475"/>
+							<string key="NSLabel">enabled: currentDocument</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">currentDocument</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSIsNotNil</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">758</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: currentDocument.repeatAllItems</string>
+						<reference key="source" ref="695947039"/>
+						<reference key="destination" ref="517467475"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="695947039"/>
+							<reference key="NSDestination" ref="517467475"/>
+							<string key="NSLabel">value: currentDocument.repeatAllItems</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">currentDocument.repeatAllItems</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValidatesImmediately</string>
+								<boolean value="YES" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">759</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2915,7 +2923,7 @@
 					<string>{74, 862}</string>
 					<string>{{11, 977}, {478, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{499, 476}, {231, 73}}</string>
+					<string>{{404, 535}, {231, 73}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{475, 832}, {234, 43}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2983,7 +2991,7 @@
 					<string>{{639, 453}, {64, 6}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{639, 473}, {64, 6}}</string>
+					<string>{{544, 532}, {64, 6}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3030,7 +3038,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">746</int>
+			<int key="maxID">759</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3169,16 +3177,12 @@
 							<string>_audioTrackSelectorMenuItem</string>
 							<string>_chapterSelectorMenuItem</string>
 							<string>_openLibraryMenu</string>
-							<string>_repeatsAllItemsMenuItem</string>
-							<string>_repeatsCurrentItemMenuItem</string>
 							<string>_styleMenu</string>
 							<string>_subtitleTrackSelectorMenuItem</string>
 							<string>_titleSelectorMenuItem</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>NSMenuItem</string>
-							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
 							<string>NSMenuItem</string>
