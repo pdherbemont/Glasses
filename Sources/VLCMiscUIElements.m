@@ -136,10 +136,10 @@ static void _drawFrameInRect(NSRect frameRect)
     self = [super init];
     _knobOff = [NSImage imageNamed:@"volumeslider_normal"];
     [self controlTintChanged];
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector( controlTintChanged )
-                                                 name: NSControlTintDidChangeNotification
-                                               object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector( controlTintChanged )
+                                                 name:NSControlTintDidChangeNotification
+                                               object:nil];
     b_mouse_down = FALSE;
     return self;
 }
@@ -154,7 +154,7 @@ static void _drawFrameInRect(NSRect frameRect)
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_knobOff release];
     [_knobOn release];
     [super dealloc];

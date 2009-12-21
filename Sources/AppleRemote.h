@@ -117,10 +117,10 @@ The class is not thread safe
 - (BOOL) isRemoteAvailable;
 
 - (BOOL) isListeningToRemote;
-- (void) setListeningToRemote: (BOOL) value;
+- (void) setListeningToRemote:(BOOL) value;
 
 - (BOOL) isOpenInExclusiveMode;
-- (void) setOpenInExclusiveMode: (BOOL) value;
+- (void) setOpenInExclusiveMode:(BOOL) value;
 
 /* click counting makes it possible to recognize if the user has pressed a button repeatedly
  * click counting does delay each event as it has to wait if there is another event (second click)
@@ -129,40 +129,40 @@ The class is not thread safe
  * click counting can be enabled individually for specific buttons. Use the property clickCountEnableButtons
  * to set the buttons for which click counting shall be enabled */
 - (BOOL) clickCountingEnabled;
-- (void) setClickCountingEnabled: (BOOL) value;
+- (void) setClickCountingEnabled:(BOOL) value;
 
 - (unsigned int) clickCountEnabledButtons;
-- (void) setClickCountEnabledButtons: (unsigned int)value;
+- (void) setClickCountEnabledButtons:(unsigned int)value;
 
 /* the maximum time difference till which clicks are recognized as multi clicks */
 - (NSTimeInterval) maximumClickCountTimeDifference;
-- (void) setMaximumClickCountTimeDifference: (NSTimeInterval) timeDiff;
+- (void) setMaximumClickCountTimeDifference:(NSTimeInterval) timeDiff;
 
 /* When your application needs to much time on the main thread when processing an event other events
  * may already be received which are put on a backlog. As soon as your main thread
  * has some spare time this backlog is processed and may flood your delegate with calls.
  * Backlog processing is turned off by default. */
 - (BOOL) processesBacklog;
-- (void) setProcessesBacklog: (BOOL) value;
+- (void) setProcessesBacklog:(BOOL) value;
 
 /* Sets an NSApplication delegate which starts listening when application is becoming active
  * and stops listening when application resigns being active.
  * If an NSApplication delegate has been already set all method calls will be forwarded to this delegate, too. */
 - (BOOL) listeningOnAppActivate;
-- (void) setListeningOnAppActivate: (BOOL) value;
+- (void) setListeningOnAppActivate:(BOOL) value;
 
 /* Simulating plus/minus hold does deactivate sending of individual requests for plus/minus pressed down/released.
  * Instead special hold events are being triggered when the user is pressing and holding plus/minus for a small period.
  * With simulating enabled the plus/minus buttons do behave as the left/right buttons */
 - (BOOL) simulatesPlusMinusHold;
-- (void) setSimulatesPlusMinusHold: (BOOL) value;
+- (void) setSimulatesPlusMinusHold:(BOOL) value;
 
 /* Delegates are not retained */
-- (void) setDelegate: (id) delegate;
+- (void) setDelegate:(id) delegate;
 - (id) delegate;
 
-- (IBAction) startListening: (id) sender;
-- (IBAction) stopListening: (id) sender;
+- (IBAction) startListening:(id) sender;
+- (IBAction) stopListening:(id) sender;
 @end
 
 @interface AppleRemote (Singleton)
@@ -174,22 +174,22 @@ The class is not thread safe
 /*  Method definitions for the delegate of the AppleRemote class */
 @interface NSObject(NSAppleRemoteDelegate)
 
-- (void) appleRemoteButton: (AppleRemoteEventIdentifier)buttonIdentifier pressedDown: (BOOL) pressedDown clickCount: (unsigned int) count;
+- (void) appleRemoteButton:(AppleRemoteEventIdentifier)buttonIdentifier pressedDown:(BOOL) pressedDown clickCount:(unsigned int) count;
 
 @end
 
 @interface AppleRemote (PrivateMethods)
-- (void) setRemoteId: (int) aValue;
+- (void) setRemoteId:(int) aValue;
 - (NSDictionary*) cookieToButtonMapping;
 - (IOHIDQueueInterface**) queue;
 - (IOHIDDeviceInterface**) hidDeviceInterface;
-- (void) executeClickCountEvent: (NSArray*) values;
-- (void) handleEventWithCookieString: (NSString*) cookieString sumOfValues: (SInt32) sumOfValues;
+- (void) executeClickCountEvent:(NSArray*) values;
+- (void) handleEventWithCookieString:(NSString*) cookieString sumOfValues:(SInt32) sumOfValues;
 @end
 
 @interface AppleRemote (IOKitMethods)
 - (io_object_t) findAppleRemoteDevice;
-- (IOHIDDeviceInterface**) createInterfaceForDevice: (io_object_t) hidDevice;
+- (IOHIDDeviceInterface**) createInterfaceForDevice:(io_object_t) hidDevice;
 - (BOOL) initializeCookies;
 - (BOOL) openDevice;
 @end
@@ -201,6 +201,6 @@ The class is not thread safe
     id applicationDelegate;
 }
 
-- (id) initWithApplicationDelegate: (id) delegate;
+- (id) initWithApplicationDelegate:(id) delegate;
 - (id) applicationDelegate;
 @end

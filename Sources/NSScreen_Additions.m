@@ -11,11 +11,11 @@
 
 @implementation NSScreen (VLCAdditions)
 
-+ (NSScreen *)screenWithDisplayID: (CGDirectDisplayID)displayID
++ (NSScreen *)screenWithDisplayID:(CGDirectDisplayID)displayID
 {
     unsigned i;
     for (i = 0; i < [[NSScreen screens] count]; i++) {
-        NSScreen *screen = [[NSScreen screens] objectAtIndex: i];
+        NSScreen *screen = [[NSScreen screens] objectAtIndex:i];
         if ([screen displayID] == displayID)
             return screen;
     }
@@ -27,7 +27,7 @@
     return [self displayID] == [[[NSScreen screens] objectAtIndex:0] displayID];
 }
 
-- (BOOL)isScreen: (NSScreen*)screen
+- (BOOL)isScreen:(NSScreen*)screen
 {
     return [self displayID] == [screen displayID];
 }

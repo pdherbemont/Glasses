@@ -35,8 +35,8 @@
 
 - (void)windowDidLoad
 {
-    _theUpdateTimer = [NSTimer scheduledTimerWithTimeInterval: 0.3
-                                                       target: self
+    _theUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.3
+                                                       target:self
                                                      selector:@selector(updateWindowState)
                                                      userInfo:nil
                                                       repeats:YES];
@@ -49,7 +49,7 @@
     if (_streamSession.isComplete)
     {
         [_theUpdateTimer invalidate];
-        [[self window] orderOut: nil];
+        [[self window] orderOut:nil];
     }
 }
 @end

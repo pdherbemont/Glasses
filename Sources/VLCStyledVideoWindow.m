@@ -110,10 +110,10 @@ static inline BOOL debugStyledWindow(void)
     if ([doc sharedOnLAN] && ![[NSUserDefaults standardUserDefaults] boolForKey:@"SuppressShareOnLANReminder"])
     {
         NSAlert *ourAlert;
-        ourAlert = [NSAlert alertWithMessageText:@"This document is shared on your local network" defaultButton:@"Close" alternateButton:@"Cancel" otherButton: nil informativeTextWithFormat:@"This document is currently shared on your local network. If you close the window, users on your network will no longer be able to see its content."];
-        [ourAlert setShowsSuppressionButton: YES];
-        [[ourAlert suppressionButton] setTitle: @"Always close shared documents without asking"];
-        [ourAlert beginSheetModalForWindow: self modalDelegate: self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:doc];
+        ourAlert = [NSAlert alertWithMessageText:@"This document is shared on your local network" defaultButton:@"Close" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"This document is currently shared on your local network. If you close the window, users on your network will no longer be able to see its content."];
+        [ourAlert setShowsSuppressionButton:YES];
+        [[ourAlert suppressionButton] setTitle:@"Always close shared documents without asking"];
+        [ourAlert beginSheetModalForWindow:self modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:doc];
     }
     else
         [doc close];

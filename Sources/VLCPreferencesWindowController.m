@@ -57,15 +57,15 @@
     return [SUUpdater sharedUpdater];
 }
 
-- (IBAction)toolbarAction: (id)sender
+- (IBAction)toolbarAction:(id)sender
 {
     NSInteger tag = [sender tag];
     if (tag == 0) {
         [[self window] setTitle:@"General"];
-        [self setView: _generalSettingsView];
+        [self setView:_generalSettingsView];
     } else if (tag == 1) {
         [[self window] setTitle:@"Playback"];
-        [self setView: _playbackSettingsView];
+        [self setView:_playbackSettingsView];
     } else
         VLCAssertNotReached( @"invalid view requested by toolbar" );
 
@@ -92,12 +92,12 @@
     windowRect.size.height = viewRect.size.height + 78; // + toolbar height...
 
     [window displayIfNeeded];
-    [window setFrame: windowRect display:YES animate: YES];
+    [window setFrame:windowRect display:YES animate:YES];
 
-    [newView setFrame: NSMakeRect( 0, 0, viewRect.size.width, viewRect.size.height )];
-    [newView setNeedsDisplay: YES];
-    [newView setAutoresizesSubviews: YES];
-    [[window contentView] addSubview: newView];
+    [newView setFrame:NSMakeRect( 0, 0, viewRect.size.width, viewRect.size.height )];
+    [newView setNeedsDisplay:YES];
+    [newView setAutoresizesSubviews:YES];
+    [[window contentView] addSubview:newView];
     _currentView = newView;
 }
 

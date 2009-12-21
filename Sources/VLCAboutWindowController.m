@@ -84,7 +84,7 @@ static NSString *contentOfTextResource(NSString *resource)
     [super windowDidLoad];
 
     [_gplTextField setString:contentOfTextResource(@"License")];
-    [_gplTextField setFont: [NSFont fontWithName:@"Lucida Grande" size:11.0]];
+    [_gplTextField setFont:[NSFont fontWithName:@"Lucida Grande" size:11.0]];
 
     NSWindow *window = [self window];
     [window center];
@@ -125,12 +125,12 @@ static NSString *contentOfTextResource(NSString *resource)
                                    [localDict objectForKey:@"CFBundleVersion"]]];
 
     /* setup the authors and thanks field */
-    [_creditsTextView setString: [NSString stringWithFormat:@"%@\n%@\n\n%@",
-                                  [NSString stringWithFormat: contentOfTextResource(@"About"), 
+    [_creditsTextView setString:[NSString stringWithFormat:@"%@\n%@\n\n%@",
+                                  [NSString stringWithFormat:contentOfTextResource(@"About"), 
                                    [[VLCLibrary sharedLibrary] version]],
                                   contentOfTextResource(@"Authors"),
                                   contentOfTextResource(@"Thanks")]];
-    [_creditsTextView setFont: [NSFont fontWithName:@"Lucida Grande" size:11.0]];
+    [_creditsTextView setFont:[NSFont fontWithName:@"Lucida Grande" size:11.0]];
 
     /* Setup the window */
     [_creditsTextView setDrawsBackground:NO];

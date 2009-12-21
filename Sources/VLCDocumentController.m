@@ -150,11 +150,10 @@ x = 1;
         setupTrackMenu(_subtitleTrackSelectorMenuItem, setSubtitleTrackFromMenuItem:, countOfVideoSubTitles, videoSubTitles, currentVideoSubTitles);
         if ([[_subtitleTrackSelectorMenuItem submenu] numberOfItems] == 4)
         {
-            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 3]; // separator
-            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 2]; // "Disable"
-            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex: 1]; // separator
+            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex:3]; // separator
+            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex:2]; // "Disable"
+            [[_subtitleTrackSelectorMenuItem submenu] removeItemAtIndex:1]; // separator
         }
-        [thePlayer audioTracks];
 
         // Audiotrack menu
         [[_audioTrackSelectorMenuItem submenu] removeAllItems];

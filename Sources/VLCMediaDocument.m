@@ -241,11 +241,11 @@
         NSAssert(!_theLANStreamingSession, @"There should not be a _theLANStreamingSession at this time.");
         _theLANStreamingSession = [VLCStreamSession streamSession];
         _theLANStreamingSession.media = ourMedia;
-        _theLANStreamingSession.streamOutput = [VLCStreamOutput rtpBroadcastStreamOutputWithSAPAnnounce: [self displayName]];
+        _theLANStreamingSession.streamOutput = [VLCStreamOutput rtpBroadcastStreamOutputWithSAPAnnounce:[self displayName]];
         _sharedOnLAN = YES;
         [_theLANStreamingSession startStreaming];
         if ([_mediaListPlayer.mediaPlayer isSeekable])
-            [_theLANStreamingSession setPosition: _mediaListPlayer.mediaPlayer.position];
+            [_theLANStreamingSession setPosition:_mediaListPlayer.mediaPlayer.position];
         [_theLANStreamingSession retain];
     } else {
         [_theLANStreamingSession stopStreaming];
@@ -263,7 +263,7 @@
         VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
 
         if ([mediaPlayer isSeekable])
-            [_theLANStreamingSession setPosition: [mediaPlayer position]];
+            [_theLANStreamingSession setPosition:[mediaPlayer position]];
     }
 }
 
@@ -431,15 +431,15 @@
     else
     {
         NSOpenPanel * openPanel = [NSOpenPanel openPanel];
-        [openPanel setCanChooseFiles: YES];
-        [openPanel setCanChooseDirectories: NO];
-        [openPanel setAllowsMultipleSelection: YES];
-        [openPanel beginSheetForDirectory: nil 
-                                     file: nil 
-                                    types:[NSArray arrayWithObjects: @"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil] 
+        [openPanel setCanChooseFiles:YES];
+        [openPanel setCanChooseDirectories:NO];
+        [openPanel setAllowsMultipleSelection:YES];
+        [openPanel beginSheetForDirectory:nil 
+                                     file:nil 
+                                    types:[NSArray arrayWithObjects:@"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil] 
                            modalForWindow:[self windowForSheet] 
                             modalDelegate:self 
-                           didEndSelector:@selector(openSubtitleFileFromPanel: returnCode: contextInfo:)
+                           didEndSelector:@selector(openSubtitleFileFromPanel:returnCode:contextInfo:)
                               contextInfo:nil];
     }
 }
@@ -450,7 +450,7 @@
     if (returnCode == NSOKButton)
     {
         for (NSUInteger i = 0; i < [[panel filenames] count] ; i++)
-            [[[self mediaListPlayer] mediaPlayer] openVideoSubTitlesFromFile: [[panel filenames] objectAtIndex: i]];
+            [[[self mediaListPlayer] mediaPlayer] openVideoSubTitlesFromFile:[[panel filenames] objectAtIndex:i]];
         [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
     }
 }
