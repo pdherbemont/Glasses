@@ -31,17 +31,19 @@
 {
     return [VLCMediaDiscoverer availableMediaDiscoverer];
 }
+
 - (NSString *)windowNibName
 {
     return @"SplashScreenWindow";
 }
 
-
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    [[self window] center];
-    [[self window] setDelegate:self];
+    NSWindow *window = [self window];
+
+    [window center];
+    [window setDelegate:self];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
