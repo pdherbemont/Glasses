@@ -48,6 +48,9 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask
 {
     @try {
+        // From now on, just log followin exception
+        [[NSExceptionHandler defaultExceptionHandler] setExceptionHandlingMask:NSLogUncaughtExceptionMask | NSLogUncaughtSystemExceptionMask | NSLogUncaughtRuntimeErrorMask];
+
         NSLog(@"*** Exception Handled! %@: %@", [exception name], [exception reason]);
         [self printStackTrace:exception];
         int ret = NSRunCriticalAlertPanel(@"Exception not handled!",
@@ -65,6 +68,9 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
 
 - (void)printStackTrace:(NSException *)e
 {
+    BOOL atosExists = [[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/atos"];
+    if (!atosExists)
+        return;
     NSString *stack = [[e userInfo] objectForKey:NSStackTraceKey];
     if (!stack) {
         NSLog(@"No stack trace available.");
