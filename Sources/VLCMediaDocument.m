@@ -107,8 +107,6 @@
     if (media && seekable) {
         VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
         [documentController media:media wasClosedAtPosition:position withRemainingTime:remainingTime];
-        if (_sharedOnLAN)
-            [_theLANStreamingSession setPosition: position];
     }
 }
 
@@ -288,6 +286,8 @@
     VLCMediaListPlayer *mediaListPlayer = [self mediaListPlayer];
     [mediaListPlayer play];
     [mediaListPlayer.mediaPlayer setPosition:_startingPosition];
+    if (_sharedOnLAN)
+        [_theLANStreamingSession setPosition:_startingPosition];
 }
 
 #pragma mark -
