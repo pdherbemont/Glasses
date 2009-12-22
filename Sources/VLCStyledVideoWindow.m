@@ -65,7 +65,20 @@ static inline BOOL debugStyledWindow(void)
 
 - (BOOL)canBecomeMainWindow
 {
+    // -[NSDocumentController currentDocument] doesn't send Notification
+    // when changed. Our Bindings (in MainWindow.xib) don't update as a result.
+    // Post it here, and in -becomeMainWindow.
+    // If you have a better work around, I am all for it.
+    [[NSDocumentController sharedDocumentController] willChangeValueForKey:@"currentDocument"];
     return YES;
+}
+
+- (void)becomeMainWindow
+{
+    [super becomeMainWindow];
+
+    // See -canBecomeMainWindow
+    [[NSDocumentController sharedDocumentController] didChangeValueForKey:@"currentDocument"];
 }
 
 - (void)orderWindow:(NSWindowOrderingMode)place relativeTo:(NSInteger)otherWin
