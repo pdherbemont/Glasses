@@ -22,8 +22,8 @@ Element.prototype.hasClassNameInAncestors = function(className)
 {
     if (this.hasClassName(className))
         return true;
-    var parent = this.parent;
-    if (!parent)
+    var parent = this.parentNode;
+    if (!parent || !parent.hasClassNameInAncestors)
         return false;
     return parent.hasClassNameInAncestors(className);
 }
