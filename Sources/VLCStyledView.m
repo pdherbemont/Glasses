@@ -54,7 +54,6 @@ static BOOL watchForStyleModification(void)
     [_resourcesFilePathArray release];
     [_lunettesStyleRoot release];
     [_title release];
-    [_currentTime release];
     [super dealloc];
 }
 
@@ -219,9 +218,7 @@ static BOOL watchForStyleModification(void)
     NSWindow *window = [self window];
     [self setWindowTitle:[window title]];
     [self setViewedPlaying:_viewedPlaying];
-    [self setViewedPosition:_viewedPosition];
     [self setSeekable:_seekable];
-    [self setCurrentTime:_currentTime];
     [self setListCount:_listCount];
     [self setSublistCount:_sublistCount];
 
@@ -344,54 +341,6 @@ static BOOL watchForStyleModification(void)
 - (NSString *)windowTitle
 {
     return _title;
-}
-
-- (void)setCurrentTime:(VLCTime *)time
-{    
-    if (_currentTime != time) {
-        [_currentTime release];
-        _currentTime = [time copy];
-    }
-    if (!_isFrameLoaded)
-        return;
-
-    NSNumber *timeAsNumber = [time numberValue];
-    VLCTime *remainingTime;
-    if (!timeAsNumber) {
-        // There is no time as number,
-        // it means we have no time,
-        // just display "--:--"
-        remainingTime = [VLCTime nullTime];
-    }
-    else {
-        double currentTime = [[time numberValue] doubleValue];
-        double position = [[self mediaPlayer] position];
-        double remaining = currentTime / position * (1 - position);
-        remainingTime = [VLCTime timeWithNumber:[NSNumber numberWithDouble:-remaining]];        
-    }
-    [self setInnerText:[remainingTime stringValue] forElementsOfClass:@"remaining-time"];
-}
-
-- (VLCTime *)currentTime
-{
-    return _currentTime;
-}
-
-// The viewedPosition value is set from the core to indicate a the position of the
-// playing media.
-// This is different from the setPosition: method that is being called by the
-// javascript bridge (ie: from the interface code)
-- (void)setViewedPosition:(float)position
-{
-    _viewedPosition = position;
-    if (!_isFrameLoaded)
-        return;
-    [self setAttribute:@"value" value:[NSString stringWithFormat:@"%.0f", position * 1000] forElementsOfClass:@"timeline"];
-}
-
-- (float)viewedPosition
-{
-    return _viewedPosition;
 }
 
 - (void)setViewedPlaying:(BOOL)isPlaying

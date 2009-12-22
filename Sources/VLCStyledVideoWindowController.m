@@ -71,10 +71,7 @@
     [super windowDidLoad];
 	NSWindow * window = [self window];
     [window setDelegate:self];
-    [_styledWindowView bind:@"currentTime" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.time" options:nil];
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:0], NSNullPlaceholderBindingOption, nil];
-    [_styledWindowView bind:@"viewedPosition" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.position" options:options];
-    options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSNullPlaceholderBindingOption, nil];
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView setViewedPlaying:[[self valueForKeyPath:@"document.mediaListPlayer.mediaPlayer.playing"] boolValue]];
     [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
     [_styledWindowView bind:@"seekable" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.seekable" options:options];

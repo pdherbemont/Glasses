@@ -31,14 +31,12 @@
 @interface VLCStyledView : WebView {
     BOOL _isFrameLoaded;
     BOOL _hasLoadedAFirstFrame;
-    float _viewedPosition;
     BOOL _viewedPlaying;
     BOOL _seekable;
 
     NSUInteger _listCount;
     NSUInteger _sublistCount;
 
-    VLCTime *_currentTime;
     NSString *_title;
 
     NSString *_pluginName;
@@ -87,9 +85,7 @@
 /**
  * This will be used to bind some value in the DOM
  */
-@property (copy) VLCTime *currentTime;
 @property (copy) NSString *windowTitle;
-@property float viewedPosition;
 @property BOOL viewedPlaying;
 @property BOOL seekable;
 @property NSUInteger listCount;

@@ -79,6 +79,10 @@ WindowController.prototype = {
         var elements = document.getElementsByClassName("ellapsed-time");
         for (i = 0; i < elements.length; i++)
             elements[i].bindKey("innerText", "mediaPlayer.time.stringValue");
+
+        elements = document.getElementsByClassName("remaining-time");
+        for (i = 0; i < elements.length; i++)
+            elements[i].bindKey("innerText", "mediaPlayer.remainingTime.stringValue");
         
         var mediaList = document.getElementById("mediaList");
         if (mediaList) {
