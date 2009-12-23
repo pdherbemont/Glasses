@@ -109,7 +109,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [parentMenu addItem:[NSMenuItem separatorItem]];
 
     // Start at 1 since the first item of the NSArray is the disabled state.
-    for (NSInteger x = 1; x < [items count]; x++) {
+    for (NSUInteger x = 1; x < [items count]; x++) {
         menuItem = [[NSMenuItem alloc] initWithTitle:[items objectAtIndex:x] action:sel keyEquivalent:@""];
         [menuItem setTag:x];
         [parentMenu addItem:menuItem];
