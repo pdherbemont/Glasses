@@ -106,10 +106,9 @@
 
 /* Helper method for the remote control interface in order to trigger forward/backward and volume
  increase/decrease as long as the user holds the left/right, plus/minus button */
-- (void)executeHoldActionForRemoteButton:(NSNumber*) buttonIdentifierNumber
+- (void)executeHoldActionForRemoteButton:(NSNumber *) buttonIdentifierNumber
 {
-    if (_remoteButtonIsHold)
-    {
+    if (_remoteButtonIsHold) {
         switch ([buttonIdentifierNumber intValue]) {
             case kRemoteButtonRight_Hold:
                 [NSApp sendAction:@selector(remoteRightButtonPressed:) to:nil from:self];
@@ -137,8 +136,7 @@
 - (void) appleRemoteButton:(AppleRemoteEventIdentifier)buttonIdentifier pressedDown:(BOOL)pressedDown clickCount:(unsigned int)count
 {
     BOOL ret = NO;
-    switch (buttonIdentifier)
-    {
+    switch (buttonIdentifier) {
         case kRemoteButtonPlay:
             ret = [NSApp sendAction:@selector(remoteMiddleButtonPressed:) to:nil from:self];
             break;
@@ -219,7 +217,7 @@
 
 #pragma mark -
 
-- (void)sendEvent:(NSEvent*)event
+- (void)sendEvent:(NSEvent *)event
 {
     if (_isActive) {
         if ([event type] == NSSystemDefined && [event subtype] == 8) {

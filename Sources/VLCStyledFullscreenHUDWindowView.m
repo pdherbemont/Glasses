@@ -149,7 +149,7 @@
     [_bindings bindDOMObject:domObject property:property toObject:self withKeyPath:keyPath];
 }
 
-- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject*)object withKeyPath:(NSString *)keyPath
+- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     NSAssert(_bindings, @"No bindings created");
     [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];

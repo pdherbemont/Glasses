@@ -100,7 +100,7 @@
 - (IBAction)togglePlayPause:(id)sender
 {
     VLCMediaPlayer *mediaPlayer = [self mediaPlayer];
-	if([mediaPlayer isPlaying]) {
+	if ([mediaPlayer isPlaying]) {
 		[mediaPlayer pause];
         [sender setImage:[NSImage imageNamed:@"play_embedded"]];
         [sender setAlternateImage:[NSImage imageNamed:@"play_embedded_graphite"]];

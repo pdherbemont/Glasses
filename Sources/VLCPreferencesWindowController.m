@@ -43,7 +43,7 @@
     NSWindow *window = [self window];
 
     // we want to re-open with the same view we were closed with, so just revert to default on first display
-    if(! _currentView ) {
+    if (!_currentView) {
         [[self window] setTitle:@"General"];
         [self setView:_generalSettingsView];
         [[window toolbar] setSelectedItemIdentifier:@"general"];

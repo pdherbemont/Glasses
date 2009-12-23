@@ -272,7 +272,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 }
 
 
-- (void)animationDidEnd:(NSAnimation*)animation
+- (void)animationDidEnd:(NSAnimation *)animation
 {
     NSAssert(animation == _animation2, @"We should only be the delegate from _animation2");
     if ([animation currentValue] < 1.0)

@@ -37,7 +37,7 @@
 }
 
 - (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification;
-- (void)sendEvent:(NSEvent*)event;
+- (void)sendEvent:(NSEvent *)event;
 - (void)resetJump;
 
 - (IBAction)reportBug:(id)sender;

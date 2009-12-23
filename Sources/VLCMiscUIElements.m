@@ -146,7 +146,7 @@ static void _drawFrameInRect(NSRect frameRect)
 
 - (void)controlTintChanged
 {
-    if( [NSColor currentControlTint] == NSGraphiteControlTint )
+    if ([NSColor currentControlTint] == NSGraphiteControlTint)
         _knobOn = [NSImage imageNamed:@"volumeslider_graphite"];
     else
         _knobOn = [NSImage imageNamed:@"volumeslider_blue"];
@@ -164,7 +164,7 @@ static void _drawFrameInRect(NSRect frameRect)
 {
     NSImage *knob;
 
-    if( b_mouse_down )
+    if (b_mouse_down)
         knob = _knobOn;
     else
         knob = _knobOff;

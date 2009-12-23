@@ -49,8 +49,7 @@
     if ([[inAbsoluteURL scheme] isEqualToString:@"http"] || [[inAbsoluteURL scheme] isEqualToString:@"mms"]
      || [[inAbsoluteURL scheme] isEqualToString:@"ftp"] || [[inAbsoluteURL scheme] isEqualToString:@"rtsp"]
      || [[inAbsoluteURL scheme] isEqualToString:@"rtmp"] || [[inAbsoluteURL scheme] isEqualToString:@"udp"]
-     || [[inAbsoluteURL scheme] isEqualToString:@"file"] || [[inAbsoluteURL scheme] isEqualToString:@"rtp"])
-    {
+     || [[inAbsoluteURL scheme] isEqualToString:@"file"] || [[inAbsoluteURL scheme] isEqualToString:@"rtp"]) {
         return @"VLCMediaDocument";
     }
 
@@ -131,8 +130,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [_chapterSelectorMenuItem setEnabled:NO];
 
     VLCMediaPlayer *thePlayer = [[currentDocument mediaListPlayer] mediaPlayer];
-    if ([thePlayer state] == VLCMediaPlayerStatePlaying || [thePlayer state] == VLCMediaPlayerStatePaused)
-    {
+    if ([thePlayer state] == VLCMediaPlayerStatePlaying || [thePlayer state] == VLCMediaPlayerStatePaused) {
         // Subtitle menu
         // this is a special case to allow opening of external subtitle file
         NSMenu *menu = [_subtitleTrackSelectorMenuItem submenu];

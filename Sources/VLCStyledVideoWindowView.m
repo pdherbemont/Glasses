@@ -326,7 +326,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     [_bindings bindDOMObject:domObject property:property toObject:self withKeyPath:keyPath];
 }
 
-- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject*)object withKeyPath:(NSString *)keyPath
+- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];
 }
@@ -457,8 +457,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     // in the video view by the style.
 
     NSView *videoView = [[[self window] windowController] videoView];
-    for (NSView *subview in [self subviews])
-    {
+    for (NSView *subview in [self subviews]) {
         if (subview == videoView)
             continue;
         NSPoint localPoint = [subview convertPoint:point fromView:self];

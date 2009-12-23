@@ -12,6 +12,6 @@
 @interface NSScreen (VLCAdditions)
 + (NSScreen *)screenWithDisplayID:(CGDirectDisplayID)displayID;
 - (BOOL)isMainScreen;
-- (BOOL)isScreen:(NSScreen*)screen;
+- (BOOL)isScreen:(NSScreen *)screen;
 - (CGDirectDisplayID)displayID;
 @end

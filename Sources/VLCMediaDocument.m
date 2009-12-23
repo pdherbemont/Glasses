@@ -38,7 +38,7 @@
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
     self = [super initWithContentsOfURL:absoluteURL ofType:typeName error:outError];
-	if(!self)
+	if (!self)
         return nil;
     _media = [[VLCMedia mediaWithURL:absoluteURL] retain];
 	return self;
@@ -47,7 +47,7 @@
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL andStartingPosition:(double)position
 {
     self = [self initWithContentsOfURL:absoluteURL ofType:(NSString *)kUTTypeMovie error:nil];
-	if(!self)
+	if (!self)
         return nil;
     _startingPosition = position;
 	return self;
@@ -56,7 +56,7 @@
 - (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name
 {
     self = [super init];
-	if(!self)
+	if (!self)
         return nil;
     _mediaList = [mediaList retain];
     _name = [name copy];
@@ -117,8 +117,7 @@
     [self stopRememberMediaPosition];
     [self saveUnfinishedMovieState];
 
-    if (_isSharedOnLAN)
-    {
+    if (_isSharedOnLAN) {
         [_theLANStreamingSession stopStreaming];
         [_theLANStreamingSession release];
     }
@@ -199,21 +198,18 @@
 {
     VLCStreamSession * theStreamSession;
     VLCMedia * ourMedia = _media;
-    if (!ourMedia)
-    {
+    if (!ourMedia) {
         NSRunCriticalAlertPanel(@"Export failed", @"Lunettes cannot export media from list-based players yet. Please open the input separately to convert it.", @"Hum, okay", nil, nil);
         return;
     }
     theStreamSession = [VLCStreamSession streamSession];
     theStreamSession.media = ourMedia;
-    if ([typeName isEqualToString:(NSString*)kUTTypeMPEG])
+    if ([typeName isEqualToString:(NSString *)kUTTypeMPEG])
         theStreamSession.streamOutput = [VLCStreamOutput mpeg2StreamOutputWithFilePath:[[[absoluteURL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""]];
-    else if ([typeName isEqualToString:(NSString*)kUTTypeMPEG4])
-    {
+    else if ([typeName isEqualToString:(NSString *)kUTTypeMPEG4]) {
         theStreamSession.streamOutput = [VLCStreamOutput mpeg2StreamOutputWithFilePath:[[[absoluteURL absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""]];
     }
-    else
-    {
+    else {
         VLCAssertNotReached(@"unsupported file type requested");
     }
 
@@ -228,7 +224,7 @@
 
 - (NSArray *)writableTypesForSaveOperation:(NSSaveOperationType)saveOperation
 {
-    return [NSArray arrayWithObjects:(NSString*)kUTTypeMPEG, (NSString*)kUTTypeMPEG4, nil];
+    return [NSArray arrayWithObjects:(NSString *)kUTTypeMPEG, (NSString *)kUTTypeMPEG4, nil];
 }
 
 - (void)didFinishLoadingWindowController:(NSWindowController *)controller
@@ -238,7 +234,7 @@
     // they load webview.
     // This is to make sure that we play only once the webview is loaded.
     // This way we wont overload the CPU during opening.
-    
+
     if (_hasInitiatedPlayback)
         return;
     _hasInitiatedPlayback = YES;
@@ -288,13 +284,13 @@
 - (void)playbackPositionChanged
 {
     // This method is triggered by the VLCStyledVideoWindowView, when the position slider is moved by the user
-    if (_isSharedOnLAN)
-    {
-        VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
-        
-        if ([mediaPlayer isSeekable])
-            [_theLANStreamingSession setPosition:[mediaPlayer position]];
-    }
+    if (!_isSharedOnLAN)
+        return;
+
+    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+
+    if ([mediaPlayer isSeekable])
+        [_theLANStreamingSession setPosition:[mediaPlayer position]];
 }
 
 
@@ -331,13 +327,13 @@
     // repeatAllItems.
     // And we want to set the no repeat flag only if both
     // of the two options are not selected.
-    
+
     _repeatCurrentItem = repeat;
     if (repeat) {
         [_mediaListPlayer setRepeatMode:VLCRepeatCurrentItem];
         [self setRepeatAllItems:NO];
     }
-    
+
     if (!_repeatAllItems && !_repeatCurrentItem)
         [_mediaListPlayer setRepeatMode:VLCDoNotRepeat];
 }
@@ -350,13 +346,13 @@
 - (void)setRepeatAllItems:(BOOL)repeat
 {
     // See comment in -setRepeatCurrentItem:.
-    
+
     _repeatAllItems = repeat;
     if (repeat) {
         [_mediaListPlayer setRepeatMode:VLCRepeatAllItems];
         [self setRepeatCurrentItem:NO];
     }
-    
+
     if (!_repeatAllItems && !_repeatCurrentItem)
         [_mediaListPlayer setRepeatMode:VLCDoNotRepeat];
 }
@@ -377,11 +373,9 @@
         NSAlert *alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil
                              informativeTextWithFormat:@"An unknown error occured when playing %@", [[mediaPlayer media] url]];
         [alert runModal];
-        
     }
 
-    if (state == VLCMediaPlayerStatePlaying)
-    {
+    if (state == VLCMediaPlayerStatePlaying) {
         [self startToRememberMediaPosition];
         [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
     } else {
@@ -445,7 +439,7 @@
         NSBeep();
         return;
     }
-    
+
     [mediaPlayer mediumJumpBackward];
 }
 
@@ -462,21 +456,20 @@
     [openPanel setCanChooseFiles: YES];
     [openPanel setCanChooseDirectories: NO];
     [openPanel setAllowsMultipleSelection: YES];
-    [openPanel beginSheetForDirectory: nil 
-                                 file: nil 
-                                types:[NSArray arrayWithObjects: @"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil] 
-                       modalForWindow:[self windowForSheet] 
-                        modalDelegate:self 
+    [openPanel beginSheetForDirectory: nil
+                                 file: nil
+                                types:[NSArray arrayWithObjects: @"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil]
+                       modalForWindow:[self windowForSheet]
+                        modalDelegate:self
                        didEndSelector:@selector(openSubtitleFileFromPanel:returnCode:contextInfo:)
                           contextInfo:nil];
 }
 
-- (void)openSubtitleFileFromPanel:(NSOpenPanel *)panel 
-                       returnCode:(NSInteger)returnCode  
+- (void)openSubtitleFileFromPanel:(NSOpenPanel *)panel
+                       returnCode:(NSInteger)returnCode
                       contextInfo:(void  *)contextInfo
 {
-    if (returnCode == NSOKButton)
-    {
+    if (returnCode == NSOKButton) {
         for (NSUInteger i = 0; i < [[panel filenames] count] ; i++)
             [[[self mediaListPlayer] mediaPlayer] openVideoSubTitlesFromFile:[[panel filenames] objectAtIndex:i]];
         [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];

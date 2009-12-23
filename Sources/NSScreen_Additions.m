@@ -27,7 +27,7 @@
     return [self displayID] == [[[NSScreen screens] objectAtIndex:0] displayID];
 }
 
-- (BOOL)isScreen:(NSScreen*)screen
+- (BOOL)isScreen:(NSScreen *)screen
 {
     return [self displayID] == [screen displayID];
 }
