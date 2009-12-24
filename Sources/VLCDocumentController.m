@@ -32,7 +32,13 @@
 - (void)setTitleFromMenuItem:(NSMenuItem *)sender;
 @end
 
+@interface VLCDocumentController ()
+// See -setMainWindow:
+@property (readwrite, retain) id currentDocument;
+@end
+
 @implementation VLCDocumentController
+@synthesize currentDocument=_currentDocument;
 
 - (void)awakeFromNib
 {
@@ -287,6 +293,14 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 {
     [_splashScreen release];
     _splashScreen = nil;
+}
+
+- (void)setMainWindow:(NSWindow *)window
+{
+    // Cocoa doesn't properly update the currentDocument
+    // because we use borderless window.
+    // We need to work around this.
+    [self setCurrentDocument:[self documentForWindow:window]];
 }
 
 @end

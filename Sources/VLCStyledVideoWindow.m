@@ -21,6 +21,7 @@
 #import "VLCStyledVideoWindow.h"
 #import "VLCStyledVideoWindowController.h"
 #import "VLCStyledVideoWindowView.h"
+#import "VLCDocumentController.h"
 #import "VLCMediaDocument.h"
 #import "NSScreen_Additions.h"
 
@@ -65,11 +66,6 @@ static inline BOOL debugStyledWindow(void)
 
 - (BOOL)canBecomeMainWindow
 {
-    // -[NSDocumentController currentDocument] doesn't send Notification
-    // when changed. Our Bindings (in MainWindow.xib) don't update as a result.
-    // Post it here, and in -becomeMainWindow.
-    // If you have a better work around, I am all for it.
-    [[NSDocumentController sharedDocumentController] willChangeValueForKey:@"currentDocument"];
     return YES;
 }
 
@@ -77,9 +73,22 @@ static inline BOOL debugStyledWindow(void)
 {
     [super becomeMainWindow];
 
-    // See -canBecomeMainWindow
-    [[NSDocumentController sharedDocumentController] didChangeValueForKey:@"currentDocument"];
+    // -[NSDocumentController currentDocument] doesn't send Notification
+    // when changed. Our Bindings (in MainWindow.xib) don't update as a result.
+    // Post it here, and in -becomeMainWindow.
+    // If you have a better work around, I am all for it.
+    VLCDocumentController *controller = [NSDocumentController sharedDocumentController];
+    [controller setMainWindow:self];
 }
+
+- (void)resignMainWindow
+{
+    // See -becomeMainWindow
+    VLCDocumentController *controller = [NSDocumentController sharedDocumentController];
+    [controller setMainWindow:nil];
+    [super resignMainWindow];
+}
+
 
 - (void)orderWindow:(NSWindowOrderingMode)place relativeTo:(NSInteger)otherWin
 {

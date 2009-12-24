@@ -34,6 +34,8 @@
     IBOutlet NSMenuItem * _audioTrackSelectorMenuItem;
     IBOutlet NSMenuItem * _chapterSelectorMenuItem;
     IBOutlet NSMenuItem * _titleSelectorMenuItem;
+    
+    id _currentDocument;
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
@@ -46,4 +48,6 @@
 - (void)closeSplashScreen;
 
 - (void)cleanAndRecreateMainMenu;
+
+- (void)setMainWindow:(NSWindow *)window;
 @end
