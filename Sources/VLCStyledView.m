@@ -227,6 +227,18 @@ static BOOL watchForStyleModification(void)
         [[[self window] animator] setAlphaValue:1];
 }
 
+- (NSUInteger)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo
+{
+    // Only allow javascript to handle drop.
+    return WebDragDestinationActionDHTML;
+}
+
+- (NSUInteger)webView:(WebView *)sender dragSourceActionMaskForPoint:(NSPoint)point
+{
+    // Only allow javascript to handle drag.
+    return WebDragSourceActionDHTML;
+}
+
 #pragma mark -
 #pragma mark Menu Item Action
 
