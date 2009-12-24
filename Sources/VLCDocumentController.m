@@ -139,6 +139,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [_chapterSelectorMenuItem setEnabled:NO];
 
     VLCMediaPlayer *thePlayer = [[currentDocument mediaListPlayer] mediaPlayer];
+
     if ([thePlayer state] == VLCMediaPlayerStatePlaying || [thePlayer state] == VLCMediaPlayerStatePaused) {
         // Subtitle menu
         // this is a special case to allow opening of external subtitle file
@@ -303,6 +304,9 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     // because we use borderless window.
     // We need to work around this.
     [self setCurrentDocument:[self documentForWindow:window]];
+
+    // Recreate the main menu from here.
+    [self cleanAndRecreateMainMenu];
 }
 
 @end

@@ -124,7 +124,6 @@
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
     [_styledWindowView setKeyWindow:YES];
 }
 - (void)windowDidResignKey:(NSNotification *)notification
