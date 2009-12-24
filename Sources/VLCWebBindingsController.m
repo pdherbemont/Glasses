@@ -182,7 +182,7 @@
     DOMObject *domObject = [dict objectForKey:@"domObject"];
     if ([domObject isKindOfClass:[DOMNode class]]) {
         DOMNode *node = (DOMNode *)domObject;
-        [node removeEventListener:@"change" listener:self useCapture:NO];
+        [node removeEventListener:@"input" listener:self useCapture:NO];
         [node removeEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
     }
     
@@ -198,7 +198,7 @@
     NSSet *set = [self bindingsForDOMObject:node] ;
     NSAssert([set count] > 0, @"Got an event from a removed node");
     
-    if ([[evt type] isEqualToString:@"change"]) {
+    if ([[evt type] isEqualToString:@"input"]) {
         for (NSDictionary *dict in set) {
             id object = [dict objectForKey:@"object"];
             NSString *keyPath = [dict objectForKey:@"keyPath"];
@@ -226,7 +226,7 @@
     if ([domObject isKindOfClass:[DOMNode class]]) {
         DOMNode *node = (DOMNode *)domObject;
         [node addEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
-        [node addEventListener:@"change" listener:self useCapture:NO];
+        [node addEventListener:@"input" listener:self useCapture:NO];
     }
     [domObject bind:property toObject:object withKeyPath:keyPath options:nil];
 }
