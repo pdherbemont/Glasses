@@ -430,7 +430,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     if (!_contentTracking || !NSEqualRects([_contentTracking rect], frame)) {
         [self removeTrackingArea:_contentTracking];
         [_contentTracking release];
-        _contentTracking = [[NSTrackingArea alloc] initWithRect:frame options:NSTrackingMouseEnteredAndExited|NSTrackingActiveAlways owner:self userInfo:nil];    
+        _contentTracking = [[NSTrackingArea alloc] initWithRect:frame options:NSTrackingMouseEnteredAndExited|NSTrackingActiveAlways|NSTrackingEnabledDuringMouseDrag owner:self userInfo:nil];    
         [self addTrackingArea:_contentTracking];
     }
     
