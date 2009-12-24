@@ -62,7 +62,6 @@
     NSDictionary *dict = context;
     if (dict) {
         WebScriptObject *observer = [dict objectForKey:@"observer"];
-        //        WebScriptObject *windowObject = [dict objectForKey:@"windowObject"];
         
         NSInteger kind = [[change objectForKey:NSKeyValueChangeKindKey] intValue];
         id new = [change objectForKey:NSKeyValueChangeNewKey];
@@ -85,6 +84,14 @@
         switch (kind) {
             case NSKeyValueChangeSetting:
                 [observer callWebScriptMethod:@"removeAllInsertedCocoaObjects" withArguments:[NSArray array]];
+                
+                // I sometimes get NSNull value during setting but [object valueForKeyPath:keyPath]
+                // returns a better results, so use it. This happen with NSArrayController arrangedObjects.
+                new = [object valueForKeyPath:keyPath];
+
+                if ([new isKindOfClass:[NSNull class]])
+                    break;
+
                 NSAssert([new isKindOfClass:[NSArray class]], @"Only support array");
                 for (NSUInteger i = 0; i < [new count]; i++) {
                     id object = [new objectAtIndex:i];
