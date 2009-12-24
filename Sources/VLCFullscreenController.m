@@ -40,8 +40,8 @@ static NSViewAnimation *createViewAnimationWithDefaultsSettingsAndDictionary(NSD
 {
     NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:dict]];
     [animation setAnimationBlockingMode:NSAnimationNonblocking];
-    [animation setDuration:0.3];
-    [animation setFrameRate:30];
+    [animation setDuration:0.7];
+    [animation setFrameRate:60];
     return animation;
 }
 
@@ -208,8 +208,9 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     NSDisableScreenUpdates();
     [self _restoreViewFromPlaceholderView];
     [_fullscreenWindow orderOut:self];
+    [_view display]; // Make sure the view will be updated. (saves a flash)
     NSEnableScreenUpdates();
-    
+
     [_fullscreenWindow release];
     _fullscreenWindow = nil;
 
@@ -229,6 +230,9 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     [_hud fullscreenControllerWillLeaveFullscreen:self];
 
+    // Show the Dock and the Menu Bar
+    [NSApp setPresentationOptions:NSApplicationPresentationDefault];
+
     NSAssert(_fullscreenWindow, @"There should be a fullscreen Window at this time");
 
     // This might happen if we quickly exit fullscreen and release us.
@@ -245,8 +249,6 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     [self _stopAnimationsIfNeeded];
     
-    [NSApp setPresentationOptions:NSApplicationPresentationDefault];
-
     NSRect screenRect = screenRectForView(_placeholderView);
 
     NSAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
@@ -303,7 +305,6 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 - (void)_restoreViewFromPlaceholderView
 {
     NSAssert(_placeholderView, @"There should be a place holder view at this time");
-    [_view removeFromSuperviewWithoutNeedingDisplay];
     [[_placeholderView superview] replaceSubview:_placeholderView with:_view];
     [_view setFrame:[_placeholderView frame]];
     [_placeholderView release];
