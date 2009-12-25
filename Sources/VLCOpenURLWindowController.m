@@ -84,9 +84,7 @@
 
 - (IBAction)networkPanelAction:(id)sender
 {
-    if (![sender isKindOfClass:[NSButton class]])
-        return;
-
+    NSAssert(![sender isKindOfClass:[NSButton class]], @"Sender should be of NSButton class.");
     if ([[(NSButton *)sender title] isEqualToString:@"Open"])
         [NSApp stopModalWithCode:1];
     else
