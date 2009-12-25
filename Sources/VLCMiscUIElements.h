@@ -48,7 +48,7 @@
 {
     NSImage *_knobOff;
     NSImage *_knobOn;
-    BOOL b_mouse_down;
+    BOOL _isMouseDown;
 }
 - (void)controlTintChanged;
 
