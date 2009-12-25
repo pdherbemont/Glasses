@@ -30,7 +30,7 @@
 }
 
 - (IBAction)openNetworkStream:(id)sender;
-- (IBAction)networkPanelAction:(id)sender;
+- (IBAction)networkPanelAction:(NSButton *)sender;
 
-- (IBAction)clearRecentItems:(id)sender;
+- (IBAction)clearRecentItems:(NSButton *)sender;
 @end
