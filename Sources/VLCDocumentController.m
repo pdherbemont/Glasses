@@ -59,6 +59,8 @@
         || [[inAbsoluteURL scheme] isEqualToString:@"qtcapture"] || [[inAbsoluteURL scheme] isEqualToString:@"dvdnav"]) {
             return @"VLCMediaDocument";
     }
+    else
+        NSRunCriticalAlertPanel(@"Lunettes does not support this protocol", [NSString stringWithFormat:@"%@ is no valid URL scheme.", [inAbsoluteURL scheme]], @"OK", nil, nil);
 
     return nil;
 }
