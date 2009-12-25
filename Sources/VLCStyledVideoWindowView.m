@@ -237,6 +237,11 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     // When there is no such instruction, it will just be a regular NSView in the
     // parent window.
 
+    // First, fast path for the liveresize case when there is no belowwindow.
+    if (!_videoWindow && [self inLiveResize])
+        return;
+
+
     DOMHTMLElement *element = [self htmlElementForId:@"video-view"];
     NSAssert(element, @"No video-view element in this style");
     VLCVideoView *videoView = [[[self window] windowController] videoView];
@@ -244,9 +249,11 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
     NSRect frame = [element frameInView:self];
 
-    // For now the playlist toggle uses this methog
-    // to update the tracking area, so force it here.
-    [self updateTrackingAreas];
+    if (![self inLiveResize]) {
+        // For now the playlist toggle uses this methog
+        // to update the tracking area as well, so force it here.
+        [self updateTrackingAreas];        
+    }
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
     BOOL wantsBelowContent = [element.className rangeOfString:@"below-content"].length > 0;

@@ -176,6 +176,7 @@ WindowController.prototype = {
     
     videoResized: function()
     {
+        window.PlatformView.videoDidResize();
     },
     
     windowResized: function()
@@ -329,6 +330,7 @@ WindowController.prototype = {
         
         var platformWindow = this.PlatformWindow();
         platformWindow.setFrame____(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
+        this.windowResized();
     },
     
     /*************************************************
