@@ -27,6 +27,7 @@
 #import "VLCMediaDocument.h"
 #import "DOMElement_Additions.h"
 #import "DOMHTMLElement_Additions.h"
+#import "VLCArrayController.h"
 
 @interface  VLCStyledVideoWindowView ()
 - (void)videoDidResize;
@@ -328,11 +329,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     return [[self rootMediaList] count];
 }
 
-- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toKeyPath:(NSString *)keyPath
-{
-    [_bindings bindDOMObject:domObject property:property toObject:self withKeyPath:keyPath];
-}
-
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];
@@ -345,12 +341,29 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 - (void)addObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
-    [_bindings observe:object ? [object valueForKey:@"backendObject"] : self withKeyPath:keyPath observer:observer];
+    [_bindings observe:[object valueForKey:@"backendObject"] withKeyPath:keyPath observer:observer];
 }
 
 - (void)playCocoaObject:(WebScriptObject *)object
 {
     [[self mediaListPlayer] playMedia:[object valueForKey:@"backendObject"]];
+}
+
+- (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
+{
+    id backendObject = [object valueForKey:@"backendObject"];
+    NSArrayController *controller = [[VLCArrayController alloc] init];
+    [controller bind:@"contentArray" toObject:backendObject withKeyPath:keyPath options:nil];
+    WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
+    [ret setValue:controller forKey:@"backendObject"];
+    [controller release];
+    return ret;
+}
+
+- (WebScriptObject *)viewBackendObject:(WebScriptObject *)object
+{
+    [object setValue:self forKey:@"backendObject"];
+    return object;
 }
 
 
@@ -370,8 +383,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         return NO;
     if (sel == @selector(setPosition:))
         return NO;
-    if (sel == @selector(bindDOMObject:property:toKeyPath:))
-        return NO;    
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return NO;
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
@@ -379,6 +390,10 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     if (sel == @selector(unbindDOMObject:property:))
         return NO;
     if (sel == @selector(playCocoaObject:))
+        return NO;   
+    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
+        return NO;   
+    if (sel == @selector(viewBackendObject:))
         return NO;   
     
     return YES;
@@ -396,6 +411,10 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         return @"unbindDOMObject";
     if (sel == @selector(playCocoaObject:))
         return @"playCocoaObject";
+    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
+        return @"createArrayControllerFromBackendObjectWithKeyPath";
+    if (sel == @selector(viewBackendObject:))
+        return @"viewBackendObject";
     return nil;
 }
 

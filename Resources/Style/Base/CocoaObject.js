@@ -39,6 +39,17 @@ KVCArrayObserver.prototype.removeAllInsertedCocoaObjects = function() {};
  */
 var CocoaObject = function() {};
 
+CocoaObject.documentCocoaObject = function()
+{
+    return window.PlatformView.viewBackendObject(new CocoaObject);
+}
+
+/**
+ * This function is used by the backend to create a new
+ * CocoaObject.
+ */
+CocoaObject.prototype.clone = function () { return new CocoaObject; };
+
 /**
  * @param {string} keyPath
  * @param {Object} object
@@ -80,4 +91,17 @@ CocoaObject.prototype.removeObserver = function (observer, keyPath)
 {
     window.console.assert(observer);
     window.PlatformView.unobserve(observer, this, keyPath);
+}
+
+/**
+ * This functions creates in the backend an NSArrayController, and store
+ * it in the returned CocoaObject.
+ * It is bound to the keyPath property of the called CocoaObject.
+ *
+ * @param {string} keyPath to observe
+ * @return {CocoaObject} a CocoaObject that points to an arrayController
+ */
+CocoaObject.prototype.createArrayControllerFromKeyPath = function (keyPath)
+{
+    return window.PlatformView.createArrayControllerFromBackendObjectWithKeyPath(this, keyPath);
 }
