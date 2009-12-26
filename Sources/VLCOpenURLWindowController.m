@@ -61,6 +61,7 @@
     
     // Save it.
     [defaults setValue:recents forKey:kRecentNetworkItems];
+    
 }
 
 - (IBAction)openNetworkStream:(id)sender
@@ -75,15 +76,18 @@
     }
 }
 
-- (IBAction)clearRecentItems:(NSButton *)sender
+- (IBAction)clearRecentItems:(id)sender
 {
     [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:kLastNetworkItems];
     [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:kRecentNetworkItems];
 }
 
-- (IBAction)networkPanelAction:(NSButton *)sender
+- (IBAction)networkPanelAction:(id)sender
 {
-    if ([[sender title] isEqualToString: @"Open"])
+    if (![sender isKindOfClass:[NSButton class]])
+        return;
+
+    if ([[(NSButton *)sender title] isEqualToString:@"Open"])
         [NSApp stopModalWithCode:1];
     else
         [NSApp stopModalWithCode:0];

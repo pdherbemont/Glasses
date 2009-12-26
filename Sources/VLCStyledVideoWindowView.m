@@ -27,7 +27,6 @@
 #import "VLCMediaDocument.h"
 #import "DOMElement_Additions.h"
 #import "DOMHTMLElement_Additions.h"
-#import "VLCArrayController.h"
 
 @interface  VLCStyledVideoWindowView ()
 - (void)videoDidResize;
@@ -243,11 +242,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     // When there is no such instruction, it will just be a regular NSView in the
     // parent window.
 
-    // First, fast path for the liveresize case when there is no belowwindow.
-    if (!_videoWindow && [self inLiveResize])
-        return;
-
-
     DOMHTMLElement *element = [self htmlElementForId:@"video-view"];
     NSAssert(element, @"No video-view element in this style");
     VLCVideoView *videoView = [[[self window] windowController] videoView];
@@ -255,11 +249,9 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
     NSRect frame = [element frameInView:self];
 
-    if (![self inLiveResize]) {
-        // For now the playlist toggle uses this methog
-        // to update the tracking area as well, so force it here.
-        [self updateTrackingAreas];        
-    }
+    // For now the playlist toggle uses this methog
+    // to update the tracking area, so force it here.
+    [self updateTrackingAreas];
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
     BOOL wantsBelowContent = [element.className rangeOfString:@"below-content"].length > 0;
@@ -334,6 +326,11 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     return [[self rootMediaList] count];
 }
 
+- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toKeyPath:(NSString *)keyPath
+{
+    [_bindings bindDOMObject:domObject property:property toObject:self withKeyPath:keyPath];
+}
+
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];
@@ -346,29 +343,12 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 - (void)addObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
-    [_bindings observe:[object valueForKey:@"backendObject"] withKeyPath:keyPath observer:observer];
+    [_bindings observe:object ? [object valueForKey:@"backendObject"] : self withKeyPath:keyPath observer:observer];
 }
 
 - (void)playCocoaObject:(WebScriptObject *)object
 {
     [[self mediaListPlayer] playMedia:[object valueForKey:@"backendObject"]];
-}
-
-- (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
-{
-    id backendObject = [object valueForKey:@"backendObject"];
-    NSArrayController *controller = [[VLCArrayController alloc] init];
-    [controller bind:@"contentArray" toObject:backendObject withKeyPath:keyPath options:nil];
-    WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
-    [ret setValue:controller forKey:@"backendObject"];
-    [controller release];
-    return ret;
-}
-
-- (WebScriptObject *)viewBackendObject:(WebScriptObject *)object
-{
-    [object setValue:self forKey:@"backendObject"];
-    return object;
 }
 
 
@@ -400,10 +380,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         return NO;
     if (sel == @selector(playCocoaObject:))
         return NO;   
-    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
-        return NO;   
-    if (sel == @selector(viewBackendObject:))
-        return NO;   
     
     return YES;
 }
@@ -420,10 +396,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         return @"unbindDOMObject";
     if (sel == @selector(playCocoaObject:))
         return @"playCocoaObject";
-    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
-        return @"createArrayControllerFromBackendObjectWithKeyPath";
-    if (sel == @selector(viewBackendObject:))
-        return @"viewBackendObject";
     return nil;
 }
 

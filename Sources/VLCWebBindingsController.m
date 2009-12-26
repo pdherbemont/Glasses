@@ -62,6 +62,7 @@
     NSDictionary *dict = context;
     if (dict) {
         WebScriptObject *observer = [dict objectForKey:@"observer"];
+        //        WebScriptObject *windowObject = [dict objectForKey:@"windowObject"];
         
         NSInteger kind = [[change objectForKey:NSKeyValueChangeKindKey] intValue];
         id new = [change objectForKey:NSKeyValueChangeNewKey];
@@ -84,14 +85,6 @@
         switch (kind) {
             case NSKeyValueChangeSetting:
                 [observer callWebScriptMethod:@"removeAllInsertedCocoaObjects" withArguments:[NSArray array]];
-                
-                // I sometimes get NSNull value during setting but [object valueForKeyPath:keyPath]
-                // returns a better results, so use it. This happen with NSArrayController arrangedObjects.
-                new = [object valueForKeyPath:keyPath];
-
-                if ([new isKindOfClass:[NSNull class]])
-                    break;
-
                 NSAssert([new isKindOfClass:[NSArray class]], @"Only support array");
                 for (NSUInteger i = 0; i < [new count]; i++) {
                     id object = [new objectAtIndex:i];
@@ -182,7 +175,7 @@
     DOMObject *domObject = [dict objectForKey:@"domObject"];
     if ([domObject isKindOfClass:[DOMNode class]]) {
         DOMNode *node = (DOMNode *)domObject;
-        [node removeEventListener:@"input" listener:self useCapture:NO];
+        [node removeEventListener:@"change" listener:self useCapture:NO];
         [node removeEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
     }
     
@@ -198,7 +191,7 @@
     NSSet *set = [self bindingsForDOMObject:node] ;
     NSAssert([set count] > 0, @"Got an event from a removed node");
     
-    if ([[evt type] isEqualToString:@"input"]) {
+    if ([[evt type] isEqualToString:@"change"]) {
         for (NSDictionary *dict in set) {
             id object = [dict objectForKey:@"object"];
             NSString *keyPath = [dict objectForKey:@"keyPath"];
@@ -226,7 +219,7 @@
     if ([domObject isKindOfClass:[DOMNode class]]) {
         DOMNode *node = (DOMNode *)domObject;
         [node addEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
-        [node addEventListener:@"input" listener:self useCapture:NO];
+        [node addEventListener:@"change" listener:self useCapture:NO];
     }
     [domObject bind:property toObject:object withKeyPath:keyPath options:nil];
 }

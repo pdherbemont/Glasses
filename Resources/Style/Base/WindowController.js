@@ -176,7 +176,6 @@ WindowController.prototype = {
     
     videoResized: function()
     {
-        window.PlatformView.videoDidResize();
     },
     
     windowResized: function()
@@ -252,12 +251,6 @@ WindowController.prototype = {
             return;
         }
         this.saveMouseDownInfo(event);
-
-        // Sometimes we may get multiple mouseDown but no mouseUp
-        // make sure we don't register the listener twice.
-        if (this._mouseUpListener)
-            return;
-
         this._mouseUpListener = this.mouseUpForWindowDrag.bind(this);
         this._mouseDragListener = this.mouseDraggedForWindowDrag.bind(this);
         document.addEventListener('mouseup', this._mouseUpListener, false);
@@ -271,8 +264,6 @@ WindowController.prototype = {
     {
         document.removeEventListener('mouseup', this._mouseUpListener, false);
         document.removeEventListener('mousemove', this._mouseDragListener, false);
-        this._mouseUpListener = null;
-        this._mouseDragListener = null;
     },
 
     /**
@@ -332,7 +323,6 @@ WindowController.prototype = {
         
         var platformWindow = this.PlatformWindow();
         platformWindow.setFrame____(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
-        this.windowResized();
     },
     
     /*************************************************

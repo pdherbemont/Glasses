@@ -333,23 +333,12 @@ MediaListView.prototype = {
 
     observe: function()
     {
-        console.assert(!this.arrayController);
-        if (this.arrayController)
-            return;
-
-        var cocoaObject = this.cocoaObject;
-        if (!cocoaObject) {
-            // This one is certainly a hack for the root object.
-            // We should try to rationalize this.
-            cocoaObject = CocoaObject.documentCocoaObject();
-            this.arrayController = cocoaObject.createArrayControllerFromKeyPath("rootMediaList.media");
-        }
+        if (this.cocoaObject)
+            this.cocoaObject.addObserver(this, "subitems.media");
         else
-            this.arrayController = cocoaObject.createArrayControllerFromKeyPath("subitems.media");
-
-        this.arrayController.addObserver(this, "arrangedObjects");
-        
-        var search = document.getElementById("search-playlist");
-        this.arrayController.bindToObjectProperty("searchString", search, "value");
+        {
+            // FIXME: Better abstraction?
+            window.PlatformView.addObserverForCocoaObjectWithKeyPath(this, null, "rootMediaList.media");
+        }
     }
 }
