@@ -124,7 +124,6 @@
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
     [_styledWindowView setKeyWindow:YES];
 }
 - (void)windowDidResignKey:(NSNotification *)notification
@@ -147,7 +146,9 @@
 
 - (NSRect)windowWillUseStandardFrame:(NSWindow *)window defaultFrame:(NSRect)newFrame
 {
-    return [[window screen] frame];
+    NSRect standardFrame = [[window screen] frame];
+    standardFrame.size.height -= [[NSApp menu] menuBarHeight];
+    return standardFrame;
 }
 
 #pragma mark -

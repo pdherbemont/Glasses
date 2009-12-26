@@ -56,6 +56,9 @@ static inline BOOL debugStyledWindow(void)
     [self setHasShadow:NO];
     [self setAcceptsMouseMovedEvents:YES];
     [self setIgnoresMouseEvents:NO];
+
+    _unzoomedRect = [self frame];
+
     return self;
 }
 
@@ -144,6 +147,23 @@ static inline BOOL debugStyledWindow(void)
 {
     [self zoom:nil];
     [NSApp updateWindowsItem:self];
+}
+
+- (void)zoom:(id)sender
+{
+    NSRect newFrame;
+    if ([self isZoomed])
+        newFrame = _unzoomedRect;
+    else {
+        _unzoomedRect = [self frame];
+        if ([self delegate] && [[self delegate] respondsToSelector:@selector(windowWillUseStandardFrame:defaultFrame:)])
+            newFrame = [[self delegate] windowWillUseStandardFrame:self defaultFrame:_unzoomedRect];
+        else {
+            [super zoom:sender];
+            return;
+        }
+    }
+    [self setFrame:newFrame display:YES];
 }
 
 - (void)performMiniaturize:(id)sender

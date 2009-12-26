@@ -74,7 +74,7 @@ Element.prototype.detach = function ()
 
 Element.prototype.bindKey = function (property, toKeyPath)
 {
-    window.PlatformView.bindPropertyTo(this, property, toKeyPath);
+    window.PlatformView.bindDOMObjectToCocoaObject(this, property, CocoaObject.documentCocoaObject(), toKeyPath);
 }
 
 /******************************************************************************

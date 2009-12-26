@@ -453,12 +453,12 @@
 - (void)setSubtitleTrackFromFileWithMenuItem:(NSMenuItem *)sender
 {
     NSOpenPanel * openPanel = [NSOpenPanel openPanel];
-    [openPanel setCanChooseFiles: YES];
-    [openPanel setCanChooseDirectories: NO];
-    [openPanel setAllowsMultipleSelection: YES];
-    [openPanel beginSheetForDirectory: nil
-                                 file: nil
-                                types:[NSArray arrayWithObjects: @"cdg",@"@idx",@"srt",@"sub",@"utf",@"ass",@"ssa",@"aqt",@"jss",@"psb",@"rt",@"smi", nil]
+    [openPanel setCanChooseFiles:YES];
+    [openPanel setCanChooseDirectories:NO];
+    [openPanel setAllowsMultipleSelection:YES];
+    [openPanel beginSheetForDirectory:nil
+                                 file:nil
+                                types:[NSArray arrayWithObjects:@"cdg", @"@idx", @"srt", @"sub", @"utf", @"ass", @"ssa", @"aqt", @"jss", @"psb", @"rt", @"smi", nil]
                        modalForWindow:[self windowForSheet]
                         modalDelegate:self
                        didEndSelector:@selector(openSubtitleFileFromPanel:returnCode:contextInfo:)

@@ -468,8 +468,8 @@ input[type=search] {
 
 .resize {
     position: absolute;
-    height: 32px;
-    width: 32px;
+    height: 16px;
+    width: 16px;
     display: block;
     bottom: 0px;
     right: 0px;
