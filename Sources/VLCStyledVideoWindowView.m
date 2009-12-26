@@ -190,6 +190,11 @@
     [[self mediaPlayer] pause];
 }
 
+- (BOOL)isSeekable
+{
+    return [[self mediaPlayer] isSeekable];
+}
+
 #if SUPPORT_VIDEO_BELOW_CONTENT
 static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 {
@@ -382,6 +387,8 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     if (sel == @selector(pause))
         return NO;
     if (sel == @selector(setPosition:))
+        return NO;
+    if (sel == @selector(isSeekable))
         return NO;
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return NO;
