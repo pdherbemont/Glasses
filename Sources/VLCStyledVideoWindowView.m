@@ -408,8 +408,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 + (NSString *)webScriptNameForSelector:(SEL)sel
 {
-    if (sel == @selector(bindDOMObject:property:toKeyPath:))
-        return @"bindPropertyTo";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
