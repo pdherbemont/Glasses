@@ -191,7 +191,7 @@
 
 - (BOOL)isSeekable
 {
-    return [[self mediaPlayer] isSeekable];
+	return [[self mediaPlayer] isSeekable];
 }
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
