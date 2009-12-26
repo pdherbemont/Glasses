@@ -24,7 +24,6 @@
 
 @interface VLCStyledVideoWindow : NSWindow {
     NSWindowController *_windowController;
-    NSRect _unzoomedRect;
 }
 + (BOOL)debugStyledWindow;
 

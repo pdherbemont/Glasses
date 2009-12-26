@@ -140,7 +140,7 @@ static void _drawFrameInRect(NSRect frameRect)
                                              selector:@selector( controlTintChanged )
                                                  name:NSControlTintDidChangeNotification
                                                object:nil];
-    _isMouseDown = FALSE;
+    b_mouse_down = FALSE;
     return self;
 }
 
@@ -164,7 +164,7 @@ static void _drawFrameInRect(NSRect frameRect)
 {
     NSImage *knob;
 
-    if (_isMouseDown)
+    if (b_mouse_down)
         knob = _knobOn;
     else
         knob = _knobOff;
@@ -179,14 +179,14 @@ static void _drawFrameInRect(NSRect frameRect)
 - (void)stopTracking:(NSPoint)lastPoint at:(NSPoint)stopPoint inView:
         (NSView *)controlView mouseIsUp:(BOOL)flag
 {
-    _isMouseDown = NO;
+    b_mouse_down = NO;
     [self drawKnob];
     [super stopTracking:lastPoint at:stopPoint inView:controlView mouseIsUp:flag];
 }
 
 - (BOOL)startTrackingAt:(NSPoint)startPoint inView:(NSView *)controlView
 {
-    _isMouseDown = YES;
+    b_mouse_down = YES;
     [self drawKnob];
     return [super startTrackingAt:startPoint inView:controlView];
 }

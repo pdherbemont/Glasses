@@ -121,7 +121,6 @@
 		635D112C104A846400D34A87 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112B104A846400D34A87 /* PreferencesWindow.xib */; };
 		635D112E104A847300D34A87 /* PlaylistDebugWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */; };
 		635D1176104A8A8B00D34A87 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */; };
-		635D933110E4FE9E001C8091 /* VLCArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635D933010E4FE9E001C8091 /* VLCArrayController.m */; };
 		635F0F7B10CC63DC006EC30E /* VLCValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */; };
 		635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */; };
 		635F15E010CDB4D8006EC30E /* GPLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635F15DF10CDB4D8006EC30E /* GPLWindow.xib */; };
@@ -414,8 +413,6 @@
 		635D1125104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/OpenURLWindow.xib; sourceTree = "<group>"; };
 		635D1126104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
 		635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PlaylistDebugWindow.xib; path = Resources/PlaylistDebugWindow.xib; sourceTree = "<group>"; };
-		635D932F10E4FE9E001C8091 /* VLCArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCArrayController.h; path = Sources/VLCArrayController.h; sourceTree = "<group>"; };
-		635D933010E4FE9E001C8091 /* VLCArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCArrayController.m; path = Sources/VLCArrayController.m; sourceTree = "<group>"; };
 		635F0F7910CC63DC006EC30E /* VLCValueTransformers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCValueTransformers.h; path = Sources/VLCValueTransformers.h; sourceTree = "<group>"; };
 		635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCValueTransformers.m; path = Sources/VLCValueTransformers.m; sourceTree = "<group>"; };
 		635F109110CC7E29006EC30E /* VLCPlayedProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayedProgressIndicator.h; path = Sources/VLCPlayedProgressIndicator.h; sourceTree = "<group>"; };
@@ -951,8 +948,6 @@
 				635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */,
 				63F163E110D2941C003B99BE /* VLCPathWatcher.h */,
 				63F163E210D2941C003B99BE /* VLCPathWatcher.m */,
-				635D932F10E4FE9E001C8091 /* VLCArrayController.h */,
-				635D933010E4FE9E001C8091 /* VLCArrayController.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1311,7 +1306,6 @@
 				635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */,
 				63F163E310D2941C003B99BE /* VLCPathWatcher.m in Sources */,
 				CCC6B97510DD9C130087884B /* VLCPreferencesKeys.m in Sources */,
-				635D933110E4FE9E001C8091 /* VLCArrayController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

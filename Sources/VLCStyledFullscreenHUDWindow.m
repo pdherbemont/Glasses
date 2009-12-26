@@ -21,7 +21,6 @@
 #import "VLCStyledFullscreenHUDWindow.h"
 #import "VLCStyledVideoWindow.h"
 #import "VLCFullscreenController.h"
-#import "VLCDocumentController.h"
 
 static inline BOOL debugStyledWindow(void)
 {
@@ -56,23 +55,4 @@ static inline BOOL debugStyledWindow(void)
     return YES;
 }
 
-- (void)becomeMainWindow
-{
-    [super becomeMainWindow];
-    
-    // -[NSDocumentController currentDocument] doesn't send Notification
-    // when changed. Our Bindings (in MainWindow.xib) don't update as a result.
-    // Post it here, and in -becomeMainWindow.
-    // If you have a better work around, I am all for it.
-    VLCDocumentController *controller = [NSDocumentController sharedDocumentController];
-    [controller setMainWindow:self];
-}
-
-- (void)resignMainWindow
-{
-    // See -becomeMainWindow
-    VLCDocumentController *controller = [NSDocumentController sharedDocumentController];
-    [controller setMainWindow:nil];
-    [super resignMainWindow];
-}
 @end

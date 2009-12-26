@@ -9,7 +9,7 @@ var PlaylistController = function()
 PlaylistController.prototype = {
     init: function()
     {
-        window.PlatformView.bindDOMObjectToCocoaObject(this, "rootMediaListCount", CocoaObject.documentCocoaObject(), "rootMediaList.media.@count");
+        window.PlatformView.bindPropertyTo(this, "rootMediaListCount", "rootMediaList.media.@count");
     },
 
     _rootMediaListCount: 0,
