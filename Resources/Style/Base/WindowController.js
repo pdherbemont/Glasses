@@ -228,10 +228,8 @@ WindowController.prototype = {
      */        
     timelineValueChanged: function(event)
     {
-		if (window.PlatformView.isSeekable()) {
-            var target = event.currentTarget;
-            window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
-        }
+        var target = event.currentTarget;
+        window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
     },
 
     /*************************************************
