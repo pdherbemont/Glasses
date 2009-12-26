@@ -146,6 +146,25 @@ static inline BOOL debugStyledWindow(void)
     [NSApp updateWindowsItem:self];
 }
 
+- (void)zoom:(id)sender
+{
+    NSRect newFrame;
+    if ([self isZoomed])
+        newFrame = _unzoomedRect;
+    else {
+        _unzoomedRect = [self frame];
+
+        id < NSWindowDelegate > delegate = [self delegate];
+        if (delegate && [delegate respondsToSelector:@selector(windowWillUseStandardFrame:defaultFrame:)])
+            newFrame = [delegate windowWillUseStandardFrame:self defaultFrame:_unzoomedRect];
+        else {
+            [super zoom:sender];
+            return;
+        }
+    }
+    [self setFrame:newFrame display:YES];
+}
+
 - (void)performMiniaturize:(id)sender
 {
     [self miniaturize:nil];

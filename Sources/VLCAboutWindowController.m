@@ -114,10 +114,12 @@ static NSString *contentOfTextResource(NSString *resource)
     /* Get the localized info dictionary (InfoPlist.strings) */
     NSDictionary *localDict = [[NSBundle mainBundle] infoDictionary];
 
+    VLCLibrary *sharedLibrary = [VLCLibrary sharedLibrary];
+
     /* Setup the copyright field */
     [_copyrightField setStringValue:[NSString stringWithFormat:@"%@ - libvlc version %@",
                                      [localDict objectForKey:@"NSHumanReadableCopyright"],
-                                     [[VLCLibrary sharedLibrary] changeset]]];
+                                     [sharedLibrary changeset]]];
 
     /* Setup the nameversion field */
     [_versionField setStringValue:[NSString stringWithFormat:@"Version %@ (%@)",
@@ -127,7 +129,7 @@ static NSString *contentOfTextResource(NSString *resource)
     /* setup the authors and thanks field */
     [_creditsTextView setString:[NSString stringWithFormat:@"%@\n%@\n\n%@",
                                   [NSString stringWithFormat:contentOfTextResource(@"About"), 
-                                   [[VLCLibrary sharedLibrary] version]],
+                                   [sharedLibrary version]],
                                   contentOfTextResource(@"Authors"),
                                   contentOfTextResource(@"Thanks")]];
     [_creditsTextView setFont:[NSFont fontWithName:@"Lucida Grande" size:11.0]];

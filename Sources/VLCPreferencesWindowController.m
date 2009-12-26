@@ -44,7 +44,7 @@
 
     // we want to re-open with the same view we were closed with, so just revert to default on first display
     if (!_currentView) {
-        [[self window] setTitle:@"General"];
+        [window setTitle:@"General"];
         [self setView:_generalSettingsView];
         [[window toolbar] setSelectedItemIdentifier:@"general"];
     }
@@ -60,15 +60,15 @@
 - (IBAction)toolbarAction:(id)sender
 {
     NSInteger tag = [sender tag];
+    NSWindow *window = [self window];
     if (tag == 0) {
-        [[self window] setTitle:@"General"];
+        [window setTitle:@"General"];
         [self setView:_generalSettingsView];
     } else if (tag == 1) {
-        [[self window] setTitle:@"Playback"];
+        [window setTitle:@"Playback"];
         [self setView:_playbackSettingsView];
     } else
         VLCAssertNotReached( @"invalid view requested by toolbar" );
-
 }
 
 - (void)setView:(id)newView

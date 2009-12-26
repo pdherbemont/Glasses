@@ -77,8 +77,9 @@
 
 - (IBAction)clearRecentItems:(NSButton *)sender
 {
-    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:kLastNetworkItems];
-    [[NSUserDefaults standardUserDefaults] setValue:[NSArray array] forKey:kRecentNetworkItems];
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    [standardUserDefaults setValue:[NSArray array] forKey:kLastNetworkItems];
+    [standardUserDefaults setValue:[NSArray array] forKey:kRecentNetworkItems];
 }
 
 - (IBAction)networkPanelAction:(NSButton *)sender

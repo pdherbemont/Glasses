@@ -52,11 +52,12 @@
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError
 {
-    if ([[inAbsoluteURL scheme] isEqualToString:@"http"] || [[inAbsoluteURL scheme] isEqualToString:@"mms"]
-        || [[inAbsoluteURL scheme] isEqualToString:@"ftp"] || [[inAbsoluteURL scheme] isEqualToString:@"rtsp"]
-        || [[inAbsoluteURL scheme] isEqualToString:@"rtmp"] || [[inAbsoluteURL scheme] isEqualToString:@"udp"]
-        || [[inAbsoluteURL scheme] isEqualToString:@"file"] || [[inAbsoluteURL scheme] isEqualToString:@"rtp"]
-        || [[inAbsoluteURL scheme] isEqualToString:@"qtcapture"] || [[inAbsoluteURL scheme] isEqualToString:@"dvdnav"]) {
+    NSString *schema = [inAbsoluteURL scheme];
+    if ([schema isEqualToString:@"http"] || [schema isEqualToString:@"mms"]
+        || [schema isEqualToString:@"ftp"] || [schema isEqualToString:@"rtsp"]
+        || [schema isEqualToString:@"rtmp"] || [schema isEqualToString:@"udp"]
+        || [schema isEqualToString:@"file"] || [schema isEqualToString:@"rtp"]
+        || [schema isEqualToString:@"qtcapture"] || [schema isEqualToString:@"dvdnav"]) {
             return @"VLCMediaDocument";
     }
 
@@ -84,10 +85,11 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     NSAssert(_styleMenu, @"There is no style menu connected");
     
     // First add the special 'Default' menu and a separator
+    NSMenu *submenu = [_styleMenu submenu];
     NSMenuItem *menuItem = createStyleMenuItemWithPlugInName(@"Default");
-    [[_styleMenu submenu] addItem:menuItem];
+    [submenu addItem:menuItem];
     [menuItem release];
-    [[_styleMenu submenu] addItem:[NSMenuItem separatorItem]];
+    [submenu addItem:[NSMenuItem separatorItem]];
     
     for (NSString *pluginPath in plugins) {
         if (![pluginPath hasSuffix:@".lunettesstyle"])
@@ -97,7 +99,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
             continue;
         NSString *pluginName = [[pluginPath lastPathComponent] stringByDeletingPathExtension];
         NSMenuItem *menuItem = createStyleMenuItemWithPlugInName(pluginName);
-        [[_styleMenu submenu] addItem:menuItem];
+        [submenu addItem:menuItem];
         [menuItem release];
         
     }

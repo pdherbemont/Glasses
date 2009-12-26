@@ -14,8 +14,9 @@
 + (NSScreen *)screenWithDisplayID:(CGDirectDisplayID)displayID
 {
     unsigned i;
-    for (i = 0; i < [[NSScreen screens] count]; i++) {
-        NSScreen *screen = [[NSScreen screens] objectAtIndex:i];
+    NSArray *screens = [NSScreen screens];
+    for (i = 0; i < [screens count]; i++) {
+        NSScreen *screen = [screens objectAtIndex:i];
         if ([screen displayID] == displayID)
             return screen;
     }

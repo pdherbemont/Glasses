@@ -90,10 +90,10 @@
     // Make sure we remove the videoView from superview or from the below window
     // hence, we'll be able to properly recreate it.
     [self _removeBelowWindow];
-    VLCVideoView *videoView = [[[self window] windowController] videoView];
+    NSWindow *window = [self window];
+    VLCVideoView *videoView = [[window windowController] videoView];
     [videoView removeFromSuperview];
 
-    NSWindow *window = [self window];
     [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
 
     [window setIgnoresMouseEvents:NO];
@@ -441,10 +441,11 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         [self addTrackingArea:_contentTracking];
     }
     
+    NSWindow *window = [self window];
     NSRect locationInWindow = [self convertRect:frame toView:nil];
-    NSPoint mouseInWindow = [[self window] convertScreenToBase:[NSEvent mouseLocation]];
+    NSPoint mouseInWindow = [window convertScreenToBase:[NSEvent mouseLocation]];
     BOOL isMouseActiveInWindow = NSPointInRect(mouseInWindow, locationInWindow);
-    [[self window] setIgnoresMouseEvents:!isMouseActiveInWindow];
+    [window setIgnoresMouseEvents:!isMouseActiveInWindow];
 
     [super updateTrackingAreas];
 }
