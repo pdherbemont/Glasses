@@ -4,40 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
-	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeDescription</key>
-			<string>Flash Video File</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.movie</string>
-			</array>
-			<key>UTTypeIdentifier</key>
-			<string>com.adobe.flash.video</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<string>flv</string>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeDescription</key>
-			<string>XSPF Playlist file</string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.xml</string>
-				<string>public.playlist</string>
-			</array>
-			<key>UTTypeIdentifier</key>
-			<string>org.xspf.playlist</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<string>xspf</string>
-			</dict>
-		</dict>
-	</array>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -50,6 +16,8 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.movie</string>
+				<string>public.video</string>
+				<string>public.audio</string>
 				<string>public.avi</string>
 				<string>public.playlist</string>
 				<string>org.xspf.playlist</string>
@@ -67,27 +35,61 @@
 	<string>org.videolan.Lunettes</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-	<key>CFBundleShortVersionString</key>
-	<string>${LUNETTES_VISIBLE_VERSION}</string>
 	<key>CFBundleName</key>
 	<string>Lunettes</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>${LUNETTES_VISIBLE_VERSION}</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>filled by Set Git Version Script Phase</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.6</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2009 VideoLAN</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>VLCApplication</string>
-	<key>SUFeedURL</key>
-	<string>http://jones.videolan.org/~videolan/fpk/sparkle/lunettes.xml</string>
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
+	<key>SUFeedURL</key>
+	<string>http://jones.videolan.org/~videolan/fpk/sparkle/lunettes.xml</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Flash Video File</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.adobe.flash.video</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>flv</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.xml</string>
+				<string>public.playlist</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>XSPF Playlist file</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.xspf.playlist</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>xspf</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>
