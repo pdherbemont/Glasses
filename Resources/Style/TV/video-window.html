@@ -21,7 +21,7 @@
         var originalFrame = windowController.windowFrame();
         var x = originalFrame.origin.x;
         var y = originalFrame.origin.y - newSize.height + originalFrame.size.height;
-        window.PlatformWindow.setFrame____(x, y, newSize.width, newSize.height);
+        window.PlatformWindow.setFrame(x, y, newSize.width, newSize.height);
         window.PlatformView.videoDidResize();
     }
     function init()

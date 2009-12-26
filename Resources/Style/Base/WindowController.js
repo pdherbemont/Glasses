@@ -329,7 +329,7 @@ WindowController.prototype = {
         var mouseDownSize = this.windowFrameAtMouseDown.size;
         
         var platformWindow = this.PlatformWindow();
-        platformWindow.setFrame____(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
+        platformWindow.setFrame(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
         this.windowResized();
     },
     

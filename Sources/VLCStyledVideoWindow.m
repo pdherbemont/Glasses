@@ -298,6 +298,13 @@ static inline BOOL debugStyledWindow(void)
     return YES;
 }
 
++ (NSString *)webScriptNameForSelector:(SEL)sel
+{
+    if (sel == @selector(setFrame::::))
+        return @"setFrame";
+    return nil;
+}    
+
 + (BOOL)isKeyExcludedFromWebScript:(const char *)name
 {
     return YES;
