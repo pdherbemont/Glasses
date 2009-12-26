@@ -52,13 +52,13 @@
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError
 {
-    NSString *schema = [inAbsoluteURL scheme];
-    if ([schema isEqualToString:@"http"] || [schema isEqualToString:@"mms"]
-        || [schema isEqualToString:@"ftp"] || [schema isEqualToString:@"rtsp"]
-        || [schema isEqualToString:@"rtmp"] || [schema isEqualToString:@"udp"]
-        || [schema isEqualToString:@"file"] || [schema isEqualToString:@"rtp"]
-        || [schema isEqualToString:@"qtcapture"] || [schema isEqualToString:@"dvdnav"]) {
-            return @"VLCMediaDocument";
+    if ([[inAbsoluteURL scheme] isEqualToString:@"http"] || [[inAbsoluteURL scheme] isEqualToString:@"mms"]
+     || [[inAbsoluteURL scheme] isEqualToString:@"ftp"] || [[inAbsoluteURL scheme] isEqualToString:@"rtsp"]
+     || [[inAbsoluteURL scheme] isEqualToString:@"rtmp"] || [[inAbsoluteURL scheme] isEqualToString:@"udp"]
+     || [[inAbsoluteURL scheme] isEqualToString:@"file"] || [[inAbsoluteURL scheme] isEqualToString:@"rtp"]
+     || [[inAbsoluteURL scheme] isEqualToString:@"qtcapture"])
+    {
+        return @"VLCMediaDocument";
     }
     else
         NSRunCriticalAlertPanel(@"Lunettes does not support this protocol", [NSString stringWithFormat:@"%@ is no valid URL scheme.", [inAbsoluteURL scheme]], @"OK", nil, nil);
