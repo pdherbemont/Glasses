@@ -194,17 +194,6 @@ static inline BOOL debugStyledWindow(void)
 #endif
 
 #pragma mark -
-#pragma mark Zoom
-
-/**
- * We have to reimplement zooming, because it seems to be broken with borderless window
- */
-- (void)zoom:(id)sender
-{
-    NSRect frame = [[self screen] frame];
-    [self setFrame:frame display:YES animate:YES];
-}
-#pragma mark -
 #pragma mark Javascript bindings
 /* Javascript bindings: We are not necessarily respecting Cocoa naming scheme convention. That's an exception */
 
