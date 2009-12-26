@@ -56,6 +56,9 @@ static inline BOOL debugStyledWindow(void)
     [self setHasShadow:NO];
     [self setAcceptsMouseMovedEvents:YES];
     [self setIgnoresMouseEvents:NO];
+
+    _unzoomedRect = [self frame];
+
     return self;
 }
 
@@ -153,8 +156,7 @@ static inline BOOL debugStyledWindow(void)
         newFrame = _unzoomedRect;
     else {
         _unzoomedRect = [self frame];
-
-        id < NSWindowDelegate > delegate = [self delegate];
+        id<NSWindowDelegate> delegate = [self delegate];
         if (delegate && [delegate respondsToSelector:@selector(windowWillUseStandardFrame:defaultFrame:)])
             newFrame = [delegate windowWillUseStandardFrame:self defaultFrame:_unzoomedRect];
         else {

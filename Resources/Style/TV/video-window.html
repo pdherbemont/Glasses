@@ -9,6 +9,7 @@
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaView.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaListView.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/NavigationController.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/dom-drag.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/WindowController.js"></script>
 	<link id="style" rel="stylesheet" type="text/css" href="default.css" />
 
@@ -23,57 +24,40 @@
         window.PlatformWindow.setFrame(x, y, newSize.width, newSize.height);
         window.PlatformView.videoDidResize();
     }
+    function init()
+    {
+        window.windowController.init();
+        setTimeout(placeWindow, 0);
+    }
     </script>
 </head>
-<!--
- - Special className used by base.js and by the backend:
- "drag-platform-window": Dragging will drag the platformWindow. [Not in fullscreen].
- "timeline": Backend will change the "value" attribute of those elements.
- "ellapsed-time": Backend will change the innerText attribute of those elements.
- "remaining-time": Backend will change the innerText attribute of those elements.
- "title": Backend will change set the innertText of those element to the title of the playing movie.
-
- "close": base.js will make a click on those element to close the platform window. [Not in fullscreen].
- "miniaturize": base.js will make a click on those element to miniaturize the platform window. [Not in fullscreen].
- "zoom": base.js will make a click on those element to zoom the platform window. [Not in fullscreen].
- "enter-fullscreen": base.js will make a click on those element to enterFullscreen on the platform window. [Not in fullscreen].
- "leave-fullscreen": base.js will make a click on those element to leaveFullscreen on the platform window. [Not in window].
- "toggle-playing": base.js will make a click on those element to leaveFullscreen on the platform window. [Not in window].
-
- "resize-platform-window": base.js will make a drag on those element to resize the platform window. [Not in fullscreen].
- "drag-platform-window": base.js will make a drag on those element to move the platform window. [Not in fullscreen].
-
- - Special id used by base.js and by the backend:
- "content": Backend will add
-    "key-window", and "main-window" on the this item to reflect the platform window state. [Not in fullscreen].
-    "playing" when the video is playing. (this can be used to display a different image when we are playing or not.
- "video-view": Backend will put the platform video view on top of this element. [Not in fullscreen]
--->
-<body onload="windowController.init(); setTimeout(placeWindow, 0);" id="content">
+<body onload="init();" id="content">
 <div id="main-window" class="drag-platform-window key-window">
-    
-    <div class="window-decoration">
-        <div class="titlebar">
-            <div class="window-buttons">
-                <button class="close"></button>
-                <button class="miniaturize"></button>
-                <button class="zoom"></button>
-            </div>
-            <div id="window-title" class="title">Window Title</div>
-        </div>
-    </div>
-
     <div id="video">
-        <div id="video-view" class="view below-content enter-fullscreen dont-drag-platform-window"></div>
-        <div class="controls">
-            
-            <button class="enter-fullscreen"></button>
-            <button class="toggle-playing"></button>
-            <div class="timeinfo">
-                <input class="timeline" type="range"  max="1000" value="0">
-                <div class="ellapsed-time">--:--</div>
-            </div>
+        <div id="video-view" class="view below-content enter-fullscreen dont-drag-platform-window">
         </div>
+            <div id="draggable-controls" class=" draggable"> <!-- Be hidden by default -->
+                <div class="controls">
+                    <div id="title" class="title">Movie title</div>
+                    <div class="timeinfo">
+                        <div class="ellapsed-time">--:--</div>
+                        <input id="timeline" type="range" class="timeline" max="1000">
+                        <div class="remaining-time">--:--</div>
+                    </div>
+                    <button class="leave-fullscreen"></button>
+                    <button class="toggle-playing"></button>
+                </div>
+                <div class="preloader"></div>
+            </div>
+
+            <div id="more" class="hidden">
+                <div class="textcontent">
+                    <div id="mediaList">
+                    </div>
+                    <div class="overlay-top"></div>
+                    <div class="overlay-bottom"></div>
+                </div>
+            </div>
     </div>
 
     <div class="resize resize-platform-window"></div>

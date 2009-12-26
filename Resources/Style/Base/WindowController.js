@@ -176,6 +176,7 @@ WindowController.prototype = {
     
     videoResized: function()
     {
+        window.PlatformView.videoDidResize();
     },
     
     windowResized: function()
@@ -228,12 +229,10 @@ WindowController.prototype = {
      */        
     timelineValueChanged: function(event)
     {
-        if (window.PlatformView.isSeekable()) {
-            var target = event.currentTarget;
-            window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
-        }
+        var target = event.currentTarget;
+        window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
     },
-    
+
     /*************************************************
      * Window Drag
      */
@@ -251,6 +250,12 @@ WindowController.prototype = {
             return;
         }
         this.saveMouseDownInfo(event);
+
+        // Sometimes we may get multiple mouseDown but no mouseUp
+        // make sure we don't register the listener twice.
+        if (this._mouseUpListener)
+            return;
+
         this._mouseUpListener = this.mouseUpForWindowDrag.bind(this);
         this._mouseDragListener = this.mouseDraggedForWindowDrag.bind(this);
         document.addEventListener('mouseup', this._mouseUpListener, false);
@@ -264,6 +269,8 @@ WindowController.prototype = {
     {
         document.removeEventListener('mouseup', this._mouseUpListener, false);
         document.removeEventListener('mousemove', this._mouseDragListener, false);
+        this._mouseUpListener = null;
+        this._mouseDragListener = null;
     },
 
     /**
