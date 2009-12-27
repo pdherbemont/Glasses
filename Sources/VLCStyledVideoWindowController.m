@@ -163,6 +163,19 @@
         [controller leaveFullscreen];
 }
 
+- (void)toggleFloatingWindow:(id)sender
+{
+    NSInteger level = [[self window] level];
+
+    if (level == NSFloatingWindowLevel) {
+        [[self window] setLevel:NSNormalWindowLevel];
+        [sender setState:NSOffState];
+    } else {
+        [[self window] setLevel:NSFloatingWindowLevel];
+        [sender setState:NSOnState];
+    }
+}
+
 #pragma mark -
 #pragma mark Javascript brigding
 
