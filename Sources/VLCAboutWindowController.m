@@ -23,6 +23,14 @@
 
 #import "VLCAboutWindowController.h"
 
+#ifdef __x86_64__
+#define PLATFORM "Intel 64bit"
+#elif __i386__
+#define PLATFORM "Intel 32bit"
+#else
+#define PLATFORM "PowerPC 32bit"
+#endif
+
 @interface VLCAboutWindowController (Delegate) <NSAnimationDelegate, NSWindowDelegate>
 @end
 
@@ -122,9 +130,10 @@ static NSString *contentOfTextResource(NSString *resource)
                                      [sharedLibrary changeset]]];
 
     /* Setup the nameversion field */
-    [_versionField setStringValue:[NSString stringWithFormat:@"Version %@ (%@)",
+    [_versionField setStringValue:[NSString stringWithFormat:@"Version %@ (%@, %s)",
                                    [localDict objectForKey:@"CFBundleShortVersionString"],
-                                   [localDict objectForKey:@"CFBundleVersion"]]];
+                                   [localDict objectForKey:@"CFBundleVersion"],
+                                   PLATFORM]];
 
     /* setup the authors and thanks field */
     [_creditsTextView setString:[NSString stringWithFormat:@"%@\n%@\n\n%@",
