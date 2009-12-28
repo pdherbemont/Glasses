@@ -37,11 +37,10 @@ MediaView.prototype = {
     attach: function(parentElement)
     {
         console.assert(!this.isAttached, "shouldn't be attached");
-        
-        this.cocoaObject.bindToObjectProperty("metaDictionary.title", this.nameElement, "innerText");
-        this.cocoaObject.bindToObjectProperty("state", this, "state");
-
-        this.cocoaObject.bindToObjectProperty("subitems.media.@count", this, "subitemsCount");
+    
+        Lunettes.connect(this.nameElement, "innerText", this.cocoaObject, "metaDictionary.title");
+        Lunettes.connect(this, "state", this.cocoaObject, "state");
+        Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
 
         this.element.appendChild(this.nameElement);
         this.element.appendChild(this.revealSubitemsElement);
@@ -56,8 +55,9 @@ MediaView.prototype = {
     },
     detach: function()
     {        
-        this.cocoaObject.unbindOfObjectProperty(this.nameElement, "innerText");
-        this.cocoaObject.unbindOfObjectProperty(this, "subitemsCount");
+        Lunettes.unconnect(this.nameElement, "innerText");
+        Lunettes.unconnect(this, "state");
+        Lunettes.unconnect(this, "subitemsCount");
         
         this.element.detach();
         this.isAttached = false;

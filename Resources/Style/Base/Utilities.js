@@ -146,3 +146,25 @@ function bindByClassNameActionToMethod(className, action, method)
 Lunettes.bindByClassNameActionToMethod = bindByClassNameActionToMethod;
 
 
+
+/**
+ * Do a Cocoa Bindings between a CocoaObject and a DOMObject
+ * @param {Object} object
+ * @param {string} keyPath1
+ * @param {CocoaObject} cocoaObject
+ * @param {string} keyPath2
+ */    
+Lunettes.connect = function (domobject, keyPath1, cocoaObject, keyPath2)
+{
+    window.console.assert(cocoaObject.backendObject);
+    window.PlatformView.bindDOMObjectToCocoaObject(domobject, keyPath1, cocoaObject, keyPath2);
+}
+
+/**
+ * @param {Object} object
+ * @param {string} keyPath
+ */    
+Lunettes.unconnect = function (object, keyPath)
+{
+    window.PlatformView.unbindDOMObject(object, keyPath);
+}

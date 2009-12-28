@@ -128,7 +128,7 @@ MediaListView.prototype = {
         
 
         if (this.showNavigationHeader && this.cocoaObject) {
-            this.cocoaObject.bindToObjectProperty("metaDictionary.title", this.nameElement, "innerText");
+            Lunettes.connect(this.nameElement, "innerText", this.cocoaObject, "metaDictionary.title");
             this.backButtonElement.addEventListener('click', this.backClicked.bind(this), false);
             
             this.element.appendChild(this.navigationHeaderElement);
@@ -350,6 +350,9 @@ MediaListView.prototype = {
         this.arrayController.addObserver(this, "arrangedObjects");
         
         var search = document.getElementById("search-playlist");
-        this.arrayController.bindToObjectProperty("searchString", search, "value");
+        if (search.isBound)
+            Lunettes.unconnect(search, "value");
+        search.isBound = true;
+        Lunettes.connect(search, "value", this.arrayController, "searchString");
     }
 }

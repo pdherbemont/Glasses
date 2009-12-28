@@ -50,27 +50,6 @@ CocoaObject.documentCocoaObject = function()
  */
 CocoaObject.prototype.clone = function () { return new CocoaObject; };
 
-/**
- * @param {string} keyPath
- * @param {Object} object
- * @param {string} property
- */    
-CocoaObject.prototype.bindToObjectProperty = function (keyPath, object, property)
-{
-    window.console.assert(this.backendObject);
-    window.PlatformView.bindDOMObjectToCocoaObject(object, property, this, keyPath);
-}
-
-/**
- * @param {Object} object
- * @param {string} property
- */    
-CocoaObject.prototype.unbindOfObjectProperty = function (object, property)
-{
-    window.console.assert(this.backendObject);
-    window.PlatformView.unbindDOMObject(object, property);
-}
-
 
 /**
  * @param {KVCArrayObserver} observer
