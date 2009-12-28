@@ -51,7 +51,6 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 #import "VLCStyledView.h"
-#import "VLCWebBindingsController.h"
 
 @interface VLCStyledVideoWindowView : VLCStyledView
 {
@@ -62,7 +61,6 @@
 #ifdef SUPPORT_VIDEO_BELOW_CONTENT
     NSWindow *_videoWindow;
 #endif
-    VLCWebBindingsController *_bindings;
 }
 
 - (void)setKeyWindow:(BOOL)isKeyWindow;

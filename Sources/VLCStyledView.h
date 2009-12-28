@@ -27,6 +27,7 @@
 @class VLCTime;
 @class VLCMediaPlayer;
 @class VLCPathWatcher;
+@class VLCWebBindingsController;
 
 @interface VLCStyledView : WebView {
     BOOL _isFrameLoaded;
@@ -45,6 +46,7 @@
     NSMutableArray *_resourcesFilePathArray;
     
     VLCPathWatcher *_pathWatcher;
+    VLCWebBindingsController *_bindings;
 }
 
 /**

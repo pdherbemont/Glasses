@@ -14,7 +14,7 @@
     NSMutableSet *_observers;
 }
 
-- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toObject:(id)object withKeyPath:(NSString *)keyPath;
+- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toObject:(id)object withKeyPath:(NSString *)keyPath options:(NSDictionary *)dict;
 - (void)unbindDOMObject:(DOMObject *)domObject property:(NSString *)property;
 
 - (void)observe:(id)object withKeyPath:(NSString *)keyPath observer:(WebScriptObject *)observer;

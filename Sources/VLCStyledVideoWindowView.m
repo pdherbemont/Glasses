@@ -27,7 +27,6 @@
 #import "VLCMediaDocument.h"
 #import "DOMElement_Additions.h"
 #import "DOMHTMLElement_Additions.h"
-#import "VLCArrayController.h"
 
 @interface  VLCStyledVideoWindowView ()
 - (void)videoDidResize;
@@ -39,16 +38,11 @@
 {
     NSAssert(!_contentTracking, @"_contentTracking should have been released");
     NSAssert(!_videoWindow, @"_videoWindow should have been released");
-    NSAssert(!_bindings, @"_bindings should have been released");
     [super dealloc];
 }
 
 - (void)close
-{
-    [_bindings clearBindingsAndObservers];
-    [_bindings release];
-    _bindings = nil;
-    
+{    
 #if SUPPORT_VIDEO_BELOW_CONTENT
     [self _removeBelowWindow];
 #endif
@@ -73,9 +67,6 @@
     // Clear the below window here.
     [self _removeBelowWindow];
 #endif
-    [_bindings clearBindingsAndObservers];
-    [_bindings release];
-    _bindings = [[VLCWebBindingsController alloc] init];
     [super setup];
 }
 
@@ -173,27 +164,6 @@
 
 #pragma mark -
 #pragma mark Javascript callbacks
-
-- (void)setPosition:(float)position
-{
-    [[self mediaPlayer] setPosition:position];
-    [[[[self window] windowController] document] playbackPositionChanged];
-}
-
-- (void)play
-{    
-    [[self mediaPlayer] play];
-}
-
-- (void)pause
-{
-    [[self mediaPlayer] pause];
-}
-
-- (BOOL)isSeekable
-{
-    return [[self mediaPlayer] isSeekable];
-}
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
 static NSRect screenRectForViewRect(NSView *view, NSRect rect)
@@ -305,121 +275,19 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 #endif
 }
 
-- (VLCMediaListPlayer *)mediaListPlayer
-{
-    return [[[[self window] windowController] document] mediaListPlayer];
-}
-
-
-- (VLCMediaList *)rootMediaList
-{
-    VLCMediaListPlayer *player = [self mediaListPlayer];
-    VLCMediaList *mainMediaContent = player.rootMedia.subitems;
-    BOOL isPlaylistDocument = mainMediaContent.count > 0;
-    return isPlaylistDocument ? mainMediaContent : player.mediaList;
-}
-
-- (void)playMediaAtIndex:(NSUInteger)index
-{
-    [[self mediaListPlayer] playMedia:[[self rootMediaList] mediaAtIndex:index]];
-}
-
-- (NSString *)titleAtIndex:(NSUInteger)index
-{
-    return [[[[self rootMediaList] mediaAtIndex:index] metaDictionary] objectForKey:@"title"];
-}
-
-- (NSUInteger)count
-{
-    return [[self rootMediaList] count];
-}
-
-- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
-{
-    [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath];
-}
-
-- (void)unbindDOMObject:(DOMNode *)domObject property:(NSString *)property
-{
-    [_bindings unbindDOMObject:domObject property:property];
-}
-
-- (void)addObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
-{
-    [_bindings observe:[object valueForKey:@"backendObject"] withKeyPath:keyPath observer:observer];
-}
-
-- (void)playCocoaObject:(WebScriptObject *)object
-{
-    [[self mediaListPlayer] playMedia:[object valueForKey:@"backendObject"]];
-}
-
-- (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
-{
-    id backendObject = [object valueForKey:@"backendObject"];
-    NSArrayController *controller = [[VLCArrayController alloc] init];
-    [controller bind:@"contentArray" toObject:backendObject withKeyPath:keyPath options:nil];
-    WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
-    [ret setValue:controller forKey:@"backendObject"];
-    [controller release];
-    return ret;
-}
-
-- (WebScriptObject *)viewBackendObject:(WebScriptObject *)object
-{
-    [object setValue:self forKey:@"backendObject"];
-    return object;
-}
-
-
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
-    if (sel == @selector(playMediaAtIndex:))
-        return NO;
-    if (sel == @selector(titleAtIndex:))
-        return NO;
-    if (sel == @selector(count))
-        return NO;
     if (sel == @selector(videoDidResize))
         return NO;
-    if (sel == @selector(play))
-        return NO;
-    if (sel == @selector(pause))
-        return NO;
-    if (sel == @selector(setPosition:))
-        return NO;
-    if (sel == @selector(isSeekable))
-        return NO;
-    if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
-        return NO;
-    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
-        return NO;   
-    if (sel == @selector(unbindDOMObject:property:))
-        return NO;
-    if (sel == @selector(playCocoaObject:))
-        return NO;   
-    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
-        return NO;   
-    if (sel == @selector(viewBackendObject:))
-        return NO;   
-    
+    if ([super respondsToSelector:@selector(isSelectorExcludedFromWebScript:)])
+        return [super isSelectorExcludedFromWebScript:sel];
     return YES;
 }
 
 + (NSString *)webScriptNameForSelector:(SEL)sel
 {
-    if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
-        return @"addObserverForCocoaObjectWithKeyPath";
-    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
-        return @"bindDOMObjectToCocoaObject";
-    if (sel == @selector(unbindDOMObject:property:))
-        return @"unbindDOMObject";
-    if (sel == @selector(playCocoaObject:))
-        return @"playCocoaObject";
-    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
-        return @"createArrayControllerFromBackendObjectWithKeyPath";
-    if (sel == @selector(viewBackendObject:))
-        return @"viewBackendObject";
+    if ([super respondsToSelector:@selector(webScriptNameForSelector:)])
+        return [super webScriptNameForSelector:sel];
     return nil;
 }
 

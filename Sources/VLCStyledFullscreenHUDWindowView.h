@@ -24,7 +24,4 @@
 #import "VLCWebBindingsController.h"
 
 @interface VLCStyledFullscreenHUDWindowView : VLCStyledView
-{
-    VLCWebBindingsController *_bindings;
-}
 @end

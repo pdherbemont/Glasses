@@ -217,7 +217,7 @@
 #pragma mark -
 #pragma mark Public bindings functions
 
-- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toObject:(id)object withKeyPath:(NSString *)keyPath
+- (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toObject:(id)object withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
     NSAssert(![self bindingForDOMObject:domObject property:property], ([NSString stringWithFormat:@"Binding of %@.%@ already exists", domObject, property]));
 
