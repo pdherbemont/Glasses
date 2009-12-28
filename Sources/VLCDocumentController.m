@@ -268,6 +268,12 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     return NO;
 }
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+{
+    // Load VLC from now on.
+    [VLCLibrary sharedLibrary];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self rebuildStyleMenu];
