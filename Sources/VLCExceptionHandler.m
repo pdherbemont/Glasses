@@ -58,7 +58,7 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
                                            [exception name], [exception reason]],
                                           @"Quit", @"Wait Debugger", nil);        
         if (ret == NSOKButton)
-            [NSApp terminate:self];
+            abort();
     }
     @catch (NSException *e) {
         abort();
