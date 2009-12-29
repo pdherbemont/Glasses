@@ -149,22 +149,44 @@ Lunettes.bindByClassNameActionToMethod = bindByClassNameActionToMethod;
 
 /**
  * Do a Cocoa Bindings between a CocoaObject and a DOMObject
- * @param {Object} object
+ * @param {Object} domobject
  * @param {string} keyPath1
- * @param {CocoaObject} cocoaObject
+ * @param {Object} object
  * @param {string} keyPath2
  */    
-Lunettes.connect = function (domobject, keyPath1, cocoaObject, keyPath2)
+Lunettes.connect = function (domobject, keyPath1, object, keyPath2, options)
 {
-    window.console.assert(cocoaObject.backendObject);
-    window.PlatformView.bindDOMObjectToCocoaObject(domobject, keyPath1, cocoaObject, keyPath2);
+    if (object.backendObject)
+        window.PlatformView.bindDOMObjectToCocoaObject(domobject, keyPath1, object, keyPath2, options);
+    else
+        window.PlatformView.bindDOMObjectToObject(domobject, keyPath1, object, keyPath2, options);
 }
 
 /**
  * @param {Object} object
- * @param {string} keyPath
+ * @param {string} key
  */    
-Lunettes.unconnect = function (object, keyPath)
+Lunettes.unconnect = function (object, key)
 {
-    window.PlatformView.unbindDOMObject(object, keyPath);
+    window.PlatformView.unbindDOMObject(object, key);
 }
+
+/**
+ * @param {Object} object
+ * @param {string} key
+ */    
+Lunettes.willChange = function (object, key)
+{
+    window.PlatformView.willChange(object, key);
+}
+
+/**
+ * @param {Object} object
+ * @param {string} key
+ */    
+Lunettes.didChange = function (object, keyPath)
+{
+    window.PlatformView.didChange(object, keyPath);
+}
+
+

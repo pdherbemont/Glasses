@@ -33,6 +33,7 @@ PlaylistController.prototype = {
         if (show) {
             document.getElementById("more").addClassName("visible");
             document.body.addClassName(name);
+            window.windowController.navigationController.currentView.updateVisibleItems();
         }
         else {
             document.getElementById("more").removeClassName("visible");

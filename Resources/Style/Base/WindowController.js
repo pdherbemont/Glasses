@@ -78,11 +78,11 @@ WindowController.prototype = {
         
         var elements = document.getElementsByClassName("ellapsed-time");
         for (i = 0; i < elements.length; i++)
-            elements[i].bindKey("innerText", "mediaPlayer.time.stringValue");
+            elements[i].bindKey("textContent", "mediaPlayer.time.stringValue");
 
         elements = document.getElementsByClassName("remaining-time");
         for (i = 0; i < elements.length; i++)
-            elements[i].bindKey("innerText", "mediaPlayer.remainingTime.stringValue");
+            elements[i].bindKey("textContent", "mediaPlayer.remainingTime.stringValue");
         
         var mediaList = document.getElementById("mediaList");
         if (mediaList) {
@@ -90,8 +90,16 @@ WindowController.prototype = {
             this.navigationController = new NavigationController;
             this.navigationController.attach(mediaList);
             this.navigationController.push(this.rootMediaList);
+
+            
+            var search = document.getElementById("search-playlist");
+            var options = new Object;
+            options["NSFilterPredicate"] = "metaDictionary.title contains[cd] $value";
+            options["HTMLInput"] = true;
+            Lunettes.connect(search, "value", this.navigationController, "currentView.arrayController.backendObject.searchString", options);
+            
         }
-		
+
         // Bind the timeline.
         bindByClassNameActionToMethod(this.Exported.ClassNames.timeline, 'change', this.timelineValueChanged.bind(this));
         

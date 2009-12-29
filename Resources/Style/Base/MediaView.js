@@ -16,10 +16,11 @@ var MediaView = function(cocoaObject, parent, elementTag)
 
     this.nameElement = document.createElement("div");
     this.nameElement.className = "name";
-
+    this.nameElement.textContent = "Undefined";
+    
     this.revealSubitemsElement = document.createElement("div");
     this.revealSubitemsElement.className = "reveal-subitems hidden";
-    this.revealSubitemsElement.innerText = ">";
+    this.revealSubitemsElement.textContent = ">";
 
     this.isAttached = false;
 
@@ -38,10 +39,6 @@ MediaView.prototype = {
     {
         console.assert(!this.isAttached, "shouldn't be attached");
     
-        Lunettes.connect(this.nameElement, "innerText", this.cocoaObject, "metaDictionary.title");
-        Lunettes.connect(this, "state", this.cocoaObject, "state");
-        Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
-
         this.element.appendChild(this.nameElement);
         this.element.appendChild(this.revealSubitemsElement);
         
@@ -53,14 +50,36 @@ MediaView.prototype = {
 
         this.isAttached = true;
     },
+    detachWithoutRemoving: function()
+    {
+        this.visible = false;
+        this.isAttached = false;
+    },
     detach: function()
     {        
-        Lunettes.unconnect(this.nameElement, "innerText");
-        Lunettes.unconnect(this, "state");
-        Lunettes.unconnect(this, "subitemsCount");
-        
         this.element.detach();
-        this.isAttached = false;
+    },
+
+    _visible: false,
+    get visible()
+    {
+        return this._visible;
+    },
+    set visible(visible)
+    {
+        if (this._visible == visible)
+            return;
+        this._visible = visible;
+        if (visible) {
+            Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
+            Lunettes.connect(this, "state", this.cocoaObject, "state");
+            Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");      
+            
+        } else {
+            Lunettes.unconnect(this.nameElement, "textContent");
+            Lunettes.unconnect(this, "state");
+            Lunettes.unconnect(this, "subitemsCount");            
+        }
     },
 
     /**

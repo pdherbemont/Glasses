@@ -390,6 +390,19 @@ static BOOL watchForStyleModification(void)
     return [[self rootMediaList] count];
 }
 
+- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
+{
+    NSDictionary *opt = nil;
+    @try {
+        if ([options valueForKey:@"HTMLInput"])
+            opt = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"HTMLInput"];
+    }
+    @catch (NSException * e) {
+        opt = nil;
+    }
+    [_bindings bindDOMObject:domObject property:property toObject:object withKeyPath:keyPath options:opt];
+}
+
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath options:nil];
@@ -414,6 +427,7 @@ static BOOL watchForStyleModification(void)
 {
     id backendObject = [object valueForKey:@"backendObject"];
     NSArrayController *controller = [[VLCArrayController alloc] init];
+    [controller setAutomaticallyRearrangesObjects:YES];
     [controller bind:@"contentArray" toObject:backendObject withKeyPath:keyPath options:nil];
     WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
     [ret setValue:controller forKey:@"backendObject"];
@@ -425,6 +439,16 @@ static BOOL watchForStyleModification(void)
 {
     [object setValue:self forKey:@"backendObject"];
     return object;
+}
+
+- (void)willChangeObject:(WebScriptObject *)object valueForKey:(NSString *)key
+{
+    [object willChangeValueForKey:key];
+}
+
+- (void)didChangeObject:(WebScriptObject *)object valueForKey:(NSString *)key
+{
+    [object didChangeValueForKey:key];
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
@@ -443,6 +467,8 @@ static BOOL watchForStyleModification(void)
         return NO;
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
         return NO;   
+    if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))
+        return NO;   
     if (sel == @selector(unbindDOMObject:property:))
         return NO;
     if (sel == @selector(playCocoaObject:))
@@ -451,15 +477,25 @@ static BOOL watchForStyleModification(void)
         return NO;   
     if (sel == @selector(viewBackendObject:))
         return NO;   
+    if (sel == @selector(willChangeObject:valueForKey:))
+        return NO;   
+    if (sel == @selector(didChangeObject:valueForKey:))
+        return NO;   
     return YES;
 }
 
 + (NSString *)webScriptNameForSelector:(SEL)sel
 {
+    if (sel == @selector(willChangeObject:valueForKey:))
+        return @"willChange";
+    if (sel == @selector(didChangeObject:valueForKey:))
+        return @"didChange";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
         return @"bindDOMObjectToCocoaObject";
+    if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))
+        return @"bindDOMObjectToObject";
     if (sel == @selector(unbindDOMObject:property:))
         return @"unbindDOMObject";
     if (sel == @selector(playCocoaObject:))

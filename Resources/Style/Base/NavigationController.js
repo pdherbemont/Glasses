@@ -49,14 +49,21 @@ NavigationController.prototype = {
         this.currentView.keyDown(event);
     },
 
+    _currentView: null,
     /**
      * @type {MediaListView} currentView
-     */        
+     */
     get currentView()
     {
-        return last(this.items);
+        return this._currentView;
     },
-
+    set currentView(item)
+    {
+        Lunettes.willChange(this, "currentView");
+        this._currentView = item;
+        Lunettes.didChange(this, "currentView");
+    },
+    
     /**
      * @param {MediaListView} item
      */            
@@ -67,6 +74,8 @@ NavigationController.prototype = {
 
         this.items.push(item);
     
+        this.currentView = item;
+
         item.navigationController = this;
 
         
@@ -107,6 +116,8 @@ NavigationController.prototype = {
         
         var item = this.items.pop();
         var current = window.last(this.items);
+
+        this.currentView = current;
 
         item.element.addClassName("right");
         item.element.removeClassName("current");

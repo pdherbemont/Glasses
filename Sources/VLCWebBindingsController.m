@@ -17,8 +17,8 @@
     self = [super init];
     if (!self)
         return nil;
-    _bindings = [[NSMutableSet alloc] init];
-    _observers = [[NSMutableSet alloc] init];
+    _bindings = [[NSMutableSet alloc] initWithCapacity:1000];
+    _observers = [[NSMutableSet alloc] initWithCapacity:3];
     return self;
 }
 
@@ -80,11 +80,9 @@
                 [setAsArray addObject:[NSNumber numberWithInt:index]];
             }            
         }
-
+                
         switch (kind) {
             case NSKeyValueChangeSetting:
-                [observer callWebScriptMethod:@"removeAllInsertedCocoaObjects" withArguments:[NSArray array]];
-                
                 // I sometimes get NSNull value during setting but [object valueForKeyPath:keyPath]
                 // returns a better results, so use it. This happen with NSArrayController arrangedObjects.
                 new = [object valueForKeyPath:keyPath];
@@ -93,26 +91,27 @@
                     break;
 
                 NSAssert([new isKindOfClass:[NSArray class]], @"Only support array");
-                for (NSUInteger i = 0; i < [new count]; i++) {
-                    id object = [new objectAtIndex:i];
-                    WebScriptObject *child = [observer callWebScriptMethod:@"createCocoaObject" withArguments:[NSArray arrayWithObject:observer]];
-                    NSAssert(child, @"createCocoaObject() should return something"); 
-                    [child setValue:object forKey:@"backendObject"];
-                    [observer callWebScriptMethod:@"insertCocoaObject" withArguments:[NSArray arrayWithObjects:child, [setAsArray objectAtIndex:i], nil]];
-                }                
+
+                NSMutableArray *array = [NSMutableArray arrayWithCapacity:[new count]];
+                [new enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    WebScriptObject *cocoaObject = [observer callWebScriptMethod:@"createCocoaObject" withArguments:nil];
+                    [array addObject:cocoaObject];
+                    [cocoaObject setValue:obj forKey:@"backendObject"];
+                }];
+                initial = CFAbsoluteTimeGetCurrent();
+                [observer callWebScriptMethod:@"setCocoaObjects" withArguments:[NSArray arrayWithObject:array]];
                 break;
             case NSKeyValueChangeInsertion:
                 for (NSUInteger i = 0; i < [new count]; i++) {
                     id object = [new objectAtIndex:i];
                     WebScriptObject *child = [observer callWebScriptMethod:@"createCocoaObject" withArguments:[NSArray arrayWithObject:observer]];
-                    NSAssert(child, @"createCocoaObject() should return something"); 
+                    NSAssert(child, @"createCocoaObject() should return something");
                     [child setValue:object forKey:@"backendObject"];
                     [observer callWebScriptMethod:@"insertCocoaObject" withArguments:[NSArray arrayWithObjects:child, [setAsArray objectAtIndex:i], nil]];
                 }                
                 break;
             case NSKeyValueChangeRemoval:
-                for (NSUInteger i = 0; i < [setAsArray count]; i++)
-                    [observer callWebScriptMethod:@"removeCocoaObjectAtIndex" withArguments:[NSArray arrayWithObject:[setAsArray objectAtIndex:i]]];
+                [observer callWebScriptMethod:@"removeCocoaObjectAtIndexes" withArguments:[NSArray arrayWithObject:setAsArray]];
                 break;
             case NSKeyValueChangeReplacement:
             default:

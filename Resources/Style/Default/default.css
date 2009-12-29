@@ -144,11 +144,13 @@ input[type=search] {
     list-style-type: none;
     margin: 0px;
     padding: 0px;
+    -webkit-box-sizing: border-box;
 }
 
 .more .textcontent ul li {
     height: 50px;
     position: relative;
+    -webkit-box-sizing: border-box;
 }
 
 .more .textcontent ul li {

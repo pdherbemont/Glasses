@@ -36,12 +36,12 @@
     // We should only pass the predicate string, and make
     // no assumption of the content.
     NSPredicate *predicate;
-    if ([string isEqualToString:@""])
+    if (!string || [string isEqualToString:@""])
         predicate = [NSPredicate predicateWithValue:YES];
     else
         predicate = [NSPredicate predicateWithFormat:@"metaDictionary.title CONTAINS[cd] %@", string];
     [self setFilterPredicate:predicate];
     [_searchString release];
-    _searchString = [string copy];
+    _searchString = [string retain];
 }
 @end
