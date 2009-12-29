@@ -98,7 +98,6 @@
                     [array addObject:cocoaObject];
                     [cocoaObject setValue:obj forKey:@"backendObject"];
                 }];
-                initial = CFAbsoluteTimeGetCurrent();
                 [observer callWebScriptMethod:@"setCocoaObjects" withArguments:[NSArray arrayWithObject:array]];
                 break;
             case NSKeyValueChangeInsertion:
