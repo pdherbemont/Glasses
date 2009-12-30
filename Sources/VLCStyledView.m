@@ -419,9 +419,9 @@ static BOOL watchForStyleModification(void)
     [_bindings bindDOMObject:domObject property:property toObject:object withKeyPath:keyPath options:opt];
 }
 
-- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
+- (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
 {
-    [_bindings bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath options:nil];
+    [self bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath options:options];
 }
 
 - (void)unbindDOMObject:(DOMNode *)domObject property:(NSString *)property
@@ -481,7 +481,7 @@ static BOOL watchForStyleModification(void)
         return NO;
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return NO;
-    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
+    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:options:))
         return NO;   
     if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))
         return NO;   
@@ -508,7 +508,7 @@ static BOOL watchForStyleModification(void)
         return @"didChange";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
-    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:))
+    if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:options:))
         return @"bindDOMObjectToCocoaObject";
     if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))
         return @"bindDOMObjectToObject";
