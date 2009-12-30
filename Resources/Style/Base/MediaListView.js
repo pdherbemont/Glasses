@@ -17,8 +17,6 @@ var MediaListView = function(cocoaObject, element)
      */            
     this.element = element || document.createElement("div");
 
-    this.element.onscroll = this.didScroll.bind(this);
-
     this.name = "No Name";
 
     /**
@@ -128,7 +126,10 @@ MediaListView.prototype = {
             this.detachTimer = null;
         }
         
-
+        
+        this.element.onscroll = this.didScroll.bind(this);
+        window.addEventListener('resize', this.didResize.bind(this), false);
+        
         if (this.showNavigationHeader && this.cocoaObject) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
             this.backButtonElement.addEventListener('click', this.backClicked.bind(this), false);
@@ -156,6 +157,14 @@ MediaListView.prototype = {
      * {Event} event
      */
     didScroll: function(event)
+    {
+        this.updateVisibleItems();
+    },
+    /**
+     * Event handler for scroll.
+     * {Event} event
+     */
+    didResize: function(event)
     {
         this.updateVisibleItems();
     },
