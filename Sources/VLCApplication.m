@@ -75,6 +75,8 @@
     // Always reset if the WebKitInspector was attached.
     // Because its mostly unusable else.
     [defaults setBool:NO forKey:@"WebKitInspectorAttached"];
+    // This one for latest WebKit versions.
+    [defaults setBool:NO forKey:@"WebKit Web Inspector Setting - inspectorStartsAttached"];
 
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationDidBecomeActiveNotification" object:nil];
