@@ -270,5 +270,28 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.videolan.org"]];
 }
 
+- (IBAction)runCommandLineVLC:(id)sender
+{
+    static const char const *scriptFormat = 
+    "tell application \"Terminal\"\n"
+    "activate\n"
+    "do script \"export PATH=%@:$PATH\nvlc -H | less\"\n"
+    "end tell\n";
+
+    NSBundle *bundle = [NSBundle bundleWithIdentifier:@"org.videolan.vlckitframework"];
+
+    NSString *vlc = [NSString stringWithFormat:@"%@bin", [bundle bundleURL]];
+    vlc = [vlc stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
+    vlc = [vlc stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+
+    // FIXME - This is a big hack.
+    vlc = [vlc stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
+
+    NSAppleScript *script = [[NSAppleScript alloc] initWithSource:
+                             [NSString stringWithFormat:[NSString stringWithUTF8String:scriptFormat], vlc]];
+    
+    [script executeAndReturnError:nil];
+    [script release];
+}
 @end
 

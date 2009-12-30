@@ -43,4 +43,5 @@
 - (IBAction)reportBug:(id)sender;
 - (IBAction)showVideoLANWebsite:(id)sender;
 
+- (IBAction)runCommandLineVLC:(id)sender;
 @end
