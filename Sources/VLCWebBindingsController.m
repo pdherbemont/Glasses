@@ -194,14 +194,32 @@
 {
     DOMNode *node = [evt target];
     NSSet *set = [self bindingsForDOMObject:node] ;
-    NSAssert([set count] > 0, @"Got an event from a removed node");
+    if ([set count] == 0) {
+        NSAssert([[evt type] isEqualToString:@"DOMNodeRemoved"], @"Only DOMNodeRemoved can be emitted for children");
+        // We are receiving this event for a children
+        // Just abort.
+        return;
+    }
     
     if ([[evt type] isEqualToString:@"input"]) {
         for (NSDictionary *dict in set) {
             id object = [dict objectForKey:@"object"];
             NSString *keyPath = [dict objectForKey:@"keyPath"];
             NSString *property = [dict objectForKey:@"property"];
-            [object setValue:[node valueForKey:property] forKeyPath:keyPath];
+            NSDictionary *options = [dict objectForKey:@"options"];
+            NSString *predicateFormat = [options objectForKey:NSPredicateFormatBindingOption];
+            id value = [node valueForKey:property];
+            if (predicateFormat) {
+                // If we have a predicate bindings, create it here, and pass it
+                // instead of using the value directly.
+                if (!value || [value isEqualToString:@""])
+                    value = [NSPredicate predicateWithValue:YES];
+                else {
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat];
+                    value = [predicate predicateWithSubstitutionVariables:[NSDictionary dictionaryWithObject:value forKey:@"value"]];
+                }
+            }
+            [object setValue:value forKeyPath:keyPath];
         }
         return;
     }
@@ -219,14 +237,22 @@
 {
     NSAssert(![self bindingForDOMObject:domObject property:property], ([NSString stringWithFormat:@"Binding of %@.%@ already exists", domObject, property]));
 
-    NSDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:domObject, @"domObject", property, @"property", keyPath, @"keyPath", object, @"object", nil];
+    NSDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:domObject, @"domObject", property, @"property", keyPath, @"keyPath", object, @"object", options, @"options", nil];
     [_bindings addObject:dict];
     if ([domObject isKindOfClass:[DOMNode class]]) {
         DOMNode *node = (DOMNode *)domObject;
         [node addEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
         [node addEventListener:@"input" listener:self useCapture:NO];
     }
-    [domObject bind:property toObject:object withKeyPath:keyPath options:nil];
+    
+    if ([options objectForKey:NSPredicateFormatBindingOption]) {
+        // In the case of a NSPredicateFormatBindingOption
+        // we don't really know how to do the other way around.
+        // So we stop here.
+        // We'll handle the rest via "input" event.
+        return;
+    }
+    [domObject bind:property toObject:object withKeyPath:keyPath options:options];
 }
 
 - (void)unbindDOMObject:(DOMObject *)domObject property:(NSString *)property

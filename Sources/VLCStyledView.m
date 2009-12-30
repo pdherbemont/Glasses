@@ -19,12 +19,12 @@
  *****************************************************************************/
 
 #import <VLCKit/VLCKit.h>
+#import <JavaScriptCore/JavaScriptCore.h>
 
 #import "VLCStyledView.h"
 #import "VLCMediaDocument.h"
 #import "VLCPathWatcher.h"
 #import "VLCWebBindingsController.h"
-#import "VLCArrayController.h"
 
 
 @interface WebCoreStatistics : NSObject
@@ -392,14 +392,30 @@ static BOOL watchForStyleModification(void)
 
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
 {
-    NSDictionary *opt = nil;
-    @try {
-        if ([options valueForKey:@"HTMLInput"])
-            opt = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:@"HTMLInput"];
+    NSMutableDictionary *opt = nil;
+    if (![options isKindOfClass:[WebUndefined class]]) {
+        opt = [NSMutableDictionary dictionary];
+        JSGlobalContextRef ctx = [[self mainFrame] globalContext];
+        JSObjectRef object = [options JSObject];
+        JSPropertyNameArrayRef props = JSObjectCopyPropertyNames(ctx, object);
+        size_t count = JSPropertyNameArrayGetCount(props);
+        for (size_t i = 0; i < count; i++) {
+            JSStringRef nameAsJS = JSPropertyNameArrayGetNameAtIndex(props, i);
+            NSString *name = NSMakeCollectable(JSStringCopyCFString(NULL, nameAsJS));
+            NSString *nameInNS = nil;
+
+            if ([name isEqualToString:@"NSPredicateFormatBindingOption"])
+                nameInNS = NSPredicateFormatBindingOption;
+            else if ([name isEqualToString:@"NSNullPlaceholderBindingOption"])
+                nameInNS = NSNullPlaceholderBindingOption;
+
+            NSAssert(nameInNS, @"Unable to find the name for the option '%@'", name);
+            [opt setObject:[options valueForKey:name] forKey:nameInNS];
+            [name release];
+        }
+        JSPropertyNameArrayRelease(props);
     }
-    @catch (NSException * e) {
-        opt = nil;
-    }
+
     [_bindings bindDOMObject:domObject property:property toObject:object withKeyPath:keyPath options:opt];
 }
 
@@ -426,7 +442,7 @@ static BOOL watchForStyleModification(void)
 - (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     id backendObject = [object valueForKey:@"backendObject"];
-    NSArrayController *controller = [[VLCArrayController alloc] init];
+    NSArrayController *controller = [[NSArrayController alloc] init];
     [controller setAutomaticallyRearrangesObjects:YES];
     [controller bind:@"contentArray" toObject:backendObject withKeyPath:keyPath options:nil];
     WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];

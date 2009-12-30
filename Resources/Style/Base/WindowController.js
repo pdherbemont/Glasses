@@ -94,10 +94,8 @@ WindowController.prototype = {
             
             var search = document.getElementById("search-playlist");
             var options = new Object;
-            options["NSFilterPredicate"] = "metaDictionary.title contains[cd] $value";
-            options["HTMLInput"] = true;
-            Lunettes.connect(search, "value", this.navigationController, "currentView.arrayController.backendObject.searchString", options);
-            
+            options["NSPredicateFormatBindingOption"] = "metaDictionary.title contains[cd] $value";
+            Lunettes.connect(search, "value", this.navigationController, "currentView.arrayController.backendObject.filterPredicate", options);
         }
 
         // Bind the timeline.
