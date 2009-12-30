@@ -18,6 +18,9 @@ var MediaView = function(cocoaObject, parent, elementTag)
     this.nameElement.className = "name";
     this.nameElement.textContent = "Undefined";
     
+    this.imgElement = document.createElement("img");
+    this.imgElement.className = "thumbnail";
+    
     this.revealSubitemsElement = document.createElement("div");
     this.revealSubitemsElement.className = "reveal-subitems hidden";
     this.revealSubitemsElement.textContent = ">";
@@ -39,6 +42,7 @@ MediaView.prototype = {
     {
         console.assert(!this.isAttached, "shouldn't be attached");
     
+        this.element.appendChild(this.imgElement);
         this.element.appendChild(this.nameElement);
         this.element.appendChild(this.revealSubitemsElement);
         
@@ -72,11 +76,15 @@ MediaView.prototype = {
         this._visible = visible;
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
+            var options = new Object;
+            options["NSNullPlaceholderBindingOption"] = "noartwork.png";
+            Lunettes.connect(this.imgElement, "src", this.cocoaObject, "metaDictionary.artworkURL", options);
             Lunettes.connect(this, "state", this.cocoaObject, "state");
             Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");      
             
         } else {
             Lunettes.unconnect(this.nameElement, "textContent");
+            Lunettes.unconnect(this.imgElement, "src");
             Lunettes.unconnect(this, "state");
             Lunettes.unconnect(this, "subitemsCount");            
         }

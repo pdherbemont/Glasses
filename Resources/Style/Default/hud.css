@@ -220,6 +220,10 @@ body {
     top: 0; right: 0; left: 0; bottom: 0;
 }
 
+.thumbnail {
+    display: none;
+}
+
 .overlay-top {
     position: absolute;
     top: 0px; bottom: auto; right: 0px; left: 0px;
