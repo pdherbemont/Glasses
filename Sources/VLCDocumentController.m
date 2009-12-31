@@ -264,7 +264,8 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visibleWindows
 {
-    [self openSplashScreen:self];
+    if (!visibleWindows) 
+        [self openSplashScreen:self];
     return NO;
 }
 
