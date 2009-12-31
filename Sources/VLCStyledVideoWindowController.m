@@ -165,13 +165,14 @@
 
 - (void)toggleFloatingWindow:(id)sender
 {
-    NSInteger level = [[self window] level];
+    NSWindow *window = [self window];
+    NSInteger level = [window level];
 
     if (level == NSFloatingWindowLevel) {
-        [[self window] setLevel:NSNormalWindowLevel];
+        [window setLevel:NSNormalWindowLevel];
         [sender setState:NSOffState];
     } else {
-        [[self window] setLevel:NSFloatingWindowLevel];
+        [window setLevel:NSFloatingWindowLevel];
         [sender setState:NSOnState];
     }
 }
