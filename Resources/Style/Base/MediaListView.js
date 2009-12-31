@@ -377,7 +377,20 @@ MediaListView.prototype = {
     setCocoaObjects: function(array)
     {
         console.profile("setCocoaObjects");
-        this.removeAllInsertedCocoaObjects();
+
+        var needToReattachSubviewsElement = false;
+
+        this.subviewsElement.parentNode.removeChild(this.subviewsElement);
+        if (this.isAttached) {
+            for (var i = 0; i < this.subviews.length; i++)
+                this.subviews[i].detachWithoutRemoving();
+        }
+        this.subviews = new Array();
+        
+        // Create the new one and add it from here.
+        this.subviewsElement = document.createElement("ul");
+                
+
         console.time("insertCocoaObject");
         for (var i = 0; i < array.length; i++)
             this.appendCocoaObject(array[i]);
@@ -387,6 +400,9 @@ MediaListView.prototype = {
         this.updateVisibleItems();
         console.timeEnd("updateVisibleItems");
         console.profileEnd("setCocoaObjects");
+
+        // We are done, add back the child.
+        this.element.appendChild(this.subviewsElement);
     },
     
     /**
