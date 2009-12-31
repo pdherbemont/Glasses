@@ -32,7 +32,14 @@ static inline BOOL debugStyledWindow(void)
     return [VLCStyledVideoWindow debugStyledWindow];
 }
 
+@interface NSWindow (Private)
+- (void)_startLiveResize;
+- (void)_endLiveResize;
+@end
+
+
 @implementation VLCStyledVideoWindow
+
 + (BOOL)debugStyledWindow
 {
 #ifdef DEBUG_STYLED_WINDOW
@@ -44,7 +51,7 @@ static inline BOOL debugStyledWindow(void)
 {
     if (!debugStyledWindow())
         aStyle = NSBorderlessWindowMask;
-    self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag];
+    self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:YES];
     if (!self)
         return nil;
     
@@ -253,12 +260,12 @@ static inline BOOL debugStyledWindow(void)
 
 - (void)willStartLiveResize
 {
-    [[self contentView] viewWillStartLiveResize];
+    [self _startLiveResize];
 }
 
 - (void)didEndLiveResize
 {
-    [[self contentView] viewDidEndLiveResize];
+    [self _endLiveResize];
 }
 
 - (void)setFrame:(float)x :(float)y :(float)width :(float)height
