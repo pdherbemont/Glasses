@@ -1,7 +1,7 @@
 /*****************************************************************************
- * VLCApplication.h:NSApplication subclass
+ * VLCApplication.m: NSApplication subclass
  *****************************************************************************
- * Copyright (C) 2009 the VideoLAN team
+ * Copyright (C) 2009-2010 the VideoLAN team
  * $Id:$
  *
  * Authors:Felix Paul Kühne <fkuehne at videolan dot org>
@@ -29,13 +29,6 @@
 #import "VLCStyledVideoWindowController.h"
 #import "VLCMediaDocument.h"
 #import "VLCDocumentController.h"
-#import "VLCCrashReporter.h"
-
-/*****************************************************************************
- * exclusively used to implement media key support on Al Apple keyboards
- *   b_justJumped is required as the keyboard send its events faster than
- *    the user can actually jump through his media
- *****************************************************************************/
 
 @interface NSObject (RemoteResponder)
 - (void)remoteMiddleButtonPressed:(id)sender;
@@ -220,6 +213,10 @@
         [_remote stopListening:self];
 }
 
+
+#pragma mark -
+#pragma mark media key support on Al Apple keyboards
+
 - (BOOL)controlWithMediaKeys
 {
     return _hasMediaKeySupport;
@@ -229,9 +226,6 @@
 {
     _isActive = _hasMediaKeySupport = support;
 }
-
-
-#pragma mark -
 
 - (void)sendEvent:(NSEvent *)event
 {
@@ -247,6 +241,7 @@
             if (keyCode == NX_KEYTYPE_PLAY && keyState == 0 && [mediaPlayer canPause])
                 [mediaPlayer pause];
             
+            /* _hasJustJumped is required as the keyboard sends its events faster than the user can actually jump through his/her media */
             if (keyCode == NX_KEYTYPE_FAST && !_hasJustJumped) {
                 if (keyRepeat == 1) {
                     [mediaPlayer shortJumpForward];
@@ -272,9 +267,9 @@
     _hasJustJumped = NO;
 }
 
+
 #pragma mark -
 #pragma mark IB Action
-
 
 - (IBAction)reportBug:(id)sender
 {

@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLCApplication.h: NSApplication subclass
  *****************************************************************************
- * Copyright (C) 2009 the VideoLAN team
+ * Copyright (C) 2009-2010 the VideoLAN team
  * $Id: $
  *
  * Authors: Felix Paul Kühne <fkuehne at videolan dot org>
