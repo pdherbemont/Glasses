@@ -29,6 +29,7 @@
 #import "VLCStyledVideoWindowController.h"
 #import "VLCMediaDocument.h"
 #import "VLCDocumentController.h"
+#import "VLCCrashReporter.h"
 
 /*****************************************************************************
  * exclusively used to implement media key support on Al Apple keyboards
@@ -81,7 +82,7 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationDidBecomeActiveNotification" object:nil];
     [center addObserver:self selector:@selector(applicationDidBecomeActiveOrInactive:) name:@"NSApplicationWillResignActiveNotification" object:nil];
-
+    [center addObserver:self selector:@selector(applicationDidFinishLaunching:) name:@"NSApplicationDidFinishLaunchingNotification" object:nil];
 
     /* init Apple Remote support */
     _remote = [[AppleRemote alloc] init];
@@ -92,15 +93,28 @@
     NSUserDefaultsController *controller = [NSUserDefaultsController sharedUserDefaultsController];
     [self bind:@"controlWithRemote" toObject:controller withKeyPath:@"values.ControlWithHIDRemote" options:nil];
     [self bind:@"controlWithMediaKeys" toObject:controller withKeyPath:@"values.ControlWithMediaKeys" options:nil];
-    [self bind:@"controlWithMediaKeysInBackground" toObject:controller withKeyPath:@"values.ControlWithMediaKeysInBackground" options:nil];    
+    [self bind:@"controlWithMediaKeysInBackground" toObject:controller withKeyPath:@"values.ControlWithMediaKeysInBackground" options:nil];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_crashReporter release];
     [_remote stopListening:self];
     [_remote release];
     [super dealloc];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    /* handle existing crash reports and send if needed */
+    _crashReporter = [[VLCCrashReporter alloc] init];
+    if ([_crashReporter latestCrashLogPathPreviouslySeen:NO]) {
+        NSLog(@"Found log: %@",[_crashReporter latestCrashLogPathPreviouslySeen:YES]);
+        [_crashReporter showUserDialog];
+    }
+    else
+        [_crashReporter release];
 }
 
 #pragma mark -

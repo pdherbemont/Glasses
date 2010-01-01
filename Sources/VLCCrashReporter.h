@@ -1,10 +1,11 @@
 /*****************************************************************************
- * VLCApplication.h: NSApplication subclass
+ * VLCCrashReporter.h: a crash reporting facility sending the logs to jones
  *****************************************************************************
- * Copyright (C) 2009 the VideoLAN team
- * $Id: $
+ * Copyright (C) 2009-2010 the VideoLAN team
+ * $Id:$
  *
- * Authors: Felix Paul Kühne <fkuehne at videolan dot org>
+ * Authors: Pierre d'Herbemont <pdherbemont at videolan dot org>
+ *          Felix Paul Kühne <fkuehne at videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,28 +23,20 @@
  *****************************************************************************/
 
 #import <Cocoa/Cocoa.h>
-#import <VLCKit/VLCKit.h>
-#import "AppleRemote.h"
-#import "VLCCrashReporter.h"
 
-@interface VLCApplication : NSApplication {
-    BOOL _hasJustJumped;
-    BOOL _hasMediaKeySupport;
-    BOOL _isActiveInBackground;
-    BOOL _isActive;
-    BOOL _controlWithRemote;
 
-    VLCCrashReporter *_crashReporter;
-    AppleRemote * _remote;
-    BOOL _remoteButtonIsHold; /* true as long as the user holds the left,right,plus or minus on the remote control */
+@interface VLCCrashReporter : NSWindowController {
+    IBOutlet NSButton *_theOKButton;
+    IBOutlet NSButton *_checkBox;
+    IBOutlet NSTextView *_commentField;
+
+    NSURLConnection *_crashLogURLConnection;
 }
+- (void)crashReporterAction:(id)sender;
 
-- (void)applicationDidBecomeActiveOrInactive:(NSNotification *)notification;
-- (void)sendEvent:(NSEvent *)event;
-- (void)resetJump;
+- (void)sendCrashLog:(NSString *)crashLog withUserComment:(NSString *)userComment;
+- (NSString *)latestCrashLogPathPreviouslySeen:(BOOL)value;
+- (NSString *)latestCrashLogPath;
+- (void)showUserDialog;
 
-- (IBAction)reportBug:(id)sender;
-- (IBAction)showVideoLANWebsite:(id)sender;
-
-- (IBAction)runCommandLineVLC:(id)sender;
 @end

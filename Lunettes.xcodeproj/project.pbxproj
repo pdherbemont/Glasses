@@ -156,6 +156,9 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
 		CC10A7B0103CA96800B4555A /* VLCPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */; };
+		CC54DD4910EE75EA0031D0A2 /* VLCCrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC54DD4810EE75EA0031D0A2 /* VLCCrashReporter.m */; };
+		CC54DD5E10EE79D10031D0A2 /* CrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */; };
+		CC54DDAD10EE91CD0031D0A2 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */; };
 		CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC566421103C9F6300FEA1D3 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
 		CC5E8FE2103C596D0000601C /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
@@ -466,6 +469,10 @@
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		CC10A7AE103CA96800B4555A /* VLCPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferencesWindowController.h; path = Sources/VLCPreferencesWindowController.h; sourceTree = "<group>"; };
 		CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPreferencesWindowController.m; path = Sources/VLCPreferencesWindowController.m; sourceTree = "<group>"; };
+		CC54DD4710EE75EA0031D0A2 /* VLCCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCrashReporter.h; path = Sources/VLCCrashReporter.h; sourceTree = "<group>"; };
+		CC54DD4810EE75EA0031D0A2 /* VLCCrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCrashReporter.m; path = Sources/VLCCrashReporter.m; sourceTree = "<group>"; };
+		CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CrashReporter.xib; path = Resources/CrashReporter.xib; sourceTree = "<group>"; };
+		CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		CC56641D103C9F5900FEA1D3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
 		CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMiscUIElements.m; path = Sources/VLCMiscUIElements.m; sourceTree = "<group>"; };
 		CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiscUIElements.h; path = Sources/VLCMiscUIElements.h; sourceTree = "<group>"; };
@@ -497,6 +504,7 @@
 				630143AB1040726600534090 /* WebKit.framework in Frameworks */,
 				CCABE8CC107F664B004A471E /* IOKit.framework in Frameworks */,
 				63374A6F10EACFEE0072A0D9 /* JavaScriptCore.framework in Frameworks */,
+				CC54DDAD10EE91CD0031D0A2 /* AddressBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +514,7 @@
 		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */,
 				CC56641D103C9F5900FEA1D3 /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				CCABE8CB107F664B004A471E /* IOKit.framework */,
@@ -643,6 +652,7 @@
 		63032506104A836800CC82B6 /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */,
 				635D1123104A844000D34A87 /* AboutWindow.xib */,
 				635F15DF10CDB4D8006EC30E /* GPLWindow.xib */,
 				6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */,
@@ -896,6 +906,8 @@
 		63EF25C60F90FD8B002A2E14 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				CC54DD4710EE75EA0031D0A2 /* VLCCrashReporter.h */,
+				CC54DD4810EE75EA0031D0A2 /* VLCCrashReporter.m */,
 				6311DA4B0FF8595C004BC7D1 /* VLCExceptionHandler.h */,
 				6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */,
 			);
@@ -1240,6 +1252,7 @@
 				63F161FE10D1BBD2003B99BE /* License.txt in Resources */,
 				63F1620210D1BBE9003B99BE /* About.txt in Resources */,
 				63F1621010D1BC30003B99BE /* Thanks.txt in Resources */,
+				CC54DD5E10EE79D10031D0A2 /* CrashReporter.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,6 +1327,7 @@
 				635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */,
 				63F163E310D2941C003B99BE /* VLCPathWatcher.m in Sources */,
 				CCC6B97510DD9C130087884B /* VLCPreferencesKeys.m in Sources */,
+				CC54DD4910EE75EA0031D0A2 /* VLCCrashReporter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
