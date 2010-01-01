@@ -22,6 +22,7 @@
 				<string>public.playlist</string>
 				<string>org.xspf.playlist</string>
 				<string>public.m3u-playlist</string>
+				<string>public.folder</string>
 			</array>
 			<key>NSDocumentClass</key>
 			<string>VLCMediaDocument</string>
