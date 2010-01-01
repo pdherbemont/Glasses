@@ -429,7 +429,7 @@
         return;
     }
 
-    [mediaPlayer mediumJumpForward];
+    [mediaPlayer shortJumpForward];
 }
 
 - (void)remoteLeftButtonPressed:(id)sender
@@ -440,7 +440,7 @@
         return;
     }
 
-    [mediaPlayer mediumJumpBackward];
+    [mediaPlayer shortJumpBackward];
 }
 
 #pragma mark Playback Menu Items
