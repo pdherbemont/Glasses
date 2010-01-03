@@ -294,7 +294,6 @@
     NSString *vlc = [NSString stringWithFormat:@"%@/bin", [bundle bundlePath]];
     vlc = [vlc stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
     vlc = [vlc stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    NSLog(@"vlc==%@",vlc);
 
     NSAppleScript *script = [[NSAppleScript alloc] initWithSource:
                              [NSString stringWithFormat:[NSString stringWithUTF8String:scriptFormat], vlc]];
