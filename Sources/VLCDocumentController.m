@@ -22,6 +22,9 @@
 #import "VLCDocumentController.h"
 #import "VLCMediaDocument.h"
 #import "VLCSplashScreenWindowController.h"
+#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
+#import "VLCCompatibilityAdditions.h"
+#endif
 
 @interface NSResponder (FirstResponder)
 - (void)setStyleFromMenuItem:(id)sender;

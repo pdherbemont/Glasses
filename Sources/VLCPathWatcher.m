@@ -36,21 +36,34 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     memset(&context, 0, sizeof(context));
     context.info = self;
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     _stream = FSEventStreamCreate(NULL, callback, &context,
                                   (CFArrayRef)filePaths,
                                   kFSEventStreamEventIdSinceNow, /* Or a previous event ID */
                                   1.0, /* Latency in seconds */
                                   kFSEventStreamCreateFlagWatchRoot | kFSEventStreamCreateFlagIgnoreSelf);
+#else
+    _stream = FSEventStreamCreate(NULL, callback, &context,
+                                  (CFArrayRef)filePaths,
+                                  kFSEventStreamEventIdSinceNow, /* Or a previous event ID */
+                                  1.0, /* Latency in seconds */
+                                  kFSEventStreamCreateFlagWatchRoot);
+#endif
     return self;
 }
 
 - (void) dealloc
 {
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     Block_release(_block);
+#else
+    [_mainFrame release];
+#endif
     FSEventStreamRelease(_stream);
     [super dealloc];
 }
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 - (void)startWithBlock:(void (^)(void))block
 {
     Block_release(_block);
@@ -58,6 +71,19 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     FSEventStreamScheduleWithRunLoop(_stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     FSEventStreamStart(_stream);
 }
+#endif
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
+- (void)startWithMainFrame:(id)frame
+{
+    if (_mainFrame)
+        [_mainFrame release];
+    _mainFrame = frame;
+    [_mainFrame retain];
+    FSEventStreamScheduleWithRunLoop(_stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+    FSEventStreamStart(_stream);
+}
+#endif
 
 - (void)stop
 {
@@ -67,6 +93,11 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 
 - (void)notifyChanges
 {
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     _block();
+#else
+    NSLog(@"Reloading because of style change");
+    [_mainFrame reload];
+#endif
 }
 @end

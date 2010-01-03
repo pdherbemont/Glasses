@@ -20,6 +20,9 @@
 
 #import "VLCFullscreenController.h"
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
+#import <Carbon/Carbon.h> //SystemUIMode
+#endif
 
 static inline BOOL debugFullscreen(void)
 {
@@ -99,8 +102,11 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     CGReleaseDisplayFadeReservation(token);
 }
 
-
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface VLCFullscreenController () <NSAnimationDelegate>
+#else
+@interface VLCFullscreenController ()
+#endif
 - (void)_installPlaceholderView;
 - (void)_restoreViewFromPlaceholderView;
 - (void)_stopAnimationsIfNeeded;
@@ -170,7 +176,11 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
             // simply fade the display
             CGDisplayFadeReservationToken token = fadeScreens();
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
             [NSApp setPresentationOptions:NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar];
+#else
+            SetSystemUIMode( kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+#endif
             [_fullscreenWindow setFrame:[screen frame] display:NO];
             [self _installPlaceholderView];
             [_fullscreenWindow makeKeyAndOrderFront:self];
@@ -189,8 +199,12 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     }
 
     [self _stopAnimationsIfNeeded];
-
+    
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     [NSApp setPresentationOptions:NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar];
+#else
+    SetSystemUIMode( kUIModeAllHidden, kUIOptionAutoShowMenuBar);
+#endif
 
     NSAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
     _animation1 = createFadeAnimation([self _windowToHide], FadeOut);
@@ -231,7 +245,11 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     [_hud fullscreenControllerWillLeaveFullscreen:self];
 
     // Show the Dock and the Menu Bar
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     [NSApp setPresentationOptions:NSApplicationPresentationDefault];
+#else
+    SetSystemUIMode( kUIModeNormal, kUIOptionAutoShowMenuBar);
+#endif
 
     NSAssert(_fullscreenWindow, @"There should be a fullscreen Window at this time");
 
@@ -241,7 +259,11 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     
     if (fadeout) {
         CGDisplayFadeReservationToken token = fadeScreens();
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
         [NSApp setPresentationOptions:NSApplicationPresentationDefault];
+#else
+        SetSystemUIMode( kUIModeNormal, kUIOptionAutoShowMenuBar);
+#endif
         [self fullscreenDidEnd];
         unfadeScreens(token);
         return;

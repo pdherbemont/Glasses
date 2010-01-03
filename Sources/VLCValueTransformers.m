@@ -199,7 +199,7 @@ static inline BOOL is_num(char c)
     
     NSString *name = [[value lastPathComponent] stringByDeletingPathExtension];
     name = [name stringByReplacingOccurrencesOfString:@"." withString:@" "];
-
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     __block NSInteger position = NSNotFound;
     [name enumerateSubstringsInRange:NSMakeRange(0, [name length]) options:NSStringEnumerationByWords
                           usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
@@ -216,7 +216,10 @@ static inline BOOL is_num(char c)
 
                               }
                           }];
-     
+#else
+    /* FIXME: code missing here!" */
+    NSInteger position = NSNotFound;
+#endif
     if (position != NSNotFound) {
         name = [name substringToIndex:position + 6];
     }

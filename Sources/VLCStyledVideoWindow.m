@@ -163,7 +163,11 @@ static inline BOOL debugStyledWindow(void)
         newFrame = _unzoomedRect;
     else {
         _unzoomedRect = [self frame];
-        id<NSWindowDelegate> delegate = [self delegate];
+        #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+            id<NSWindowDelegate> delegate = [self delegate];
+        #else
+            id delegate = [self delegate];
+        #endif
         if (delegate && [delegate respondsToSelector:@selector(windowWillUseStandardFrame:defaultFrame:)])
             newFrame = [delegate windowWillUseStandardFrame:self defaultFrame:_unzoomedRect];
         else {

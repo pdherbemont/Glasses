@@ -93,11 +93,15 @@
                 NSAssert([new isKindOfClass:[NSArray class]], @"Only support array");
 
                 NSMutableArray *array = [NSMutableArray arrayWithCapacity:[new count]];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
                 [new enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     WebScriptObject *cocoaObject = [observer callWebScriptMethod:@"createCocoaObject" withArguments:nil];
                     [array addObject:cocoaObject];
                     [cocoaObject setValue:obj forKey:@"backendObject"];
                 }];
+#else
+                /* FIXME: code missing here!" */
+#endif
                 [observer callWebScriptMethod:@"setCocoaObjects" withArguments:[NSArray arrayWithObject:array]];
                 break;
             case NSKeyValueChangeInsertion:

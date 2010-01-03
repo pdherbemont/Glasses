@@ -26,8 +26,13 @@
 #import "VLCStyledFullscreenHUDWindowController.h"
 #import "VLCDocumentController.h"
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface VLCStyledVideoWindowController () <VLCFullscreenDelegate, NSWindowDelegate>
 @end
+#else
+@interface VLCStyledVideoWindowController () <VLCFullscreenDelegate>
+@end
+#endif
 
 @implementation VLCStyledVideoWindowController
 @synthesize videoView=_videoView;

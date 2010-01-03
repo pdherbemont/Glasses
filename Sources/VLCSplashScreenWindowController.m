@@ -22,8 +22,10 @@
 #import "VLCSplashScreenWindowController.h"
 #import "VLCDocumentController.h"
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface VLCSplashScreenWindowController () <NSWindowDelegate>
 @end
+#endif
 
 @implementation VLCSplashScreenWindowController
 
@@ -59,13 +61,13 @@
     return [VLCDocumentController sharedDocumentController];
 }
 
-- (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItem:(NSCollectionViewItem *)item
+- (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItemAtIndex:(NSUInteger)idx
 {
     VLCDocumentController *controller = [VLCDocumentController sharedDocumentController];
     if (collectionView == _mediaDiscoverCollection)
-        [controller makeDocumentWithObject:[item representedObject]];
+        [controller makeDocumentWithObject:[[self availableMediaDiscoverer] objectAtIndex:idx]];
     else {
-        id representedObject = [item representedObject];
+        id representedObject = [[[NSUserDefaults standardUserDefaults] arrayForKey:kUnfinishedMoviesAsArray] objectAtIndex:idx];
         NSURL *url = [NSURL URLWithString:[[representedObject objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         double position = [[representedObject objectForKey:@"position"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
@@ -77,7 +79,11 @@
     NSAssert(_mediaDiscoverCollection, @"Should be binded");
     NSInteger index = [[_mediaDiscoverCollection selectionIndexes] firstIndex];
     NSAssert(index != NSNotFound, @"We shouldn't have received this action in the first place");
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     id object = [[_mediaDiscoverCollection itemAtIndex:index] representedObject];
+#else
+    id object = [[self availableMediaDiscoverer] objectAtIndex:[[_mediaDiscoverCollection selectionIndexes] firstIndex]];
+#endif
     [[VLCDocumentController sharedDocumentController] makeDocumentWithObject:object];
     [[self window] resignMainWindow];
 }

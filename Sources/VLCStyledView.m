@@ -211,10 +211,15 @@ static BOOL watchForStyleModification(void)
     if (watchForStyleModification()) {
         NSAssert(!_pathWatcher, @"Shouldn't be created");
         _pathWatcher = [[VLCPathWatcher alloc] initWithFilePathArray:_resourcesFilePathArray];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
         [_pathWatcher startWithBlock:^{
             NSLog(@"Reloading because of style change");
             [[self mainFrame] reload];
         }];
+#else
+        [_pathWatcher startWithMainFrame:[self mainFrame]];
+        [[self mainFrame]reload];
+#endif
     }
 }
 
@@ -409,7 +414,8 @@ static BOOL watchForStyleModification(void)
             else if ([name isEqualToString:@"NSNullPlaceholderBindingOption"])
                 nameInNS = NSNullPlaceholderBindingOption;
 
-            NSAssert(nameInNS, @"Unable to find the name for the option '%@'", name);
+            NSString *tempString = [NSString stringWithFormat:@"Unable to find the name for the option '%@'",name];
+            NSAssert(nameInNS, tempString);
             [opt setObject:[options valueForKey:name] forKey:nameInNS];
             [name release];
         }

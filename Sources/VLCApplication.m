@@ -291,12 +291,10 @@
 
     NSBundle *bundle = [NSBundle bundleWithIdentifier:@"org.videolan.vlckitframework"];
 
-    NSString *vlc = [NSString stringWithFormat:@"%@bin", [bundle bundleURL]];
+    NSString *vlc = [NSString stringWithFormat:@"%@/bin", [bundle bundlePath]];
     vlc = [vlc stringByReplacingOccurrencesOfString:@" " withString:@"\\ "];
     vlc = [vlc stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-
-    // FIXME - This is a big hack.
-    vlc = [vlc stringByReplacingOccurrencesOfString:@"file://localhost" withString:@""];
+    NSLog(@"vlc==%@",vlc);
 
     NSAppleScript *script = [[NSAppleScript alloc] initWithSource:
                              [NSString stringWithFormat:[NSString stringWithUTF8String:scriptFormat], vlc]];

@@ -10,13 +10,28 @@
 
 @implementation VLCCollectionView
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
+- (void)setDelegate:(id)obj
+{
+    if (_delegate)
+        [_delegate release];
+    _delegate = obj;
+    [_delegate retain];
+}
+
+- (id)delegate
+{
+    return _delegate;
+}
+#endif
+
 - (void)sendActionOnSelectedItem
 {
     id delegate = self.delegate;
-    if ([delegate respondsToSelector: @selector(collectionView:doubleClickedOnItem:)]) {
-        NSInteger selection = [[self selectionIndexes] firstIndex];
+    if ([delegate respondsToSelector: @selector(collectionView:doubleClickedOnItemAtIndex:)]) {
+        NSUInteger selection = [[self selectionIndexes] firstIndex];
         if (selection != NSNotFound)
-            [delegate collectionView:self doubleClickedOnItem:[self itemAtIndex:selection]];
+            [delegate collectionView:self doubleClickedOnItemAtIndex:selection];
     }    
 }
 

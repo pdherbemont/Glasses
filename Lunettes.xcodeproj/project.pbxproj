@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
-		630143AB1040726600534090 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 630143AA1040726600534090 /* WebKit.framework */; };
 		6301464C104098C500534090 /* VLCVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464B104098C500534090 /* VLCVideoWindowController.m */; };
 		63014653104098D300534090 /* VLCStyledVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464E104098D300534090 /* VLCStyledVideoWindow.m */; };
 		63014654104098D300534090 /* VLCStyledVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014650104098D300534090 /* VLCStyledVideoWindowController.m */; };
@@ -116,7 +115,6 @@
 		631AF8291095DAA900F8ED1A /* VLCWebBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */; };
 		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
-		63374A6F10EACFEE0072A0D9 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63374A6E10EACFEE0072A0D9 /* JavaScriptCore.framework */; };
 		63374C7310EAF38A0072A0D9 /* noartwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 63374C7210EAF3890072A0D9 /* noartwork.png */; };
 		635D1124104A844000D34A87 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1123104A844000D34A87 /* AboutWindow.xib */; };
 		635D112A104A846400D34A87 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1129104A846400D34A87 /* OpenURLWindow.xib */; };
@@ -165,9 +163,13 @@
 		CC5E909C103C95FE0000601C /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9091103C95000000601C /* VLCVideoWindow.m */; };
 		CC61B348103DDB9C00D13C72 /* VLCOpenURLWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */; };
 		CC61B416103E088B00D13C72 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
+		CC73DEBD10F0F669001FEFE4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC73DEBC10F0F669001FEFE4 /* WebKit.framework */; };
+		CC73DED310F0F6A0001FEFE4 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */; };
+		CC74565410EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC74565310EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m */; };
 		CCABE883107F6230004A471E /* VLCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABE882107F6230004A471E /* VLCApplication.m */; };
 		CCABE8CC107F664B004A471E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCABE8CB107F664B004A471E /* IOKit.framework */; };
 		CCABEBA8107FD06B004A471E /* AppleRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABEBA7107FD06B004A471E /* AppleRemote.m */; };
+		CCBB290710EF6E5500055641 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBB290610EF6E5500055641 /* Carbon.framework */; };
 		CCC6B97510DD9C130087884B /* VLCPreferencesKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC6B97410DD9C130087884B /* VLCPreferencesKeys.m */; };
 		CCC8385E1047F62C002519D7 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */; };
 /* End PBXBuildFile section */
@@ -482,11 +484,16 @@
 		CC61B347103DDB9C00D13C72 /* VLCOpenURLWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCOpenURLWindowController.h; path = Sources/VLCOpenURLWindowController.h; sourceTree = "<group>"; };
 		CC61B414103E088B00D13C72 /* VLCDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDocumentController.h; path = Sources/VLCDocumentController.h; sourceTree = "<group>"; };
 		CC61B415103E088B00D13C72 /* VLCDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDocumentController.m; path = Sources/VLCDocumentController.m; sourceTree = "<group>"; };
+		CC73DEBC10F0F669001FEFE4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		CC74565210EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCompatibilityAdditions.h; path = Sources/VLCCompatibilityAdditions.h; sourceTree = "<group>"; };
+		CC74565310EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCompatibilityAdditions.m; path = Sources/VLCCompatibilityAdditions.m; sourceTree = "<group>"; };
 		CCABE881107F6230004A471E /* VLCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCApplication.h; path = Sources/VLCApplication.h; sourceTree = "<group>"; };
 		CCABE882107F6230004A471E /* VLCApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCApplication.m; path = Sources/VLCApplication.m; sourceTree = "<group>"; };
 		CCABE8CB107F664B004A471E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		CCABEBA6107FD06B004A471E /* AppleRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppleRemote.h; path = Sources/AppleRemote.h; sourceTree = "<group>"; };
 		CCABEBA7107FD06B004A471E /* AppleRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleRemote.m; path = Sources/AppleRemote.m; sourceTree = "<group>"; };
+		CCBB290610EF6E5500055641 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		CCC6B97410DD9C130087884B /* VLCPreferencesKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPreferencesKeys.m; path = Sources/VLCPreferencesKeys.m; sourceTree = "<group>"; };
 		CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCAboutWindowController.h; path = Sources/VLCAboutWindowController.h; sourceTree = "<group>"; };
 		CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCAboutWindowController.m; path = Sources/VLCAboutWindowController.m; sourceTree = "<group>"; };
@@ -501,10 +508,11 @@
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */,
 				CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */,
-				630143AB1040726600534090 /* WebKit.framework in Frameworks */,
 				CCABE8CC107F664B004A471E /* IOKit.framework in Frameworks */,
-				63374A6F10EACFEE0072A0D9 /* JavaScriptCore.framework in Frameworks */,
 				CC54DDAD10EE91CD0031D0A2 /* AddressBook.framework in Frameworks */,
+				CCBB290710EF6E5500055641 /* Carbon.framework in Frameworks */,
+				CC73DEBD10F0F669001FEFE4 /* WebKit.framework in Frameworks */,
+				CC73DED310F0F6A0001FEFE4 /* JavaScriptCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +526,9 @@
 				CC56641D103C9F5900FEA1D3 /* Sparkle.framework */,
 				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
 				CCABE8CB107F664B004A471E /* IOKit.framework */,
+				CCBB290610EF6E5500055641 /* Carbon.framework */,
+				CC73DEBC10F0F669001FEFE4 /* WebKit.framework */,
+				CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -967,6 +978,8 @@
 				635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */,
 				63F163E110D2941C003B99BE /* VLCPathWatcher.h */,
 				63F163E210D2941C003B99BE /* VLCPathWatcher.m */,
+				CC74565210EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.h */,
+				CC74565310EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1328,6 +1341,7 @@
 				63F163E310D2941C003B99BE /* VLCPathWatcher.m in Sources */,
 				CCC6B97510DD9C130087884B /* VLCPreferencesKeys.m in Sources */,
 				CC54DD4910EE75EA0031D0A2 /* VLCCrashReporter.m in Sources */,
+				CC74565410EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1485,6 +1499,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Lunettes;
+				SDKROOT = macosx10.5;
 			};
 			name = "Debug - Snow Leopard";
 		};
@@ -1809,6 +1824,7 @@
 				INSTALL_PATH = "$(HOME)/Applications";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Lunettes;
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -1829,6 +1845,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = Lunettes;
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};
