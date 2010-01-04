@@ -25,6 +25,7 @@
 @interface VLCSplashScreenWindowController : NSWindowController
 {
     IBOutlet NSCollectionView *_mediaDiscoverCollection;
+    IBOutlet NSArrayController *_mediaDiscovererArrayController;
 }
 
 @property (retain, readonly) NSArray *availableMediaDiscoverer;

@@ -61,13 +61,23 @@
     return [VLCDocumentController sharedDocumentController];
 }
 
-- (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItemAtIndex:(NSUInteger)idx
+- (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItemAtIndex:(NSUInteger)index
 {
     VLCDocumentController *controller = [VLCDocumentController sharedDocumentController];
-    if (collectionView == _mediaDiscoverCollection)
-        [controller makeDocumentWithObject:[[self availableMediaDiscoverer] objectAtIndex:idx]];
+    if (collectionView == _mediaDiscoverCollection) {
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+        id object = [[_mediaDiscoverCollection itemAtIndex:index] representedObject];
+#else
+        id object = [_mediaDiscovererArrayController objectAtIndex:index];
+#endif
+        [controller makeDocumentWithObject:object];
+    }
     else {
-        id representedObject = [[[NSUserDefaults standardUserDefaults] arrayForKey:kUnfinishedMoviesAsArray] objectAtIndex:idx];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+        id representedObject = [[collectionView itemAtIndex:index] representedObject];
+#else
+        id representedObject = [[[NSUserDefaults standardUserDefaults] arrayForKey:kUnfinishedMoviesAsArray] objectAtIndex:index];
+#endif
         NSURL *url = [NSURL URLWithString:[[representedObject objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         double position = [[representedObject objectForKey:@"position"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
@@ -82,7 +92,7 @@
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     id object = [[_mediaDiscoverCollection itemAtIndex:index] representedObject];
 #else
-    id object = [[self availableMediaDiscoverer] objectAtIndex:[[_mediaDiscoverCollection selectionIndexes] firstIndex]];
+    id object = [_mediaDiscovererArrayController objectAtIndex:index];
 #endif
     [[VLCDocumentController sharedDocumentController] makeDocumentWithObject:object];
     [[self window] resignMainWindow];
