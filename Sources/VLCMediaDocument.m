@@ -310,9 +310,14 @@
 // IO every now and then. But this is low, and we hope the system will cache it.
 - (void)startToRememberMediaPosition
 {
+    // There is already one timer running, don't start it twice.
+    if (_rememberTimer)
+        return;
+
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberMediaPosition])
         return;
     static const NSTimeInterval mediaPositionPollingInterval = 10.0;
+    NSAssert(!_rememberTimer, @"There shouldn't be a timer at this point");
     _rememberTimer = [[NSTimer timerWithTimeInterval:mediaPositionPollingInterval target:self selector:@selector(saveUnfinishedMovieState) userInfo:nil repeats:YES] retain];
     [[NSRunLoop mainRunLoop] addTimer:_rememberTimer forMode:NSDefaultRunLoopMode];
 }
