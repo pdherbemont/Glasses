@@ -31,12 +31,12 @@
     NSString *_name;
     double _startingPosition;
     NSTimer *_rememberTimer;
+    VLCStreamSession *_theLANStreamingSession;
     BOOL _hasInitiatedPlayback;
     BOOL _isClosed;
     BOOL _isSharedOnLAN;
     BOOL _repeatCurrentItem;
-    BOOL _repeatAllItems;
-    VLCStreamSession *_theLANStreamingSession;
+    BOOL _repeatAllItems;    
 }
 
 - (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name;
