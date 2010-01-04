@@ -95,6 +95,7 @@
 - (void)saveUnfinishedMovieState
 {
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+    NSAssert(mediaPlayer, @"There is no media Player, the following is incorrect");
 
     BOOL seekable = [mediaPlayer isSeekable];
     double position = [mediaPlayer position];
