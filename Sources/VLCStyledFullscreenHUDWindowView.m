@@ -79,11 +79,18 @@
 
 }
 
+- (void)hideCursorUntilMouseMoves
+{
+    [NSCursor setHiddenUntilMouseMoves:YES];
+}
+
 #pragma mark -
 #pragma mark Javascript callbacks
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
+    if (sel == @selector(hideCursorUntilMouseMoves))
+        return NO;
     if ([super respondsToSelector:@selector(isSelectorExcludedFromWebScript:)])
         return [super isSelectorExcludedFromWebScript:sel];
     return YES;
