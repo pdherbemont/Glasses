@@ -170,6 +170,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
         _fullscreenWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         [_fullscreenWindow setBackgroundColor:[NSColor blackColor]];
         [_fullscreenWindow setLevel:VLCFullscreenHUDWindowLevel()];
+        [_fullscreenWindow setOpaque:YES];
 
         if (![_originalViewWindow isVisible] || [_originalViewWindow alphaValue] == 0.0) {
             // We don't animate if the view to move fullscreen is not visible, instead we
