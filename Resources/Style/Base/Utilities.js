@@ -153,6 +153,7 @@ Lunettes.bindByClassNameActionToMethod = bindByClassNameActionToMethod;
  * @param {string} keyPath1
  * @param {Object} object
  * @param {string} keyPath2
+ * @param {Object=} options
  */    
 Lunettes.connect = function (domobject, keyPath1, object, keyPath2, options)
 {
@@ -184,9 +185,9 @@ Lunettes.willChange = function (object, key)
  * @param {Object} object
  * @param {string} key
  */    
-Lunettes.didChange = function (object, keyPath)
+Lunettes.didChange = function (object, key)
 {
-    window.PlatformView.didChange(object, keyPath);
+    window.PlatformView.didChange(object, key);
 }
 
 
