@@ -241,7 +241,7 @@ static BOOL watchForStyleModification(void)
 
     // We are coming out of a style change, let's fade in back
     if (![window alphaValue])
-        [[[self window] animator] setAlphaValue:1];
+        [[self window] setAlphaValue:1];
 }
 
 - (NSUInteger)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo
