@@ -46,7 +46,9 @@ NavigationController.prototype = {
     
     keyDown: function(event)
     {
-        this.currentView.keyDown(event);
+        var ret = this.currentView.keyDown(event);
+        if (ret)
+            event.preventDefault();
     },
 
     _currentView: null,
