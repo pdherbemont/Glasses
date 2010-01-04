@@ -132,8 +132,7 @@
 {
     DOMElement *element = [self htmlElementForId:@"main-window" canBeNil:YES];
     
-    NSAssert(element, @"No content element in this style");
-    NSRect frame = element ? [element frameInView:self] : NSMakeRect(0, 0, 0, 0);
+    NSRect frame = element ? [element frameInView:self] : NSZeroRect;
     
     DOMHTMLElement *more = [self htmlElementForId:@"more" canBeNil:YES] ;
     if (more && [more hasClassName:@"visible"]) {

@@ -158,6 +158,9 @@ static inline BOOL debugStyledWindow(void)
 - (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect
 {
     NSRect frame = [_styledWindowView representedWindowRect];
+    if (NSIsEmptyRect(frame))
+        return rect;
+
     rect.size.width = MIN(NSWidth(rect), NSWidth(frame));
     rect.origin.x = NSMinX(frame);
     rect.origin.y = NSMinY(frame) + NSHeight(frame) - 22;
