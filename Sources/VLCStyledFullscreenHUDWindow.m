@@ -32,7 +32,7 @@ static inline BOOL debugStyledWindow(void)
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)style backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
-    self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:bufferingType defer:flag];
+    self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:bufferingType defer:YES];
     if (!self)
         return nil;
     [self setOpaque:NO];
