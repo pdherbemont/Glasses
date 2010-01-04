@@ -227,6 +227,11 @@
     return [NSArray arrayWithObjects:(NSString *)kUTTypeMPEG, (NSString *)kUTTypeMPEG4, nil];
 }
 
+- (BOOL)isDocumentEdited
+{
+    return NO;
+}
+
 - (void)didFinishLoadingWindowController:(NSWindowController *)controller
 {
     // Initiate playback only when the window controller tells us that it

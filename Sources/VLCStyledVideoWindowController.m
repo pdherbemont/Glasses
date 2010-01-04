@@ -21,10 +21,16 @@
 #import <VLCKit/VLCKit.h>
 
 #import "VLCStyledVideoWindowController.h"
+#import "VLCStyledVideoWindow.h"
 #import "VLCStyledVideoWindowView.h"
 #import "VLCMediaDocument.h"
 #import "VLCStyledFullscreenHUDWindowController.h"
 #import "VLCDocumentController.h"
+
+static inline BOOL debugStyledWindow(void)
+{
+    return [VLCStyledVideoWindow debugStyledWindow];
+}
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface VLCStyledVideoWindowController () <VLCFullscreenDelegate, NSWindowDelegate>
@@ -76,6 +82,20 @@
     [super windowDidLoad];
 	NSWindow * window = [self window];
     [window setDelegate:self];
+
+    // FIXME - do it only if theme requires it
+    NSAssert(_accessoryButton, @"There should be an accessory view");
+
+    NSView *themeFrame = [[window contentView] superview];
+    NSSize size = [_accessoryView frame].size;
+    NSSize frameSize = [themeFrame bounds].size;
+    [_accessoryView setFrame:NSMakeRect(frameSize.width - size.width, frameSize.height - size.height, size.width, size.height)];
+    [themeFrame addSubview:_accessoryView];
+    [_accessoryButton bind:@"title" toObject:_styledWindowView withKeyPath:@"listCountString" options:nil];
+    [_accessoryButton bind:@"value" toObject:_styledWindowView withKeyPath:@"showPlaylist" options:nil];
+
+    [window setMovableByWindowBackground:YES];
+
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView setViewedPlaying:[[self valueForKeyPath:@"document.mediaListPlayer.mediaPlayer.playing"] boolValue]];
     [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
@@ -83,6 +103,12 @@
     options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView bind:@"listCount" toObject:self withKeyPath:@"document.mediaListPlayer.mediaList.media.@count" options:options];
     [_styledWindowView bind:@"sublistCount" toObject:self withKeyPath:@"document.mediaListPlayer.rootMedia.subitems.media.@count" options:options];
+
+    // To make sure there is no glitches, make sure the window is on screen, but hidden.
+    [window orderFront:self];
+    [window setAlphaValue:0];
+
+    [_styledWindowView setup];
 }
 
 - (void)close
@@ -105,6 +131,17 @@
     [NSApp addWindowsItem:window title:[window title] filename:NO];
 }
 
+#pragma mark -
+
+- (void)setStyleWantsCocoaTitleBar:(BOOL)titleBar
+{
+    NSWindow *window = [self window];
+    if (!debugStyledWindow() && !titleBar) {
+        [window setBackgroundColor:[NSColor clearColor]];
+        [window setStyleMask:NSBorderlessWindowMask];
+    } else
+        [window setStyleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask];
+}
 
 #pragma mark -
 #pragma mark fullscreen Delegate

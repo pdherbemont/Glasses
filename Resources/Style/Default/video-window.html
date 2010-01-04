@@ -15,56 +15,31 @@
 
 	<title>Video Window</title>
 </head>
-<body onload="window.windowController.init(); window.playlistController.init();" id="content" class="key-window">
+<body onload="window.windowController.init(); window.playlistController.init();" id="content" class="key-window wants-cocoatitlebar">
+
+<div id="window-content">
 
 
-<div id="main-window" class="drag-platform-window">
-    
-    <div class="window-decoration">
-        <div class="titlebar">
-            <div class="window-buttons">
-                <button class="close"></button>
-                <button class="miniaturize"></button>
-                <button class="zoom"></button>
-            </div>
-            <div id="window-title" class="title">Window Title</div>
-            <div class="number-items" onclick="window.playlistController.togglePlaylistView();"><span id="items-count">1</span> items</div>
-            <div class="titlebar-fixup"></div>
+    <div id="video-view" class="view" ondblclick="windowController.enterFullscreen()"></div>
+    <div class="controls">
+        <button class="enter-fullscreen"></button>
+        <button class="toggle-playing"></button>
+        <div class="timeinfo">
+            <input class="timeline" type="range"  max="1000" value="0">
+            <div class="ellapsed-time">--:--</div>
         </div>
+        <div class="status">Playing</div>
+        <div class="spacer"></div>
+        <input type="search" id="search-playlist" class="search" placeholder="Search" value="" incremental="true">
     </div>
 
-    <div id="video">
-        <div id="video-view" class="view" ondblclick="windowController.enterFullscreen()"></div>
-        <div class="controls">
-            <button class="enter-fullscreen"></button>
-            <button class="toggle-playing"></button>
-            <div class="timeinfo">
-                <input class="timeline" type="range"  max="1000" value="0">
-                <div class="ellapsed-time">--:--</div>
-            </div>
-            <div class="status">Playing</div>
-        </div>
+    <div class="playlist">
+        <div id="mediaList">
     </div>
 
-    <div class="bottombar-fixup"></div>
-
-    <div class="resize resize-platform-window"></div>
     <div class="preloader"></div>
 </div>
 
-<div id="more" class="more drag-platform-window">
-    <div class="window-decoration">
-        <div class="titlebar"></div>
-    </div>
-    <div class="textcontent">
-        <div id="mediaList">
-
-        </div>
-
-    </div>
-    <div class="controls"><input type="search" id="search-playlist" class="search" placeholder="Search" value="" incremental="true"></div>
-    <div class="resize resize-platform-window"></div>
-</div>
 
 </body>
 </html>

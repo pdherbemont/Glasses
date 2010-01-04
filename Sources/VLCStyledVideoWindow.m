@@ -32,11 +32,6 @@ static inline BOOL debugStyledWindow(void)
     return [VLCStyledVideoWindow debugStyledWindow];
 }
 
-@interface NSWindow (Private)
-- (void)_startLiveResize;
-- (void)_endLiveResize;
-@end
-
 
 @implementation VLCStyledVideoWindow
 
@@ -47,21 +42,14 @@ static inline BOOL debugStyledWindow(void)
 #endif
     return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugStyledWindow];    
 }
+
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
-    if (!debugStyledWindow())
-        aStyle = NSBorderlessWindowMask;
     self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:YES];
     if (!self)
         return nil;
     
     [self setMovableByWindowBackground:YES];
-    if (!debugStyledWindow()) {
-        [self setOpaque:NO];
-        [self setBackgroundColor:[NSColor clearColor]];
-    }
-    [self setHasShadow:NO];
-    [self setAcceptsMouseMovedEvents:YES];
     [self setIgnoresMouseEvents:NO];
 
     _unzoomedRect = [self frame];
@@ -134,10 +122,11 @@ static inline BOOL debugStyledWindow(void)
         [(VLCMediaDocument *)contextInfo close];
 }
 
-// Because we are borderless, a certain number of thing don't work out of the box.
+// In case of borderless, a certain number of thing don't work out of the box.
 // For instance the NSDocument patterns don't apply, we have to reimplement them.
 - (void)performClose:(id)sender
 {
+    // FIXME - move this in our NSDocument subclass
     VLCMediaDocument *doc = [[NSDocumentController sharedDocumentController] documentForWindow:self];
     if ([doc isSharedOnLAN] && ![[NSUserDefaults standardUserDefaults] boolForKey:kSuppressShareOnLANReminder]) {
         NSAlert *ourAlert;
@@ -264,12 +253,10 @@ static inline BOOL debugStyledWindow(void)
 
 - (void)willStartLiveResize
 {
-    [self _startLiveResize];
 }
 
 - (void)didEndLiveResize
 {
-    [self _endLiveResize];
 }
 
 - (void)setFrame:(float)x :(float)y :(float)width :(float)height

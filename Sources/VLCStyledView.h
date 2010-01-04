@@ -30,13 +30,9 @@
 @class VLCWebBindingsController;
 
 @interface VLCStyledView : WebView {
-    BOOL _isFrameLoaded;
-    BOOL _hasLoadedAFirstFrame;
-    BOOL _viewedPlaying;
-    BOOL _seekable;
-
     NSUInteger _listCount;
     NSUInteger _sublistCount;
+    NSString *_listCountString;
 
     NSString *_title;
 
@@ -47,6 +43,12 @@
     
     VLCPathWatcher *_pathWatcher;
     VLCWebBindingsController *_bindings;
+
+    BOOL _isFrameLoaded;
+    BOOL _hasLoadedAFirstFrame;    
+    BOOL _viewedPlaying;
+    BOOL _seekable;
+    BOOL _showPlaylist;
 }
 
 /**
@@ -67,6 +69,8 @@
 
 @property (readonly) BOOL isFrameLoaded;
 
+@property (readwrite, retain) NSString *listCountString;
+
 /**
  * -setup has been called, and we have been loading
  * one first frame.
@@ -79,6 +83,7 @@
  *
  * This is used to indicate various state changes.
  */
+- (BOOL)contentHasClassName:(NSString *)className;
 - (void)addClassToContent:(NSString *)className;
 - (void)removeClassFromContent:(NSString *)className;
 - (DOMHTMLElement *)htmlElementForId:(NSString *)idName;
@@ -92,6 +97,7 @@
 @property BOOL seekable;
 @property NSUInteger listCount;
 @property NSUInteger sublistCount;
+@property BOOL showPlaylist;
 
 - (VLCMediaPlayer *)mediaPlayer;
 

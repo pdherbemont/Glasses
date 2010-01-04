@@ -49,6 +49,7 @@ static BOOL watchForStyleModification(void)
 @synthesize isFrameLoaded=_isFrameLoaded;
 @synthesize hasLoadedAFirstFrame=_hasLoadedAFirstFrame;
 @synthesize pluginName=_pluginName;
+@synthesize listCountString=_listCountString;
 
 - (void)dealloc
 {
@@ -586,6 +587,7 @@ static BOOL watchForStyleModification(void)
     DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
     [element setInnerText:[NSString stringWithFormat:@"%d", count]];
     
+    [self setListCountString:[NSString stringWithFormat:@"%d item%s", count, count > 1 ? "s" : ""]];
     if (count == 1)
         [self removeClassFromContent:@"multiple-play-items"];
     else
@@ -624,6 +626,17 @@ static BOOL watchForStyleModification(void)
     return _sublistCount;
 }
 
+- (void)setShowPlaylist:(BOOL)show
+{
+    _showPlaylist = show;
+}
+
+- (BOOL)showPlaylist
+{
+    return _showPlaylist;
+}
+
+
 #pragma mark -
 #pragma mark DOM manipulation
 
@@ -651,6 +664,14 @@ static NSString *escape(NSString *string)
         "for(var i = 0; i < elems.length; i++) \n"
         "    elems.item(i).setAttribute('%@', '%@'); ",  escape(class), escape(attribute), escape(value))
     ];
+}
+
+- (BOOL)contentHasClassName:(NSString *)class
+{
+    NSAssert(_isFrameLoaded, @"Frame should be loaded");
+    DOMHTMLElement *content = [self htmlElementForId:@"content"];
+    NSString *currentClassName = content.className;
+    return [currentClassName rangeOfString:class].length > 0;
 }
 
 - (void)addClassToContent:(NSString *)class

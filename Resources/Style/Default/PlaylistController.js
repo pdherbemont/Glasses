@@ -3,13 +3,13 @@
  */
 var PlaylistController = function()
 {
-    
 }
 
 PlaylistController.prototype = {
     init: function()
     {
-        window.PlatformView.bindDOMObjectToCocoaObject(this, "rootMediaListCount", CocoaObject.documentCocoaObject(), "rootMediaList.media.@count");
+        Lunettes.connect(this, "showPlaylist", CocoaObject.documentCocoaObject(), "showPlaylist");
+        Lunettes.connect(this, "rootMediaListCount", CocoaObject.documentCocoaObject(), "rootMediaList.media.@count");
     },
 
     _rootMediaListCount: 0,
@@ -20,32 +20,82 @@ PlaylistController.prototype = {
             newCount = 0;
         this._rootMediaListCount = newCount;
         if (newCount > 1)
-            this.setShowPlaylistView(true);
+            this.showPlaylist = true;
     },
     get rootMediaListCount()
     {
         return this._rootMediaListCount;
     },
 
-    setShowPlaylistView:function(show)
+    syncWithAnimation: function()
     {
+        this.animationSyncTimer = null;
+        window.windowController.videoResized();
+        this.animationSyncTimer = window.setTimeout(this.syncWithAnimation.bind(this), 0);
+    },
+    
+    animationStarted: function()
+    {
+        // Clear any previous timer.
+        if (this.animationSyncTimer)
+            window.clearTimeout(this.animationSyncTimer);
+
+        // An animation has started, make sure we correctly
+        // resize the VideoView in our backend.
+        this.syncWithAnimation();
+    },
+    
+    animationEnded: function()
+    {
+        // Stop syncing
+        if (this.animationSyncTimer) {
+            window.clearTimeout(this.animationSyncTimer);
+            this.animationSyncTimer = null;
+        }
+        window.windowController.videoResized();
+    },
+
+    get showPlaylist()
+    {
+        if (!this._showPlaylist)
+            this._showPlaylist = false;
+        return this._showPlaylist;
+    },
+    set showPlaylist(show)
+    {
+        console.log("showPlaylist " +show);
+        if (this._showPlaylist == show)
+            return;
+
+        Lunettes.willChange(this, "showPlaylist");
+        this._showPlaylist = show;
+        Lunettes.didChange(this, "showPlaylist");
         var name = "show-playlist";
+        var more = document.getElementById("more");
         if (show) {
-            document.getElementById("more").addClassName("visible");
+            if (more)
+                more.addClassName("visible");
             document.body.addClassName(name);
             window.windowController.navigationController.currentView.updateVisibleItems();
         }
         else {
-            document.getElementById("more").removeClassName("visible");
+            if (more)
+                document.getElementById("more").removeClassName("visible");
             document.body.removeClassName(name);
         }
-        if (window.PlatformView.videoDidResize)
-            window.PlatformView.videoDidResize();
+
+        // Update the video view while we are animating
+        this.animationStarted();
+
+        // Stop the animation after the end of the animation
+        if (this.animationEndedTimer)
+            window.clearTimeout(this.animationEndedTimer);
+        this.animationEndedTimer = window.setTimeout(this.animationEnded.bind(this), 230);
     },
     togglePlaylistView: function()
     {
         var name = "show-playlist";
-        this.setShowPlaylistView(!document.body.hasClassName(name));
+        this.showPlaylist = !document.body.hasClassName(name);
     }
 }
 

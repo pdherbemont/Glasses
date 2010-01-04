@@ -60,7 +60,10 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     NSDictionary *dict = context;
-    if (dict) {
+    NSAssert(dict, @"No dict. Super class shouldn't be observing either.");
+
+    id observer = [dict objectForKey:@"observer"];
+    if (observer) {
         WebScriptObject *observer = [dict objectForKey:@"observer"];
         
         NSInteger kind = [[change objectForKey:NSKeyValueChangeKindKey] intValue];
@@ -124,6 +127,15 @@
         return;
         
     }
+    else {
+        // We are in the case of a binding.
+        id target = [dict objectForKey:@"object"];
+        NSString *targetKeyPath = [dict objectForKey:@"keyPath"];
+        id value = [object valueForKeyPath:keyPath];
+        [target setValue:value forKeyPath:targetKeyPath];
+        return;
+    }
+
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
@@ -187,10 +199,14 @@
         [node removeEventListener:@"input" listener:self useCapture:NO];
         [node removeEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
     }
-    
-    NSString *property = [dict objectForKey:@"property"];
-    [domObject unbind:property];
-    
+
+    NSDictionary *options = [dict objectForKey:@"options"];
+    if (![options objectForKey:NSPredicateFormatBindingOption]) {
+        NSString *property = [dict objectForKey:@"property"];
+        [domObject unbind:property];
+        [domObject removeObserver:self forKeyPath:property];
+    }
+
     [_bindings removeObject:dict];    
 }
 
@@ -256,6 +272,7 @@
         // We'll handle the rest via "input" event.
         return;
     }
+    [domObject addObserver:self forKeyPath:property options:0 context:dict];
     [domObject bind:property toObject:object withKeyPath:keyPath options:options];
 }
 

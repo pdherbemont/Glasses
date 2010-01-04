@@ -54,13 +54,13 @@
 
 @interface VLCStyledVideoWindowView : VLCStyledView
 {
-    BOOL _isChangingPositionOnFrame;
     NSTrackingArea *_contentTracking;
-    BOOL _wasPlayingBeforeChangingPosition;
-    BOOL _isUserChangingPosition;
+
 #ifdef SUPPORT_VIDEO_BELOW_CONTENT
     NSWindow *_videoWindow;
 #endif
+
+    BOOL _isStyleOpaque;
 }
 
 - (void)setKeyWindow:(BOOL)isKeyWindow;

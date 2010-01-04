@@ -28,11 +28,17 @@
 @interface VLCStyledVideoWindowController : NSWindowController {
     IBOutlet VLCExtendedVideoView *_videoView;
     IBOutlet VLCStyledVideoWindowView *_styledWindowView;
+    IBOutlet NSButton *_accessoryButton;
+    IBOutlet NSView *_accessoryView;
     VLCFullscreenController *_fullscreenController;
 }
 - (void)toggleFullscreen:(id)sender;
 - (void)toggleFloatingWindow:(id)sender;
 - (void)enterFullscreen;
+
+- (void)setStyleWantsCocoaTitleBar:(BOOL)titleBar;
+
 @property (readonly, retain) VLCExtendedVideoView *videoView;
 @property (readonly, retain) VLCStyledVideoWindowView *styledWindowView;
+
 @end

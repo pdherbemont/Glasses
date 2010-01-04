@@ -55,11 +55,6 @@
     [super close];
 }
 
-- (void)awakeFromNib
-{
-    [self setup];    
-}
-
 - (void)setup
 {        
 #if SUPPORT_VIDEO_BELOW_CONTENT
@@ -72,18 +67,33 @@
 
 - (NSString *)pageName
 {
+    // video-window.html is the name of the file we are interested in.
     return @"video-window";
+}
+
+- (BOOL)mouseDownCanMoveWindow
+{
+    return YES;
 }
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame
 {
     [super didFinishLoadForFrame:frame];
 
+    // Sync with what this theme needs in term of window
+    _isStyleOpaque = ![self contentHasClassName:@"transparent"];
+    NSWindow *window = [self window];
+    if ([window isOpaque] != _isStyleOpaque)
+        [window setOpaque:_isStyleOpaque];
+
+    VLCStyledVideoWindowController *controller = [window windowController];
+    BOOL wantsCocoaTitleBar = [self contentHasClassName:@"wants-cocoatitlebar"];
+    [controller setStyleWantsCocoaTitleBar:wantsCocoaTitleBar];
+    
     // Make sure we remove the videoView from superview or from the below window
     // hence, we'll be able to properly recreate it.
     [self _removeBelowWindow];
-    NSWindow *window = [self window];
-    VLCVideoView *videoView = [[window windowController] videoView];
+    VLCVideoView *videoView = [controller videoView];
     [videoView removeFromSuperview];
 
     [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
@@ -106,9 +116,6 @@
     // for now.
     if (enterFS && ![self hasLoadedAFirstFrame])
         [[window windowController] enterFullscreen];
-
-    [window performSelector:@selector(invalidateShadow) withObject:self afterDelay:0.];
-    [window performSelector:@selector(display) withObject:self afterDelay:0.];
 }
 
 - (void)windowDidChangeAlphaValue:(CGFloat)alpha
@@ -217,7 +224,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     if (!_videoWindow && [self inLiveResize])
         return;
 
-
     DOMHTMLElement *element = [self htmlElementForId:@"video-view"];
     NSAssert(element, @"No video-view element in this style");
     VLCVideoView *videoView = [[[self window] windowController] videoView];
@@ -296,6 +302,11 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     return YES;
 }
 
+- (BOOL)isOpaque
+{
+    return _isStyleOpaque;
+}
+
 #pragma mark -
 #pragma mark Tracking area
 
@@ -315,7 +326,15 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 - (void)updateTrackingAreas
 {
-    if (!_isFrameLoaded) {
+    // We don't need to do special stuff if we are opaque.
+    if (!_isFrameLoaded || [self isOpaque]) {
+        if (_contentTracking) {
+            [self removeTrackingArea:_contentTracking];
+            [_contentTracking release];
+            _contentTracking = nil;
+            [[self window] setIgnoresMouseEvents:NO];
+        }
+        
         [super updateTrackingAreas];
         return;
     }
@@ -350,6 +369,8 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     return YES;
 }
 
+
+
 - (NSView *)hitTest:(NSPoint)point
 {
     // Hit test function that ignores the videoView and forward everything
@@ -365,7 +386,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         if (result)
             return result;
     }
-
+    
     return NSPointInRect(point, [self bounds]) ? self : nil;
 }
 
