@@ -63,7 +63,6 @@ PlaylistController.prototype = {
     },
     set showPlaylist(show)
     {
-        console.log("showPlaylist " +show);
         if (this._showPlaylist == show)
             return;
 
