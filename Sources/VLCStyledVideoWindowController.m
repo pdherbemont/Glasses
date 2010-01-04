@@ -105,8 +105,8 @@ static inline BOOL debugStyledWindow(void)
     [_styledWindowView bind:@"sublistCount" toObject:self withKeyPath:@"document.mediaListPlayer.rootMedia.subitems.media.@count" options:options];
 
     // To make sure there is no glitches, make sure the window is on screen, but hidden.
-    [window orderFront:self];
     [window setAlphaValue:0];
+    [window makeKeyAndOrderFront:self];
 
     [_styledWindowView setup];
 }
