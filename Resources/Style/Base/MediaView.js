@@ -71,6 +71,8 @@ MediaView.prototype = {
     },
     set visible(visible)
     {
+        console.assert(this.isAttached);
+
         if (this._visible == visible)
             return;
         this._visible = visible;
