@@ -182,7 +182,8 @@ WindowController.prototype = {
     
     videoResized: function()
     {
-        window.PlatformView.videoDidResize();
+        if (window.PlatformView.videoDidResize)
+            window.PlatformView.videoDidResize();
     },
     
     windowResized: function()
