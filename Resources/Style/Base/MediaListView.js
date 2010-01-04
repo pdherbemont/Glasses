@@ -341,6 +341,8 @@ MediaListView.prototype = {
         
         if (this.selection.length == 0)
             this.select(mediaView);
+
+        this.updateVisibleItems();
     },
     
     /**
@@ -372,6 +374,8 @@ MediaListView.prototype = {
             this.subviews[index].detach();
 
         this.subviews.splice(index, 1); // Remove the element
+
+        this.updateVisibleItems();
     },
     
     setCocoaObjects: function(array)
@@ -403,6 +407,8 @@ MediaListView.prototype = {
 
         // We are done, add back the child.
         this.element.appendChild(this.subviewsElement);
+
+        this.updateVisibleItems();
     },
     
     /**
@@ -411,7 +417,7 @@ MediaListView.prototype = {
     removeAllInsertedCocoaObjects: function()
     {
         // Instead of removing elements one by one,
-        // 
+        // remove the parent.
         this.subviewsElement.parentNode.removeChild(this.subviewsElement);
         this.subviewsElement = document.createElement("ul");;
         this.element.appendChild(this.subviewsElement);
@@ -421,6 +427,8 @@ MediaListView.prototype = {
                 this.subviews[i].detachWithoutRemoving();
         }
         this.subviews = new Array();
+
+        this.updateVisibleItems();
     },
 
     /**
