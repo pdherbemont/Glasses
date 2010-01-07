@@ -39,9 +39,9 @@
  "video-view": Backend will put the platform video view on top of this element. [Not in fullscreen]
 -->
 
-<body onload="windowController.init()" id="content">
+<body onload="windowController.init()" id="content" class="transparent">
 <div id="main-window" class="drag-platform-window key-window">
-    
+
     <div class="window-decoration">
         <div class="titlebar">
             <div class="window-buttons">
@@ -56,7 +56,7 @@
     <div id="video">
         <div id="video-view" class="view below-content" class="transparent"></div>
         <div class="controls">
-            
+
             <button class="enter-fullscreen"></button>
             <button class="toggle-playing"></button>
             <div class="timeinfo">
