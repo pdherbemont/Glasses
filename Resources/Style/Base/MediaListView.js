@@ -184,10 +184,21 @@ MediaListView.prototype = {
         var height = item.offsetHeight;
 
         var top = 0;
-        if (!this.navigationController.elementStyleUsesScrollBar)
+        if (!this.navigationController.elementStyleUsesScrollBar) {
             top = -parseInt(this.subviewsElement.style.top);
+            if (!top)
+                top = 0;
+        }
         else
             top = this.element.scrollTop;
+
+        if (this.visibleTimer)
+            window.clearTimeout(this.visibleTimer);
+
+        if (isNaN(top) || isNaN(height) || !height) {
+            this.visibleTimer = window.setTimeout(this.updateVisibleItems.bind(this), 50);
+            return;
+        }
 
         var firstVisibleIndex = Math.max(Math.floor(top / height), 0);
         var nVisibleIndexes = Math.floor(this.element.clientHeight / height);
