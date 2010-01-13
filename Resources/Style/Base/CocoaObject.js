@@ -12,12 +12,12 @@ function KVCArrayObserver() {};
 /**
  * @param {CocoaObject} cocoaObject to observe
  * @param {number} index
- */    
+ */
 KVCArrayObserver.prototype.insertCocoaObject = function(cocoaObject, index) {};
 
 /**
  * @param {CocoaObject} cocoaObject to observe
- */    
+ */
 KVCArrayObserver.prototype.removeCocoaObjectAtIndex = function(cocoaObject) {};
 
 /**
@@ -58,7 +58,7 @@ CocoaObject.prototype.clone = function () { return new CocoaObject; };
 CocoaObject.prototype.addObserver = function (observer, keyPath)
 {
     window.console.assert(observer);
- 
+
     window.PlatformView.addObserverForCocoaObjectWithKeyPath(observer, this, keyPath);
 }
 

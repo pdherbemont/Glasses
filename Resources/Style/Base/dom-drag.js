@@ -12,23 +12,23 @@
  */
 var Drag = function ()
 {
-    
+
 }
 
 Drag.prototype = {
-	
+
 	target: null,
-    
+
     parseIntDec: function parseIntDec(a) {
         return parseInt(a, 10);
     },
-        
+
 	init: function(o)
 	{
 		o.addEventListener("mousedown", this.start.bind(this));
         this.target = o;
     },
-	
+
 	start: function(e)
 	{
 		if (e.srcElement.nodeName != "DIV")
@@ -51,15 +51,15 @@ Drag.prototype = {
         document.addEventListener("mouseup", this._end, false);
         return false;
 	},
-	
+
 	drag: function(e)
 	{
 		var o = this.target;
-		
+
 		var ey	= e.clientY;
 		var ex	= e.clientX;
 		var nx, ny;
-				
+
 		nx = o.originalX + (ex - o.originalMouseX);
 		ny = o.originalY + (ey - o.originalMouseY);
 
@@ -68,7 +68,7 @@ Drag.prototype = {
 
         return false;
 	},
-	
+
 	end: function()
 	{
         document.removeEventListener("mousemove", this._drag, false);

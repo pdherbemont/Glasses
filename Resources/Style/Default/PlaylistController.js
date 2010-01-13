@@ -33,7 +33,7 @@ PlaylistController.prototype = {
         window.windowController.videoResized();
         this.animationSyncTimer = window.setTimeout(this.syncWithAnimation.bind(this), 0);
     },
-    
+
     animationStarted: function()
     {
         // Clear any previous timer.
@@ -44,7 +44,7 @@ PlaylistController.prototype = {
         // resize the VideoView in our backend.
         this.syncWithAnimation();
     },
-    
+
     animationEnded: function()
     {
         // Stop syncing

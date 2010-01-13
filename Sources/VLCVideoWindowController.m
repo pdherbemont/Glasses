@@ -55,7 +55,7 @@
 	NSRect frame = [[window screen] frame];
 	frame.size.width = frame.size.width / 3;
 	frame.size.height = frame.size.height / 3;
-	
+
 	[window setFrame:frame display:NO];
 	[window center];
 
@@ -79,15 +79,15 @@
             VLCLogDebug(@"stream ended or was stopped (%i)", state);
             [_playPauseButton setImage:[NSImage imageNamed:@"play_embedded"]];
             [_playPauseButton setAlternateImage:[NSImage imageNamed:@"play_embedded_graphite"]];
-            break; 
+            break;
         }
         case VLCMediaPlayerStateError:
         {
             // we've got an error here, unknown button set to display
             NSAlert *alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil
                              informativeTextWithFormat:@"An unknown error occured when playing %@", [[mediaPlayer media] url]];
-            [alert runModal];            
-            break;            
+            [alert runModal];
+            break;
         }
         default:
             break;

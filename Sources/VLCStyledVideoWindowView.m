@@ -42,21 +42,21 @@
 }
 
 - (void)close
-{    
+{
 #if SUPPORT_VIDEO_BELOW_CONTENT
     [self _removeBelowWindow];
 #endif
     if (_contentTracking) {
         [self removeTrackingArea:_contentTracking];
         [_contentTracking release];
-        _contentTracking = nil;        
+        _contentTracking = nil;
     }
 
     [super close];
 }
 
 - (void)setup
-{        
+{
 #if SUPPORT_VIDEO_BELOW_CONTENT
     // When a style is reloaded, this method gets called.
     // Clear the below window here.
@@ -89,7 +89,7 @@
     VLCStyledVideoWindowController *controller = [window windowController];
     BOOL wantsCocoaTitleBar = [self contentHasClassName:@"wants-cocoatitlebar"];
     [controller setStyleWantsCocoaTitleBar:wantsCocoaTitleBar];
-    
+
     // Make sure we remove the videoView from superview or from the below window
     // hence, we'll be able to properly recreate it.
     [self _removeBelowWindow];
@@ -99,13 +99,13 @@
     [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
 
     [window setIgnoresMouseEvents:NO];
-     
+
     [self videoDidResize];
 
     BOOL enterFS = [[NSUserDefaults standardUserDefaults] boolForKey:kStartPlaybackInFullscreen];
     if (!enterFS || [self hasLoadedAFirstFrame])
         [window makeKeyAndOrderFront:self];
-    
+
     [self setKeyWindow:[window isKeyWindow]];
     [self setMainWindow:[window isMainWindow]];
     [self updateTrackingAreas];
@@ -131,15 +131,15 @@
 - (NSRect)representedWindowRect
 {
     DOMElement *element = [self htmlElementForId:@"main-window" canBeNil:YES];
-    
+
     NSRect frame = element ? [element frameInView:self] : NSZeroRect;
-    
+
     DOMHTMLElement *more = [self htmlElementForId:@"more" canBeNil:YES] ;
     if (more && [more hasClassName:@"visible"]) {
         NSRect frameMore = [more frameInView:self];
         frame = NSUnionRect(frameMore, frame);
     }
-    return frame;    
+    return frame;
 }
 
 #pragma mark -
@@ -177,7 +177,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     NSRect screenRect = [view convertRect:rect toView:nil]; // Convert to Window base coord
     NSRect windowFrame = [[view window] frame];
     screenRect.origin.x += windowFrame.origin.x;
-    screenRect.origin.y += windowFrame.origin.y;  
+    screenRect.origin.y += windowFrame.origin.y;
     return screenRect;
 }
 #endif
@@ -206,7 +206,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     [_videoWindow setHasShadow:NO];
     NSWindow *window = [self window];
     [_videoWindow setAlphaValue:[window alphaValue]];
-    [window addChildWindow:_videoWindow ordered:NSWindowBelow];    
+    [window addChildWindow:_videoWindow ordered:NSWindowBelow];
 }
 
 - (void)videoDidResize
@@ -233,13 +233,13 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     if (![self inLiveResize]) {
         // For now the playlist toggle uses this methog
         // to update the tracking area as well, so force it here.
-        [self updateTrackingAreas];        
+        [self updateTrackingAreas];
     }
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
     BOOL wantsBelowContent = [element.className rangeOfString:@"below-content"].length > 0;
     if (![videoView window]) {
-        
+
         if (wantsBelowContent) {
             [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withVideoView:videoView];
         }
@@ -247,7 +247,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
             [self addSubview:videoView];
             [videoView setFrame:frame];
         }
-        
+
     }
     else {
         BOOL videoIsOnTop = !_videoWindow;
@@ -333,7 +333,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
             _contentTracking = nil;
             [[self window] setIgnoresMouseEvents:NO];
         }
-        
+
         [super updateTrackingAreas];
         return;
     }
@@ -347,10 +347,10 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     if (!_contentTracking || !NSEqualRects([_contentTracking rect], frame)) {
         [self removeTrackingArea:_contentTracking];
         [_contentTracking release];
-        _contentTracking = [[NSTrackingArea alloc] initWithRect:frame options:NSTrackingMouseEnteredAndExited|NSTrackingActiveAlways|NSTrackingEnabledDuringMouseDrag owner:self userInfo:nil];    
+        _contentTracking = [[NSTrackingArea alloc] initWithRect:frame options:NSTrackingMouseEnteredAndExited|NSTrackingActiveAlways|NSTrackingEnabledDuringMouseDrag owner:self userInfo:nil];
         [self addTrackingArea:_contentTracking];
     }
-    
+
     NSWindow *window = [self window];
     NSRect locationInWindow = [self convertRect:frame toView:nil];
     NSPoint mouseInWindow = [window convertScreenToBase:[NSEvent mouseLocation]];
@@ -385,7 +385,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         if (result)
             return result;
     }
-    
+
     return NSPointInRect(point, [self bounds]) ? self : nil;
 }
 

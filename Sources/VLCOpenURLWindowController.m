@@ -40,17 +40,17 @@
 
     // Now add this item to the recent list
     NSArray *originalRecents = [defaults arrayForKey:kRecentNetworkItems];
-    
+
     // No previous item
     if (!originalRecents) {
         [defaults setValue:[NSArray arrayWithObject:urlString] forKey:kRecentNetworkItems];
         return;
     }
-    
+
     NSUInteger count = MIN(10UL, [originalRecents count]);
     NSArray *tenMostRecents = [originalRecents objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, count)]];
     NSMutableArray *recents = [NSMutableArray arrayWithArray:tenMostRecents];
-    
+
     // Remove the last one, or the current position of read item.
     NSUInteger index = [recents indexOfObjectIdenticalTo:urlString];
     if (index != NSNotFound)
@@ -58,7 +58,7 @@
     else if (count >= 10)
         [recents removeLastObject];
     [recents insertObject:urlString atIndex:0];
-    
+
     // Save it.
     [defaults setValue:recents forKey:kRecentNetworkItems];
 }

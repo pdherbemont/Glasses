@@ -124,7 +124,7 @@ static inline BOOL debugStyledWindow(void)
 - (void)showWindow:(id)sender
 {
     // Don't makeKeyAndOrderFront, we'll do that from the StyledWindowView
-    
+
     // Because our window is borderless this is not properly done by NSDocument.
     // Work around by doing it ourselves.
     NSWindow *window = [self window];
@@ -236,7 +236,7 @@ static inline BOOL debugStyledWindow(void)
         return NO;
     if (sel == @selector(window))
         return NO;
-    
+
     return YES;
 }
 

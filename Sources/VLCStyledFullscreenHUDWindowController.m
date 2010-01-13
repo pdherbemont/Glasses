@@ -82,7 +82,7 @@
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(leaveFullscreen))
-        return NO;    
+        return NO;
     return YES;
 }
 

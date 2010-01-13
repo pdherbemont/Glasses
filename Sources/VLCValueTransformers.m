@@ -33,13 +33,13 @@
 {
     if (!value)
         return nil;
-    
+
     if (![value respondsToSelector: @selector(floatValue)]) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Value (%@) does not respond to -floatValue.", [value class]];
         return nil;
     }
-    
+
     return [NSNumber numberWithFloat: [value floatValue]*10000.];
 }
 
@@ -47,13 +47,13 @@
 {
     if (!value)
         return nil;
-    
+
     if (![value respondsToSelector: @selector(floatValue)]) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Value (%@) does not respond to -floatValue.", [value class]];
         return nil;
     }
-    
+
     return [NSNumber numberWithFloat:[value floatValue] / 10000.];
 }
 
@@ -82,13 +82,13 @@
 {
     if (!value)
         return nil;
-    
+
     if (![value respondsToSelector: @selector(allValues)]) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Value (%@) does not respond to -allValues.", [value class]];
         return nil;
     }
-    
+
     return [value allValues];
 }
 
@@ -122,7 +122,7 @@
 {
     if (!value)
         return nil;
-    
+
     return [VLCTime timeWithNumber:value].verboseStringValue;
 }
 
@@ -156,7 +156,7 @@
 {
     if (!value)
         return nil;
-    
+
     return [NSURL fileURLWithPath:value];
 }
 
@@ -164,7 +164,7 @@
 {
     if (!value)
         return nil;
-    
+
     return [value absoluteURL];
 }
 
@@ -196,7 +196,7 @@ static inline BOOL is_num(char c)
 
 - (id)transformedValue:(id)value
 {
-    
+
     NSString *name = [[value lastPathComponent] stringByDeletingPathExtension];
     name = [name stringByReplacingOccurrencesOfString:@"." withString:@" "];
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5

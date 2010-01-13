@@ -88,14 +88,14 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     NSFileManager *manager = [NSFileManager defaultManager];
     NSArray *plugins = [manager contentsOfDirectoryAtPath:pluginsPath error:nil];
     NSAssert(_styleMenu, @"There is no style menu connected");
-    
+
     // First add the special 'Default' menu and a separator
     NSMenu *submenu = [_styleMenu submenu];
     NSMenuItem *menuItem = createStyleMenuItemWithPlugInName(@"Default");
     [submenu addItem:menuItem];
     [menuItem release];
     [submenu addItem:[NSMenuItem separatorItem]];
-    
+
     for (NSString *pluginPath in plugins) {
         if (![pluginPath hasSuffix:@".lunettesstyle"])
             continue;
@@ -106,7 +106,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
         NSMenuItem *menuItem = createStyleMenuItemWithPlugInName(pluginName);
         [submenu addItem:menuItem];
         [menuItem release];
-        
+
     }
 }
 
@@ -133,7 +133,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         [parentMenuItem setEnabled:YES];
     }
 }
-    
+
 - (void)cleanAndRecreateMainMenu
 {
     VLCMediaDocument *currentDocument = [self currentDocument];
@@ -178,7 +178,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
         NSArray *chapters = [titles count] > 0 ? [thePlayer chaptersForTitleIndex:[thePlayer currentTitleIndex]] : [NSArray array];
         NSUInteger currentChapterIndex = [titles count] > 0 ? [thePlayer currentChapterIndex] : NSNotFound;
-        addTrackMenuItems(_chapterSelectorMenuItem, @selector(setChapterFromMenuItem:), chapters, currentChapterIndex);            
+        addTrackMenuItems(_chapterSelectorMenuItem, @selector(setChapterFromMenuItem:), chapters, currentChapterIndex);
     }
 }
 
@@ -198,14 +198,14 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 {
     VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:mediaList andName:name];
     [self bakeDocument:mediaDocument];
-    [mediaDocument release];    
+    [mediaDocument release];
 }
 
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position
 {
     VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithContentsOfURL:url andStartingPosition:position];
     [self bakeDocument:mediaDocument];
-    [mediaDocument release];    
+    [mediaDocument release];
 }
 
 - (void)makeDocumentWithObject:(id)object
@@ -267,7 +267,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visibleWindows
 {
-    if (!visibleWindows) 
+    if (!visibleWindows)
         [self openSplashScreen:self];
     return NO;
 }
@@ -281,15 +281,15 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self rebuildStyleMenu];
-    
+
     // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)
         return;
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:kDontShowSplashScreen])
         return;
-    
+
     // auto-releases itself when the window is closed
     _splashScreen = [[VLCSplashScreenWindowController alloc] init];
     [_splashScreen showWindow:self];

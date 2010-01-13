@@ -39,7 +39,7 @@ extern NSInteger VLCFullscreenHUDWindowLevel(void);
     NSWindow *_originalViewWindow;
 
     id <VLCFullscreenHUD> _hud;
-    
+
     id <VLCFullscreenDelegate> _delegate;
 
     NSView *_placeholderView;

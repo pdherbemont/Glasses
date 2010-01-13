@@ -16,6 +16,6 @@
     if (!currentClassName)
         return NO;
     NSRange range = [currentClassName rangeOfString:class];
-    return range.length > 0;    
+    return range.length > 0;
 }
 @end

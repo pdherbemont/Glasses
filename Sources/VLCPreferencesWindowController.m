@@ -84,7 +84,7 @@
         oldViewRect = [_currentView frame];
         windowRect.size.height = windowRect.size.height - oldViewRect.size.height;
         windowRect.origin.y = (windowRect.origin.y + oldViewRect.size.height) - viewRect.size.height;
-        
+
         /* remove our previous view */
         [_currentView removeFromSuperviewWithoutNeedingDisplay];
     }

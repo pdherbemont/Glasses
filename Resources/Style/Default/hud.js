@@ -4,7 +4,7 @@
 
 var HUDController = function ()
 {
-    
+
 }
 
 HUDController.prototype.init = function()
@@ -49,7 +49,7 @@ function showPlaylist()
 function onKeyDown(event)
 {
     showPlaylist();
-    
+
     var handled = window.windowController.navigationController.currentView.keyDown(event);
     switch (event.keyCode) {
         case Lunettes.EventKey.Enter:

@@ -68,7 +68,7 @@ static BOOL watchForStyleModification(void)
     [_bindings clearBindingsAndObservers];
     [_bindings release];
     _bindings = [[VLCWebBindingsController alloc] init];
-    
+
     if (watchForStyleModification() && !_resourcesFilePathArray)
         _resourcesFilePathArray = [[NSMutableArray alloc] init];
 
@@ -88,11 +88,11 @@ static BOOL watchForStyleModification(void)
     [_bindings clearBindingsAndObservers];
     [_bindings release];
     _bindings = nil;
-    
+
     if (watchForStyleModification()) {
         [_pathWatcher stop];
         [_pathWatcher release];
-        _pathWatcher = nil;        
+        _pathWatcher = nil;
     }
     self.isFrameLoaded = NO;
     [super close];
@@ -168,7 +168,7 @@ static BOOL watchForStyleModification(void)
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
     // Search for %lunettes_style_root%, and replace it by the root.
-    
+
     NSString *filePathURL = [[[request URL] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSRange range = [filePathURL rangeOfString:@"%lunettes_style_root%"];
     if (range.location == NSNotFound) {
@@ -178,25 +178,25 @@ static BOOL watchForStyleModification(void)
             [_resourcesFilePathArray addObject:filePathURL];
         }
         return request;
-        
+
     }
-    
+
     NSString *resource = [filePathURL substringFromIndex:range.location + range.length];
     if (!_lunettesStyleRoot)
         _lunettesStyleRoot = [[[NSBundle mainBundle] pathForResource:@"Lunettes Style Root" ofType:nil] retain];
-    
+
     NSString *newFilePathURL = [_lunettesStyleRoot stringByAppendingString:resource];
-    
+
     if (watchForStyleModification())
         [_resourcesFilePathArray addObject:newFilePathURL];
-    
+
     NSURL *url = [NSURL fileURLWithPath:newFilePathURL];
     return [NSURLRequest requestWithURL:url];
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
-    self.isFrameLoaded = YES;      
+    self.isFrameLoaded = YES;
     [self didFinishLoadForFrame:frame];
 
     // Tell our Document that we are now ready and initialized.
@@ -206,7 +206,7 @@ static BOOL watchForStyleModification(void)
         NSWindowController *controller = [[self window] windowController];
         [[controller document] didFinishLoadingWindowController:controller];
     }
-    
+
     self.hasLoadedAFirstFrame = YES;
 
     if (watchForStyleModification()) {
@@ -363,7 +363,7 @@ static BOOL watchForStyleModification(void)
 }
 
 - (void)play
-{    
+{
     [[self mediaPlayer] play];
 }
 
@@ -489,21 +489,21 @@ static BOOL watchForStyleModification(void)
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return NO;
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:options:))
-        return NO;   
+        return NO;
     if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))
-        return NO;   
+        return NO;
     if (sel == @selector(unbindDOMObject:property:))
         return NO;
     if (sel == @selector(playCocoaObject:))
-        return NO;   
+        return NO;
     if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
-        return NO;   
+        return NO;
     if (sel == @selector(viewBackendObject:))
-        return NO;   
+        return NO;
     if (sel == @selector(willChangeObject:valueForKey:))
-        return NO;   
+        return NO;
     if (sel == @selector(didChangeObject:valueForKey:))
-        return NO;   
+        return NO;
     return YES;
 }
 
@@ -573,8 +573,8 @@ static BOOL watchForStyleModification(void)
     if (isSeekable)
         [self addClassToContent:@"seekable"];
     else
-        [self removeClassFromContent:@"seekable"];    
-    
+        [self removeClassFromContent:@"seekable"];
+
 }
 
 - (BOOL)seekable
@@ -586,7 +586,7 @@ static BOOL watchForStyleModification(void)
 {
     DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
     [element setInnerText:[NSString stringWithFormat:@"%d", count]];
-    
+
     [self setListCountString:[NSString stringWithFormat:@"%d item%s", count, count > 1 ? "s" : ""]];
     if (count == 1)
         [self removeClassFromContent:@"multiple-play-items"];
@@ -597,11 +597,11 @@ static BOOL watchForStyleModification(void)
 - (void)setListCount:(NSUInteger)count
 {
     _listCount = count;
-    
+
     // Use the sublist count if we have subitems.
     if (_sublistCount > 0)
         return;
-    
+
     [self setHTMLListCount:count];
 }
 
@@ -613,11 +613,11 @@ static BOOL watchForStyleModification(void)
 - (void)setSublistCount:(NSUInteger)count
 {
     _sublistCount = count;
-    
+
     // No subitems, use the list count.
     if (_sublistCount == 0)
         return;
-    
+
     [self setHTMLListCount:count];
 }
 
@@ -680,7 +680,7 @@ static NSString *escape(NSString *string)
         return;
     DOMHTMLElement *content = [self htmlElementForId:@"content"];
     NSString *currentClassName = content.className;
-    
+
     if (!currentClassName)
         content.className = class;
     else if ([currentClassName rangeOfString:class].length == 0)

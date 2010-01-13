@@ -50,10 +50,10 @@
 {
     NSString *urlStr = @"http://jones.videolan.org/crashlog/sendcrashreport.php";
     NSURL *url = [NSURL URLWithString:urlStr];
-    
+
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     [req setHTTPMethod:@"POST"];
-    
+
     NSString * email;
     if ([_checkBox state] == NSOnState) {
         ABPerson * contact = [[ABAddressBook sharedAddressBook] me];
@@ -62,15 +62,15 @@
     }
     else
         email = [NSString string];
-    
+
     NSString *postBody;
     postBody = [NSString stringWithFormat:@"CrashLog=%@&Comment=%@&Email=%@\r\n",
                 [crashLog stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
                 [userComment stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],
                 [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    
+
     [req setHTTPBody:[postBody dataUsingEncoding:NSUTF8StringEncoding]];
-    
+
     /* Released from delegate */
     _crashLogURLConnection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
 }
@@ -108,10 +108,10 @@
             if( [compo count] < 3 ) continue;
             compo = [[compo objectAtIndex:1] componentsSeparatedByString:@"-"];
             if( [compo count] < 4 ) continue;
-            
+
             // Dooh. ugly.
             if( year < [[compo objectAtIndex:0] intValue] ||
-               (year ==[[compo objectAtIndex:0] intValue] && 
+               (year ==[[compo objectAtIndex:0] intValue] &&
                 (month < [[compo objectAtIndex:1] intValue] ||
                  (month ==[[compo objectAtIndex:1] intValue] &&
                   (day   < [[compo objectAtIndex:2] intValue] ||
@@ -125,7 +125,7 @@
                    }
         }
     }
-    
+
     if(!(latestLog && [[NSFileManager defaultManager] fileExistsAtPath:latestLog]))
         return nil;
 

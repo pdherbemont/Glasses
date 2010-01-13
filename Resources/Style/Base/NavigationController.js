@@ -25,7 +25,7 @@ NavigationController.prototype = {
 
     /**
      * @param {Element} parentElement
-     */        
+     */
     attach: function(parentElement)
     {
         this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
@@ -43,7 +43,7 @@ NavigationController.prototype = {
         // Block the event, so that's it's not interpreted as a drag event.
         event.stopPropagation();
     },
-    
+
     keyDown: function(event)
     {
         var ret = this.currentView.keyDown(event);
@@ -65,22 +65,22 @@ NavigationController.prototype = {
         this._currentView = item;
         Lunettes.didChange(this, "currentView");
     },
-    
+
     /**
      * @param {MediaListView} item
-     */            
+     */
     push: function(item)
     {
         var current = item;
         var previous = window.last(this.items);
 
         this.items.push(item);
-    
+
         this.currentView = item;
 
         item.navigationController = this;
 
-        
+
         // New container start at the right
         item.element.removeClassName("current");
         item.element.removeClassName("left");
@@ -90,7 +90,7 @@ NavigationController.prototype = {
         if (item.isAttached)
             item.cancelPendingDetach();
         else
-            item.attach(this.element);            
+            item.attach(this.element);
 
         window.setTimeout(function(){
             // Move the new container to the center
@@ -104,7 +104,7 @@ NavigationController.prototype = {
                 previous.element.removeClassName("current");
                 previous.element.addClassName("left");
             }
-        }, 0);        
+        }, 0);
     },
     hasElementToPop: function()
     {
@@ -115,7 +115,7 @@ NavigationController.prototype = {
         console.assert(this.hasElementToPop());
         if (!this.hasElementToPop())
             return;
-        
+
         var item = this.items.pop();
         var current = window.last(this.items);
 

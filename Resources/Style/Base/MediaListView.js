@@ -9,25 +9,25 @@ var MediaListView = function(cocoaObject, element)
 {
     /**
      * @type {CocoaObject|undefined}
-     */        
+     */
     this.cocoaObject = cocoaObject;
 
     /**
      * @type {Node}
-     */            
+     */
     this.element = element || document.createElement("div");
 
     this.name = "No Name";
 
     /**
      * @type {Element}
-     */    
+     */
     this.subviewsElement = document.createElement("ul");
 
     /**
      * The parent navigation controller if applicable
      * @type {NavigationController}
-     */    
+     */
     this.navigationController = null;
 
     /**
@@ -39,7 +39,7 @@ var MediaListView = function(cocoaObject, element)
     /**
      * The selected items
      * @type {Array.<MediaView>}
-     */    
+     */
     this.selection = new Array();
 
     this.displayName = "MediaListView";
@@ -49,7 +49,7 @@ MediaListView.prototype = {
     /**
      * Show the header with name and back button
      * @type {boolean}
-     */    
+     */
     _showNavigationHeader: false,
     set showNavigationHeader(show)
     {
@@ -59,10 +59,10 @@ MediaListView.prototype = {
         if (show) {
             this.navigationHeaderElement = document.createElement("div");
             this.navigationHeaderElement.className = "header";
-            
+
             this.nameElement = document.createElement("div");
             this.nameElement.className = "name";
-            
+
             this.backButtonElement = document.createElement("button");
             this.backButtonElement.textContent = "Back";
             this.backButtonElement.className = "back";
@@ -82,8 +82,8 @@ MediaListView.prototype = {
     /**
      * @param {Event} event
      * @return {boolean} handled
-     */    
-    
+     */
+
     keyDown: function(event)
     {
         switch (event.keyCode) {
@@ -111,12 +111,12 @@ MediaListView.prototype = {
 
     /**
      * @type {boolean}
-     */    
+     */
     isAttached: false,
 
     /**
      * @param {Node=} parentElement
-     */        
+     */
     attach: function(parentElement)
     {
         console.assert(!this.isAttached, "shouldn't be attached");
@@ -125,15 +125,15 @@ MediaListView.prototype = {
             window.clearTimeout(this.detachTimer);
             this.detachTimer = null;
         }
-        
-        
+
+
         this.element.onscroll = this.didScroll.bind(this);
         window.addEventListener('resize', this.didResize.bind(this), false);
-        
+
         if (this.showNavigationHeader && this.cocoaObject) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
             this.backButtonElement.addEventListener('click', this.backClicked.bind(this), false);
-            
+
             this.element.appendChild(this.navigationHeaderElement);
             this.navigationHeaderElement.appendChild(this.backButtonElement);
             this.navigationHeaderElement.appendChild(this.nameElement);
@@ -144,7 +144,7 @@ MediaListView.prototype = {
         for (var i = 0; i < this.subviews.length; i++) {
             this.subviews[i].attach(this.subviewsElement);
         }
-    
+
         parentElement.appendChild(this.element);
 
         this.isAttached = true;
@@ -168,7 +168,7 @@ MediaListView.prototype = {
     {
         this.updateVisibleItems();
     },
-    
+
     /**
      * Make sure the visible items knows
      * they are visible.
@@ -216,10 +216,10 @@ MediaListView.prototype = {
             window.clearTimeout(this.detachTimer);
             this.detachTimer = null;
         }
-        
+
         for (var i = 0; i < this.subviews.length; i++)
             this.subviews[i].detach();
-        
+
         this.element.detach();
 
         this.isAttached = false;
@@ -228,17 +228,17 @@ MediaListView.prototype = {
     detachAfterDelay: function(delay)
     {
         var item = this;
-        if (this.detachTimer) 
+        if (this.detachTimer)
             window.clearTimeout(this.detachTimer);
         this.detachTimer = window.setTimeout(function () { item.detachTimer = null; item.detach(); }, delay);
     },
     cancelPendingDetach: function()
     {
-        if (this.detachTimer) 
+        if (this.detachTimer)
             window.clearTimeout(this.detachTimer);
         this.detachTimer = null;
     },
-    
+
 
     /**
      * Nav headers' back button clicked.
@@ -258,7 +258,7 @@ MediaListView.prototype = {
     },
     /**
      * Expects the container div to have a scroll bar.
-     */     
+     */
     scrollToSelectionForScrollBar: function()
     {
         var selectionElement = this.selection[0].element;
@@ -282,14 +282,14 @@ MediaListView.prototype = {
         var height = selectionElement.clientHeight;
 
         var containerHeight = this.element.clientHeight;
-        
+
         this.subviewsElement.style.top = -top + containerHeight/2 + height/2 + "px";
         this.updateVisibleItems();
     },
-    
+
     /**
      * Unselect selected elements
-     */    
+     */
     unselectAll: function()
     {
         for (var i = 0; i < this.selection.length; i++)
@@ -300,7 +300,7 @@ MediaListView.prototype = {
 
     /**
      * Select previous element
-     */        
+     */
     selectPrevious: function()
     {
         var index = this.subviews.length - 1;
@@ -317,13 +317,13 @@ MediaListView.prototype = {
 
     /**
      * Select next element
-     */            
+     */
     selectNext: function()
     {
         var index = 0;
         if (this.selection.length > 0)
             index = this.subviews.indexOf(this.selection[0]) + 1;
-            
+
         if (index >= this.subviews.length) {
             //beep();
             return;
@@ -333,8 +333,8 @@ MediaListView.prototype = {
 
     /**
      * Select specified element
-     * 
-     */                
+     *
+     */
     select: function(subitem)
     {
         this.unselectAll();
@@ -343,34 +343,34 @@ MediaListView.prototype = {
     },
 
     appendCocoaObject: function(cocoaObject, index)
-    {            
+    {
         var mediaView = new MediaView(cocoaObject, this, "li");
         this.subviews.push(mediaView);
-        
+
         if (this.isAttached)
             mediaView.attach(this.subviewsElement);
-        
+
         if (this.selection.length == 0)
             this.select(mediaView);
 
         this.updateVisibleItems();
     },
-    
+
     /**
      * Callback from KVC Cocoa bindings.
-     */                    
+     */
     createCocoaObject: function()
     {
         return new CocoaObject();
     },
-    
+
     /**
      * Callback from KVC Cocoa bindings
      * @param {CocoaObject} cocoaObject
      * @param {number} index
-     */                
+     */
     insertCocoaObject: function(cocoaObject, index)
-    {            
+    {
         this.appendCocoaObject(cocoaObject);
         this.updateVisibleItems();
     },
@@ -378,9 +378,9 @@ MediaListView.prototype = {
     /**
      * Callback from KVC Cocoa bindings
      * @param {number} index
-     */                    
+     */
     removeCocoaObjectAtIndex: function(index)
-    {        
+    {
         if (this.isAttached)
             this.subviews[index].detach();
 
@@ -388,7 +388,7 @@ MediaListView.prototype = {
 
         this.updateVisibleItems();
     },
-    
+
     setCocoaObjects: function(array)
     {
         console.profile("setCocoaObjects");
@@ -401,10 +401,10 @@ MediaListView.prototype = {
                 this.subviews[i].detachWithoutRemoving();
         }
         this.subviews = new Array();
-        
+
         // Create the new one and add it from here.
         this.subviewsElement = document.createElement("ul");
-                
+
 
         console.time("insertCocoaObject");
         for (var i = 0; i < array.length; i++)
@@ -421,10 +421,10 @@ MediaListView.prototype = {
 
         this.updateVisibleItems();
     },
-    
+
     /**
      * Callback from KVC Cocoa bindings
-     */                        
+     */
     removeAllInsertedCocoaObjects: function()
     {
         // Instead of removing elements one by one,
@@ -444,7 +444,7 @@ MediaListView.prototype = {
 
     /**
      * Callback from KVC Cocoa bindings
-     */         
+     */
     _arrayController: null,
     set arrayController(controller)
     {
@@ -455,7 +455,7 @@ MediaListView.prototype = {
     get arrayController()
     {
         return this._arrayController;
-    },    
+    },
     observe: function()
     {
         console.assert(!this.arrayController);

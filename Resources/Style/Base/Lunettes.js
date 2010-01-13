@@ -37,7 +37,7 @@ window.remoteButtonHandler = function (name)
 {
     /**
      * @type {NavigationController}
-     */    
+     */
     var navigationController = window.windowController.navigationController;
     if (!navigationController)
         return false;
@@ -54,7 +54,7 @@ window.remoteButtonHandler = function (name)
         return false;
 
     window.remoteButtonHandlerIsInPlaylistMode = document.body.hasClassName("show-playlist");
-    
+
     if (name == "menu") {
         window.remoteButtonHandlerIsInPlaylistMode = !window.remoteButtonHandlerIsInPlaylistMode;
         window.playlistController.setShowPlaylistView(window.remoteButtonHandlerIsInPlaylistMode);

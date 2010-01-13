@@ -39,7 +39,7 @@
 
 - (void)awakeFromNib
 {
-    [self setup];    
+    [self setup];
 }
 
 - (NSString *)pageName

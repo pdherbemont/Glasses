@@ -64,7 +64,7 @@ static NSString *contentOfTextResource(NSString *resource)
 
     [self setFrameRate:60.0];
     [self setAnimationBlockingMode:NSAnimationNonblocking];
-    
+
     return self;
 }
 
@@ -72,7 +72,7 @@ static NSString *contentOfTextResource(NSString *resource)
 {
     // Call super to update the progress value.
     [super setCurrentProgress:progress];
-    
+
     CGFloat value = [self currentValue];
     CGFloat realValue = _reverse ? 1 - value : value;
     [_textview scrollPoint:NSMakePoint(0, realValue * _textview.bounds.size.height)];
@@ -139,7 +139,7 @@ static NSString *contentOfTextResource(NSString *resource)
 
     /* setup the authors and thanks field */
     [_creditsTextView setString:[NSString stringWithFormat:@"%@\n%@\n\n%@",
-                                  [NSString stringWithFormat:contentOfTextResource(@"About"), 
+                                  [NSString stringWithFormat:contentOfTextResource(@"About"),
                                    [sharedLibrary version]],
                                   contentOfTextResource(@"Authors"),
                                   contentOfTextResource(@"Thanks")]];
@@ -187,11 +187,11 @@ static NSString *contentOfTextResource(NSString *resource)
 
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
-{    
+{
     NSAssert(!_animation, @"Should have been released");
     _animation = [[VLCTextScrollAnimation alloc] init];
     _animation.textview = _creditsTextView;
-    
+
     [_animation setDelegate:self];
     [_animation performSelector:@selector(startAnimation) withObject:nil afterDelay:3];
 }
@@ -207,7 +207,7 @@ static NSString *contentOfTextResource(NSString *resource)
     _rewindAnimation = [[VLCTextScrollAnimation alloc] init];
     _rewindAnimation.textview = _creditsTextView;
     _rewindAnimation.reverse = YES;
-    
+
     [_rewindAnimation setDelegate:self];
     [_rewindAnimation setDuration:2];
     [_rewindAnimation setAnimationCurve:NSAnimationEaseInOut];
@@ -216,7 +216,7 @@ static NSString *contentOfTextResource(NSString *resource)
         return;
     }
     [_rewindAnimation setCurrentProgress:progress];
-    [_rewindAnimation startAnimation];    
+    [_rewindAnimation startAnimation];
 }
 
 - (void)animationDidStop:(NSAnimation *)animation

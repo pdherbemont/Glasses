@@ -32,7 +32,7 @@
         NSUInteger selection = [[self selectionIndexes] firstIndex];
         if (selection != NSNotFound)
             [delegate collectionView:self doubleClickedOnItemAtIndex:selection];
-    }    
+    }
 }
 
 - (void)keyDown:(NSEvent *)theEvent

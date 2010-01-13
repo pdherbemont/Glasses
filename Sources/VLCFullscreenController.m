@@ -26,7 +26,7 @@
 
 static inline BOOL debugFullscreen(void)
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugFullscreen];    
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugFullscreen];
 }
 
 NSInteger VLCFullscreenWindowLevel(void)
@@ -84,7 +84,7 @@ static NSRect screenRectForView(NSView *view)
     NSRect screenRect = [[view superview] convertRect:[view frame] toView:nil]; // Convert to Window base coord
     NSRect windowFrame = [[view window] frame];
     screenRect.origin.x += windowFrame.origin.x;
-    screenRect.origin.y += windowFrame.origin.y;  
+    screenRect.origin.y += windowFrame.origin.y;
     return screenRect;
 }
 
@@ -163,9 +163,9 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     if (!_fullscreenWindow) {
         // We can't change the styleMask of an already created NSWindow,
         // so we create an other window, and do eye catching stuff
-        
+
         NSRect screenRect = screenRectForView(_view);
-        
+
         // Create the window now.
         _fullscreenWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
         [_fullscreenWindow setBackgroundColor:[NSColor blackColor]];
@@ -191,7 +191,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
             [self fullscreenDidStart];
             return;
         }
-        
+
         // Make sure we don't see the _view disappearing of the screen during this operation
         NSDisableScreenUpdates();
         [self _installPlaceholderView];
@@ -200,7 +200,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     }
 
     [self _stopAnimationsIfNeeded];
-    
+
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     [NSApp setPresentationOptions:NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar];
 #else
@@ -257,7 +257,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     // This might happen if we quickly exit fullscreen and release us.
     // Balanced in -fullscreenDidEnd
     [self retain];
-    
+
     if (fadeout) {
         CGDisplayFadeReservationToken token = fadeScreens();
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
@@ -271,7 +271,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     }
 
     [self _stopAnimationsIfNeeded];
-    
+
     NSRect screenRect = screenRectForView(_placeholderView);
 
     NSAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
@@ -305,7 +305,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     // Just clear all the animations.
     [self _stopAnimationsIfNeeded];
-    
+
     // Fullscreen ended or started (we are a delegate only for leaveFullscreen's/enterFullscren's anim2)
     if (self.fullscreen)
         [self fullscreenDidStart];
@@ -344,7 +344,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
         [_animation2 release];
         _animation1 = nil;
         _animation2 = nil;
-    }    
+    }
 }
 
 - (NSWindow *)_windowToHide

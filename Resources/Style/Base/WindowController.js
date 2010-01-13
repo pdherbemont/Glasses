@@ -14,7 +14,7 @@ WindowController.prototype = {
         /**
          * className that the WindowController uses
          * @enum {string}
-         */            
+         */
         ClassNames: {
             close: "close",
             miniaturize: "miniaturize",
@@ -29,14 +29,14 @@ WindowController.prototype = {
             resizePlatformWindow: "resize-platform-window",
             autohideWhenMouseLeaves: "autohide-when-mouse-leaves",
             dontHideWhenMouseIsInside: "dont-hide-when-mouse-is-inside",
-                
+
                 /* These are the 'callback' className */
             hidden: "hidden" /* On autohide-when-mouse-leaves elements */
         },
         /**
          * id that the WindowController uses
          * @enum {string}
-         */    
+         */
         Ids: {
             content: "content"
         }
@@ -45,17 +45,17 @@ WindowController.prototype = {
         /**
          * className that the WindowController expect the backend to use
          * @enum {string}
-         */            
+         */
         ClassNames: {
             playing: "playing"
         }
     },
-    
+
     init: function()
     {
         // Bind key-equivalent
         document.body.addEventListener('keydown', this.keyDown.bind(this), false);
-        
+
         // Bind the buttons.
         bindButtonByClassNameToMethod(this.Exported.ClassNames.close, this.close.bind(this));
         bindButtonByClassNameToMethod(this.Exported.ClassNames.miniaturize, this.miniaturize.bind(this));
@@ -63,19 +63,19 @@ WindowController.prototype = {
         bindButtonByClassNameToMethod(this.Exported.ClassNames.togglePlaying, this.togglePlaying.bind(this));
         bindButtonByClassNameToMethod(this.Exported.ClassNames.enterFullscreen, this.enterFullscreen.bind(this));
         bindButtonByClassNameToMethod(this.Exported.ClassNames.leaveFullscreen, this.leaveFullscreen.bind(this));
-        
+
         // Deal with HUD hidding.
         var buttons = document.getElementsByClassName(this.Exported.ClassNames.autohideWhenMouseLeaves);
         if (buttons.length > 0) {
             document.body.addEventListener('mousemove', this.revealAutoHiddenElements.bind(this), false);
-            bindByClassNameActionToMethod(this.Exported.ClassNames.dontHideWhenMouseIsInside, 'mouseover', this.interruptAutoHide.bind(this));        
+            bindByClassNameActionToMethod(this.Exported.ClassNames.dontHideWhenMouseIsInside, 'mouseover', this.interruptAutoHide.bind(this));
         }
-        
+
         // Make "draggable" elements draggable.
         var draggableElements = document.getElementsByClassName(this.Exported.ClassNames.draggable);
         for (var i = 0; i < draggableElements.length; i++)
-            window.dragController.init(draggableElements[i]);        
-        
+            window.dragController.init(draggableElements[i]);
+
         var elements = document.getElementsByClassName("ellapsed-time");
         for (i = 0; i < elements.length; i++)
             elements[i].bindKey("textContent", "mediaPlayer.time.stringValue");
@@ -83,15 +83,15 @@ WindowController.prototype = {
         elements = document.getElementsByClassName("remaining-time");
         for (i = 0; i < elements.length; i++)
             elements[i].bindKey("textContent", "mediaPlayer.remainingTime.stringValue");
-        
+
         var mediaList = document.getElementById("mediaList");
         if (mediaList) {
-            this.rootMediaList = new MediaListView(null);            
+            this.rootMediaList = new MediaListView(null);
             this.navigationController = new NavigationController;
             this.navigationController.attach(mediaList);
             this.navigationController.push(this.rootMediaList);
 
-            
+
             var search = document.getElementById("search-playlist");
             var options = new Object;
             options["NSPredicateFormatBindingOption"] = "metaDictionary.title contains[cd] $value";
@@ -100,24 +100,24 @@ WindowController.prototype = {
 
         // Bind the timeline.
         bindByClassNameActionToMethod(this.Exported.ClassNames.timeline, 'change', this.timelineValueChanged.bind(this));
-        
+
         // Make sure we'll be able to drag the window.
         bindByClassNameActionToMethod(this.Exported.ClassNames.dragPlatformWindow, 'mousedown', this.mouseDownForWindowDrag.bind(this));
-        
+
         // Make sure we'll be able to resize the window.
-        bindByClassNameActionToMethod(this.Exported.ClassNames.resizePlatformWindow, 'mousedown', this.mouseDownForWindowResize.bind(this));        
+        bindByClassNameActionToMethod(this.Exported.ClassNames.resizePlatformWindow, 'mousedown', this.mouseDownForWindowResize.bind(this));
     },
 
     PlatformWindowController: function()
     {
         return window.PlatformWindowController;
     },
-    
+
     PlatformWindow: function()
     {
         return window.PlatformWindow;
     },
-    
+
     /**
      * @param {string} className
      */
@@ -126,10 +126,10 @@ WindowController.prototype = {
         var content = document.getElementById(this.Exported.Ids.content);
         return content.hasClassName(className) != -1;
     },
-    
+
     /**
      * @param {string} className
-     */    
+     */
     removeClassNameFromContent: function(className)
     {
         var content = document.getElementById(this.Exported.Ids.content);
@@ -138,30 +138,30 @@ WindowController.prototype = {
 
     /**
      * @param {string} className
-     */    
+     */
     addClassNameToContent: function(className)
     {
         var content = document.getElementById(this.Exported.Ids.content);
         content.addClassName(className);
     },
-    
+
     // JS -> Core
-    
+
     close: function()
     {
         this.PlatformWindow().performClose();
     },
-    
+
     miniaturize: function()
     {
         this.PlatformWindow().miniaturize();
     },
-    
+
     zoom: function()
     {
         this.PlatformWindow().zoom();
     },
-    
+
     togglePlaying: function()
     {
         if(this.contentHasClassName(this.Imported.ClassNames.playing))
@@ -169,29 +169,29 @@ WindowController.prototype = {
         else
             window.PlatformView.play();
     },
-    
+
     enterFullscreen: function()
     {
         this.PlatformWindowController().enterFullscreen();
     },
-    
+
     leaveFullscreen: function()
     {
         this.PlatformWindowController().leaveFullscreen();
     },
-    
+
     videoResized: function()
     {
         if (window.PlatformView.videoDidResize)
             window.PlatformView.videoDidResize();
     },
-    
+
     windowResized: function()
     {
         this.videoResized();
     },
-    
-    
+
+
     windowFrame: function()
     {
         var platformWindow = this.PlatformWindow();
@@ -199,7 +199,7 @@ WindowController.prototype = {
         var size = { height: platformWindow.frameSizeHeight(), width: platformWindow.frameSizeWidth() };
         return { origin: origin, size: size };
     },
-    
+
     /*************************************************
      * Event handlers
      */
@@ -211,29 +211,29 @@ WindowController.prototype = {
     keyDown: function(event)
     {
         var key = event.keyCode;
-        
+
         // Space" key
-        if (key == 0x20) 
+        if (key == 0x20)
             this.togglePlaying();
     },
-    
+
     // Common
-    
+
     mouseDownPoint: null,
     windowFrameAtMouseDown: null,
 
     /**
      * @param {Event} event
-     */    
+     */
     saveMouseDownInfo: function(event)
     {
         this.mouseDownPoint = { x: event.screenX, y: event.screenY };
         this.windowFrameAtMouseDown = this.windowFrame();
     },
-    
+
     /**
      * @param {Event} event
-     */        
+     */
     timelineValueChanged: function(event)
     {
         if (window.PlatformView.isSeekable()) {
@@ -241,14 +241,14 @@ WindowController.prototype = {
             window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
         }
     },
-    
+
     /*************************************************
      * Window Drag
      */
 
     /**
      * @param {Event} event
-     */    
+     */
     mouseDownForWindowDrag: function(event)
     {
         // It is reasonnable to only allow click in div, to mouve the window
@@ -273,7 +273,7 @@ WindowController.prototype = {
 
     /**
      * @param {Event} event
-     */    
+     */
     mouseUpForWindowDrag: function(event)
     {
         document.removeEventListener('mouseup', this._mouseUpListener, false);
@@ -284,7 +284,7 @@ WindowController.prototype = {
 
     /**
      * @param {Event} event
-     */   
+     */
     mouseDraggedForWindowDrag: function(event)
     {
         var dx = this.mouseDownPoint.x - event.screenX;
@@ -292,24 +292,24 @@ WindowController.prototype = {
         var mouseDownOrigin = this.windowFrameAtMouseDown.origin;
         this.PlatformWindow().setFrameOrigin__(mouseDownOrigin.x - dx, mouseDownOrigin.y + dy);
     },
-    
+
     /*************************************************
      * Window Resize
      */
-    
+
     /**
      * @param {Event} event
-     */    
+     */
     mouseDownForWindowResize: function(event)
     {
         // It is reasonnable to only allow click in element that have a resize class
         if (!event.srcElement.hasClassName(this.Exported.ClassNames.resizePlatformWindow))
             return;
-        
+
         this.saveMouseDownInfo(event);
-        
+
         this.PlatformWindow().willStartLiveResize();
-        
+
         this._mouseUpForWindowResizeListener = this.mouseUpForWindowResize.bind(this);
         this._mouseDragForWindowResizeListener = this.mouseDraggedForWindowResize.bind(this);
         document.addEventListener('mouseup', this._mouseUpForWindowResizeListener, false);
@@ -318,30 +318,30 @@ WindowController.prototype = {
 
     /**
      * @param {Event} event
-     */    
+     */
     mouseUpForWindowResize: function(event)
     {
         document.removeEventListener('mouseup', this._mouseUpForWindowResizeListener, false);
         document.removeEventListener('mousemove', this._mouseDragForWindowResizeListener, false);
-        
+
         this.PlatformWindow().didEndLiveResize();
     },
 
     /**
      * @param {Event} event
-     */    
+     */
     mouseDraggedForWindowResize: function(event)
     {
         var dx = event.screenX - this.mouseDownPoint.x;
         var dy = event.screenY - this.mouseDownPoint.y;
         var mouseDownOrigin = this.windowFrameAtMouseDown.origin;
         var mouseDownSize = this.windowFrameAtMouseDown.size;
-        
+
         var platformWindow = this.PlatformWindow();
         platformWindow.setFrame(mouseDownOrigin.x, mouseDownOrigin.y - dy, mouseDownSize.width + dx, mouseDownSize.height + dy);
         this.windowResized();
     },
-    
+
     /*************************************************
      * HUD autohide
      */
@@ -350,18 +350,18 @@ WindowController.prototype = {
 
     /**
      * @param {Event} event
-     */    
+     */
     autoHideElements: function(event)
     {
         window.PlatformView.hideCursorUntilMouseMoves();
         this.addClassNameToContent(this.Exported.ClassNames.hidden);
     },
-    
+
     // We have a dummy mouseMove events that triggers "revealAutoHiddenElementsAndHideAfter"
     // that gets sent anyway. This makes the HUD show up when the HUD is put on screen.
     // This is not what we want so skip it.
     globalIsFirstMouseMove: true,
-    
+
     revealAutoHiddenElementsAndHideAfter: function(seconds, element)
     {
         if (this.globalIsFirstMouseMove) {
@@ -375,9 +375,9 @@ WindowController.prototype = {
             window.clearTimeout(timer);
         if (element && element.hasClassNameInAncestors(this.Exported.ClassNames.dontHideWhenMouseIsInside))
             return;
-        this.timer = window.setTimeout(this.autoHideElements.bind(this), seconds * 1000);    
+        this.timer = window.setTimeout(this.autoHideElements.bind(this), seconds * 1000);
     },
-    
+
     /**
      * @param {Event} event
      */

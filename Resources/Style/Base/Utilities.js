@@ -125,7 +125,7 @@ Function.prototype.bind = function(thisObject)
  * @param {Function} method
 */
 function bindButtonByClassNameToMethod(className, method)
-{			
+{
     bindByClassNameActionToMethod(className, 'click', method);
 }
 
@@ -154,7 +154,7 @@ Lunettes.bindByClassNameActionToMethod = bindByClassNameActionToMethod;
  * @param {Object} object
  * @param {string} keyPath2
  * @param {Object=} options
- */    
+ */
 Lunettes.connect = function (domobject, keyPath1, object, keyPath2, options)
 {
     if (object.backendObject)
@@ -166,7 +166,7 @@ Lunettes.connect = function (domobject, keyPath1, object, keyPath2, options)
 /**
  * @param {Object} object
  * @param {string} key
- */    
+ */
 Lunettes.unconnect = function (object, key)
 {
     window.PlatformView.unbindDOMObject(object, key);
@@ -175,7 +175,7 @@ Lunettes.unconnect = function (object, key)
 /**
  * @param {Object} object
  * @param {string} key
- */    
+ */
 Lunettes.willChange = function (object, key)
 {
     window.PlatformView.willChange(object, key);
@@ -184,7 +184,7 @@ Lunettes.willChange = function (object, key)
 /**
  * @param {Object} object
  * @param {string} key
- */    
+ */
 Lunettes.didChange = function (object, key)
 {
     window.PlatformView.didChange(object, key);

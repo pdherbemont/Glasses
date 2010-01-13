@@ -36,7 +36,7 @@
     BOOL _isClosed;
     BOOL _isSharedOnLAN;
     BOOL _repeatCurrentItem;
-    BOOL _repeatAllItems;    
+    BOOL _repeatAllItems;
 }
 
 - (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name;

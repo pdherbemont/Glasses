@@ -31,9 +31,9 @@ body {
     -webkit-box-shadow: 0px 2px 40px #000;
     -webkit-border-radius: 15px;
     border: 2px solid white;
-    
+
     top: -10000px; bottom: auto; left: 0; right: auto;
-    
+
     height: 70px;
     width: 400px;
 
@@ -275,7 +275,7 @@ ul li .name {
 
 ul li.selected .name {
     color: white;
-    -webkit-text-stroke: 0px; 
+    -webkit-text-stroke: 0px;
     text-shadow: 0px 0px 3px black;
     font-size: 35px;
     -webkit-transition: all 0.2s ease-out;

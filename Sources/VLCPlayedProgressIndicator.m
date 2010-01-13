@@ -13,23 +13,23 @@
 - (void)drawRect:(NSRect)rect
 {
     // Draw default to make sure the slider behaves correctly
-    
+
     NSRect bounds = [self bounds];
 
     bounds.origin.x += 2;
     bounds.origin.y += 2;
-    
+
     bounds.size.height -= 4;
     bounds.size.width -= 4;
-    
+
     NSRect originalBounds = bounds;
 
     bounds.origin.x += 1;
     bounds.origin.y += 1;
-    
+
     bounds.size.height -= 2;
     bounds.size.width -= 2;
-    
+
     double scale = [self maxValue] - [self minValue];
     if (scale > 0)
         bounds.size.width *= [self doubleValue] / scale;
@@ -54,7 +54,7 @@
                     [NSColor colorWithDeviceWhite:0.7 alpha:1], 0.6,
                     [NSColor colorWithDeviceWhite:0.65 alpha:1], 1.0, nil];;
         [gradient drawInBezierPath:content angle:90];
-        [gradient release];        
+        [gradient release];
     }
 }
 

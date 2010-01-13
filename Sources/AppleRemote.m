@@ -217,8 +217,8 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
         [center addObserver:self selector:@selector(applicationWillResignActive:)name:NSApplicationWillResignActiveNotification object:NSApp];
     } else {
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center removeObserver:self name:NSApplicationDidBecomeActiveNotification object:NSApp];        
-        [center removeObserver:self name:NSApplicationWillResignActiveNotification object:NSApp];        
+        [center removeObserver:self name:NSApplicationDidBecomeActiveNotification object:NSApp];
+        [center removeObserver:self name:NSApplicationWillResignActiveNotification object:NSApp];
     }
 }
 
@@ -443,7 +443,7 @@ static AppleRemote* sharedInstance=nil;
 
     @synchronized(self) {
         finishedClicking = (event != lastClickCountEvent || eventTimePoint == lastClickCountEventTime);
-        if (finishedClicking) 
+        if (finishedClicking)
             eventClickCount = 0;
     }
 
@@ -622,7 +622,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 
             //Get cookie
             id object = [element valueForKey:(NSString*)CFSTR(kIOHIDElementCookieKey)];
-            if (object == nil || ![object isKindOfClass:[NSNumber class]]) 
+            if (object == nil || ![object isKindOfClass:[NSNumber class]])
                 continue;
             if (object == 0 || CFGetTypeID(object) != CFNumberGetTypeID())
                 continue;
@@ -664,18 +664,18 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
         return FALSE;
     }
     //NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when opening HUD device");
-    
+
     queue = (*hidDeviceInterface)->allocQueue(hidDeviceInterface);
     NSAssert(queue, @"Error when creating async event source");
     result = (*queue)->create(queue, 0, 12);    //depth: maximum number of elements in queue before oldest elements in queue begin to be lost.
     NSAssert(result == kIOReturnSuccess, @"Can't init the remote");
-    
+
     NSUInteger i=0;
     for(i=0; i<[allCookies count]; i++) {
         IOHIDElementCookie cookie = (IOHIDElementCookie)[[allCookies objectAtIndex:i] intValue];
         (*queue)->addElement(queue, cookie, 0);
     }
-    
+
     // add callback for async events
     ioReturnValue = (*queue)->createAsyncEventSource(queue, &eventSource);
     NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when creating async event source");

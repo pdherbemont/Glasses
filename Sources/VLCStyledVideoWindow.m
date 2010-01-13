@@ -40,7 +40,7 @@ static inline BOOL debugStyledWindow(void)
 #ifdef DEBUG_STYLED_WINDOW
     return YES;
 #endif
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugStyledWindow];    
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugStyledWindow];
 }
 
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
@@ -48,7 +48,7 @@ static inline BOOL debugStyledWindow(void)
     self = [super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:YES];
     if (!self)
         return nil;
-    
+
     [self setMovableByWindowBackground:YES];
     [self setIgnoresMouseEvents:NO];
 
@@ -233,9 +233,9 @@ static inline BOOL debugStyledWindow(void)
         if (!NSIsEmptyRect(rect)) {
             CGFloat screenHeight = [screen frame].size.height;
             CGFloat windowHeight = [self frame].size.height;
-            
+
             if (screenHeight - y - windowHeight + rect.origin.y < 22 /* MenuBar height. FIXME: a define? */)
-                y = screenHeight + rect.origin.y - (22 + windowHeight);                    
+                y = screenHeight + rect.origin.y - (22 + windowHeight);
         }
     }
     [self setFrameOrigin:NSMakePoint(x, y)];
@@ -293,7 +293,7 @@ static inline BOOL debugStyledWindow(void)
         return NO;
     if (sel == @selector(didEndLiveResize))
         return NO;
-    
+
     return YES;
 }
 
@@ -302,7 +302,7 @@ static inline BOOL debugStyledWindow(void)
     if (sel == @selector(setFrame::::))
         return @"setFrame";
     return nil;
-}    
+}
 
 + (BOOL)isKeyExcludedFromWebScript:(const char *)name
 {

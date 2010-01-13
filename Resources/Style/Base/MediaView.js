@@ -17,10 +17,10 @@ var MediaView = function(cocoaObject, parent, elementTag)
     this.nameElement = document.createElement("div");
     this.nameElement.className = "name";
     this.nameElement.textContent = "Undefined";
-    
+
     this.imgElement = document.createElement("img");
     this.imgElement.className = "thumbnail";
-    
+
     this.revealSubitemsElement = document.createElement("div");
     this.revealSubitemsElement.className = "reveal-subitems hidden";
     this.revealSubitemsElement.textContent = ">";
@@ -37,15 +37,15 @@ var MediaView = function(cocoaObject, parent, elementTag)
 MediaView.prototype = {
     /**
      * @param {Node=} parentElement
-     */            
+     */
     attach: function(parentElement)
     {
         console.assert(!this.isAttached, "shouldn't be attached");
-    
+
         this.element.appendChild(this.imgElement);
         this.element.appendChild(this.nameElement);
         this.element.appendChild(this.revealSubitemsElement);
-        
+
         parentElement.appendChild(this.element);
 
         this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
@@ -59,7 +59,7 @@ MediaView.prototype = {
         this.isAttached = false;
     },
     detach: function()
-    {        
+    {
         this.element.detach();
     },
 
@@ -81,22 +81,22 @@ MediaView.prototype = {
             options["NSNullPlaceholderBindingOption"] = "noartwork.png";
             Lunettes.connect(this.imgElement, "src", this.cocoaObject, "metaDictionary.artworkURL", options);
             Lunettes.connect(this, "state", this.cocoaObject, "state");
-            Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");      
-            
+            Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
+
         } else {
             Lunettes.unconnect(this.nameElement, "textContent");
             Lunettes.unconnect(this.imgElement, "src");
             Lunettes.unconnect(this, "state");
-            Lunettes.unconnect(this, "subitemsCount");            
+            Lunettes.unconnect(this, "subitemsCount");
         }
     },
 
     /**
      * @type {number}
-     */                
+     */
     _state: 0,
     set state(state){
-        
+
         // Make sure if count is undef (which might be the case, especially
         // if one in the object of the binding is nil.
         // Default it to 0 instead of undefined.
@@ -111,13 +111,13 @@ MediaView.prototype = {
     get state(){
         return this._state;
     },
-    
+
     /**
      * @type {number}
-     */                
+     */
     _subitemsCount: 0,
     set subitemsCount(count){
-        
+
         // Make sure if count is undef (which might be the case, especially
         // if one in the object of the binding is nil.
         // Default it to 0 instead of undefined.
@@ -138,20 +138,20 @@ MediaView.prototype = {
     /**
      * Event Handler
      * @param {Event} event
-     */                    
+     */
     mouseDown: function(event)
     {
         if (!this.parent)
             return;
-        
+
         this.parent.select(this);
         event.stopPropagation();
     },
-    
+
     /**
      * Event Handler
      * @param {Event} event
-     */                        
+     */
     mouseDoubleClicked: function(event)
     {
         this.action();
@@ -160,7 +160,7 @@ MediaView.prototype = {
 
     /**
      * When double clicked
-     */                            
+     */
     action: function()
     {
         if (this.subitemsCount > 0) {
@@ -169,7 +169,7 @@ MediaView.prototype = {
             window.windowController.navigationController.push(listView);
         }
         else
-            window.PlatformView.playCocoaObject(this.cocoaObject);        
+            window.PlatformView.playCocoaObject(this.cocoaObject);
     }
-    
+
 }

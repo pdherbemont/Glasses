@@ -65,7 +65,7 @@
     id observer = [dict objectForKey:@"observer"];
     if (observer) {
         WebScriptObject *observer = [dict objectForKey:@"observer"];
-        
+
         NSInteger kind = [[change objectForKey:NSKeyValueChangeKindKey] intValue];
         id new = [change objectForKey:NSKeyValueChangeNewKey];
 
@@ -81,9 +81,9 @@
             for(NSUInteger i = 0; i < bufSize; i++) {
                 NSUInteger index = buf[i];
                 [setAsArray addObject:[NSNumber numberWithInt:index]];
-            }            
+            }
         }
-                
+
         switch (kind) {
             case NSKeyValueChangeSetting:
                 // I sometimes get NSNull value during setting but [object valueForKeyPath:keyPath]
@@ -114,7 +114,7 @@
                     NSAssert(child, @"createCocoaObject() should return something");
                     [child setValue:object forKey:@"backendObject"];
                     [observer callWebScriptMethod:@"insertCocoaObject" withArguments:[NSArray arrayWithObjects:child, [setAsArray objectAtIndex:i], nil]];
-                }                
+                }
                 break;
             case NSKeyValueChangeRemoval:
                 [observer callWebScriptMethod:@"removeCocoaObjectAtIndexes" withArguments:[NSArray arrayWithObject:setAsArray]];
@@ -125,7 +125,7 @@
                 break;
         }
         return;
-        
+
     }
     else {
         // We are in the case of a binding.
@@ -143,7 +143,7 @@
 {
     id object = [dict objectForKey:@"object"];
     NSString *keyPath = [dict objectForKey:@"keyPath"];
-        
+
     [object removeObserver:self forKeyPath:keyPath];
     [_observers removeObject:dict];
 }
@@ -207,7 +207,7 @@
         [domObject removeObserver:self forKeyPath:property];
     }
 
-    [_bindings removeObject:dict];    
+    [_bindings removeObject:dict];
 }
 
 - (void)handleEvent:(DOMEvent *)evt
@@ -220,7 +220,7 @@
         // Just abort.
         return;
     }
-    
+
     if ([[evt type] isEqualToString:@"input"]) {
         for (NSDictionary *dict in set) {
             id object = [dict objectForKey:@"object"];
@@ -243,7 +243,7 @@
         }
         return;
     }
-    
+
     // [evt type] == "DOMNodeRemoved"
     for (NSDictionary *dict in set)
         [self _removeBindingWithDict:dict];
@@ -264,7 +264,7 @@
         [node addEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
         [node addEventListener:@"input" listener:self useCapture:NO];
     }
-    
+
     if ([options objectForKey:NSPredicateFormatBindingOption]) {
         // In the case of a NSPredicateFormatBindingOption
         // we don't really know how to do the other way around.

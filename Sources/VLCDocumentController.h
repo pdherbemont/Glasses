@@ -34,7 +34,7 @@
     IBOutlet NSMenuItem * _audioTrackSelectorMenuItem;
     IBOutlet NSMenuItem * _chapterSelectorMenuItem;
     IBOutlet NSMenuItem * _titleSelectorMenuItem;
-    
+
     id _currentDocument;
 }
 

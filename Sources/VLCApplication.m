@@ -235,12 +235,12 @@
             NSInteger keyFlags = [event data1] & 0x0000FFFF;
             NSInteger keyState = ((keyFlags & 0xFF00) >> 8) == 0xA;
             NSInteger keyRepeat = keyFlags & 0x1;
-            
+
             VLCMediaPlayer *mediaPlayer = [[[[NSDocumentController sharedDocumentController] currentDocument] mediaListPlayer] mediaPlayer];
-            
+
             if (keyCode == NX_KEYTYPE_PLAY && keyState == 0 && [mediaPlayer canPause])
                 [mediaPlayer pause];
-            
+
             /* _hasJustJumped is required as the keyboard sends its events faster than the user can actually jump through his/her media */
             if (keyCode == NX_KEYTYPE_FAST && !_hasJustJumped) {
                 if (keyRepeat == 1) {
@@ -249,7 +249,7 @@
                     [self performSelector:@selector(resetJump) withObject:nil afterDelay:0.25];
                 }
             }
-            
+
             if (keyCode == NX_KEYTYPE_REWIND && !_hasJustJumped) {
                 if (keyRepeat == 1) {
                     [mediaPlayer shortJumpBackward];
@@ -283,7 +283,7 @@
 
 - (IBAction)runCommandLineVLC:(id)sender
 {
-    static const char const *scriptFormat = 
+    static const char const *scriptFormat =
     "tell application \"Terminal\"\n"
     "activate\n"
     "do script \"export PATH=%@:$PATH\nvlc -H | less\"\n"
@@ -297,7 +297,7 @@
 
     NSAppleScript *script = [[NSAppleScript alloc] initWithSource:
                              [NSString stringWithFormat:[NSString stringWithUTF8String:scriptFormat], vlc]];
-    
+
     [script executeAndReturnError:nil];
     [script release];
 }

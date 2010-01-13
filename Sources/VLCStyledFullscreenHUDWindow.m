@@ -59,7 +59,7 @@ static inline BOOL debugStyledWindow(void)
 - (void)becomeMainWindow
 {
     [super becomeMainWindow];
-    
+
     // -[NSDocumentController currentDocument] doesn't send Notification
     // when changed. Our Bindings (in MainWindow.xib) don't update as a result.
     // Post it here, and in -becomeMainWindow.

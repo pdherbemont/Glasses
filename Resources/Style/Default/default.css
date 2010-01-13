@@ -228,7 +228,7 @@ input[type=search] {
     overflow: hidden;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#777777), to(#333333));
     border-left: thin #aaa solid;
-    
+
     -webkit-box-sizing: border-box;
 }
 
@@ -355,6 +355,6 @@ input[type=search] {
     padding: 5px;
     padding-right: 15px;
     text-shadow: 0 1px 1px rgba(0,0,0,1);
-    
+
     -webkit-text-wrap: -webkit-unrestricted;
 }

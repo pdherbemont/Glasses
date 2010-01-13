@@ -40,12 +40,12 @@
 
     NSString *_lunettesStyleRoot;
     NSMutableArray *_resourcesFilePathArray;
-    
+
     VLCPathWatcher *_pathWatcher;
     VLCWebBindingsController *_bindings;
 
     BOOL _isFrameLoaded;
-    BOOL _hasLoadedAFirstFrame;    
+    BOOL _hasLoadedAFirstFrame;
     BOOL _viewedPlaying;
     BOOL _seekable;
     BOOL _showPlaylist;
