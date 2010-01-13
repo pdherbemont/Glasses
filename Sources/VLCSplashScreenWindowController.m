@@ -78,8 +78,8 @@
 #else
         id representedObject = [[[NSUserDefaults standardUserDefaults] arrayForKey:kUnfinishedMoviesAsArray] objectAtIndex:index];
 #endif
-        NSURL *url = [NSURL URLWithString:[[representedObject objectForKey:@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        double position = [[representedObject objectForKey:@"position"] doubleValue];
+        NSURL *url = [NSURL URLWithString:[representedObject valueForKey:@"url"]];
+        double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
     }
 }

@@ -230,36 +230,46 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position withRemainingTime:(VLCTime *)remainingTime
 {
-    NSString *fileName = [[media url] lastPathComponent];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *unfinishedMovies = [NSMutableArray arrayWithArray:[defaults arrayForKey:kUnfinishedMoviesAsArray]];
-    NSDictionary *thisMovie = nil;
-    for (NSDictionary *dict in unfinishedMovies) {
-        NSString *otherFileName = [[[dict objectForKey:@"url"] lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        if ([otherFileName isEqualToString:fileName]) {
-            thisMovie = [[dict retain] autorelease];
-            break;
+    NSManagedObject *movie = nil;
+
+    // Try to find an entry for that media
+    // FIXME - cache the result?
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:_managedObjectContext];
+    [request setFetchLimit:1];
+    [request setEntity:entity];
+    [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"url LIKE[c] %@", [media.url description]]];
+
+    NSArray *results = [_managedObjectContext executeFetchRequest:request error:nil];
+    [request release];
+
+    if ([results count] > 0)
+        movie = [results objectAtIndex:0];
+
+    // Remove/don't save if we are nearly done or if the length is less than 30 secs.
+    if (position > 0.99 || [[media length] intValue] < 30) {
+        if (movie) {
+            [movie setValue:[NSNumber numberWithInt:0] forKey:@"lastPosition"];
+            [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
         }
+        return;
     }
-    if (position > 0.99) {
-        if (thisMovie)
-            [unfinishedMovies removeObject:thisMovie];
+
+    NSNumber *oldposition = [movie valueForKey:@"lastPosition"];
+    if (oldposition && position < [oldposition doubleValue])
+        return;
+    if (!movie) {
+        movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:_managedObjectContext];
+        [movie setValue:[media.url description] forKey:@"url"];
     }
-    else {
-        NSNumber *oldposition = [thisMovie objectForKey:@"position"];
-        if (!oldposition || position > [oldposition doubleValue]) {
-            NSDictionary * dict = [NSDictionary dictionaryWithObjectsAndKeys:
-             [[[media url] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], @"url",
-             [NSNumber numberWithDouble:position], @"position",
-             [remainingTime numberValue], @"remainingTime",
-             nil];
-            if (thisMovie)
-                [unfinishedMovies replaceObjectAtIndex:[unfinishedMovies indexOfObject:thisMovie] withObject:dict];
-            else
-                [unfinishedMovies insertObject:dict atIndex:0];
-        }
-    }
-    [defaults setObject:unfinishedMovies forKey:kUnfinishedMoviesAsArray];
+
+    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"currentlyWatching"];
+    [movie setValue:[NSNumber numberWithDouble:position] forKey:@"lastPosition"];
+    [movie setValue:[remainingTime numberValue] forKey:@"remainingTime"];
+
+    [movie setValue:[media valueForKeyPath:@"metaDictionary.title"] forKey:@"title"];
+    [_managedObjectContext save:nil];
 }
 
 #pragma mark -
@@ -321,4 +331,54 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [self cleanAndRecreateMainMenu];
 }
 
+#pragma mark -
+#pragma mark Media Library
+- (NSManagedObjectModel *)managedObjectModel
+{
+    if (_managedObjectModel)
+        return _managedObjectModel;
+
+    _managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
+    return _managedObjectModel;
+}
+
+- (NSString *)applicationSupportFolder
+{
+    NSString *applicationSupportFolder = nil;
+    FSRef foundRef;
+    OSErr err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, &foundRef);
+    NSAssert(err == noErr, @"Can't find application support folder");
+
+    unsigned char path[1024];
+    FSRefMakePath(&foundRef, path, sizeof(path));
+    applicationSupportFolder = [NSString stringWithUTF8String:(char *)path];
+    applicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"org.videolan.Lunettes"];
+
+    return applicationSupportFolder;
+}
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    if (_managedObjectContext)
+        return _managedObjectContext;
+
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *applicationSupportFolder = [self applicationSupportFolder];
+    if (![fileManager fileExistsAtPath:applicationSupportFolder isDirectory:NULL])
+        [fileManager createDirectoryAtPath:applicationSupportFolder withIntermediateDirectories:YES attributes:nil error:nil];
+
+    NSURL *url = [NSURL fileURLWithPath: [applicationSupportFolder stringByAppendingPathComponent: @"MediaLibrary.sqlite"]];
+    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+
+    NSError *error;
+    if ([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]){
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator: coordinator];
+    } else
+        [[NSApplication sharedApplication] presentError:error];
+    [coordinator release];
+
+    return _managedObjectContext;
+
+}
 @end

@@ -36,6 +36,9 @@
     IBOutlet NSMenuItem * _titleSelectorMenuItem;
 
     id _currentDocument;
+
+    NSManagedObjectContext *_managedObjectContext;
+    NSManagedObjectModel   *_managedObjectModel;
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
