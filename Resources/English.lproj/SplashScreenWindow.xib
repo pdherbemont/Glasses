@@ -485,14 +485,6 @@
 				<string key="NSFrameSize">{318, 56}</string>
 			</object>
 			<object class="NSCollectionViewItem" id="432637563"/>
-			<object class="NSArrayController" id="649524055">
-				<bool key="NSEditable">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
-				<bool key="NSPreservesSelection">YES</bool>
-				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-			</object>
 			<object class="NSView" id="310541180">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">258</int>
@@ -676,6 +668,32 @@
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
 					<string key="NSEntityName">File</string>
+					<object class="NSComparisonPredicate" key="NSFetchPredicate">
+						<object class="NSKeyPathExpression" key="NSLeftExpression">
+							<int key="NSExpressionType">3</int>
+							<string key="NSSelectorName">valueForKey:</string>
+							<object class="NSSelfExpression" key="NSOperand">
+								<int key="NSExpressionType">1</int>
+							</object>
+							<object class="NSMutableArray" key="NSArguments">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSKeyPathSpecifierExpression">
+									<int key="NSExpressionType">10</int>
+									<string key="NSKeyPath">currentlyWatching</string>
+								</object>
+							</object>
+						</object>
+						<object class="NSConstantValueExpression" key="NSRightExpression">
+							<int key="NSExpressionType">0</int>
+							<boolean value="YES" key="NSConstantValue"/>
+						</object>
+						<object class="NSEqualityPredicateOperator" key="NSPredicateOperator">
+							<int key="NSOperatorType">4</int>
+							<int key="NSModifier">0</int>
+							<bool key="NSNegate">NO</bool>
+							<int key="NSOptions">0</int>
+						</object>
+					</object>
 				</object>
 				<bool key="_NSIsUsingManagedProxy">YES</bool>
 				<bool key="NSAvoidsEmptySelection">YES</bool>
@@ -1111,7 +1129,7 @@
 						<string key="label">argument: representedObject</string>
 						<reference key="source" ref="517333551"/>
 						<reference key="destination" ref="432637563"/>
-						<object class="NSNibBindingConnector" key="connector" id="473424092">
+						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="517333551"/>
 							<reference key="NSDestination" ref="432637563"/>
 							<string key="NSLabel">argument: representedObject</string>
@@ -1125,56 +1143,6 @@
 						</object>
 					</object>
 					<int key="connectionID">300</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">target: self</string>
-						<reference key="source" ref="517333551"/>
-						<reference key="destination" ref="649524055"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="517333551"/>
-							<reference key="NSDestination" ref="649524055"/>
-							<string key="NSLabel">target: self</string>
-							<string key="NSBinding">target</string>
-							<string key="NSKeyPath">self</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSSelectorName</string>
-								<string key="NS.object.0">removeObject:</string>
-							</object>
-							<reference key="NSPreviousConnector" ref="473424092"/>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">301</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: values.UnfinishedMoviesAsArray</string>
-						<reference key="source" ref="649524055"/>
-						<reference key="destination" ref="535830631"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="649524055"/>
-							<reference key="NSDestination" ref="535830631"/>
-							<string key="NSLabel">contentArray: values.UnfinishedMoviesAsArray</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">values.UnfinishedMoviesAsArray</string>
-							<object class="NSDictionary" key="NSOptions">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSArray" key="dict.sortedKeys">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<string>NSDeletesObjectsOnRemove</string>
-									<string>NSHandlesContentAsCompoundValue</string>
-								</object>
-								<object class="NSMutableArray" key="dict.values">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<boolean value="YES"/>
-									<boolean value="YES"/>
-								</object>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">304</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1566,12 +1534,6 @@
 						<reference key="parent" ref="218344851"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">182</int>
-						<reference key="object" ref="649524055"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Recent Items Array Controller</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">156</int>
 						<reference key="object" ref="310541180"/>
 						<object class="NSMutableArray" key="children">
@@ -1720,7 +1682,6 @@
 					<string>177.IBPluginDependency</string>
 					<string>179.IBPluginDependency</string>
 					<string>180.IBPluginDependency</string>
-					<string>182.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
 					<string>234.IBPluginDependency</string>
 					<string>235.IBPluginDependency</string>
@@ -1775,7 +1736,6 @@
 					<string>VLCCollectionView</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{286, 556}, {314, 57}}</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
