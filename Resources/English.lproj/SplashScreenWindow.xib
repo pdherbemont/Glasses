@@ -22,8 +22,8 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="159"/>
-			<integer value="99"/>
-			<integer value="2"/>
+			<integer value="46"/>
+			<integer value="491"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -53,7 +53,7 @@
 			<object class="NSWindowTemplate" id="1005">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{196, 237}, {586, 273}}</string>
+				<string key="NSWindowRect">{{196, 227}, {586, 290}}</string>
 				<int key="NSWTFlags">1610613760</int>
 				<string key="NSWindowTitle">Lunettes</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -123,7 +123,7 @@
 						<object class="BWAddRegularBottomBar" id="689850389">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{257, 7}, {46, 46}}</string>
+							<string key="NSFrame">{{257, 24}, {46, 46}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 						</object>
 						<object class="BWSplitView" id="593631472">
@@ -174,7 +174,7 @@
 													</object>
 												</object>
 											</object>
-											<string key="NSFrame">{{0, 221}, {293, 18}}</string>
+											<string key="NSFrame">{{0, 238}, {293, 18}}</string>
 											<reference key="NSSuperview" ref="712938905"/>
 											<object class="NSColor" key="BWGBFillStartingColor">
 												<int key="NSColorSpace">1</int>
@@ -215,7 +215,7 @@
 														<object class="NSCollectionView" id="418777006">
 															<reference key="NSNextResponder" ref="41784941"/>
 															<int key="NSvFlags">4370</int>
-															<string key="NSFrameSize">{293, 221}</string>
+															<string key="NSFrameSize">{293, 238}</string>
 															<reference key="NSSuperview" ref="41784941"/>
 															<string key="NSMinGridSize">{0, 0}</string>
 															<string key="NSMaxGridSize">{0, 0}</string>
@@ -241,7 +241,7 @@
 															<int key="NSDraggingSourceMaskForNonLocal">0</int>
 														</object>
 													</object>
-													<string key="NSFrameSize">{293, 221}</string>
+													<string key="NSFrameSize">{293, 238}</string>
 													<reference key="NSSuperview" ref="778521341"/>
 													<reference key="NSNextKeyView" ref="418777006"/>
 													<reference key="NSDocView" ref="418777006"/>
@@ -269,7 +269,7 @@
 													<double key="NSPercent">0.63157892227172852</double>
 												</object>
 											</object>
-											<string key="NSFrameSize">{293, 221}</string>
+											<string key="NSFrameSize">{293, 238}</string>
 											<reference key="NSSuperview" ref="712938905"/>
 											<reference key="NSNextKeyView" ref="41784941"/>
 											<int key="NSsFlags">560</int>
@@ -278,7 +278,7 @@
 											<reference key="NSContentView" ref="41784941"/>
 										</object>
 									</object>
-									<string key="NSFrameSize">{293, 239}</string>
+									<string key="NSFrameSize">{293, 256}</string>
 									<reference key="NSSuperview" ref="593631472"/>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -315,7 +315,7 @@
 													</object>
 												</object>
 											</object>
-											<string key="NSFrame">{{0, 221}, {292, 18}}</string>
+											<string key="NSFrame">{{0, 238}, {292, 18}}</string>
 											<reference key="NSSuperview" ref="191108715"/>
 											<object class="NSColor" key="BWGBFillStartingColor">
 												<int key="NSColorSpace">1</int>
@@ -356,7 +356,7 @@
 														<object class="NSCollectionView" id="749851491">
 															<reference key="NSNextResponder" ref="350843429"/>
 															<int key="NSvFlags">4370</int>
-															<string key="NSFrameSize">{292, 221}</string>
+															<string key="NSFrameSize">{292, 238}</string>
 															<reference key="NSSuperview" ref="350843429"/>
 															<int key="NSViewLayerContentsRedrawPolicy">2</int>
 															<string key="NSMinGridSize">{0, 0}</string>
@@ -376,7 +376,7 @@
 															<int key="NSDraggingSourceMaskForNonLocal">0</int>
 														</object>
 													</object>
-													<string key="NSFrameSize">{292, 221}</string>
+													<string key="NSFrameSize">{292, 238}</string>
 													<reference key="NSSuperview" ref="362060333"/>
 													<reference key="NSNextKeyView" ref="749851491"/>
 													<reference key="NSDocView" ref="749851491"/>
@@ -407,7 +407,7 @@
 													<double key="NSPercent">0.63157892227172852</double>
 												</object>
 											</object>
-											<string key="NSFrameSize">{292, 221}</string>
+											<string key="NSFrameSize">{292, 238}</string>
 											<reference key="NSSuperview" ref="191108715"/>
 											<reference key="NSNextKeyView" ref="350843429"/>
 											<int key="NSsFlags">528</int>
@@ -416,12 +416,12 @@
 											<reference key="NSContentView" ref="350843429"/>
 										</object>
 									</object>
-									<string key="NSFrame">{{294, 0}, {292, 239}}</string>
+									<string key="NSFrame">{{294, 0}, {292, 256}}</string>
 									<reference key="NSSuperview" ref="593631472"/>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
-							<string key="NSFrame">{{0, 34}, {586, 239}}</string>
+							<string key="NSFrame">{{0, 34}, {586, 256}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">2</int>
@@ -497,7 +497,7 @@
 							</object>
 						</object>
 					</object>
-					<string key="NSFrameSize">{586, 273}</string>
+					<string key="NSFrameSize">{586, 290}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -695,7 +695,7 @@
 						<reference key="NSFillColor2" ref="558775409"/>
 					</object>
 				</object>
-				<string key="NSFrameSize">{179, 58}</string>
+				<string key="NSFrameSize">{179, 60}</string>
 				<reference key="NSSuperview"/>
 			</object>
 			<object class="NSCollectionViewItem" id="432637563"/>
@@ -1684,11 +1684,11 @@
 						<reference key="object" ref="1006"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="134008429"/>
-							<reference ref="434140271"/>
 							<reference ref="689850389"/>
-							<reference ref="685583709"/>
 							<reference ref="593631472"/>
+							<reference ref="434140271"/>
+							<reference ref="134008429"/>
+							<reference ref="685583709"/>
 						</object>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -2191,9 +2191,9 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{63, 456}, {586, 273}}</string>
+					<string>{{63, 439}, {586, 290}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{63, 456}, {586, 273}}</string>
+					<string>{{63, 439}, {586, 290}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -2238,7 +2238,7 @@
 					<string>VLCCollectionView</string>
 					<reference ref="108110053"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{234, 365}, {179, 58}}</string>
+					<string>{{234, 363}, {179, 60}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.brandonwalkin.BWToolkit</string>
