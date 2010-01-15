@@ -54,6 +54,7 @@
     [window setDelegate:self];
     NSAssert(_mediaDiscoverCollection, @"There is no collectionView");
     NSAssert(_unfinishedItemsCollection, @"There is no collectionView");
+    [_unfinishedItemsCollection registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
@@ -101,6 +102,35 @@
         [_mediaDiscoverCollection setSelectionIndexes:[NSIndexSet indexSet]];
 
     self.hasSelection = ([[_unfinishedItemsCollection selectionIndexes] count] > 0) || [[_mediaDiscoverCollection selectionIndexes] count] > 0 || [set count] > 0;
+}
+
+- (NSDragOperation)collectionView:(NSCollectionView *)collectionView validateDrop:(id < NSDraggingInfo >)draggingInfo proposedIndex:(NSInteger *)proposedDropIndex dropOperation:(NSCollectionViewDropOperation *)proposedDropOperation
+{
+    if (collectionView == _mediaDiscoverCollection)
+        return NSDragOperationNone;
+    NSLog(@"Accept drop");
+
+    return NSDragOperationGeneric;
+
+}
+
+- (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id < NSDraggingInfo >)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation
+{
+    NSAssert(collectionView == _unfinishedItemsCollection, @"Not the right collectionView");
+    NSPasteboard *pboard = [draggingInfo draggingPasteboard];
+    NSArray *array = [pboard propertyListForType:NSFilenamesPboardType];
+    NSAssert([array count] > 0, @"There should be at least one item dropped");
+
+    VLCMedia *media = [VLCMedia mediaWithPath:[array objectAtIndex:0]];
+
+    // Trigger preparsing
+    [media length];
+
+    // FIXME - This is blocking and we don't have any fallback
+    [media lengthWaitUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
+
+    [[self documentController] media:media wasClosedAtPosition:0 withRemainingTime:[media length]];
+    return YES;
 }
 
 - (IBAction)openSelection:(id)sender
