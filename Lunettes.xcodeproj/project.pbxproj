@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4AFE8A6810E6F2DA00FD5ACD /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
+		4AFE8A7010E6F34800FD5ACD /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
 		6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
 		6301464C104098C500534090 /* VLCVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464B104098C500534090 /* VLCVideoWindowController.m */; };
 		63014653104098D300534090 /* VLCStyledVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464E104098D300534090 /* VLCStyledVideoWindow.m */; };
@@ -252,6 +254,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4AFE8A7010E6F34800FD5ACD /* BWToolkitFramework.framework in Copy Frameworks */,
 				CC566421103C9F6300FEA1D3 /* Sparkle.framework in Copy Frameworks */,
 				631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */,
 			);
@@ -266,6 +269,7 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = Frameworks/BWToolkitFramework.framework; sourceTree = "<group>"; };
 		630141D5104062B300534090 /* Common Settings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Common Settings.xcconfig"; sourceTree = "<group>"; };
 		630143AA1040726600534090 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		6301464B104098C500534090 /* VLCVideoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCVideoWindowController.m; path = Sources/VLCVideoWindowController.m; sourceTree = "<group>"; };
@@ -515,6 +519,7 @@
 				CCBB290710EF6E5500055641 /* Carbon.framework in Frameworks */,
 				CC73DEBD10F0F669001FEFE4 /* WebKit.framework in Frameworks */,
 				CC73DED310F0F6A0001FEFE4 /* JavaScriptCore.framework in Frameworks */,
+				4AFE8A6810E6F2DA00FD5ACD /* BWToolkitFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +536,7 @@
 				CCBB290610EF6E5500055641 /* Carbon.framework */,
 				CC73DEBC10F0F669001FEFE4 /* WebKit.framework */,
 				CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */,
+				4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -1301,7 +1307,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/usr/bin/env ruby";
-			shellScript = "#!/usr/bin/env ruby\n \n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n \n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n \n# Create new tags with \"git tag <version> -m <message>\"\n \n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n \n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n \n \ngitnum = `/usr/bin/env git describe --always`.chomp()\nversion = \"#{gitnum}\"\ninfo_file = File.join(ENV['BUILT_PRODUCTS_DIR'], ENV['INFOPLIST_PATH'])\ninfo = File.open(info_file, \"r\").read\n \nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbefore = $1\nafter = $2\nif !after || !before\n   puts \"Invalid Info.plist (no CFBundleVersion key).\"\n\tputs info\n   exit 1\nend\n\nbundle_version_string = before + version + after\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"\n";
+			shellScript = "#!/usr/bin/env ruby\n \n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n \n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n \n# Create new tags with \"git tag <version> -m <message>\"\n \n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n \n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n \n \ngitnum = `git describe --always`.chomp()\nversion = \"#{gitnum}\"\ninfo_file = File.join(ENV['BUILT_PRODUCTS_DIR'], ENV['INFOPLIST_PATH'])\ninfo = File.open(info_file, \"r\").read\n \nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbefore = $1\nafter = $2\nif !after || !before\n   puts \"Invalid Info.plist (no CFBundleVersion key).\"\n\tputs info\n   exit 1\nend\n\nbundle_version_string = before + version + after\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1492,6 +1498,7 @@
 					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
+					"\"$(SRCROOT)/../../../Development/Mac/BWToolkit 1.2.2\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -1817,6 +1824,7 @@
 					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
+					"\"$(SRCROOT)/../../../Development/Mac/BWToolkit 1.2.2\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -1842,6 +1850,7 @@
 					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
+					"\"$(SRCROOT)/../../../Development/Mac/BWToolkit 1.2.2\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

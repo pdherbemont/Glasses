@@ -12,5 +12,5 @@
 @interface VLCPlayedProgressIndicator : NSSlider {
 
 }
-
+- (NSGradient *)progressGradientForColor:(NSColor *)baseColor;
 @end
