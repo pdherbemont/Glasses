@@ -46,6 +46,7 @@
 
     [window center];
     [window setDelegate:self];
+    NSAssert(_mediaDiscoverCollection, @"There is no collectionView");
 }
 
 - (void)windowWillClose:(NSNotification *)notification
