@@ -24,10 +24,15 @@
 
 @interface VLCSplashScreenWindowController : NSWindowController
 {
+    IBOutlet NSCollectionView *_unfinishedItemsCollection;
     IBOutlet NSCollectionView *_mediaDiscoverCollection;
     IBOutlet NSArrayController *_mediaDiscovererArrayController;
 }
 
 @property (retain, readonly) NSArray *availableMediaDiscoverer;
-- (IBAction)openSelectedMediaDiscoverer:(id)sender;
+
+/* Used in xib, for the "Open" button enabled state */
+@property (assign, readonly) BOOL hasSelection;
+
+- (IBAction)openSelection:(id)sender;
 @end

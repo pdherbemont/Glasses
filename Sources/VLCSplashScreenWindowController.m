@@ -27,7 +27,13 @@
 @end
 #endif
 
+@interface VLCSplashScreenWindowController ()
+@property (assign, readwrite) BOOL hasSelection;
+@end
+
+
 @implementation VLCSplashScreenWindowController
+@synthesize hasSelection;
 
 - (NSArray *)availableMediaDiscoverer
 {
@@ -47,6 +53,7 @@
     [window center];
     [window setDelegate:self];
     NSAssert(_mediaDiscoverCollection, @"There is no collectionView");
+    NSAssert(_unfinishedItemsCollection, @"There is no collectionView");
 }
 
 - (void)windowWillClose:(NSNotification *)notification
@@ -83,19 +90,29 @@
         double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
     }
+    [[self window] resignMainWindow];
 }
 
-- (IBAction)openSelectedMediaDiscoverer:(id)sender
+- (void)collectionView:(NSCollectionView *)collectionView willChangeSelectionIndexes:(NSIndexSet *)set
+{
+    if (collectionView == _mediaDiscoverCollection)
+        [_unfinishedItemsCollection setSelectionIndexes:[NSIndexSet indexSet]];
+    else
+        [_mediaDiscoverCollection setSelectionIndexes:[NSIndexSet indexSet]];
+
+    self.hasSelection = ([[_unfinishedItemsCollection selectionIndexes] count] > 0) || [[_mediaDiscoverCollection selectionIndexes] count] > 0 || [set count] > 0;
+}
+
+- (IBAction)openSelection:(id)sender
 {
     NSAssert(_mediaDiscoverCollection, @"Should be binded");
-    NSInteger index = [[_mediaDiscoverCollection selectionIndexes] firstIndex];
-    NSAssert(index != NSNotFound, @"We shouldn't have received this action in the first place");
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-    id object = [[_mediaDiscoverCollection itemAtIndex:index] representedObject];
-#else
-    id object = [_mediaDiscovererArrayController objectAtIndex:index];
-#endif
-    [[VLCDocumentController sharedDocumentController] makeDocumentWithObject:object];
-    [[self window] resignMainWindow];
+    NSIndexSet *discoverers = [_mediaDiscoverCollection selectionIndexes];
+    NSIndexSet *unfinished = [_unfinishedItemsCollection selectionIndexes];
+    if ([discoverers count] > 0)
+        [self collectionView:_mediaDiscoverCollection doubleClickedOnItemAtIndex:[discoverers firstIndex]];
+    else if ([unfinished count] > 0)
+         [self collectionView:_unfinishedItemsCollection doubleClickedOnItemAtIndex:[unfinished firstIndex]];
+    else
+         VLCAssertNotReached(@"We shouldn't have received this action in the first place");
 }
 @end

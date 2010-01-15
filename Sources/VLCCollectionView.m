@@ -43,12 +43,30 @@
         [super keyDown:theEvent];
 }
 
+- (void)selectionWillChangeToIndexSet:(NSIndexSet *)set
+{
+    if (_isSelectionChanging)
+        return;
+
+    _isSelectionChanging = YES;
+    id delegate = [self delegate];
+    if ([delegate respondsToSelector:@selector(collectionView:willChangeSelectionIndexes:)])
+        [delegate collectionView:self willChangeSelectionIndexes:set];
+    _isSelectionChanging = NO;
+}
+
 - (void)mouseDown:(NSEvent *)theEvent
 {
     if ([theEvent clickCount] == 2)
         [self sendActionOnSelectedItem];
 
     [super mouseDown:theEvent];
+}
+
+- (void)setSelectionIndexes:(NSIndexSet *)indexes;
+{
+    [self selectionWillChangeToIndexSet:indexes];
+    [super setSelectionIndexes:indexes];
 }
 
 @end

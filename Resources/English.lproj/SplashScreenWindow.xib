@@ -23,7 +23,7 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="159"/>
 			<integer value="99"/>
-			<integer value="481"/>
+			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -700,6 +700,10 @@
 			</object>
 			<object class="NSCollectionViewItem" id="432637563"/>
 			<object class="NSArrayController" id="649524055">
+				<object class="NSMutableArray" key="NSDeclaredKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>title</string>
+				</object>
 				<bool key="NSEditable">YES</bool>
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
@@ -1109,43 +1113,6 @@
 						</object>
 					</object>
 					<int key="connectionID">119</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">openSelectedMediaDiscoverer:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="134008429"/>
-					</object>
-					<int key="connectionID">126</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: selection.localizedName</string>
-						<reference key="source" ref="134008429"/>
-						<reference key="destination" ref="872776482"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="134008429"/>
-							<reference key="NSDestination" ref="872776482"/>
-							<string key="NSLabel">enabled: selection.localizedName</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">selection.localizedName</string>
-							<object class="NSDictionary" key="NSOptions">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSArray" key="dict.sortedKeys">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<string>NSNoSelectionPlaceholder</string>
-									<string>NSValueTransformerName</string>
-								</object>
-								<object class="NSMutableArray" key="dict.values">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<integer value="0"/>
-									<string>NSIsNotNil</string>
-								</object>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">139</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -1638,6 +1605,42 @@
 						</object>
 					</object>
 					<int key="connectionID">502</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_unfinishedItemsCollection</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="418777006"/>
+					</object>
+					<int key="connectionID">503</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: hasSelection</string>
+						<reference key="source" ref="134008429"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="134008429"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: hasSelection</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">hasSelection</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSNoSelectionPlaceholder</string>
+								<integer value="0" key="NS.object.0"/>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">518</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openSelection:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="134008429"/>
+					</object>
+					<int key="connectionID">520</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2188,9 +2191,9 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{106, 270}, {586, 273}}</string>
+					<string>{{63, 456}, {586, 273}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{106, 270}, {586, 273}}</string>
+					<string>{{63, 456}, {586, 273}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -2274,7 +2277,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">502</int>
+			<int key="maxID">520</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -2328,7 +2331,7 @@
 					<string key="className">VLCSplashScreenWindowController</string>
 					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">openSelectedMediaDiscoverer:</string>
+						<string key="NS.key.0">openSelection:</string>
 						<string key="NS.object.0">id</string>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -2337,11 +2340,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>_mediaDiscoverCollection</string>
 							<string>_mediaDiscovererArrayController</string>
+							<string>_unfinishedItemsCollection</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSCollectionView</string>
 							<string>NSArrayController</string>
+							<string>NSCollectionView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
