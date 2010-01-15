@@ -235,13 +235,14 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     // Try to find an entry for that media
     // FIXME - cache the result?
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:_managedObjectContext];
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
     [request setFetchLimit:1];
     [request setEntity:entity];
     [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"url LIKE[c] %@", [media.url description]]];
 
-    NSArray *results = [_managedObjectContext executeFetchRequest:request error:nil];
+    NSArray *results = [moc executeFetchRequest:request error:nil];
     [request release];
 
     if ([results count] > 0)
@@ -260,7 +261,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     if (oldposition && position < [oldposition doubleValue])
         return;
     if (!movie) {
-        movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:_managedObjectContext];
+        movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
         [movie setValue:[media.url description] forKey:@"url"];
     }
 
@@ -269,7 +270,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [movie setValue:[remainingTime numberValue] forKey:@"remainingTime"];
 
     [movie setValue:[media valueForKeyPath:@"metaDictionary.title"] forKey:@"title"];
-    [_managedObjectContext save:nil];
+    [moc save:nil];
 }
 
 #pragma mark -

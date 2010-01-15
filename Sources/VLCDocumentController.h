@@ -53,4 +53,6 @@
 - (void)cleanAndRecreateMainMenu;
 
 - (void)setMainWindow:(NSWindow *)window;
+
+- (NSManagedObjectContext *)managedObjectContext;
 @end
