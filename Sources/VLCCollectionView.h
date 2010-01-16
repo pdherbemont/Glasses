@@ -12,7 +12,6 @@
 #if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
     id _delegate;
 #endif
-	IBOutlet VLCCollectionView *otherCollectionView;
     BOOL _isSelectionChanging;
 }
 #if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
