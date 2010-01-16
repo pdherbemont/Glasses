@@ -55,6 +55,22 @@
     _isSelectionChanging = NO;
 }
 
+- (NSView *)hitTest:(NSPoint)aPoint
+{
+    NSView *result = [super hitTest:aPoint];
+
+    // We handle double click in this object's -mouseDown:
+    // thus, we need to make sure we'll handle the event (ie - we return self).
+
+    // The only exception is the NSButton class, that want to answer properly
+    // to event. For now, this is the only exception. But if we add complex
+    // UI element that are not transparent to event, we'll need to add
+    // them here.
+    if ([result isKindOfClass:[NSButton class]])
+        return result;
+    return self;
+}
+
 - (void)mouseDown:(NSEvent *)theEvent
 {
     if ([theEvent clickCount] == 2)
