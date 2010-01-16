@@ -99,12 +99,11 @@
 
     BOOL seekable = [mediaPlayer isSeekable];
     double position = [mediaPlayer position];
-    VLCTime *remainingTime = [mediaPlayer remainingTime];
     VLCMedia *media = _media ? _media : mediaPlayer.media;
 
     if (media && seekable) {
         VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
-        [documentController media:media wasClosedAtPosition:position withRemainingTime:remainingTime];
+        [documentController media:media wasClosedAtPosition:position];
     }
 }
 

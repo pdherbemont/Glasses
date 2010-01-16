@@ -228,7 +228,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
  * Remember a movie that wasn't finished
  */
 
-- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position withRemainingTime:(VLCTime *)remainingTime
+- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position
 {
     NSManagedObject *movie = nil;
 
@@ -265,9 +265,13 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         [movie setValue:[media.url description] forKey:@"url"];
     }
 
+    // Yes, this is a negative number. VLCTime nicely display negative time
+    // with "XX minutes remaining". And we are using this facility.
+    double remainingTime = [[[media length] numberValue] doubleValue] * (position - 1);
+
     [movie setValue:[NSNumber numberWithBool:YES] forKey:@"currentlyWatching"];
     [movie setValue:[NSNumber numberWithDouble:position] forKey:@"lastPosition"];
-    [movie setValue:[remainingTime numberValue] forKey:@"remainingTime"];
+    [movie setValue:[NSNumber numberWithDouble:remainingTime] forKey:@"remainingTime"];
 
     [movie setValue:[media valueForKeyPath:@"metaDictionary.title"] forKey:@"title"];
     [moc save:nil];

@@ -45,7 +45,7 @@
 - (void)makeDocumentWithObject:(id)object;
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position;
 
-- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position withRemainingTime:(VLCTime *)time;
+- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position;
 
 - (IBAction)openSplashScreen:(id)sender;
 - (void)closeSplashScreen;

@@ -108,8 +108,6 @@
 {
     if (collectionView == _mediaDiscoverCollection)
         return NSDragOperationNone;
-    NSLog(@"Accept drop");
-
     return NSDragOperationGeneric;
 
 }
@@ -123,13 +121,10 @@
 
     VLCMedia *media = [VLCMedia mediaWithPath:[array objectAtIndex:0]];
 
-    // Trigger preparsing
-    [media length];
-
     // FIXME - This is blocking and we don't have any fallback
     [media lengthWaitUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
 
-    [[self documentController] media:media wasClosedAtPosition:0 withRemainingTime:[media length]];
+    [[self documentController] media:media wasClosedAtPosition:0];
     return YES;
 }
 
