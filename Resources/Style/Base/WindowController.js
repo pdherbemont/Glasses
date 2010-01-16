@@ -98,8 +98,9 @@ WindowController.prototype = {
             Lunettes.connect(search, "value", this.navigationController, "currentView.arrayController.backendObject.filterPredicate", options);
         }
 
-        // Bind the timeline.
+        // Make sure we'll be able to seek.
         bindByClassNameActionToMethod(this.Exported.ClassNames.timeline, 'change', this.timelineValueChanged.bind(this));
+        Lunettes.connect(this, "position", CocoaObject.documentCocoaObject(), "mediaPlayer.position");
 
         // Make sure we'll be able to drag the window.
         bindByClassNameActionToMethod(this.Exported.ClassNames.dragPlatformWindow, 'mousedown', this.mouseDownForWindowDrag.bind(this));
@@ -108,6 +109,35 @@ WindowController.prototype = {
         bindByClassNameActionToMethod(this.Exported.ClassNames.resizePlatformWindow, 'mousedown', this.mouseDownForWindowResize.bind(this));
     },
 
+    /**
+     * @param {Event} event
+     */
+    timelineValueChanged: function(event)
+    {
+        var target = event.currentTarget;
+
+        if (window.PlatformView.isSeekable())
+            window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
+    },
+
+    _position: 0,
+    get position()
+    {
+        return this._position;
+    },
+    set position(newPosition)
+    {
+        if (!newPosition)
+            newPosition = 0;
+        if (this._position == newPosition)
+            return;
+
+        this._position = newPosition;
+
+        var elements = document.getElementsByClassName(this.Exported.ClassNames.timeline);
+        for (var i = 0; i < elements.length; i++)
+            elements[i].value = newPosition * elements[i].getAttribute('max');
+    },
     PlatformWindowController: function()
     {
         return window.PlatformWindowController;
@@ -229,17 +259,6 @@ WindowController.prototype = {
     {
         this.mouseDownPoint = { x: event.screenX, y: event.screenY };
         this.windowFrameAtMouseDown = this.windowFrame();
-    },
-
-    /**
-     * @param {Event} event
-     */
-    timelineValueChanged: function(event)
-    {
-        if (window.PlatformView.isSeekable()) {
-            var target = event.currentTarget;
-            window.PlatformView.setPosition_(target.value / target.getAttribute('max'));
-        }
     },
 
     /*************************************************
