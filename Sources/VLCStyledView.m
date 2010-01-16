@@ -399,7 +399,7 @@ static BOOL watchForStyleModification(void)
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
 {
     NSMutableDictionary *opt = nil;
-    if (![options isKindOfClass:[WebUndefined class]]) {
+    if (options && ![options isKindOfClass:[WebUndefined class]]) {
         opt = [NSMutableDictionary dictionary];
         JSGlobalContextRef ctx = [[self mainFrame] globalContext];
         JSObjectRef object = [options JSObject];
