@@ -405,16 +405,37 @@
     [windowController release];
 }
 
+#pragma mark -
+#pragma mark Action
+- (void)stepForward:(id)sender
+{
+    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+    if (![mediaPlayer isSeekable]) {
+        NSBeep();
+        return;
+    }
+
+    [mediaPlayer shortJumpForward];
+}
+
+- (void)stepBackward:(id)sender
+{
+    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
+    if (![mediaPlayer isSeekable]) {
+        NSBeep();
+        return;
+    }
+
+    [mediaPlayer shortJumpBackward];
+}
+
 #pragma mark Remote Control
 - (void)remoteMiddleButtonPressed:(id)sender
 {
-    if (![_mediaListPlayer.mediaPlayer isPlaying]) {
+    if (![_mediaListPlayer.mediaPlayer isPlaying])
         [_mediaListPlayer play];
-    }
-    else {
+    else
         [_mediaListPlayer.mediaPlayer pause];
-    }
-
 }
 
 - (void)remoteMenuButtonPressed:(id)sender
@@ -433,24 +454,12 @@
 
 - (void)remoteRightButtonPressed:(id)sender
 {
-    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
-    if (![mediaPlayer isSeekable]) {
-        NSBeep();
-        return;
-    }
-
-    [mediaPlayer shortJumpForward];
+    [self stepForward:sender];
 }
 
 - (void)remoteLeftButtonPressed:(id)sender
 {
-    VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
-    if (![mediaPlayer isSeekable]) {
-        NSBeep();
-        return;
-    }
-
-    [mediaPlayer shortJumpBackward];
+    [self stepBackward:sender];
 }
 
 #pragma mark Playback Menu Items
