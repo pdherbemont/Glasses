@@ -57,7 +57,7 @@ window.remoteButtonHandler = function (name)
 
     if (name == "menu") {
         window.remoteButtonHandlerIsInPlaylistMode = !window.remoteButtonHandlerIsInPlaylistMode;
-        window.playlistController.setShowPlaylistView(window.remoteButtonHandlerIsInPlaylistMode);
+        window.playlistController.showPlaylist = window.remoteButtonHandlerIsInPlaylistMode;
         return true;
     }
 
