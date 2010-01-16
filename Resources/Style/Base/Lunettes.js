@@ -81,7 +81,7 @@ window.remoteButtonHandler = function (name)
         case "right":
         case "middle":
             currentMediaListView.selection[0].action();
-            window.playlistController.setShowPlaylistView(false);
+            window.playlistController.showPlaylist = false;
             return true;
     }
     return false;
