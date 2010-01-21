@@ -24,6 +24,9 @@
 #import <Carbon/Carbon.h> //SystemUIMode
 #endif
 
+static const float windowFadingDuration = 0.3;
+static const float windowScalingDuration = 0.3;
+
 static inline BOOL debugFullscreen(void)
 {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kDebugFullscreen];
@@ -39,11 +42,17 @@ NSInteger VLCFullscreenHUDWindowLevel(void)
     return debugFullscreen() ? 0 : 4;
 }
 
+static float slowMotionCoef(void)
+{
+    if ([NSEvent modifierFlags] & NSShiftKeyMask)
+        return 5;
+    return 1;
+}
+
 static NSViewAnimation *createViewAnimationWithDefaultsSettingsAndDictionary(NSDictionary *dict)
 {
     NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObject:dict]];
     [animation setAnimationBlockingMode:NSAnimationNonblocking];
-    [animation setDuration:0.7];
     [animation setFrameRate:60];
     return animation;
 }
@@ -61,6 +70,7 @@ static NSViewAnimation *createFadeAnimation(NSWindow *target, enum fade_e fade)
         nil
     ];
     NSViewAnimation *animation = createViewAnimationWithDefaultsSettingsAndDictionary(dict);
+    [animation setDuration:windowFadingDuration * slowMotionCoef()];
     [dict release];
     return animation;
 }
@@ -74,6 +84,7 @@ static NSViewAnimation *createScaleAnimation(NSWindow *target, const NSRect star
         nil
     ];
     NSViewAnimation *animation = createViewAnimationWithDefaultsSettingsAndDictionary(dict);
+    [animation setDuration:windowScalingDuration * slowMotionCoef()];
     [dict release];
     return animation;
 }
