@@ -23,6 +23,7 @@
 				<string>org.xspf.playlist</string>
 				<string>public.m3u-playlist</string>
 				<string>public.folder</string>
+				<string>org.matroska.video</string>
 			</array>
 			<key>NSDocumentClass</key>
 			<string>VLCMediaDocument</string>
@@ -73,6 +74,21 @@
 			<dict>
 				<key>public.filename-extension</key>
 				<string>flv</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.movie</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Matroska Video File</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.matroska.video</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>mkv</string>
 			</dict>
 		</dict>
 		<dict>
