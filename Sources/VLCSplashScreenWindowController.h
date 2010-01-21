@@ -27,6 +27,7 @@
     IBOutlet NSCollectionView *_unfinishedItemsCollection;
     IBOutlet NSCollectionView *_mediaDiscoverCollection;
     IBOutlet NSArrayController *_mediaDiscovererArrayController;
+    BOOL _hasSelection;
 }
 
 @property (retain, readonly) NSArray *availableMediaDiscoverer;
