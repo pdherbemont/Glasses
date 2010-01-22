@@ -33,7 +33,7 @@
 
 
 @implementation VLCSplashScreenWindowController
-@synthesize hasSelection=__hasSelection;
+@synthesize hasSelection=_hasSelection;
 
 - (NSArray *)availableMediaDiscoverer
 {
