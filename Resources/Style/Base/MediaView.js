@@ -50,6 +50,7 @@ MediaView.prototype = {
 
         this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
         this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
+        this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
 
         this.isAttached = true;
     },
@@ -133,6 +134,16 @@ MediaView.prototype = {
     },
     get subitemsCount(){
         return this._subitemsCount;
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    dragStarted: function(event)
+    {
+        event.effectAllowed = "copyMove";
+        event.dataTransfer.setData("application/lunettes-item", this);
     },
 
     /**

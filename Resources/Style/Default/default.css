@@ -296,21 +296,27 @@ input[type=search] {
     margin: auto;
 }
 
-.playlist ul li {
+.item {
     height: 50px;
     position: relative;
     -webkit-box-sizing: border-box;
 
     border-bottom: thin rgba(255,255,255,0.2) solid;
     overflow: hidden;
+
+    -webkit-user-drag: element;
 }
 
-.playlist ul li.selected {
+.item.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#aaaaaa));
     border-bottom: none;
 }
 
-.playlist ul li .name{
+.item:-webkit-drag {
+    background: none;
+}
+
+.item .name{
     position: absolute;
     top: 0;
     bottom: 0;
@@ -322,14 +328,17 @@ input[type=search] {
     content: url(volume_high.png);
 }
 
+
 .playlist ul>.name {
     background: white;
 }
 
-.playlist ul li.selected .name {
+.item.selected .name {
     color: rgba(0,0,0,1);
     text-shadow: 0 1px 1px rgba(255,255,255,1);
 }
+
+
 
 .reveal-subitems {
     height: 14px;

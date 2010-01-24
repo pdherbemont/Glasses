@@ -44,6 +44,12 @@ CocoaObject.documentCocoaObject = function()
     return window.PlatformView.viewBackendObject(new CocoaObject);
 }
 
+CocoaObject.createMediaFromURL = function(url)
+{
+    return window.PlatformView.createMediaFromURL(url, new CocoaObject);
+}
+
+
 /**
  * This function is used by the backend to create a new
  * CocoaObject.
@@ -71,6 +77,16 @@ CocoaObject.prototype.removeObserver = function (observer, keyPath)
     window.console.assert(observer);
     window.PlatformView.unobserve(observer, this, keyPath);
 }
+
+/**
+ * @param {CocoaObject} observer
+ * @param {number} keyPath to observe
+ */
+CocoaObject.prototype.insertObjectAtIndex = function (object, index)
+{
+    window.PlatformView.insertObjectAtIndexInArrayController(object, index, this);
+}
+
 
 /**
  * This functions creates in the backend an NSArrayController, and store

@@ -396,6 +396,20 @@ static BOOL watchForStyleModification(void)
     return [[self rootMediaList] count];
 }
 
+- (void)insertCocoaObject:(WebScriptObject *)object atIndex:(NSNumber *)index inArrayController:(WebScriptObject *)target
+{
+    NSArrayController  *array = [target valueForKey:@"backendObject"];
+    NSAssert([array isKindOfClass:[NSArrayController class]], @"Must be a writable NSArrayController");
+    [array insertObject:[object valueForKey:@"backendObject"] atArrangedObjectIndex:[index unsignedIntValue]];
+}
+
+- (WebScriptObject *)createMediaFromURL:(NSString *)urlAsString inCocoaObject:(WebScriptObject *)object
+{
+    VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlAsString]];
+    [object setValue:media forKey:@"backendObject"];
+    return object;
+}
+
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
 {
     NSMutableDictionary *opt = nil;
@@ -488,6 +502,10 @@ static BOOL watchForStyleModification(void)
         return NO;
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return NO;
+    if (sel == @selector(createMediaFromURL:inCocoaObject:))
+        return NO;
+    if (sel == @selector(insertCocoaObject:atIndex:inArrayController:))
+        return NO;
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:options:))
         return NO;
     if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))
@@ -515,6 +533,10 @@ static BOOL watchForStyleModification(void)
         return @"didChange";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
+    if (sel == @selector(insertCocoaObject:atIndex:inArrayController:))
+        return @"insertObjectAtIndexInArrayController";
+    if (sel == @selector(createMediaFromURL:inCocoaObject:))
+        return @"createMediaFromURL";
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:options:))
         return @"bindDOMObjectToCocoaObject";
     if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))

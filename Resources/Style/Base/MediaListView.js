@@ -130,6 +130,11 @@ MediaListView.prototype = {
         this.element.onscroll = this.didScroll.bind(this);
         window.addEventListener('resize', this.didResize.bind(this), false);
 
+        this.element.addEventListener('dragenter', this.dragEntered.bind(this), false);
+        this.element.addEventListener('dragover', this.dragOvered.bind(this), false);
+        this.element.addEventListener('dragleave', this.dragDidLeave.bind(this), false);
+        this.element.addEventListener('drop', this.dropped.bind(this), false);
+
         if (this.showNavigationHeader && this.cocoaObject) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
             this.backButtonElement.addEventListener('click', this.backClicked.bind(this), false);
@@ -167,6 +172,56 @@ MediaListView.prototype = {
     didResize: function(event)
     {
         this.updateVisibleItems();
+    },
+
+    /**
+     * {Event} event
+     */
+
+    dragEntered: function(event)
+    {
+        var url = event.dataTransfer.getData("public.file-url");
+        if (!url)
+            return;
+        console.log("entered");
+        event.preventDefault();
+    },
+
+    /**
+     * {Event} event
+     */
+    dragDidLeave: function(event)
+    {
+        var url = event.dataTransfer.getData("public.file-url");
+        if (!url)
+            return;
+        event.preventDefault();
+    },
+
+    /**
+     * {Event} event
+     */
+    dragOvered: function(event)
+    {
+        var url = event.dataTransfer.getData("public.file-url");
+        if (!url)
+            return;
+        event.preventDefault();
+    },
+
+    /**
+     * {Event} event
+     */
+    dropped: function(event)
+    {
+        console.log("entered");
+
+        var url = event.dataTransfer.getData("public.file-url");
+        if (!url)
+            return;
+        var media = CocoaObject.createMediaFromURL(url);
+        this.arrayController.insertObjectAtIndex(media, 0);
+        event.preventDefault();
     },
 
     /**
