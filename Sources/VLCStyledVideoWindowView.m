@@ -116,6 +116,10 @@
     // for now.
     if (enterFS && ![self hasLoadedAFirstFrame])
         [[window windowController] enterFullscreen];
+
+    // Make sure we don't loose the first responder. Else the style menu will not
+    // work. You can reproduce this when using a borderless window.
+    [window makeFirstResponder:self];
 }
 
 - (void)windowDidChangeAlphaValue:(CGFloat)alpha
