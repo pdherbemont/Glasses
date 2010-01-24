@@ -87,29 +87,29 @@ The class is not thread safe
 @interface AppleRemote : NSObject {
     BOOL _listeningOnAppActivate;
 
-    IOHIDDeviceInterface** hidDeviceInterface;
-    IOHIDQueueInterface**  queue;
-    NSMutableArray*        allCookies;
-    NSMutableDictionary*   cookieToButtonMapping;
-    CFRunLoopSourceRef     eventSource;
+    IOHIDDeviceInterface** _hidDeviceInterface;
+    IOHIDQueueInterface**  _queue;
+    NSMutableArray*        _allCookies;
+    NSMutableDictionary*   _cookieToButtonMapping;
+    CFRunLoopSourceRef     _eventSource;
 
-    BOOL openInExclusiveMode;
-    BOOL simulatePlusMinusHold;
-    BOOL processesBacklog;
+    BOOL _openInExclusiveMode;
+    BOOL _simulatePlusMinusHold;
+    BOOL _processesBacklog;
 
     /* state for simulating plus/minus hold */
-    BOOL lastEventSimulatedHold;
-    AppleRemoteEventIdentifier lastPlusMinusEvent;
-    NSTimeInterval lastPlusMinusEventTime;
+    BOOL _lastEventSimulatedHold;
+    AppleRemoteEventIdentifier _lastPlusMinusEvent;
+    NSTimeInterval _lastPlusMinusEventTime;
 
-    NSInteger remoteId;
-    NSUInteger clickCountEnabledButtons;
-    NSTimeInterval maxClickTimeDifference;
-    NSTimeInterval lastClickCountEventTime;
-    AppleRemoteEventIdentifier lastClickCountEvent;
-    NSUInteger eventClickCount;
+    NSInteger _remoteId;
+    NSUInteger _clickCountEnabledButtons;
+    NSTimeInterval _maxClickTimeDifference;
+    NSTimeInterval _lastClickCountEventTime;
+    AppleRemoteEventIdentifier _lastClickCountEvent;
+    NSUInteger _eventClickCount;
 
-    IBOutlet id delegate;
+    IBOutlet id _delegate;
 }
 
 - (int) remoteId;
