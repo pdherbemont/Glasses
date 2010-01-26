@@ -305,6 +305,7 @@ input[type=search] {
     overflow: hidden;
 
     -webkit-user-drag: element;
+    -webkit-transition: margin-top ease-in-out 0.2s;
 }
 
 .item.selected {

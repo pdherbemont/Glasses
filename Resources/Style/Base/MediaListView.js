@@ -174,17 +174,73 @@ MediaListView.prototype = {
         this.updateVisibleItems();
     },
 
+    indexAtPosition: function(x, y)
+    {
+        var item = this.subviews[0].element;
+        var height = item.offsetHeight;
+
+        var ret = Math.floor(y / height);
+        if (ret <= 0)
+            ret = 0;
+        if (ret > this.subviews.length)
+            ret = this.subviews.length;
+        return ret;
+    },
+
+    resetDrag: function()
+    {
+        for(var i = 0; i < this.subviews.length; i++) {
+            if (this.subviews[i].element.style.marginTop != "0px") {
+                this.subviews[i].element.style.marginTop = "0px";
+                this.subviews[i].element.style.borderTopStyle = "none"; // FIXME- do that in CSS?
+            }
+        }
+    },
+
+    highlightDragPosition: function(index)
+    {
+        for(var i = 0; i < this.subviews.length; i++) {
+            var top = this.subviews[i].element.style.marginTop;
+            if (index != i) {
+                if (top != "0px") {
+                    this.subviews[i].element.style.marginTop = "0px";
+                    this.subviews[i].element.style.borderTop = "none"; // FIXME- do that in CSS?
+                }
+            }
+            else {
+                if (top != "40px") {
+                    this.subviews[index].element.style.marginTop = "40px";
+                    var style = this.subviews[i].element.style;
+                    console.log(this.subviews[i].element.style);
+                    this.subviews[i].element.style["border-top-style"] = style["border-top-style"]; // FIXME- do that in CSS?
+                    this.subviews[i].element.style["border-top-width"] = style["border-top-width"]; // FIXME- do that in CSS?
+                    this.subviews[i].element.style["border-top-color"] = style["border-top-color"]; // FIXME- do that in CSS?
+                }
+            }
+        }
+    },
+
     /**
      * {Event} event
      */
 
     dragEntered: function(event)
     {
+        // Work around what seems to be a webkit bug.
+        if (!this._dragEnteredNumber)
+            this._dragEnteredNumber = 0;
+        this._dragEnteredNumber++;
+
         var url = event.dataTransfer.getData("public.file-url");
         if (!url)
             return;
-        console.log("entered");
-        event.preventDefault();
+
+        if (this._dragEnteredNumber >= 1)
+            return;
+
+//        var index = this.indexAtPosition(event.layerX, event.layerY);
+//        this.highlightDragPosition(index);
+//        event.preventDefault();
     },
 
     /**
@@ -192,11 +248,16 @@ MediaListView.prototype = {
      */
     dragDidLeave: function(event)
     {
+        this._dragEnteredNumber--;
+        if (this._dragEnteredNumber <= 0)
+            this.resetDrag();
+
         var url = event.dataTransfer.getData("public.file-url");
         if (!url)
             return;
         event.preventDefault();
     },
+
 
     /**
      * {Event} event
@@ -206,6 +267,8 @@ MediaListView.prototype = {
         var url = event.dataTransfer.getData("public.file-url");
         if (!url)
             return;
+        var index = this.indexAtPosition(event.x, event.y);
+        this.highlightDragPosition(index);
         event.preventDefault();
     },
 
@@ -214,13 +277,12 @@ MediaListView.prototype = {
      */
     dropped: function(event)
     {
-        console.log("entered");
-
         var url = event.dataTransfer.getData("public.file-url");
         if (!url)
             return;
+        this.resetDrag();
         var media = CocoaObject.createMediaFromURL(url);
-        this.arrayController.insertObjectAtIndex(media, 0);
+        this.arrayController.insertObjectAtIndex(media, this.indexAtPosition(event.x, event.y));
         event.preventDefault();
     },
 
