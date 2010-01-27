@@ -407,7 +407,7 @@
 
 #pragma mark -
 #pragma mark Action
-- (void)stepForward:(id)sender
+- (IBAction)stepForward:(id)sender
 {
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
     if (![mediaPlayer isSeekable]) {
@@ -418,7 +418,7 @@
     [mediaPlayer shortJumpForward];
 }
 
-- (void)stepBackward:(id)sender
+- (IBAction)stepBackward:(id)sender
 {
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
     if (![mediaPlayer isSeekable]) {
@@ -427,6 +427,11 @@
     }
 
     [mediaPlayer shortJumpBackward];
+}
+
+- (IBAction)gotoNextFrame:(id)sender
+{
+    [_mediaListPlayer.mediaPlayer gotoNextFrame];
 }
 
 #pragma mark Remote Control

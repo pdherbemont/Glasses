@@ -35,6 +35,9 @@
     IBOutlet NSMenuItem * _chapterSelectorMenuItem;
     IBOutlet NSMenuItem * _titleSelectorMenuItem;
 
+    IBOutlet NSMenuItem *_rateMenuItem;
+    IBOutlet NSView *_rateMenuView;
+
     id _currentDocument;
 
     NSManagedObjectContext *_managedObjectContext;

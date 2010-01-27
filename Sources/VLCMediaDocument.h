@@ -52,4 +52,8 @@
 
 - (void)playbackPositionChanged;
 - (void)openSubtitleFileFromPanel:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void  *)contextInfo;
+
+- (IBAction)stepForward:(id)sender;
+- (IBAction)stepBackward:(id)sender;
+- (IBAction)gotoNextFrame:(id)sender;
 @end

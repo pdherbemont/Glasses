@@ -11,6 +11,9 @@
 @interface VLCFloat10000FoldTransformer : NSObject
 @end
 
+@interface VLCRateToSliderTransformer : NSObject
+@end
+
 @interface VLCDictionaryValuesToArray : NSObject
 @end
 

@@ -59,6 +59,69 @@
 
 @end
 
+
+@implementation VLCRateToSliderTransformer
+
++ (void)load
+{
+    id transformer = [[self alloc] init];
+    [NSValueTransformer setValueTransformer:transformer forName:@"RateToSliderTransformer"];
+    [transformer release];
+}
+
++ (Class)transformedValueClass
+{
+    return [NSNumber class];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+    return YES;
+}
+
+- (id)transformedValue:(id)value
+{
+    if (!value)
+        return nil;
+
+    if (![value respondsToSelector: @selector(floatValue)]) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Value (%@) does not respond to -floatValue.", [value class]];
+        return nil;
+    }
+
+    float val = [value floatValue];
+    if (val <= 0)
+        val = -6;
+    else if (val < 1)
+        val = 1 - 1 / val;
+    else
+        val -= 1;
+    return [NSNumber numberWithFloat: val * 10000.];
+}
+
+- (id)reverseTransformedValue:(id)value
+{
+    if (!value)
+        return nil;
+
+    if (![value respondsToSelector: @selector(floatValue)]) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Value (%@) does not respond to -floatValue.", [value class]];
+        return nil;
+    }
+    float val = [value floatValue] / 10000.;
+    if (val < 0)
+        val = 1 / (1 - val);
+    else {
+        val = val + 1;
+    }
+
+    return [NSNumber numberWithFloat:val];
+}
+
+@end
+
 @implementation VLCDictionaryValuesToArray
 
 + (void)load

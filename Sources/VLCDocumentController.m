@@ -150,6 +150,13 @@ static NSMenuItem *createScriptsMenuItemWithExtension(VLCExtension *extension)
     [item release];
 }
 
+- (void)rebuildRateMenuItem
+{
+    NSAssert(_rateMenuItem, @"_rateMenuItem should be connected");
+    NSAssert(_rateMenuView, @"_rateMenuView should be connected");
+    [_rateMenuItem setView:_rateMenuView];
+}
+
 static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *items, NSUInteger currentItemIndex)
 {
     NSMenu *parentMenu = [parentMenuItem submenu];
@@ -343,6 +350,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 {
     [self rebuildStyleMenu];
     [self rebuildScriptsMenu];
+    [self rebuildRateMenuItem];
 
     // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)
