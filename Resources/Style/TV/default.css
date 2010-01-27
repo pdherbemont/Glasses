@@ -95,9 +95,9 @@ body {
     -webkit-box-shadow: 0px 2px 40px #000;
     -webkit-border-radius: 15px;
     border: 2px solid white;
-    
+
     bottom: 150px; top: auto; left: 200px; right: auto;
-    
+
     height: 70px;
     width: 400px;
 
@@ -105,8 +105,6 @@ body {
     opacity: 0;
     -webkit-transition: opacity 0.2s ease-in;
     -webkit-transform: scale(0.8);
-
-    z-index: -1;
 }
 
 .hidden #draggable-controls {
@@ -150,13 +148,13 @@ body {
     margin: auto;
 }
 
-.leave-fullscreen {
+.enter-fullscreen {
     left: auto; right: 10px;
 
     background: url(fs_exit_fullscreen_highlight.png) no-repeat center;
 }
 
-.leave-fullscreen:active {
+.enter-fullscreen:active {
     background-image: url(fs_exit_fullscreen.png);
 }
 
@@ -328,7 +326,7 @@ ul li .name {
 
 ul li.selected .name {
     color: white;
-    -webkit-text-stroke: 0px; 
+    -webkit-text-stroke: 0px;
     text-shadow: 0px 0px 3px black;
     font-size: 35px;
     -webkit-transition: all 0.2s ease-out;

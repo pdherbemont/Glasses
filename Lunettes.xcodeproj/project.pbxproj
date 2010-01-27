@@ -18,6 +18,12 @@
 		6301465E1040992F00534090 /* StyledVideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6301465A1040991000534090 /* StyledVideoWindow.xib */; };
 		63014A721042AC9900534090 /* Coding Style.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63014A711042AC9900534090 /* Coding Style.rtf */; };
 		63032501104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */; };
+		63099784110FA787005F46AE /* fs_exit_fullscreen_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6309977E110FA787005F46AE /* fs_exit_fullscreen_highlight.png */; };
+		63099785110FA787005F46AE /* fs_exit_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6309977F110FA787005F46AE /* fs_exit_fullscreen.png */; };
+		63099786110FA787005F46AE /* fs_pause_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 63099780110FA787005F46AE /* fs_pause_highlight.png */; };
+		63099787110FA787005F46AE /* fs_pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 63099781110FA787005F46AE /* fs_pause.png */; };
+		63099788110FA787005F46AE /* fs_play_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 63099782110FA787005F46AE /* fs_play_highlight.png */; };
+		63099789110FA787005F46AE /* fs_play.png in Resources */ = {isa = PBXBuildFile; fileRef = 63099783110FA787005F46AE /* fs_play.png */; };
 		6311DA4C0FF8595C004BC7D1 /* VLCExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */; };
 		6311DA4F0FF85970004BC7D1 /* VLCMediaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */; };
 		6311DA5B0FF8598D004BC7D1 /* NSScreen_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */; };
@@ -287,6 +293,12 @@
 		63014A711042AC9900534090 /* Coding Style.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Coding Style.rtf"; sourceTree = "<group>"; };
 		630324FF104A82C400CC82B6 /* VLCPlaylistDebugWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaylistDebugWindowController.h; path = Sources/VLCPlaylistDebugWindowController.h; sourceTree = "<group>"; };
 		63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaylistDebugWindowController.m; path = Sources/VLCPlaylistDebugWindowController.m; sourceTree = "<group>"; };
+		6309977E110FA787005F46AE /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Resources/Style/TV/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
+		6309977F110FA787005F46AE /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen.png; path = Resources/Style/TV/fs_exit_fullscreen.png; sourceTree = "<group>"; };
+		63099780110FA787005F46AE /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause_highlight.png; path = Resources/Style/TV/fs_pause_highlight.png; sourceTree = "<group>"; };
+		63099781110FA787005F46AE /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause.png; path = Resources/Style/TV/fs_pause.png; sourceTree = "<group>"; };
+		63099782110FA787005F46AE /* fs_play_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play_highlight.png; path = Resources/Style/TV/fs_play_highlight.png; sourceTree = "<group>"; };
+		63099783110FA787005F46AE /* fs_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play.png; path = Resources/Style/TV/fs_play.png; sourceTree = "<group>"; };
 		6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExceptionHandler.m; path = Sources/VLCExceptionHandler.m; sourceTree = "<group>"; };
 		6311DA4B0FF8595C004BC7D1 /* VLCExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExceptionHandler.h; path = Sources/VLCExceptionHandler.h; sourceTree = "<group>"; };
 		6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaDocument.m; path = Sources/VLCMediaDocument.m; sourceTree = "<group>"; };
@@ -875,6 +887,12 @@
 		639F6C4B1047216300117832 /* TV */ = {
 			isa = PBXGroup;
 			children = (
+				6309977E110FA787005F46AE /* fs_exit_fullscreen_highlight.png */,
+				6309977F110FA787005F46AE /* fs_exit_fullscreen.png */,
+				63099780110FA787005F46AE /* fs_pause_highlight.png */,
+				63099781110FA787005F46AE /* fs_pause.png */,
+				63099782110FA787005F46AE /* fs_play_highlight.png */,
+				63099783110FA787005F46AE /* fs_play.png */,
 				639F6C6D104721AE00117832 /* default.css */,
 				639F6C6F104721AE00117832 /* Info.plist */,
 				639F6C70104721AE00117832 /* tv.png */,
@@ -1181,6 +1199,12 @@
 				639F6DC110473E5100117832 /* default.css in Resources */,
 				639F6DC410473E5100117832 /* tv.png in Resources */,
 				639F6DC510473E5100117832 /* video-window.html in Resources */,
+				63099784110FA787005F46AE /* fs_exit_fullscreen_highlight.png in Resources */,
+				63099785110FA787005F46AE /* fs_exit_fullscreen.png in Resources */,
+				63099786110FA787005F46AE /* fs_pause_highlight.png in Resources */,
+				63099787110FA787005F46AE /* fs_pause.png in Resources */,
+				63099788110FA787005F46AE /* fs_play_highlight.png in Resources */,
+				63099789110FA787005F46AE /* fs_play.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
