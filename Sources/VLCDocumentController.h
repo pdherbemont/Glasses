@@ -27,7 +27,7 @@
 @interface VLCDocumentController : NSDocumentController {
     VLCSplashScreenWindowController *_splashScreen;
     IBOutlet NSMenuItem *_styleMenu;
-    IBOutlet NSMenuItem *_openLibraryMenu;
+    IBOutlet NSMenuItem *_scriptsMenu;
 
     /* various menu items containing information about our documents */
     IBOutlet NSMenuItem * _subtitleTrackSelectorMenuItem;

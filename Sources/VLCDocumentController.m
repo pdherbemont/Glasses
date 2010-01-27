@@ -22,6 +22,9 @@
 #import "VLCDocumentController.h"
 #import "VLCMediaDocument.h"
 #import "VLCSplashScreenWindowController.h"
+#import <VLCKit/VLCExtensionsManager.h>
+#import <VLCKit/VLCExtension.h>
+
 #if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
 #import "VLCCompatibilityAdditions.h"
 #endif
@@ -110,6 +113,43 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     }
 }
 
+- (void)runScriptFromMenuItem:(id)sender
+{
+    NSAssert([sender isKindOfClass:[NSMenuItem class]], @"should be a menuItem");
+    NSMenuItem *item = (NSMenuItem *)sender;
+    [[VLCExtensionsManager sharedManager] runExtension:[item representedObject]];
+}
+
+- (void)showAboutScriptsWindow:(id)sender
+{
+    NSRunAlertPanel(@"About VLC Scripts", @"Nothing interesting for now", @"OK", nil, nil);
+}
+
+static NSMenuItem *createScriptsMenuItemWithExtension(VLCExtension *extension)
+{
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:[extension title] action:@selector(runScriptFromMenuItem:) keyEquivalent:@""];
+    [item setRepresentedObject:extension];
+    return item;
+}
+
+- (void)rebuildScriptsMenu
+{
+    NSAssert(_scriptsMenu, @"There is no style menu connected");
+
+    NSMenu *submenu = [_scriptsMenu submenu];
+
+    VLCExtensionsManager *manager = [VLCExtensionsManager sharedManager];
+    for (VLCExtension *extension in [manager extensions]) {
+        NSMenuItem *menuItem = createScriptsMenuItemWithExtension(extension);
+        [submenu addItem:menuItem];
+        [menuItem release];
+    }
+    [submenu addItem:[NSMenuItem separatorItem]];
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"About VLC Scripts..." action:@selector(showAboutScriptsWindow:) keyEquivalent:@""];
+    [submenu addItem:item];
+    [item release];
+}
+
 static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *items, NSUInteger currentItemIndex)
 {
     NSMenu *parentMenu = [parentMenuItem submenu];
@@ -133,6 +173,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         [parentMenuItem setEnabled:YES];
     }
 }
+
 
 - (void)cleanAndRecreateMainMenu
 {
@@ -282,9 +323,14 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visibleWindows
 {
-    if (!visibleWindows)
+    if (!visibleWindows) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults boolForKey:kDontShowSplashScreen])
+            return YES;
         [self openSplashScreen:self];
-    return NO;
+        return NO;
+    }
+    return YES;
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification
@@ -296,6 +342,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     [self rebuildStyleMenu];
+    [self rebuildScriptsMenu];
 
     // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)
@@ -342,7 +389,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 {
     if (_managedObjectModel)
         return _managedObjectModel;
-
     _managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
     return _managedObjectModel;
 }
