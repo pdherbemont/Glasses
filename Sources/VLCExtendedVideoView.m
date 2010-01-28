@@ -38,4 +38,17 @@
 {
     return YES;
 }
+
+- (void)scrollWheel:(NSEvent *)event
+{
+    CGFloat deltaY = [event deltaY];
+    if (fabs(deltaY) < 0.05)
+        return;
+    VLCAudio *audio = [[self mediaPlayer] audio];
+
+    NSInteger volume = [audio volume] + deltaY;
+    if (volume < 0)
+        volume = 0;
+    [audio setVolume:volume];
+}
 @end
