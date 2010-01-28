@@ -59,6 +59,8 @@
 	<true/>
 	<key>SUFeedURL</key>
 	<string>http://jones.videolan.org/~videolan/fpk/sparkle/lunettes.xml</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
