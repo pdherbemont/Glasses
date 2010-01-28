@@ -358,7 +358,10 @@ static BOOL watchForStyleModification(void)
 
 - (void)setPosition:(float)position
 {
-    [[self mediaPlayer] setPosition:position];
+    VLCMediaPlayer *player = [self mediaPlayer];
+    if (![player isPlaying])
+        [player play];
+    [player setPosition:position];
     [[[[self window] windowController] document] playbackPositionChanged];
 }
 
