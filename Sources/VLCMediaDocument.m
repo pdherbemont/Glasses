@@ -136,6 +136,8 @@
     [super close];
 
     self.mediaListPlayer = nil;
+
+    [[VLCDocumentController sharedDocumentController] documentControllerDidClose:self];
 }
 
 - (NSString *)displayName

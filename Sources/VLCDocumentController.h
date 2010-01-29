@@ -58,4 +58,6 @@
 - (void)setMainWindow:(NSWindow *)window;
 
 - (NSManagedObjectContext *)managedObjectContext;
+
+- (void)documentControllerDidClose:(NSDocument *)documentController;
 @end

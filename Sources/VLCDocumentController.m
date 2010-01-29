@@ -395,6 +395,18 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [self cleanAndRecreateMainMenu];
 }
 
+- (void)documentControllerDidClose:(NSDocument *)documentController
+{
+    if ([[self documents] count] != 0)
+        return;
+
+    // Reopen the splash screen when last visible window is closed.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:kDontShowSplashScreen])
+        return;
+    [self openSplashScreen:self];
+}
+
 #pragma mark -
 #pragma mark Media Library
 - (NSManagedObjectModel *)managedObjectModel
