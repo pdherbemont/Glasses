@@ -1101,6 +1101,7 @@
 				8D15AC330486D014006FF6A4 /* Frameworks */,
 				637D39AC10AB51060012FC0C /* Check Javascript code */,
 				63F15C3910D143B2003B99BE /* Set Git Version */,
+				636C696111133D5600F91B04 /* Package in a Zip Archive */,
 			);
 			buildRules = (
 			);
@@ -1305,6 +1306,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		636C696111133D5600F91B04 /* Package in a Zip Archive */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Package in a Zip Archive";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test \"$BUILD_STYLE\" != \"Release\"; then\n\techo \"No in Release, not building the zip archive\";\n\texit 0;\nfi\n\nversion=`git describe --always`\nARCHIVE_FILENAME=\"Lunettes-$version.zip\"\n\ncd \"$BUILT_PRODUCTS_DIR\"\nditto -ck --keepParent \"$FULL_PRODUCT_NAME\" \"$ARCHIVE_FILENAME\"\nopen \"$BUILT_PRODUCTS_DIR\"";
+		};
 		637D39AC10AB51060012FC0C /* Check Javascript code */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
