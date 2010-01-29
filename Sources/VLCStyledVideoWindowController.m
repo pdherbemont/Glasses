@@ -83,6 +83,8 @@ static inline BOOL debugStyledWindow(void)
 	NSWindow * window = [self window];
     [window setDelegate:self];
 
+    [window center];
+
     // FIXME - do it only if theme requires it
     NSAssert(_accessoryButton, @"There should be an accessory view");
 

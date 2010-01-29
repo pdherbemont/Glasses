@@ -91,7 +91,7 @@
         double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
     }
-    [[self window] resignMainWindow];
+    [[self window] close];
 }
 
 - (void)collectionView:(NSCollectionView *)collectionView willChangeSelectionIndexes:(NSIndexSet *)set
