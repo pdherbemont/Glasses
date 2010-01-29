@@ -59,12 +59,17 @@
 
 - (IBAction)toolbarAction:(id)sender
 {
-    NSInteger tag = [sender tag];
+    NSAssert([sender isKindOfClass:[NSToolbarItem class]], @"Only receive from NSToolbarItem");
+    NSToolbarItem *item = sender;
+    NSString *identifier = [item itemIdentifier];
     NSWindow *window = [self window];
-    if (tag == 0) {
+    if ([identifier isEqualToString:@"general"]) {
         [window setTitle:@"General"];
         [self setView:_generalSettingsView];
-    } else if (tag == 1) {
+    } else if ([identifier isEqualToString:@"advanced"]) {
+        [window setTitle:@"Advanced"];
+        [self setView:_advancedSettingsView];
+    } else if ([identifier isEqualToString:@"playback"]) {
         [window setTitle:@"Playback"];
         [self setView:_playbackSettingsView];
     } else

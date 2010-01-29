@@ -10,7 +10,6 @@
 
 
 extern NSString *kSelectedSnapshotFolder;
-extern NSString *kDontRememberMediaPosition;
 extern NSString *kDontShowSplashScreen;
 extern NSString *kControlWithMediaKeys;
 extern NSString *kControlWithMediaKeysInBackground;
@@ -21,7 +20,8 @@ extern NSString *kWatchForStyleModification;
 extern NSString *kStartPlaybackInFullscreen;
 extern NSString *kRecentNetworkItems;
 extern NSString *kLastNetworkItems;
-extern NSString *kUnfinishedMoviesAsArray;
+extern NSString *kDontRememberUnfinishedMovies;
+
 
 extern NSString *kSuppressShareOnLANReminder;
 

@@ -10,7 +10,6 @@
 
 #define DEFINE(a) NSString *k##a = @#a;
 DEFINE(SelectedSnapshotFolder);
-DEFINE(DontRememberMediaPosition);
 DEFINE(DontShowSplashScreen);
 DEFINE(ControlWithMediaKeys);
 DEFINE(ControlWithMediaKeysInBackground);
@@ -21,9 +20,9 @@ DEFINE(WatchForStyleModification);
 DEFINE(StartPlaybackInFullscreen);
 DEFINE(RecentNetworkItems);
 DEFINE(LastNetworkItems);
-DEFINE(UnfinishedMoviesAsArray);
-DEFINE(SuppressShareOnLANReminder);
+DEFINE(DontRememberUnfinishedMovies);
 
+DEFINE(SuppressShareOnLANReminder);
 DEFINE(DebugStyledWindow);
 DEFINE(DebugFullscreen);
 DEFINE(ShowDebugMenu);

@@ -94,6 +94,9 @@
  */
 - (void)saveUnfinishedMovieState
 {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberUnfinishedMovies])
+        return;
+
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
     NSAssert(mediaPlayer, @"There is no media Player, the following is incorrect");
 
@@ -313,7 +316,7 @@
     if (_rememberTimer)
         return;
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberMediaPosition])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberUnfinishedMovies])
         return;
     static const NSTimeInterval mediaPositionPollingInterval = 10.0;
     NSAssert(!_rememberTimer, @"There shouldn't be a timer at this point");
