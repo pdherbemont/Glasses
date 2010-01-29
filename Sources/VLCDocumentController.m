@@ -148,6 +148,8 @@ static NSMenuItem *createScriptsMenuItemWithExtension(VLCExtension *extension)
     NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@"About VLC Scripts..." action:@selector(showAboutScriptsWindow:) keyEquivalent:@""];
     [submenu addItem:item];
     [item release];
+
+    [manager bind:@"mediaPlayer" toObject:self withKeyPath:@"currentDocument.mediaListPlayer.mediaPlayer" options:nil];
 }
 
 - (void)rebuildRateMenuItem
@@ -278,6 +280,8 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position
 {
+    NSAssert(![[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberUnfinishedMovies], @"kDontRememberUnfinishedMovies is here");
+
     NSManagedObject *movie = nil;
 
     // Try to find an entry for that media
