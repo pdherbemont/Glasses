@@ -453,7 +453,23 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         [[NSApplication sharedApplication] presentError:error];
     [coordinator release];
 
+    [_managedObjectContext addObserver:self forKeyPath:@"hasChanges" options:NSKeyValueObservingOptionInitial context:nil];
     return _managedObjectContext;
+}
 
+- (void)savePendingChangesToMoc
+{
+    [[self managedObjectContext] save:nil];
+    [[NSProcessInfo processInfo] enableSuddenTermination];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"hasChanges"] && object == _managedObjectContext) {
+        [[NSProcessInfo processInfo] disableSuddenTermination];
+        [self performSelector:@selector(savePendingChangesToMoc) withObject:nil afterDelay:0];
+        return;
+    }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 @end
