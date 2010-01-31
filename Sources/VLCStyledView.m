@@ -239,6 +239,7 @@ static BOOL watchForStyleModification(void)
     [self setSeekable:_seekable];
     [self setListCount:_listCount];
     [self setSublistCount:_sublistCount];
+    [self setMediaPlayerState:_mediaPlayerState];
 
     // We are coming out of a style change, let's fade in back
     if (![window alphaValue])
@@ -603,6 +604,24 @@ static BOOL watchForStyleModification(void)
 
 #pragma mark -
 #pragma mark Core -> Javascript setters
+
+- (void)setMediaPlayerState:(VLCMediaPlayerState)state
+{
+    _mediaPlayerState = state;
+
+    if (![self isFrameLoaded])
+        return;
+
+    if (state == VLCMediaPlayerStateError)
+        [self addClassToContent:@"media-player-error"];
+    else
+        [self removeClassFromContent:@"media-player-error"];
+}
+
+- (VLCMediaPlayerState)mediaPlayerState
+{
+    return _mediaPlayerState;
+}
 
 - (void)setWindowTitle:(NSString *)title
 {

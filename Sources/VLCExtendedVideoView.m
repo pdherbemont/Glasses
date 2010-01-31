@@ -23,15 +23,21 @@
 
 @implementation VLCExtendedVideoView
 
-- (VLCMediaPlayer*)mediaPlayer
+- (VLCMediaPlayer *)mediaPlayer
 {
     return _mediaPlayer;
 }
 
 - (void)setMediaPlayer:(VLCMediaPlayer *) mp
 {
+    if (_mediaPlayer == mp)
+        return;
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    if (_mediaPlayer)
+        [center removeObserver:self name:VLCMediaPlayerStateChanged object:_mediaPlayer];
+
     _mediaPlayer = mp;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayError:) name:@"VLCMediaPlayerNoSignalNotification" object:nil];
+    [center addObserver:self selector:@selector(mediaPlayerStateChanged:) name:VLCMediaPlayerStateChanged object:_mediaPlayer];
 }
 
 - (BOOL)acceptsFirstResponder
@@ -62,24 +68,40 @@
     [audio setVolume:volume];
 }
 
-- (void)displayError:(NSNotification *)aNotification {
-    //faire gaffe quand ya pas de glView, releaser l'error image des lors qu'on a fini et l a réallouer a chaque fois.
-    if ([[self subviews] count]) {
-        NSView *glView = [[self subviews] objectAtIndex:0];
+- (void)mediaPlayerStateChanged:(NSNotification *)aNotification
+{
+    if ([_mediaPlayer state] == VLCMediaPlayerStateError) {
         if (!_errorView) {
-            _errorView = [[NSImageView alloc] initWithFrame:[glView frame]];
+            _errorView = [[NSImageView alloc] initWithFrame:[self bounds]];
             NSImage * errorImage = [NSImage imageNamed:@"errorImage"];
             [_errorView setImage:errorImage];
             [_errorView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+            [self addSubview:_errorView];
         }
-        [self replaceSubview:glView with:_errorView];
+
+        // Small hack to remove the hide the glView during error.
+        for (NSView *view in [self subviews]) {
+            if (view != _errorView)
+                [view setHidden:YES];
+        }
     }
+    else {
+        [_errorView removeFromSuperview];
+        [_errorView release];
+        _errorView = nil;
+        for (NSView *view in [self subviews]) {
+            [view setHidden:NO];
+        }
+    }
+
 }
 
-- (void) dealloc
+
+- (void)dealloc
 {
     [_errorView release];
+    if (_mediaPlayer)
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:VLCMediaPlayerStateChanged object:_mediaPlayer];
     [super dealloc];
 }
-
 @end

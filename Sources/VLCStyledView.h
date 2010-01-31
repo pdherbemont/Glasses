@@ -19,13 +19,12 @@
  *****************************************************************************/
 
 #import <WebKit/WebKit.h>
+#import <VLCKit/VLCKit.h>
 
 /* This is a base class that should only be subclassed.
  * It contains the shared code between VLCStyledVideoWindowView
  * and VLCStyledFullscreenHUDWindowView */
 
-@class VLCTime;
-@class VLCMediaPlayer;
 @class VLCPathWatcher;
 @class VLCWebBindingsController;
 
@@ -42,6 +41,8 @@
     NSMutableArray *_resourcesFilePathArray;
 
     NSArrayController *_currentArrayController;
+
+    VLCMediaPlayerState _mediaPlayerState;
 
     VLCPathWatcher *_pathWatcher;
     VLCWebBindingsController *_bindings;
@@ -103,6 +104,7 @@
 @property NSUInteger listCount;
 @property NSUInteger sublistCount;
 @property BOOL showPlaylist;
+@property VLCMediaPlayerState mediaPlayerState;
 
 - (VLCMediaPlayer *)mediaPlayer;
 

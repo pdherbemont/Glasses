@@ -83,8 +83,6 @@
         }
         case VLCMediaPlayerStateError:
         {
-            // we've got an error here, unknown button set to display
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"VLCMediaPlayerNoSignalNotification" object:self]; 
             break;
         }
         default:

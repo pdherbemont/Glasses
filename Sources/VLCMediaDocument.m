@@ -403,9 +403,6 @@
 {
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
     VLCMediaPlayerState state = [mediaPlayer state];
-    if (state == VLCMediaPlayerStateError) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"VLCMediaPlayerNoSignalNotification" object:self]; 
-    }
 
     if (state == VLCMediaPlayerStatePlaying) {
         [self startToRememberMediaPosition];

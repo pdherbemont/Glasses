@@ -99,8 +99,8 @@ static inline BOOL debugStyledWindow(void)
     [window setMovableByWindowBackground:YES];
 
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSNullPlaceholderBindingOption, nil];
-    [_styledWindowView setViewedPlaying:[[self valueForKeyPath:@"document.mediaListPlayer.mediaPlayer.playing"] boolValue]];
     [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
+    [_styledWindowView bind:@"mediaPlayerState" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.state" options:options];
     [_styledWindowView bind:@"seekable" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.seekable" options:options];
     options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:0], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView bind:@"listCount" toObject:self withKeyPath:@"document.mediaListPlayer.mediaList.media.@count" options:options];
@@ -131,6 +131,11 @@ static inline BOOL debugStyledWindow(void)
     // Work around by doing it ourselves.
     NSWindow *window = [self window];
     [NSApp addWindowsItem:window title:[window title] filename:NO];
+}
+
+- (void)setHasError:(CGFloat)alpha
+{
+    [_styledWindowView windowDidChangeAlphaValue:alpha];
 }
 
 #pragma mark -
