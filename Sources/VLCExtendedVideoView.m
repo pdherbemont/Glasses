@@ -22,7 +22,17 @@
 #import "NSScreen_Additions.h"
 
 @implementation VLCExtendedVideoView
-@synthesize mediaPlayer=_mediaPlayer;
+
+- (VLCMediaPlayer*)mediaPlayer
+{
+    return _mediaPlayer;
+}
+
+- (void)setMediaPlayer:(VLCMediaPlayer *) mp
+{
+    _mediaPlayer = mp;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(displayError:) name:@"VLCMediaPlayerNoSignalNotification" object:nil];
+}
 
 - (BOOL)acceptsFirstResponder
 {
@@ -51,4 +61,25 @@
         volume = 0;
     [audio setVolume:volume];
 }
+
+- (void)displayError:(NSNotification *)aNotification {
+    //faire gaffe quand ya pas de glView, releaser l'error image des lors qu'on a fini et l a réallouer a chaque fois.
+    if ([[self subviews] count]) {
+        NSView *glView = [[self subviews] objectAtIndex:0];
+        if (!_errorView) {
+            _errorView = [[NSImageView alloc] initWithFrame:[glView frame]];
+            NSImage * errorImage = [NSImage imageNamed:@"errorImage"];
+            [_errorView setImage:errorImage];
+            [_errorView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        }
+        [self replaceSubview:glView with:_errorView];
+    }
+}
+
+- (void) dealloc
+{
+    [_errorView release];
+    [super dealloc];
+}
+
 @end

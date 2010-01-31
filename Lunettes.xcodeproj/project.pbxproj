@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32D85F4911149F4800591CE5 /* errorImage.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 32D85F4811149F4800591CE5 /* errorImage.pdf */; };
 		4AFE8A6810E6F2DA00FD5ACD /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
 		4AFE8A7010E6F34800FD5ACD /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
 		6301425E10406A7700534090 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
@@ -277,6 +278,7 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32D85F4811149F4800591CE5 /* errorImage.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = errorImage.pdf; sourceTree = "<group>"; };
 		4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = Frameworks/BWToolkitFramework.framework; sourceTree = "<group>"; };
 		630141D5104062B300534090 /* Common Settings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Common Settings.xcconfig"; sourceTree = "<group>"; };
 		630143AA1040726600534090 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -742,6 +744,7 @@
 				6311DB290FF85BDB004BC7D1 /* display_right.png */,
 				6311DB2A0FF85BDB004BC7D1 /* display_slider.png */,
 				6311DB2B0FF85BDB004BC7D1 /* display_track.png */,
+				32D85F4811149F4800591CE5 /* errorImage.pdf */,
 				6311DAAD0FF85AC0004BC7D1 /* fs_background.png */,
 				6311DAAE0FF85AC0004BC7D1 /* fs_exit_fullscreen.png */,
 				6311DAAF0FF85AC0004BC7D1 /* fs_exit_fullscreen_highlight.png */,
@@ -1309,6 +1312,7 @@
 				63F1621010D1BC30003B99BE /* Thanks.txt in Resources */,
 				CC54DD5E10EE79D10031D0A2 /* CrashReporter.xib in Resources */,
 				639163E21115E23000480B08 /* InfoWindow.xib in Resources */,
+				32D85F4911149F4800591CE5 /* errorImage.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

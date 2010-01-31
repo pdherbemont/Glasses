@@ -404,9 +404,7 @@
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
     VLCMediaPlayerState state = [mediaPlayer state];
     if (state == VLCMediaPlayerStateError) {
-        NSAlert *alert = [NSAlert alertWithMessageText:@"An unknown error occured during playback" defaultButton:@"Oh Oh" alternateButton:nil otherButton:nil
-                             informativeTextWithFormat:@"An unknown error occured when playing %@", [[mediaPlayer media] url]];
-        [alert runModal];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"VLCMediaPlayerNoSignalNotification" object:self]; 
     }
 
     if (state == VLCMediaPlayerStatePlaying) {

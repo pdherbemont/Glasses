@@ -25,7 +25,14 @@
 
 @interface VLCExtendedVideoView : VLCVideoView {
     VLCMediaPlayer *_mediaPlayer;
+    NSImageView *_errorView;
 }
 
 @property (readwrite,assign) VLCMediaPlayer *mediaPlayer;
+
+/* Accessors */
+- (VLCMediaPlayer*) mediaPlayer;
+- (void) setMediaPlayer:(VLCMediaPlayer *)mp;
+
+- (void)displayError:(NSNotification *)aNotification;
 @end
