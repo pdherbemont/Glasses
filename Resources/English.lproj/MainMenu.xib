@@ -47,7 +47,7 @@
 					<object class="NSBox" id="125147925">
 						<reference key="NSNextResponder" ref="550857971"/>
 						<int key="NSvFlags">12</int>
-						<string key="NSFrame">{{156, 28}, {5, 8}}</string>
+						<string key="NSFrame">{{156, 12}, {5, 8}}</string>
 						<reference key="NSSuperview" ref="550857971"/>
 						<string key="NSOffsets">{0, 0}</string>
 						<object class="NSTextFieldCell" key="NSTitleCell">
@@ -81,7 +81,7 @@
 					<object class="NSTextField" id="311640693">
 						<reference key="NSNextResponder" ref="550857971"/>
 						<int key="NSvFlags">265</int>
-						<string key="NSFrame">{{135, 36}, {47, 14}}</string>
+						<string key="NSFrame">{{135, 20}, {47, 14}}</string>
 						<reference key="NSSuperview" ref="550857971"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="812086299">
@@ -117,7 +117,7 @@
 					<object class="NSTextField" id="492210987">
 						<reference key="NSNextResponder" ref="550857971"/>
 						<int key="NSvFlags">265</int>
-						<string key="NSFrame">{{244, 36}, {46, 14}}</string>
+						<string key="NSFrame">{{244, 20}, {46, 14}}</string>
 						<reference key="NSSuperview" ref="550857971"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="519420428">
@@ -133,7 +133,7 @@
 					<object class="NSTextField" id="1036161916">
 						<reference key="NSNextResponder" ref="550857971"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{27, 36}, {46, 14}}</string>
+						<string key="NSFrame">{{27, 20}, {46, 14}}</string>
 						<reference key="NSSuperview" ref="550857971"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="224899410">
@@ -157,12 +157,12 @@
 					<object class="NSSlider" id="120590562">
 						<reference key="NSNextResponder" ref="550857971"/>
 						<int key="NSvFlags">298</int>
-						<string key="NSFrame">{{28, 2}, {261, 26}}</string>
+						<string key="NSFrame">{{28, 4}, {261, 16}}</string>
 						<reference key="NSSuperview" ref="550857971"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSSliderCell" key="NSCell" id="205239190">
 							<int key="NSCellFlags">-2079981824</int>
-							<int key="NSCellFlags2">0</int>
+							<int key="NSCellFlags2">262144</int>
 							<string key="NSContents"/>
 							<reference key="NSControlView" ref="120590562"/>
 							<double key="NSMaxValue">80000</double>
@@ -176,7 +176,7 @@
 						</object>
 					</object>
 				</object>
-				<string key="NSFrameSize">{307, 54}</string>
+				<string key="NSFrameSize">{307, 38}</string>
 				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -3074,9 +3074,9 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="125147925"/>
 							<reference ref="1036161916"/>
-							<reference ref="120590562"/>
 							<reference ref="492210987"/>
 							<reference ref="311640693"/>
+							<reference ref="120590562"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Rate Menu View</string>
@@ -3522,7 +3522,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{97, 602}, {616, 20}}</string>
+					<string>{{350, 602}, {616, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -3587,7 +3587,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{327, 309}, {231, 293}}</string>
+					<string>{{580, 309}, {231, 293}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3628,7 +3628,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{327, 395}, {307, 54}}</string>
+					<string>{{327, 411}, {307, 38}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3918,19 +3918,15 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>_checkForUpdatesCheckBox</string>
+							<string>_advancedSettingsView</string>
 							<string>_generalSettingsView</string>
-							<string>_lastCheckForUpdateText</string>
 							<string>_playbackSettingsView</string>
-							<string>_snapshotPathSelector</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>NSButton</string>
 							<string>NSView</string>
-							<string>NSTextField</string>
 							<string>NSView</string>
-							<string>NSPathControl</string>
+							<string>NSView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -4611,14 +4607,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">WebKit.framework/Headers/WebUIDelegate.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSPathControl</string>
-					<string key="superclassName">NSControl</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">AppKit.framework/Headers/NSPathControl.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
