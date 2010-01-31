@@ -266,6 +266,11 @@
     return [self mediaListPlayer].mediaPlayer;
 }
 
++ (NSSet *)keyPathsForValuesAffectingRootMediaList
+{
+    return [NSSet setWithObjects:@"mediaListPlayer.rootMedia.subitems.count", @"mediaListPlayer.mediaList", nil];
+}
+
 - (VLCMediaList *)rootMediaList
 {
     VLCMediaListPlayer *player = [self mediaListPlayer];
