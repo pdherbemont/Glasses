@@ -10,8 +10,8 @@
 
 
 @interface VLCWebBindingsController : NSObject {
-    NSMutableSet *_bindings;
-    NSMutableSet *_observers;
+    NSMutableArray *_bindings;
+    NSMutableArray *_observers;
 }
 
 - (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toObject:(id)object withKeyPath:(NSString *)keyPath options:(NSDictionary *)dict;

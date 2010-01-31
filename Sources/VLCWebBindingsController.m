@@ -8,6 +8,9 @@
 
 #import "VLCWebBindingsController.h"
 
+// Use bind: or emulate our own
+//#define USE_BIND
+
 @interface VLCWebBindingsController (DOMEventListener) <DOMEventListener>
 @end
 
@@ -17,16 +20,16 @@
     self = [super init];
     if (!self)
         return nil;
-    _bindings = [[NSMutableSet alloc] initWithCapacity:1000];
-    _observers = [[NSMutableSet alloc] initWithCapacity:3];
+    _bindings = [[NSMutableArray alloc] initWithCapacity:1000];
+    _observers = [[NSMutableArray alloc] initWithCapacity:3];
     return self;
 }
 
 - (void)dealloc
 {
-    NSAssert([_bindings anyObject] == nil, @"Bindings should be empty");
+    NSAssert([_bindings count] == 0, @"Bindings should be empty");
     [_bindings release];
-    NSAssert([_observers anyObject] == nil, @"Observers should be empty");
+    NSAssert([_observers count] == 0, @"Observers should be empty");
     [_observers release];
     [super dealloc];
 }
@@ -56,6 +59,24 @@
     return nil;
 }
 
+static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
+{
+    NSMutableArray *array = [NSMutableArray array];
+    NSString *nextKeyPath = keyPath;
+    NSRange range = [nextKeyPath rangeOfString:@"."];
+    while (range.location != NSNotFound && object) {
+        NSString *key = [nextKeyPath substringToIndex:range.location];
+        object = [object valueForKey:key];
+        if (!object)
+            break;
+        [array addObject:object];
+
+        // Prepare next loop
+        nextKeyPath = [nextKeyPath substringFromIndex:range.location + 1];
+        range = [nextKeyPath rangeOfString:@"."];
+    }
+    return array;
+}
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
@@ -129,10 +150,50 @@
     }
     else {
         // We are in the case of a binding.
-        id target = [dict objectForKey:@"object"];
-        NSString *targetKeyPath = [dict objectForKey:@"keyPath"];
+        NSMutableDictionary *dictMutable = (NSMutableDictionary *)dict;
+
+#ifndef USE_BIND
         id value = [object valueForKeyPath:keyPath];
-        [target setValue:value forKeyPath:targetKeyPath];
+#endif
+        id bindingObject = [dictMutable objectForKey:@"object"];
+
+        if (bindingObject != object) {
+            [dictMutable setObject:arrayOfSubKeys(object, keyPath) forKey:@"arrayOfRetainedSubKeysForObject"];
+#ifndef USE_BIND
+            if ([[dictMutable objectForKey:@"bindingsControllerIsSetting"] boolValue])
+                return;
+            id target = bindingObject;
+            if (!value || [value isKindOfClass:[NSNull class]])
+                return;
+            NSString *targetKeyPath = [dictMutable objectForKey:@"keyPath"];
+            [dictMutable setObject:[NSNumber numberWithBool:YES] forKey:@"bindingsControllerIsSetting"];
+            [target setValue:value forKeyPath:targetKeyPath];
+            [dictMutable setObject:[NSNumber numberWithBool:NO] forKey:@"bindingsControllerIsSetting"];
+#endif
+        } else
+        {
+            [dictMutable setObject:arrayOfSubKeys(object, keyPath) forKey:@"arrayOfRetainedSubKeysForDomObject"];
+
+#ifndef USE_BIND
+            if ([[dictMutable objectForKey:@"bindingsControllerIsSetting"] boolValue])
+                return;
+            if (!value || [value isKindOfClass:[NSNull class]])
+            {
+                NSDictionary *options = [dictMutable objectForKey:@"options"];
+                if (options) {
+                    id obj = [options objectForKey:NSNullPlaceholderBindingOption];
+                    if (obj)
+                        value = obj;
+                }
+            }
+            id target = [dictMutable objectForKey:@"domObject"];
+            NSString *targetKeyPath = [dictMutable objectForKey:@"property"];
+            [dictMutable setObject:[NSNumber numberWithBool:YES] forKey:@"bindingsControllerIsSetting"];
+            [target setValue:value forKeyPath:targetKeyPath];
+            [dictMutable setObject:[NSNumber numberWithBool:NO] forKey:@"bindingsControllerIsSetting"];
+#endif
+        }
+
         return;
     }
 
@@ -203,11 +264,19 @@
     NSDictionary *options = [dict objectForKey:@"options"];
     if (![options objectForKey:NSPredicateFormatBindingOption]) {
         NSString *property = [dict objectForKey:@"property"];
-        [domObject unbind:property];
         [domObject removeObserver:self forKeyPath:property];
+        id object = [dict objectForKey:@"object"];
+        NSString *keyPath = [dict objectForKey:@"keyPath"];
+        [object removeObserver:self forKeyPath:keyPath];
+
+#ifdef USE_BIND
+        [domObject unbind:property];
+#endif
     }
 
+    NSUInteger count = [_bindings count];
     [_bindings removeObject:dict];
+    NSAssert(count - [_bindings count] == 1, @"");
 }
 
 - (void)handleEvent:(DOMEvent *)evt
@@ -257,8 +326,9 @@
 {
     NSAssert(![self bindingForDOMObject:domObject property:property], ([NSString stringWithFormat:@"Binding of %@.%@ already exists", domObject, property]));
 
-    NSDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:domObject, @"domObject", property, @"property", keyPath, @"keyPath", object, @"object", options, @"options", nil];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:domObject, @"domObject", property, @"property", keyPath, @"keyPath", object, @"object", options, @"options", nil];
     [_bindings addObject:dict];
+
     if ([domObject isKindOfClass:[DOMNode class]]) {
         DOMNode *node = (DOMNode *)domObject;
         [node addEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
@@ -272,8 +342,17 @@
         // We'll handle the rest via "input" event.
         return;
     }
-    [domObject addObserver:self forKeyPath:property options:0 context:dict];
+
+    [dict setObject:arrayOfSubKeys(object, keyPath) forKey:@"arrayOfRetainedSubKeysForObject"];
+    [dict setObject:arrayOfSubKeys(domObject, property) forKey:@"arrayOfRetainedSubKeysForDomObject"];
+
+
+    [object addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionInitial context:dict];
+    [domObject addObserver:self forKeyPath:property options:NSKeyValueObservingOptionNew context:dict];
+
+#ifdef USE_BIND
     [domObject bind:property toObject:object withKeyPath:keyPath options:options];
+#endif
 }
 
 - (void)unbindDOMObject:(DOMObject *)domObject property:(NSString *)property
@@ -285,11 +364,10 @@
 
 - (void)clearBindingsAndObservers
 {
-    NSDictionary *dict;
-    while ((dict = [_bindings anyObject]))
-        [self _removeBindingWithDict:dict];
-    while ((dict = [_observers anyObject]))
-        [self _removeObserverWithDict:dict];
+    while ([_bindings count] > 0)
+        [self _removeBindingWithDict:[_bindings objectAtIndex:0]];
+    while ([_observers count] > 0)
+        [self _removeObserverWithDict:[_observers objectAtIndex:0]];
 }
 
 @end
