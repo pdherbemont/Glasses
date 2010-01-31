@@ -59,6 +59,8 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
+    [_unfinishedItemsCollection setDelegate:nil];
+    [_mediaDiscoverCollection setDelegate:nil];
     [[VLCDocumentController sharedDocumentController] closeSplashScreen];
 }
 

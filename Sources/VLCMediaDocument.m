@@ -27,13 +27,16 @@
 #import "VLCDocumentController.h"
 
 @interface VLCMediaDocument ()
-@property (readwrite,retain) VLCMediaListPlayer * mediaListPlayer;
+@property (readwrite,retain) VLCMediaListPlayer *mediaListPlayer;
+@property (readwrite,retain) NSArrayController *currentArrayController;
+
 - (void)startToRememberMediaPosition;
 - (void)stopRememberMediaPosition;
 @end
 
 @implementation VLCMediaDocument
 @synthesize mediaListPlayer=_mediaListPlayer;
+@synthesize currentArrayController=_currentArrayController;
 
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
@@ -137,7 +140,7 @@
 
     self.mediaListPlayer = nil;
 
-    [[VLCDocumentController sharedDocumentController] documentControllerDidClose:self];
+    [[VLCDocumentController sharedDocumentController] documentDidClose:self];
 }
 
 - (NSString *)displayName
@@ -253,6 +256,22 @@
     [mediaListPlayer.mediaPlayer setPosition:_startingPosition];
     if (_isSharedOnLAN)
         [_theLANStreamingSession setPosition:_startingPosition];
+}
+
+#pragma mark -
+#pragma mark Accessors
+
+- (VLCMediaPlayer *)mediaPlayer
+{
+    return [self mediaListPlayer].mediaPlayer;
+}
+
+- (VLCMediaList *)rootMediaList
+{
+    VLCMediaListPlayer *player = [self mediaListPlayer];
+    VLCMediaList *mainMediaContent = player.rootMedia.subitems;
+    BOOL isPlaylistDocument = mainMediaContent.count > 0;
+    return isPlaylistDocument ? mainMediaContent : player.mediaList;
 }
 
 #pragma mark -
@@ -392,7 +411,7 @@
 
     if (state == VLCMediaPlayerStatePlaying) {
         [self startToRememberMediaPosition];
-        [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+        [[VLCDocumentController sharedDocumentController] documentSuggestsToRecreateMainMenu:self];
     } else {
         [self stopRememberMediaPosition];
         [self saveUnfinishedMovieState];
@@ -476,7 +495,7 @@
 - (void)setSubtitleTrackFromMenuItem:(NSMenuItem *)sender
 {
     [[[self mediaListPlayer] mediaPlayer] setCurrentVideoSubTitleIndex:[sender tag]];
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    [[VLCDocumentController sharedDocumentController] documentSuggestsToRecreateMainMenu:self];
 }
 
 - (void)setSubtitleTrackFromFileWithMenuItem:(NSMenuItem *)sender
@@ -501,26 +520,26 @@
     if (returnCode == NSOKButton) {
         for (NSUInteger i = 0; i < [[panel filenames] count] ; i++)
             [[[self mediaListPlayer] mediaPlayer] openVideoSubTitlesFromFile:[[panel filenames] objectAtIndex:i]];
-        [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+        [[VLCDocumentController sharedDocumentController] documentSuggestsToRecreateMainMenu:self];
     }
 }
 
 - (void)setAudioTrackFromMenuItem:(NSMenuItem *)sender
 {
     [[[self mediaListPlayer] mediaPlayer] setCurrentAudioTrackIndex:[sender tag]];
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    [[VLCDocumentController sharedDocumentController] documentSuggestsToRecreateMainMenu:self];
 }
 
 - (void)setChapterFromMenuItem:(NSMenuItem *)sender
 {
     [[[self mediaListPlayer] mediaPlayer] setCurrentChapterIndex:[sender tag]];
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    [[VLCDocumentController sharedDocumentController] documentSuggestsToRecreateMainMenu:self];
 }
 
 - (void)setTitleFromMenuItem:(NSMenuItem *)sender
 {
     [[[self mediaListPlayer] mediaPlayer] setCurrentTitleIndex:[sender tag]];
-    [[VLCDocumentController sharedDocumentController] cleanAndRecreateMainMenu];
+    [[VLCDocumentController sharedDocumentController] documentSuggestsToRecreateMainMenu:self];
 }
 
 @end

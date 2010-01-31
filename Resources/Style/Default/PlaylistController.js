@@ -8,7 +8,7 @@ var PlaylistController = function()
 PlaylistController.prototype = {
     init: function()
     {
-        Lunettes.connect(this, "showPlaylist", CocoaObject.documentCocoaObject(), "showPlaylist");
+        Lunettes.connect(this, "showPlaylist", CocoaObject.windowCocoaObject(), "showPlaylist");
         Lunettes.connect(this, "rootMediaListCount", CocoaObject.documentCocoaObject(), "rootMediaList.media.@count");
     },
 

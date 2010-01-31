@@ -22,6 +22,8 @@
 #import "VLCDocumentController.h"
 #import "VLCMediaDocument.h"
 #import "VLCSplashScreenWindowController.h"
+#import "VLCInfoWindowController.h"
+
 #import <VLCKit/VLCExtensionsManager.h>
 #import <VLCKit/VLCExtension.h>
 
@@ -274,6 +276,25 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [self makeDocumentWithObject:[sender representedObject]];
 }
 
+#pragma mark -
+#pragma mark Documents Callbacks
+- (void)documentSuggestsToRecreateMainMenu:(NSDocument *)document
+{
+    [self cleanAndRecreateMainMenu];
+}
+
+- (void)documentDidClose:(NSDocument *)document
+{
+    if ([[self documents] count] != 0)
+        return;
+
+    // Reopen the splash screen when last visible window is closed.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:kDontShowSplashScreen])
+        return;
+    [self openSplashScreen:self];
+}
+
 /**
  * Remember a movie that wasn't finished
  */
@@ -369,6 +390,9 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [_splashScreen showWindow:self];
 }
 
+
+#pragma mark -
+#pragma mark Non document-based window
 - (IBAction)openSplashScreen:(id)sender
 {
     if (!_splashScreen) {
@@ -384,6 +408,21 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     _splashScreen = nil;
 }
 
+- (IBAction)openInfoWindow:(id)sender
+{
+    if (!_infoWindow) {
+        // auto-releases itself when the window is closed
+        _infoWindow = [[VLCInfoWindowController alloc] init];
+    }
+    [_infoWindow showWindow:self];
+}
+
+- (void)closeInfoWindow
+{
+    [_infoWindow release];
+    _infoWindow = nil;
+}
+
 - (void)setMainWindow:(NSWindow *)window
 {
     // Cocoa doesn't properly update the currentDocument
@@ -395,17 +434,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [self cleanAndRecreateMainMenu];
 }
 
-- (void)documentControllerDidClose:(NSDocument *)documentController
-{
-    if ([[self documents] count] != 0)
-        return;
-
-    // Reopen the splash screen when last visible window is closed.
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:kDontShowSplashScreen])
-        return;
-    [self openSplashScreen:self];
-}
 
 #pragma mark -
 #pragma mark Media Library

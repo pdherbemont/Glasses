@@ -55,6 +55,7 @@ static BOOL watchForStyleModification(void)
 {
     NSAssert(!_bindings, @"_bindings should have been released");
     NSAssert(!_pathWatcher, @"Should not be here");
+    [_currentArrayController release];
     [_resourcesFilePathArray release];
     [_lunettesStyleRoot release];
     [_title release];
@@ -356,6 +357,24 @@ static BOOL watchForStyleModification(void)
 #pragma mark -
 #pragma mark Javascript
 
+@synthesize currentArrayController=_currentArrayController;
+
+- (void)setCurrentArrayController:(NSArrayController *)arrayController
+{
+    NSLog(@"setCurrentArrayController %@", arrayController);
+    if (!arrayController)
+    {
+        NSLog(@"nil");
+    }
+    NSLog(@"%@", [arrayController selectedObjects]);
+    _currentArrayController = [arrayController retain];
+}
+
+- (NSArrayController *)currentArrayController
+{
+    return _currentArrayController;
+}
+
 - (void)setPosition:(float)position
 {
     VLCMediaPlayer *player = [self mediaPlayer];
@@ -388,15 +407,19 @@ static BOOL watchForStyleModification(void)
 
 - (VLCMediaList *)rootMediaList
 {
-    VLCMediaListPlayer *player = [self mediaListPlayer];
-    VLCMediaList *mainMediaContent = player.rootMedia.subitems;
-    BOOL isPlaylistDocument = mainMediaContent.count > 0;
-    return isPlaylistDocument ? mainMediaContent : player.mediaList;
+    return [[[[self window] windowController] document] rootMediaList];
 }
 
 - (NSUInteger)count
 {
     return [[self rootMediaList] count];
+}
+
+- (void)setSelectedIndex:(NSNumber *)index inArrayController:(WebScriptObject *)target
+{
+    NSArrayController *array = [target valueForKey:@"backendObject"];
+    NSAssert([array isKindOfClass:[NSArrayController class]], @"Must be a writable NSArrayController");
+    [array setSelectionIndex:[index unsignedIntValue]];
 }
 
 - (void)insertCocoaObject:(WebScriptObject *)object atIndex:(NSNumber *)index inArrayController:(WebScriptObject *)target
@@ -481,6 +504,12 @@ static BOOL watchForStyleModification(void)
     return object;
 }
 
+- (WebScriptObject *)documentBackendObject:(WebScriptObject *)object
+{
+    [object setValue:[[[self window] windowController] document] forKey:@"backendObject"];
+    return object;
+}
+
 - (void)willChangeObject:(WebScriptObject *)object valueForKey:(NSString *)key
 {
     [object willChangeValueForKey:key];
@@ -490,6 +519,11 @@ static BOOL watchForStyleModification(void)
 {
     [object didChangeValueForKey:key];
 }
+
+//- (void)setCurrentArrayControllerAsCocoaObject:(WebScriptObject *)object
+//{
+//    [self setCurrentArrayController:[object valueForKey:@"backendObject"]];
+//}
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
@@ -507,6 +541,10 @@ static BOOL watchForStyleModification(void)
         return NO;
     if (sel == @selector(createMediaFromURL:inCocoaObject:))
         return NO;
+    if (sel == @selector(setCurrentArrayController:))
+        return NO;
+    if (sel == @selector(setSelectedIndex:inArrayController:))
+        return NO;
     if (sel == @selector(insertCocoaObject:atIndex:inArrayController:))
         return NO;
     if (sel == @selector(bindDOMObject:property:toBackendObject:withKeyPath:options:))
@@ -518,6 +556,8 @@ static BOOL watchForStyleModification(void)
     if (sel == @selector(playCocoaObject:))
         return NO;
     if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
+        return NO;
+    if (sel == @selector(documentBackendObject:))
         return NO;
     if (sel == @selector(viewBackendObject:))
         return NO;
@@ -536,6 +576,10 @@ static BOOL watchForStyleModification(void)
         return @"didChange";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
+    if (sel == @selector(setCurrentArrayController:))
+        return @"setCurrentArrayController";
+    if (sel == @selector(setSelectedIndex:inArrayController:))
+        return @"setSelectedIndexInArrayController";
     if (sel == @selector(insertCocoaObject:atIndex:inArrayController:))
         return @"insertObjectAtIndexInArrayController";
     if (sel == @selector(createMediaFromURL:inCocoaObject:))
@@ -552,6 +596,8 @@ static BOOL watchForStyleModification(void)
         return @"createArrayControllerFromBackendObjectWithKeyPath";
     if (sel == @selector(viewBackendObject:))
         return @"viewBackendObject";
+    if (sel == @selector(documentBackendObject:))
+        return @"documentBackendObject";
     return nil;
 }
 

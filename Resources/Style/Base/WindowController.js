@@ -89,6 +89,7 @@ WindowController.prototype = {
             this.rootMediaList = new MediaListView(null);
             this.navigationController = new NavigationController;
             this.navigationController.attach(mediaList);
+
             this.navigationController.push(this.rootMediaList);
 
 
@@ -96,6 +97,8 @@ WindowController.prototype = {
             var options = new Object;
             options["NSPredicateFormatBindingOption"] = "metaDictionary.title contains[cd] $value";
             Lunettes.connect(search, "value", this.navigationController, "currentView.arrayController.backendObject.filterPredicate", options);
+            Lunettes.connect(CocoaObject.documentCocoaObject(), "backendObject.currentArrayController", this.navigationController, "currentView.arrayController.backendObject");
+
         }
 
         // Make sure we'll be able to seek.
@@ -192,22 +195,34 @@ WindowController.prototype = {
         this.PlatformWindow().zoom();
     },
 
-    togglePlaying: function()
+    /**
+     * @param {Event} event
+     */
+    togglePlaying: function(event)
     {
         if(this.contentHasClassName(this.Imported.ClassNames.playing))
             window.PlatformView.pause();
         else
             window.PlatformView.play();
+        event.preventDefault();
     },
 
-    enterFullscreen: function()
+    /**
+     * @param {Event} event
+     */
+    enterFullscreen: function(event)
     {
         this.PlatformWindowController().enterFullscreen();
+        event.preventDefault();
     },
 
-    leaveFullscreen: function()
+    /**
+     * @param {Event} event
+     */
+    leaveFullscreen: function(event)
     {
         this.PlatformWindowController().leaveFullscreen();
+        event.preventDefault();
     },
 
     videoResized: function()

@@ -211,7 +211,6 @@ MediaListView.prototype = {
                 if (top != "40px") {
                     this.subviews[index].element.style.marginTop = "40px";
                     var style = this.subviews[i].element.style;
-                    console.log(this.subviews[i].element.style);
                     this.subviews[i].element.style["border-top-style"] = style["border-top-style"]; // FIXME- do that in CSS?
                     this.subviews[i].element.style["border-top-width"] = style["border-top-width"]; // FIXME- do that in CSS?
                     this.subviews[i].element.style["border-top-color"] = style["border-top-color"]; // FIXME- do that in CSS?
@@ -409,6 +408,8 @@ MediaListView.prototype = {
      */
     unselectAll: function()
     {
+        this.arrayController.setSelectedIndex(-1);
+
         for (var i = 0; i < this.selection.length; i++)
             this.selection[i].element.removeClassName("selected");
 
@@ -456,6 +457,9 @@ MediaListView.prototype = {
     {
         this.unselectAll();
         this.selection.push(subitem);
+        var index = this.subviews.indexOf(this.selection[0]);
+        this.arrayController.setSelectedIndex(index);
+
         subitem.element.addClassName("selected");
     },
 
@@ -565,12 +569,23 @@ MediaListView.prototype = {
     _arrayController: null,
     set arrayController(controller)
     {
+        if (!controller)
+            controller = null;
+
         Lunettes.willChange(this, "arrayController");
         this._arrayController = controller;
         Lunettes.didChange(this, "arrayController");
+
+        /* Sync selection */
+        if (this.selection[0]) {
+            var index = this.subviews.indexOf(this.selection[0]) + 1;
+            this.arrayController.setSelectedIndex(index);
+        }
     },
     get arrayController()
     {
+        if (!this._arrayController)
+            this._arrayController = null;
         return this._arrayController;
     },
     observe: function()

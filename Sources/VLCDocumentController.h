@@ -23,9 +23,12 @@
 #import <VLCKit/VLCKit.h>
 
 @class VLCSplashScreenWindowController;
+@class VLCInfoWindowController;
 
 @interface VLCDocumentController : NSDocumentController {
     VLCSplashScreenWindowController *_splashScreen;
+    VLCInfoWindowController *_infoWindow;
+
     IBOutlet NSMenuItem *_styleMenu;
     IBOutlet NSMenuItem *_scriptsMenu;
 
@@ -48,16 +51,22 @@
 - (void)makeDocumentWithObject:(id)object;
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position;
 
+- (NSManagedObjectContext *)managedObjectContext;
+
+/**
+ * Documents callback.
+ */
+- (void)documentSuggestsToRecreateMainMenu:(NSDocument *)document;
+- (void)documentDidClose:(NSDocument *)document;
 - (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position;
-
-- (IBAction)openSplashScreen:(id)sender;
-- (void)closeSplashScreen;
-
-- (void)cleanAndRecreateMainMenu;
 
 - (void)setMainWindow:(NSWindow *)window;
 
-- (NSManagedObjectContext *)managedObjectContext;
+/* non Document window */
+- (IBAction)openSplashScreen:(id)sender;
+- (void)closeSplashScreen;
 
-- (void)documentControllerDidClose:(NSDocument *)documentController;
+- (IBAction)openInfoWindow:(id)sender;
+- (void)closeInfoWindow;
+
 @end

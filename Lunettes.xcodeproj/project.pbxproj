@@ -134,6 +134,8 @@
 		635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */; };
 		635F15E010CDB4D8006EC30E /* GPLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635F15DF10CDB4D8006EC30E /* GPLWindow.xib */; };
 		6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */; };
+		639163E01115E21500480B08 /* VLCInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639163DF1115E21500480B08 /* VLCInfoWindowController.m */; };
+		639163E21115E23000480B08 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639163E11115E23000480B08 /* InfoWindow.xib */; };
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
 		639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
 		639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
@@ -447,6 +449,9 @@
 		635F15DF10CDB4D8006EC30E /* GPLWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GPLWindow.xib; path = Resources/GPLWindow.xib; sourceTree = "<group>"; };
 		6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMHTMLElement_Additions.h; path = Sources/DOMHTMLElement_Additions.h; sourceTree = "<group>"; };
 		6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DOMHTMLElement_Additions.m; path = Sources/DOMHTMLElement_Additions.m; sourceTree = "<group>"; };
+		639163DE1115E21500480B08 /* VLCInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCInfoWindowController.h; path = Sources/VLCInfoWindowController.h; sourceTree = "<group>"; };
+		639163DF1115E21500480B08 /* VLCInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCInfoWindowController.m; path = Sources/VLCInfoWindowController.m; sourceTree = "<group>"; };
+		639163E11115E23000480B08 /* InfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoWindow.xib; path = Resources/InfoWindow.xib; sourceTree = "<group>"; };
 		639F647C1046BDEF00117832 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
 		639F64821046BE2B00117832 /* lunettes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lunettes.png; sourceTree = "<group>"; };
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
@@ -697,6 +702,7 @@
 				6301465A1040991000534090 /* StyledVideoWindow.xib */,
 				63D441CF100469A60086772A /* VideoWindow.xib */,
 				6312758410C5F0B300A01F33 /* ExportStatusWindow.xib */,
+				639163E11115E23000480B08 /* InfoWindow.xib */,
 			);
 			name = xibs;
 			sourceTree = "<group>";
@@ -1022,6 +1028,8 @@
 				CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */,
 				CCC8385C1047F62C002519D7 /* VLCAboutWindowController.h */,
 				CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */,
+				639163DE1115E21500480B08 /* VLCInfoWindowController.h */,
+				639163DF1115E21500480B08 /* VLCInfoWindowController.m */,
 			);
 			name = "Non-document windows";
 			sourceTree = "<group>";
@@ -1300,6 +1308,7 @@
 				63F1620210D1BBE9003B99BE /* About.txt in Resources */,
 				63F1621010D1BC30003B99BE /* Thanks.txt in Resources */,
 				CC54DD5E10EE79D10031D0A2 /* CrashReporter.xib in Resources */,
+				639163E21115E23000480B08 /* InfoWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1391,6 +1400,7 @@
 				CC54DD4910EE75EA0031D0A2 /* VLCCrashReporter.m in Sources */,
 				CC74565410EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m in Sources */,
 				631393C810FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel in Sources */,
+				639163E01115E21500480B08 /* VLCInfoWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

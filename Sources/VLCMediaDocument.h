@@ -43,9 +43,25 @@
 - (id)initWithContentsOfURL:(NSURL *)absoluteURL andStartingPosition:(double)position;
 
 @property (readonly,retain) VLCMediaListPlayer *mediaListPlayer;
+
+/* For convenience, this points to mediaListPlayer.mediaPlayer.
+ * FIXME: one day mediaListPlayer will be a subclass of mediaPlayer... */
+@property (readonly,retain) VLCMediaPlayer *mediaPlayer;
+
+@property (readonly,retain) VLCMediaList *rootMediaList;
+
+/**
+ * This is the array controller our window is currently displaying,
+ * attached to the currently viewed mediaList.
+ *
+ * This is useful to get what is the selected item.
+ */
+@property (readonly,retain) NSArrayController *currentArrayController;
+
 @property BOOL repeatCurrentItem;
 @property BOOL repeatAllItems;
 @property BOOL isSharedOnLAN;
+
 
 - (void)saveUnfinishedMovieState;
 - (void)didFinishLoadingWindowController:(NSWindowController *)controller;

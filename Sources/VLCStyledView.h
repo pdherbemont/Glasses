@@ -41,6 +41,8 @@
     NSString *_lunettesStyleRoot;
     NSMutableArray *_resourcesFilePathArray;
 
+    NSArrayController *_currentArrayController;
+
     VLCPathWatcher *_pathWatcher;
     VLCWebBindingsController *_bindings;
 
@@ -89,9 +91,12 @@
 - (DOMHTMLElement *)htmlElementForId:(NSString *)idName;
 - (DOMHTMLElement *)htmlElementForId:(NSString *)idName canBeNil:(BOOL)canBeNil;
 
+
 /**
  * This will be used to bind some value in the DOM
  */
+@property (readonly, retain) NSArrayController *currentArrayController;
+
 @property (copy) NSString *windowTitle;
 @property BOOL viewedPlaying;
 @property BOOL seekable;

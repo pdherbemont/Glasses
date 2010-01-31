@@ -57,10 +57,16 @@ NavigationController.prototype = {
      */
     get currentView()
     {
+        if (!this._currentView)
+            this._currentView = null;
+
         return this._currentView;
     },
     set currentView(item)
     {
+        if (!item)
+            item = null;
+
         Lunettes.willChange(this, "currentView");
         this._currentView = item;
         Lunettes.didChange(this, "currentView");

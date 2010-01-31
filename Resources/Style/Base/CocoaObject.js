@@ -39,9 +39,34 @@ KVCArrayObserver.prototype.removeAllInsertedCocoaObjects = function() {};
  */
 var CocoaObject = function() {};
 
+CocoaObject.prototype = {
+    set backendObject(n)
+    {
+        Lunettes.willChange(this, "backendObject");
+        this._backendObject = n;
+        Lunettes.didChange(this, "backendObject");
+    },
+    get backendObject()
+    {
+        if (!this._backendObject)
+            this._backendObject = null;
+        return this._backendObject;
+    }
+}
+var documentCocoaObject = null;
 CocoaObject.documentCocoaObject = function()
 {
-    return window.PlatformView.viewBackendObject(new CocoaObject);
+    if (!documentCocoaObject && window.PlatformView.documentBackendObject)
+        documentCocoaObject = window.PlatformView.documentBackendObject(new CocoaObject)
+    return documentCocoaObject;
+}
+
+var windowCocoaObject = null;
+CocoaObject.windowCocoaObject = function()
+{
+    if (!windowCocoaObject && window.PlatformView.viewBackendObject)
+        windowCocoaObject = window.PlatformView.viewBackendObject(new CocoaObject)
+        return windowCocoaObject;
 }
 
 CocoaObject.createMediaFromURL = function(url)
@@ -86,6 +111,16 @@ CocoaObject.prototype.insertObjectAtIndex = function (object, index)
 {
     window.PlatformView.insertObjectAtIndexInArrayController(object, index, this);
 }
+
+/**
+ * @param {CocoaObject} observer
+ * @param {number} keyPath to observe
+ */
+CocoaObject.prototype.setSelectedIndex = function (index)
+{
+    window.PlatformView.setSelectedIndexInArrayController(index, this);
+}
+
 
 
 /**
