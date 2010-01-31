@@ -292,8 +292,18 @@ input[type=search] {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 10px;
+    left: 16px;
     margin: auto;
+}
+
+.item-playing .item-status {
+    position: absolute;
+    background: url(volume_high.png) no-repeat;
+    height: 16px;
+    width: 16px;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
 }
 
 .item {
@@ -308,6 +318,11 @@ input[type=search] {
     -webkit-transition: margin-top ease-in-out 0.2s;
 }
 
+.item-length {
+    margin-left: 66px;
+    color: gray;
+}
+
 .item.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#aaaaaa));
     border-bottom: none;
@@ -317,17 +332,10 @@ input[type=search] {
     background: none;
 }
 
-.item .name{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 45px;
-    margin: auto;
+.item .name {
+    margin-left: 61px;
 }
 
-.item-playing .name:before {
-    content: url(volume_high.png);
-}
 
 
 .playlist ul>.name {

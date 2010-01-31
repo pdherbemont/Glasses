@@ -14,9 +14,16 @@ var MediaView = function(cocoaObject, parent, elementTag)
 
     this.cocoaObject = cocoaObject;
 
+    this.itemStatusElement = document.createElement("div");
+    this.itemStatusElement.className = "item-status";
+
     this.nameElement = document.createElement("div");
     this.nameElement.className = "name";
     this.nameElement.textContent = "Undefined";
+
+    this.lengthElement = document.createElement("div");
+    this.lengthElement.className = "item-length";
+    this.lengthElement.textContent = "--:--";
 
     this.imgElement = document.createElement("img");
     this.imgElement.className = "thumbnail";
@@ -42,8 +49,10 @@ MediaView.prototype = {
     {
         console.assert(!this.isAttached, "shouldn't be attached");
 
+        this.element.appendChild(this.itemStatusElement);
         this.element.appendChild(this.imgElement);
         this.element.appendChild(this.nameElement);
+        this.element.appendChild(this.lengthElement);
         this.element.appendChild(this.revealSubitemsElement);
 
         parentElement.appendChild(this.element);
@@ -64,6 +73,22 @@ MediaView.prototype = {
         this.element.detach();
     },
 
+    _length: null,
+    set length(length)
+    {
+        if (!length)
+            length = null;
+        this._length = length;
+        if (length == "00:00") {
+            this.lengthElement.innerText = "--:--";
+            return;
+        }
+        this.lengthElement.innerText = length;
+    },
+    get length()
+    {
+        return this._length;
+    },
     _visible: false,
     get visible()
     {
@@ -83,12 +108,13 @@ MediaView.prototype = {
             Lunettes.connect(this.imgElement, "src", this.cocoaObject, "metaDictionary.artworkURL", options);
             Lunettes.connect(this, "state", this.cocoaObject, "state");
             Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
-
+            Lunettes.connect(this, "length", this.cocoaObject, "length");
         } else {
             Lunettes.unconnect(this.nameElement, "textContent");
             Lunettes.unconnect(this.imgElement, "src");
             Lunettes.unconnect(this, "state");
             Lunettes.unconnect(this, "subitemsCount");
+            Lunettes.unconnect(this, "length");
         }
     },
 

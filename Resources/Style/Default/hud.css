@@ -273,6 +273,10 @@ ul li .name {
     display: inline-block;
 }
 
+.item-length {
+    display: none;
+}
+
 ul li.selected .name {
     color: white;
     -webkit-text-stroke: 0px;
