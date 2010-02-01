@@ -184,15 +184,16 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
         [_fullscreenWindow setOpaque:YES];
 
         if (![_originalViewWindow isVisible] || [_originalViewWindow alphaValue] == 0.0) {
-            // We don't animate if the view to move fullscreen is not visible, instead we
-            // simply fade the display
-            CGDisplayFadeReservationToken token = fadeScreens();
-
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
             [NSApp setPresentationOptions:NSApplicationPresentationAutoHideDock | NSApplicationPresentationAutoHideMenuBar];
 #else
             SetSystemUIMode( kUIModeAllHidden, kUIOptionAutoShowMenuBar);
 #endif
+
+            // We don't animate if the view to move fullscreen is not visible, instead we
+            // simply fade the display
+            CGDisplayFadeReservationToken token = fadeScreens();
+
             [_fullscreenWindow setFrame:[screen frame] display:NO];
             [self _installPlaceholderView];
             [_fullscreenWindow makeKeyAndOrderFront:self];
