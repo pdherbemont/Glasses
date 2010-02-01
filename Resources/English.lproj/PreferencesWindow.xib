@@ -12,8 +12,8 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="169"/>
-			<integer value="76"/>
 			<integer value="77"/>
+			<integer value="76"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -220,24 +220,24 @@
 							<reference key="NSTextColor" ref="898052361"/>
 						</object>
 					</object>
-					<object class="NSTextField" id="912679882">
+					<object class="NSTextField" id="1000675294">
 						<reference key="NSNextResponder" ref="439030223"/>
 						<int key="NSvFlags">267</int>
-						<string key="NSFrame">{{288, 50}, {239, 16}}</string>
+						<string key="NSFrame">{{277, 50}, {72, 16}}</string>
 						<reference key="NSSuperview" ref="439030223"/>
 						<bool key="NSEnabled">YES</bool>
-						<object class="NSTextFieldCell" key="NSCell" id="730820651">
+						<object class="NSTextFieldCell" key="NSCell" id="991521034">
 							<int key="NSCellFlags">68288064</int>
-							<int key="NSCellFlags2">272761856</int>
-							<string key="NSContents">Last check on June 27 2045</string>
-							<object class="NSFont" key="NSSupport">
+							<int key="NSCellFlags2">71435264</int>
+							<string key="NSContents">Last check:</string>
+							<object class="NSFont" key="NSSupport" id="26">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">11</double>
 								<int key="NSfFlags">3100</int>
 							</object>
-							<reference key="NSControlView" ref="912679882"/>
+							<reference key="NSControlView" ref="1000675294"/>
 							<reference key="NSBackgroundColor" ref="136777191"/>
-							<object class="NSColor" key="NSTextColor">
+							<object class="NSColor" key="NSTextColor" id="591739050">
 								<int key="NSColorSpace">6</int>
 								<string key="NSCatalogName">System</string>
 								<string key="NSColorName">controlShadowColor</string>
@@ -246,6 +246,31 @@
 									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
 								</object>
 							</object>
+						</object>
+					</object>
+					<object class="NSTextField" id="912679882">
+						<reference key="NSNextResponder" ref="439030223"/>
+						<int key="NSvFlags">267</int>
+						<string key="NSFrame">{{349, 50}, {163, 16}}</string>
+						<reference key="NSSuperview" ref="439030223"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="730820651">
+							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags2">-1874721792</int>
+							<string key="NSContents">June 27 2045</string>
+							<reference key="NSSupport" ref="26"/>
+							<object class="NSDateFormatter" key="NSFormatter" id="46726557">
+								<dictionary class="NSMutableDictionary" key="NS.attributes">
+									<integer value="2" key="dateStyle"/>
+									<integer value="1040" key="formatterBehavior"/>
+									<integer value="1" key="timeStyle"/>
+								</dictionary>
+								<string key="NS.format">MMM d, yyyy h:mm a</string>
+								<bool key="NS.natural">NO</bool>
+							</object>
+							<reference key="NSControlView" ref="912679882"/>
+							<reference key="NSBackgroundColor" ref="136777191"/>
+							<reference key="NSTextColor" ref="591739050"/>
 						</object>
 					</object>
 					<object class="NSButton" id="734935445">
@@ -705,28 +730,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">displayPatternValue1: updater.lastUpdateCheckDate</string>
-						<reference key="source" ref="912679882"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="912679882"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">displayPatternValue1: updater.lastUpdateCheckDate</string>
-							<string key="NSBinding">displayPatternValue1</string>
-							<string key="NSKeyPath">updater.lastUpdateCheckDate</string>
-							<dictionary key="NSOptions">
-								<string key="NSDisplayPattern">Last check: %{value1}@</string>
-								<string key="NSNotApplicablePlaceholder">Not yet checked.</string>
-								<string key="NSNullPlaceholder">Not yet checked.</string>
-								<boolean value="NO" key="NSRaisesForNotApplicableKeys"/>
-							</dictionary>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">158</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.SelectedSnapshotFolder</string>
 						<reference key="source" ref="1034605849"/>
 						<reference key="destination" ref="242931913"/>
@@ -817,6 +820,30 @@
 					</object>
 					<int key="connectionID">205</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: updater.lastUpdateCheckDate</string>
+						<reference key="source" ref="912679882"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="912679882"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">value: updater.lastUpdateCheckDate</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">updater.lastUpdateCheckDate</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">209</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_checkDateFormatter</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="46726557"/>
+					</object>
+					<int key="connectionID">214</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -894,6 +921,7 @@
 							<reference ref="91514338"/>
 							<reference ref="598229782"/>
 							<reference ref="541560721"/>
+							<reference ref="1000675294"/>
 							<reference ref="912679882"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -953,6 +981,9 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
 						<reference key="object" ref="730820651"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="46726557"/>
+						</array>
 						<reference key="parent" ref="912679882"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1151,6 +1182,25 @@
 						<reference key="object" ref="142828963"/>
 						<reference key="parent" ref="541560721"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">206</int>
+						<reference key="object" ref="46726557"/>
+						<reference key="parent" ref="730820651"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">215</int>
+						<reference key="object" ref="1000675294"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="991521034"/>
+						</array>
+						<reference key="parent" ref="439030223"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">216</int>
+						<reference key="object" ref="991521034"/>
+						<array class="NSMutableArray" key="children"/>
+						<reference key="parent" ref="1000675294"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1165,7 +1215,7 @@
 				<string key="168.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="168.designableToolbarItemIdentifier">advanced</string>
 				<boolean value="YES" key="168.toolbarItem.selectable"/>
-				<string key="169.IBEditorWindowLastContentRect">{{278, 531}, {525, 64}}</string>
+				<string key="169.IBEditorWindowLastContentRect">{{208, 531}, {525, 64}}</string>
 				<string key="169.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="170.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="177.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1184,6 +1234,10 @@
 				<string key="195.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="199.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="200.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<integer value="2" key="206.IBDateFormatterBehaviorMetadataKey"/>
+				<string key="206.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="215.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="216.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3.IBEditorWindowLastContentRect">{{136, 543}, {527, 95}}</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3.IBWindowTemplateEditedContentRect">{{136, 543}, {527, 95}}</string>
@@ -1226,7 +1280,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">205</int>
+			<int key="maxID">218</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1267,6 +1321,7 @@
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="_advancedSettingsView">NSView</string>
+						<string key="_checkDateFormatter">NSDateFormatter</string>
 						<string key="_generalSettingsView">NSView</string>
 						<string key="_playbackSettingsView">NSView</string>
 					</dictionary>
@@ -1389,6 +1444,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AppKit.framework/Headers/NSController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSDateFormatter</string>
+					<string key="superclassName">NSFormatter</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBFrameworkSource</string>
+						<string key="minorKey">Foundation.framework/Headers/NSDateFormatter.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

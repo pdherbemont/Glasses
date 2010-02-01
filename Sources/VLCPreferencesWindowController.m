@@ -49,6 +49,7 @@
         [[window toolbar] setSelectedItemIdentifier:@"general"];
     }
 
+    [_checkDateFormatter setDoesRelativeDateFormatting:YES];
     [window center];
 }
 

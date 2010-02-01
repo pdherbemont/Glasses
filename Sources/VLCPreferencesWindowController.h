@@ -24,9 +24,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface VLCPreferencesWindowController : NSWindowController {
-    IBOutlet NSView *       _generalSettingsView;
-    IBOutlet NSView *       _advancedSettingsView;
-    IBOutlet NSView *       _playbackSettingsView;
+    IBOutlet NSView *_generalSettingsView;
+    IBOutlet NSView *_advancedSettingsView;
+    IBOutlet NSView *_playbackSettingsView;
+    IBOutlet NSDateFormatter *_checkDateFormatter;
     NSView *_currentView;
 }
 
