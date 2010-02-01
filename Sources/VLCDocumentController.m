@@ -313,7 +313,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [request setFetchLimit:1];
     [request setEntity:entity];
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-    if ([request respondsToSelector:@selector(setPropertiesToFetch:)]
+    if ([request respondsToSelector:@selector(setPropertiesToFetch:)])
         [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
 #endif
     [request setPredicate:[NSPredicate predicateWithFormat:@"url LIKE[c] %@", [media.url description]]];
