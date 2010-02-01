@@ -38,6 +38,9 @@
 
     _mediaPlayer = mp;
     [center addObserver:self selector:@selector(mediaPlayerStateChanged:) name:VLCMediaPlayerStateChanged object:_mediaPlayer];
+
+    // Force an update of the errorView
+    [self mediaPlayerStateChanged:nil];
 }
 
 - (BOOL)acceptsFirstResponder
