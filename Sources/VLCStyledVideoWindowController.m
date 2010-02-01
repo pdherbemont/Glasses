@@ -145,9 +145,14 @@ static inline BOOL debugStyledWindow(void)
     NSWindow *window = [self window];
     if (!debugStyledWindow() && !titleBar) {
         [window setBackgroundColor:[NSColor clearColor]];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
         [window setStyleMask:NSBorderlessWindowMask];
-    } else
+#endif
+    }
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+    else
         [window setStyleMask:NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask];
+#endif
 }
 
 #pragma mark -

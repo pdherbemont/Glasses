@@ -312,7 +312,10 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
     [request setFetchLimit:1];
     [request setEntity:entity];
-    [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+    if ([request respondsToSelector:@selector(setPropertiesToFetch:)]
+        [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
+#endif
     [request setPredicate:[NSPredicate predicateWithFormat:@"url LIKE[c] %@", [media.url description]]];
 
     NSArray *results = [moc executeFetchRequest:request error:nil];
@@ -488,13 +491,23 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 - (void)savePendingChangesToMoc
 {
     [[self managedObjectContext] save:nil];
-    [[NSProcessInfo processInfo] enableSuddenTermination];
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+    NSProcessInfo *process = [NSProcessInfo processInfo];
+    if ([process respondsToSelector:@selector(enableSuddenTermination)])
+        [process enableSuddenTermination];
+#endif
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"hasChanges"] && object == _managedObjectContext) {
-        [[NSProcessInfo processInfo] disableSuddenTermination];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+        NSProcessInfo *process = [NSProcessInfo processInfo];
+        if ([process respondsToSelector:@selector(disableSuddenTermination)])
+            [process disableSuddenTermination];
+#endif
+
         [self performSelector:@selector(savePendingChangesToMoc) withObject:nil afterDelay:0];
         return;
     }

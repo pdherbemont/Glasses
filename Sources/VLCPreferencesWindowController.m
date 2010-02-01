@@ -49,7 +49,10 @@
         [[window toolbar] setSelectedItemIdentifier:@"general"];
     }
 
-    [_checkDateFormatter setDoesRelativeDateFormatting:YES];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+    if ([_checkDateFormatter respondsToSelector:@selector(setDoesRelativeDateFormatting:)]
+        [_checkDateFormatter setDoesRelativeDateFormatting:YES];
+#endif
     [window center];
 }
 

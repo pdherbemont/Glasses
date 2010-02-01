@@ -44,8 +44,10 @@ NSInteger VLCFullscreenHUDWindowLevel(void)
 
 static float slowMotionCoef(void)
 {
-    if ([NSEvent modifierFlags] & NSShiftKeyMask)
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+    if ([NSEvent respondsToSelector:@selector(modifierFlags)] && ([NSEvent modifierFlags] & NSShiftKeyMask))
         return 5;
+#endif
     return 1;
 }
 
