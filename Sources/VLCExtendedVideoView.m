@@ -21,6 +21,10 @@
 #import "VLCExtendedVideoView.h"
 #import "NSScreen_Additions.h"
 
+@interface VLCExtendedVideoView ()
+- (void)mediaPlayerStateChanged:(NSNotification *)aNotification;
+@end
+
 @implementation VLCExtendedVideoView
 
 - (VLCMediaPlayer *)mediaPlayer
