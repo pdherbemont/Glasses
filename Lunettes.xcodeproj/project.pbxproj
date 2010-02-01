@@ -297,12 +297,12 @@
 		63014A711042AC9900534090 /* Coding Style.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Coding Style.rtf"; sourceTree = "<group>"; };
 		630324FF104A82C400CC82B6 /* VLCPlaylistDebugWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaylistDebugWindowController.h; path = Sources/VLCPlaylistDebugWindowController.h; sourceTree = "<group>"; };
 		63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaylistDebugWindowController.m; path = Sources/VLCPlaylistDebugWindowController.m; sourceTree = "<group>"; };
-		6309977E110FA787005F46AE /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Resources/Style/TV/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
-		6309977F110FA787005F46AE /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen.png; path = Resources/Style/TV/fs_exit_fullscreen.png; sourceTree = "<group>"; };
-		63099780110FA787005F46AE /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause_highlight.png; path = Resources/Style/TV/fs_pause_highlight.png; sourceTree = "<group>"; };
-		63099781110FA787005F46AE /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause.png; path = Resources/Style/TV/fs_pause.png; sourceTree = "<group>"; };
-		63099782110FA787005F46AE /* fs_play_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play_highlight.png; path = Resources/Style/TV/fs_play_highlight.png; sourceTree = "<group>"; };
-		63099783110FA787005F46AE /* fs_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play.png; path = Resources/Style/TV/fs_play.png; sourceTree = "<group>"; };
+		6309977E110FA787005F46AE /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Style/TV/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
+		6309977F110FA787005F46AE /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen.png; path = Style/TV/fs_exit_fullscreen.png; sourceTree = "<group>"; };
+		63099780110FA787005F46AE /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause_highlight.png; path = Style/TV/fs_pause_highlight.png; sourceTree = "<group>"; };
+		63099781110FA787005F46AE /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause.png; path = Style/TV/fs_pause.png; sourceTree = "<group>"; };
+		63099782110FA787005F46AE /* fs_play_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play_highlight.png; path = Style/TV/fs_play_highlight.png; sourceTree = "<group>"; };
+		63099783110FA787005F46AE /* fs_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play.png; path = Style/TV/fs_play.png; sourceTree = "<group>"; };
 		6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCExceptionHandler.m; path = Sources/VLCExceptionHandler.m; sourceTree = "<group>"; };
 		6311DA4B0FF8595C004BC7D1 /* VLCExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCExceptionHandler.h; path = Sources/VLCExceptionHandler.h; sourceTree = "<group>"; };
 		6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaDocument.m; path = Sources/VLCMediaDocument.m; sourceTree = "<group>"; };
@@ -380,10 +380,10 @@
 		6312778510C6C4E500A01F33 /* dom-drag.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "dom-drag.js"; sourceTree = "<group>"; };
 		631393C710FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = MediaLibrary.xcdatamodel; sourceTree = "<group>"; };
 		6314225E10DD2D5D00E18CC1 /* VLCPreferencesKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferencesKeys.h; path = Sources/VLCPreferencesKeys.h; sourceTree = "<group>"; };
-		6314289C10D96B3200363AB7 /* volume_high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volume_high.png; path = Resources/Style/Default/volume_high.png; sourceTree = "<group>"; };
+		6314289C10D96B3200363AB7 /* volume_high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volume_high.png; path = Style/Default/volume_high.png; sourceTree = "<group>"; };
 		63161B1110CAADDF0091974E /* VLCCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCollectionView.h; path = Sources/VLCCollectionView.h; sourceTree = "<group>"; };
 		63161B1210CAADDF0091974E /* VLCCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCollectionView.m; path = Sources/VLCCollectionView.m; sourceTree = "<group>"; };
-		63161BB710CAC3DA0091974E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = "Resources/Style/No Playlist/default.css"; sourceTree = SOURCE_ROOT; };
+		63161BB710CAC3DA0091974E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = "Style/No Playlist/default.css"; sourceTree = SOURCE_ROOT; };
 		63161BBC10CAC3DA0091974E /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_exit_fullscreen.png; sourceTree = "<group>"; };
 		63161BBD10CAC3DA0091974E /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
 		63161BBE10CAC3DA0091974E /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fs_pause.png; sourceTree = "<group>"; };
@@ -406,40 +406,40 @@
 		63161BCF10CAC3DA0091974E /* window-close-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-close-on.png"; sourceTree = "<group>"; };
 		63161BD010CAC3DA0091974E /* window-minimize-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-minimize-on.png"; sourceTree = "<group>"; };
 		63161BD110CAC3DA0091974E /* window-zoom-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "window-zoom-on.png"; sourceTree = "<group>"; };
-		63161BD310CAC3DA0091974E /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/No Playlist/video-window.html"; sourceTree = SOURCE_ROOT; };
-		63161BEF10CAC3EF0091974E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/Style/Default/default.css; sourceTree = "<group>"; };
-		63161BF010CAC3EF0091974E /* hud.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = hud.css; path = Resources/Style/Default/hud.css; sourceTree = "<group>"; };
-		63161BF110CAC3EF0091974E /* hud.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = hud.html; path = Resources/Style/Default/hud.html; sourceTree = "<group>"; };
-		63161BF210CAC3EF0091974E /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = hud.js; path = Resources/Style/Default/hud.js; sourceTree = "<group>"; };
-		63161BF310CAC3EF0091974E /* PlaylistController.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PlaylistController.js; path = Resources/Style/Default/PlaylistController.js; sourceTree = "<group>"; };
-		63161BF410CAC3EF0091974E /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/Default/video-window.html"; sourceTree = "<group>"; };
-		63161BFC10CAC4190091974E /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Resources/Style/Default/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
-		63161BFD10CAC4190091974E /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen.png; path = Resources/Style/Default/fs_exit_fullscreen.png; sourceTree = "<group>"; };
-		63161BFE10CAC4190091974E /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause_highlight.png; path = Resources/Style/Default/fs_pause_highlight.png; sourceTree = "<group>"; };
-		63161BFF10CAC4190091974E /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause.png; path = Resources/Style/Default/fs_pause.png; sourceTree = "<group>"; };
-		63161C0010CAC4190091974E /* fs_play_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play_highlight.png; path = Resources/Style/Default/fs_play_highlight.png; sourceTree = "<group>"; };
-		63161C0110CAC4190091974E /* fs_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play.png; path = Resources/Style/Default/fs_play.png; sourceTree = "<group>"; };
-		63161C0210CAC4190091974E /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen_blue.png; path = Resources/Style/Default/fullscreen_blue.png; sourceTree = "<group>"; };
-		63161C0310CAC4190091974E /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen.png; path = Resources/Style/Default/fullscreen.png; sourceTree = "<group>"; };
-		63161C0410CAC4190091974E /* pause_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause_blue.png; path = Resources/Style/Default/pause_blue.png; sourceTree = "<group>"; };
-		63161C0510CAC4190091974E /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Resources/Style/Default/pause.png; sourceTree = "<group>"; };
-		63161C0610CAC4190091974E /* play_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_blue.png; path = Resources/Style/Default/play_blue.png; sourceTree = "<group>"; };
-		63161C0710CAC4190091974E /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = Resources/Style/Default/play.png; sourceTree = "<group>"; };
-		63161C0810CAC4190091974E /* timeinfo_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeinfo_border.png; path = Resources/Style/Default/timeinfo_border.png; sourceTree = "<group>"; };
-		63161C0910CAC4190091974E /* timeinfo_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeinfo_middle.png; path = Resources/Style/Default/timeinfo_middle.png; sourceTree = "<group>"; };
-		63161C0A10CAC4190091974E /* timeline_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeline_border.png; path = Resources/Style/Default/timeline_border.png; sourceTree = "<group>"; };
-		63161C0B10CAC4190091974E /* timeline_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeline_thumb.png; path = Resources/Style/Default/timeline_thumb.png; sourceTree = "<group>"; };
-		63161C0C10CAC4190091974E /* window-buttons-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons-off.png"; path = "Resources/Style/Default/window-buttons-off.png"; sourceTree = "<group>"; };
-		63161C0D10CAC4190091974E /* window-buttons-over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons-over.png"; path = "Resources/Style/Default/window-buttons-over.png"; sourceTree = "<group>"; };
-		63161C0E10CAC4190091974E /* window-buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons.png"; path = "Resources/Style/Default/window-buttons.png"; sourceTree = "<group>"; };
-		63161C0F10CAC4190091974E /* window-close-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-close-on.png"; path = "Resources/Style/Default/window-close-on.png"; sourceTree = "<group>"; };
-		63161C1010CAC4190091974E /* window-minimize-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-minimize-on.png"; path = "Resources/Style/Default/window-minimize-on.png"; sourceTree = "<group>"; };
-		63161C1110CAC4190091974E /* window-zoom-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-zoom-on.png"; path = "Resources/Style/Default/window-zoom-on.png"; sourceTree = "<group>"; };
-		63161C3010CAC48B0091974E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Style/Default/Info.plist; sourceTree = "<group>"; };
+		63161BD310CAC3DA0091974E /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Style/No Playlist/video-window.html"; sourceTree = SOURCE_ROOT; };
+		63161BEF10CAC3EF0091974E /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Style/Default/default.css; sourceTree = "<group>"; };
+		63161BF010CAC3EF0091974E /* hud.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = hud.css; path = Style/Default/hud.css; sourceTree = "<group>"; };
+		63161BF110CAC3EF0091974E /* hud.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = hud.html; path = Style/Default/hud.html; sourceTree = "<group>"; };
+		63161BF210CAC3EF0091974E /* hud.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = hud.js; path = Style/Default/hud.js; sourceTree = "<group>"; };
+		63161BF310CAC3EF0091974E /* PlaylistController.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = PlaylistController.js; path = Style/Default/PlaylistController.js; sourceTree = "<group>"; };
+		63161BF410CAC3EF0091974E /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Style/Default/video-window.html"; sourceTree = "<group>"; };
+		63161BFC10CAC4190091974E /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Style/Default/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
+		63161BFD10CAC4190091974E /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen.png; path = Style/Default/fs_exit_fullscreen.png; sourceTree = "<group>"; };
+		63161BFE10CAC4190091974E /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause_highlight.png; path = Style/Default/fs_pause_highlight.png; sourceTree = "<group>"; };
+		63161BFF10CAC4190091974E /* fs_pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause.png; path = Style/Default/fs_pause.png; sourceTree = "<group>"; };
+		63161C0010CAC4190091974E /* fs_play_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play_highlight.png; path = Style/Default/fs_play_highlight.png; sourceTree = "<group>"; };
+		63161C0110CAC4190091974E /* fs_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_play.png; path = Style/Default/fs_play.png; sourceTree = "<group>"; };
+		63161C0210CAC4190091974E /* fullscreen_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen_blue.png; path = Style/Default/fullscreen_blue.png; sourceTree = "<group>"; };
+		63161C0310CAC4190091974E /* fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullscreen.png; path = Style/Default/fullscreen.png; sourceTree = "<group>"; };
+		63161C0410CAC4190091974E /* pause_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause_blue.png; path = Style/Default/pause_blue.png; sourceTree = "<group>"; };
+		63161C0510CAC4190091974E /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = Style/Default/pause.png; sourceTree = "<group>"; };
+		63161C0610CAC4190091974E /* play_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play_blue.png; path = Style/Default/play_blue.png; sourceTree = "<group>"; };
+		63161C0710CAC4190091974E /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = play.png; path = Style/Default/play.png; sourceTree = "<group>"; };
+		63161C0810CAC4190091974E /* timeinfo_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeinfo_border.png; path = Style/Default/timeinfo_border.png; sourceTree = "<group>"; };
+		63161C0910CAC4190091974E /* timeinfo_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeinfo_middle.png; path = Style/Default/timeinfo_middle.png; sourceTree = "<group>"; };
+		63161C0A10CAC4190091974E /* timeline_border.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeline_border.png; path = Style/Default/timeline_border.png; sourceTree = "<group>"; };
+		63161C0B10CAC4190091974E /* timeline_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = timeline_thumb.png; path = Style/Default/timeline_thumb.png; sourceTree = "<group>"; };
+		63161C0C10CAC4190091974E /* window-buttons-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons-off.png"; path = "Style/Default/window-buttons-off.png"; sourceTree = "<group>"; };
+		63161C0D10CAC4190091974E /* window-buttons-over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons-over.png"; path = "Style/Default/window-buttons-over.png"; sourceTree = "<group>"; };
+		63161C0E10CAC4190091974E /* window-buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-buttons.png"; path = "Style/Default/window-buttons.png"; sourceTree = "<group>"; };
+		63161C0F10CAC4190091974E /* window-close-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-close-on.png"; path = "Style/Default/window-close-on.png"; sourceTree = "<group>"; };
+		63161C1010CAC4190091974E /* window-minimize-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-minimize-on.png"; path = "Style/Default/window-minimize-on.png"; sourceTree = "<group>"; };
+		63161C1110CAC4190091974E /* window-zoom-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "window-zoom-on.png"; path = "Style/Default/window-zoom-on.png"; sourceTree = "<group>"; };
+		63161C3010CAC48B0091974E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Style/Default/Info.plist; sourceTree = "<group>"; };
 		631AF8271095DAA900F8ED1A /* VLCWebBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCWebBindingsController.h; path = Sources/VLCWebBindingsController.h; sourceTree = "<group>"; };
 		631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCWebBindingsController.m; path = Sources/VLCWebBindingsController.m; sourceTree = "<group>"; };
 		63374A6E10EACFEE0072A0D9 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		63374C7210EAF3890072A0D9 /* noartwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noartwork.png; path = Resources/Style/Default/noartwork.png; sourceTree = "<group>"; };
+		63374C7210EAF3890072A0D9 /* noartwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noartwork.png; path = Style/Default/noartwork.png; sourceTree = "<group>"; };
 		635D1121104A843D00D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
 		635D1125104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/OpenURLWindow.xib; sourceTree = "<group>"; };
 		635D1126104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
@@ -459,14 +459,14 @@
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
 		639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSplashScreenWindowController.m; path = Sources/VLCSplashScreenWindowController.m; sourceTree = "<group>"; };
 		639F68401046E98400117832 /* Default.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Default.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
-		639F6C6D104721AE00117832 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Resources/Style/TV/default.css; sourceTree = "<group>"; };
-		639F6C6F104721AE00117832 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Style/TV/Info.plist; sourceTree = "<group>"; };
-		639F6C70104721AE00117832 /* tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tv.png; path = Resources/Style/TV/tv.png; sourceTree = "<group>"; };
-		639F6C71104721AE00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/TV/video-window.html"; sourceTree = "<group>"; };
+		639F6C6D104721AE00117832 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = default.css; path = Style/TV/default.css; sourceTree = "<group>"; };
+		639F6C6F104721AE00117832 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Style/TV/Info.plist; sourceTree = "<group>"; };
+		639F6C70104721AE00117832 /* tv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tv.png; path = Style/TV/tv.png; sourceTree = "<group>"; };
+		639F6C71104721AE00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Style/TV/video-window.html"; sourceTree = "<group>"; };
 		639F6CAB104721BD00117832 /* TV.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TV.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
 		639F72671047548200117832 /* Black.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Black.lunettesstyle; sourceTree = BUILT_PRODUCTS_DIR; };
-		639F7281104754BB00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Resources/Style/Black/video-window.html"; sourceTree = "<group>"; };
-		639F7282104754BB00117832 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = black.css; path = Resources/Style/Black/black.css; sourceTree = "<group>"; };
+		639F7281104754BB00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Style/Black/video-window.html"; sourceTree = "<group>"; };
+		639F7282104754BB00117832 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = black.css; path = Style/Black/black.css; sourceTree = "<group>"; };
 		639F772010480F8300117832 /* No Playlist.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "No Playlist.lunettesstyle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63B1DE51104381C20029C49C /* VLCFullscreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenController.h; path = Sources/VLCFullscreenController.h; sourceTree = "<group>"; };
 		63B1DE52104381C20029C49C /* VLCFullscreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenController.m; path = Sources/VLCFullscreenController.m; sourceTree = "<group>"; };
@@ -500,7 +500,7 @@
 		CC54DD4810EE75EA0031D0A2 /* VLCCrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCrashReporter.m; path = Sources/VLCCrashReporter.m; sourceTree = "<group>"; };
 		CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CrashReporter.xib; path = Resources/CrashReporter.xib; sourceTree = "<group>"; };
 		CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
-		CC56641D103C9F5900FEA1D3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = SOURCE_ROOT; };
+		CC56641D103C9F5900FEA1D3 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMiscUIElements.m; path = Sources/VLCMiscUIElements.m; sourceTree = "<group>"; };
 		CC5E8FE1103C596D0000601C /* VLCMiscUIElements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMiscUIElements.h; path = Sources/VLCMiscUIElements.h; sourceTree = "<group>"; };
 		CC5E9090103C95000000601C /* VLCVideoWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCVideoWindow.h; path = Sources/VLCVideoWindow.h; sourceTree = "<group>"; };
@@ -545,32 +545,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */,
-				CC56641D103C9F5900FEA1D3 /* Sparkle.framework */,
-				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
-				CCABE8CB107F664B004A471E /* IOKit.framework */,
-				CCBB290610EF6E5500055641 /* Carbon.framework */,
-				CC73DEBC10F0F669001FEFE4 /* WebKit.framework */,
-				CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */,
-				4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */,
-			);
-			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				63B1DF6E104395EC0029C49C /* Carbon.framework */,
-				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
-				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
-				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
 		19C28FB0FE9D524F11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -590,6 +564,7 @@
 				63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */,
 				2A37F4ABFDCFA73011CA2CEA /* Classes */,
 				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				639F68DC1046F18700117832 /* Style */,
 				630141B11040629700534090 /* Configurations */,
 				2A37F4B8FDCFA73011CA2CEA /* Resources */,
 				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
@@ -632,7 +607,6 @@
 			isa = PBXGroup;
 			children = (
 				63B1E42D10444D540029C49C /* Icon.icns */,
-				639F68DC1046F18700117832 /* Style */,
 				63032506104A836800CC82B6 /* xibs */,
 				6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */,
 				6311DAAC0FF85AC0004BC7D1 /* Images */,
@@ -649,9 +623,19 @@
 		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				63B1DF6E104395EC0029C49C /* Carbon.framework */,
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+				CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */,
+				CC56641D103C9F5900FEA1D3 /* Sparkle.framework */,
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+				CCABE8CB107F664B004A471E /* IOKit.framework */,
+				CCBB290610EF6E5500055641 /* Carbon.framework */,
+				CC73DEBC10F0F669001FEFE4 /* WebKit.framework */,
+				CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */,
+				4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */,
 				63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */,
-				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
-				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -809,7 +793,7 @@
 				6312778510C6C4E500A01F33 /* dom-drag.js */,
 			);
 			name = Base;
-			path = Resources/Style/Base;
+			path = Style/Base;
 			sourceTree = "<group>";
 		};
 		63161BBB10CAC3DA0091974E /* images */ = {
@@ -839,7 +823,7 @@
 				63161BD110CAC3DA0091974E /* window-zoom-on.png */,
 			);
 			name = images;
-			path = "Resources/Style/No Playlist/images";
+			path = "Style/No Playlist/images";
 			sourceTree = SOURCE_ROOT;
 		};
 		63161BF910CAC3FA0091974E /* Images */ = {
@@ -927,7 +911,7 @@
 				63161BD310CAC3DA0091974E /* video-window.html */,
 			);
 			name = "No Playlist";
-			path = Resources/Style/Experimental;
+			path = Style/Experimental;
 			sourceTree = "<group>";
 		};
 		63B1E55C104554FC0029C49C /* Common Class for Styled Windows */ = {
@@ -1345,7 +1329,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/Resources/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\nprettyfiles=\"\"\n\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Resources/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
+			shellScript = "cd $SRCROOT/Resources/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\nprettyfiles=\"\"\n\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
 		};
 		63F15C3910D143B2003B99BE /* Set Git Version */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1653,7 +1637,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = Resources/Style/Default/Info.plist;
+				INFOPLIST_FILE = Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1828,7 +1812,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = Resources/Style/Default/Info.plist;
+				INFOPLIST_FILE = Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1852,7 +1836,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INFOPLIST_FILE = Resources/Style/Default/Info.plist;
+				INFOPLIST_FILE = Style/Default/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
 				OTHER_LDFLAGS = (
 					"-framework",
