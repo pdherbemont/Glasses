@@ -22,7 +22,6 @@
 
 #import "VLCStyledVideoWindowView.h"
 #import "VLCStyledVideoWindowController.h"
-#import "VLCExtendedVideoView.h"
 #import "VLCStyledVideoWindow.h"
 #import "VLCMediaDocument.h"
 #import "DOMElement_Additions.h"
@@ -38,6 +37,7 @@
 {
     NSAssert(!_contentTracking, @"_contentTracking should have been released");
     NSAssert(!_videoWindow, @"_videoWindow should have been released");
+    NSAssert(!_containerForVideoView, @"_containerForVideoView should have been released");
     [super dealloc];
 }
 
@@ -52,6 +52,8 @@
         _contentTracking = nil;
     }
 
+    [_containerForVideoView release];
+    _containerForVideoView = nil;
     [super close];
 }
 
@@ -78,11 +80,23 @@
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame
 {
+    BOOL enterFS = [[NSUserDefaults standardUserDefaults] boolForKey:kStartPlaybackInFullscreen];
+    NSWindow *window = [self window];
+
+    // Time to go fullscreen, this can't be done before,
+    // because we need (for fullscreen exit) to have the video view
+    // properly setuped. A bit of coding could fix that, but that's enough
+    // for now.
+    if (enterFS && ![self hasLoadedAFirstFrame]) {
+        [window orderOut:self];
+        [[window windowController] enterFullscreen];
+    }
+
+    // The following will make the window visible (alpha = 1)
     [super didFinishLoadForFrame:frame];
 
     // Sync with what this theme needs in term of window
     _isStyleOpaque = ![self contentHasClassName:@"transparent"];
-    NSWindow *window = [self window];
     if ([window isOpaque] != _isStyleOpaque)
         [window setOpaque:_isStyleOpaque];
 
@@ -93,8 +107,7 @@
     // Make sure we remove the videoView from superview or from the below window
     // hence, we'll be able to properly recreate it.
     [self _removeBelowWindow];
-    VLCVideoView *videoView = [controller videoView];
-    [videoView removeFromSuperview];
+    [_containerForVideoView removeFromSuperview];
 
     [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
 
@@ -102,20 +115,12 @@
 
     [self videoDidResize];
 
-    BOOL enterFS = [[NSUserDefaults standardUserDefaults] boolForKey:kStartPlaybackInFullscreen];
     if (!enterFS || [self hasLoadedAFirstFrame])
         [window makeKeyAndOrderFront:self];
 
     [self setKeyWindow:[window isKeyWindow]];
     [self setMainWindow:[window isMainWindow]];
     [self updateTrackingAreas];
-
-    // Time to go fullscreen, this can't be done before,
-    // because we need (for fullscreen exit) to have the video view
-    // properly setuped. A bit of coding could fix that, but that's enough
-    // for now.
-    if (enterFS && ![self hasLoadedAFirstFrame])
-        [[window windowController] enterFullscreen];
 
     // Make sure we don't loose the first responder. Else the style menu will not
     // work. You can reproduce this when using a borderless window.
@@ -195,7 +200,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     _videoWindow = nil;
 }
 
-- (void)_addBelowWindowInRect:(NSRect)screenRect withVideoView:(VLCVideoView *)videoView
+- (void)_addBelowWindowInRect:(NSRect)screenRect withView:(NSView *)view
 {
     NSAssert(!_videoWindow, @"There should not be a video window at this point");
 
@@ -203,7 +208,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
     [_videoWindow setBackgroundColor:[NSColor blackColor]];
     [_videoWindow setLevel:VLCFullscreenHUDWindowLevel()];
-    [_videoWindow setContentView:videoView];
+    [_videoWindow setContentView:view];
     [_videoWindow setIgnoresMouseEvents:YES];
     [_videoWindow setReleasedWhenClosed:NO];
     [_videoWindow setAcceptsMouseMovedEvents:NO];
@@ -229,8 +234,16 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
     DOMHTMLElement *element = [self htmlElementForId:@"video-view"];
     NSAssert(element, @"No video-view element in this style");
-    VLCVideoView *videoView = [[[self window] windowController] videoView];
-    NSAssert(videoView, @"There is no videoView.");
+
+    if (!_containerForVideoView) {
+        NSView *videoView = [[[self window] windowController] videoView];
+        NSAssert(videoView, @"There is no videoView.");
+        _containerForVideoView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 128, 128)];
+        [_containerForVideoView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [videoView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
+        [_containerForVideoView addSubview:videoView];
+        [videoView setFrame:[_containerForVideoView bounds]];
+    }
 
     NSRect frame = [element frameInView:self];
 
@@ -242,21 +255,21 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 #if SUPPORT_VIDEO_BELOW_CONTENT
     BOOL wantsBelowContent = [element.className rangeOfString:@"below-content"].length > 0;
-    if (![videoView window]) {
+    if (![_containerForVideoView window]) {
 
         if (wantsBelowContent) {
-            [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withVideoView:videoView];
+            [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withView:_containerForVideoView];
         }
         else {
-            [self addSubview:videoView];
-            [videoView setFrame:frame];
+            [self addSubview:_containerForVideoView];
+            [_containerForVideoView setFrame:frame];
         }
 
     }
     else {
         BOOL videoIsOnTop = !_videoWindow;
         if (videoIsOnTop && !wantsBelowContent) {
-            [videoView setFrame:frame];
+            [_containerForVideoView setFrame:frame];
             return;
         }
         if (!videoIsOnTop && wantsBelowContent) {
@@ -264,23 +277,23 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
             return;
         }
         if (videoIsOnTop && wantsBelowContent) {
-            [videoView removeFromSuperviewWithoutNeedingDisplay];
-            [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withVideoView:videoView];
+            [_containerForVideoView removeFromSuperviewWithoutNeedingDisplay];
+            [self _addBelowWindowInRect:screenRectForViewRect(self, frame) withView:_containerForVideoView];
             return;
         }
         if (!videoIsOnTop && !wantsBelowContent) {
-            [videoView removeFromSuperviewWithoutNeedingDisplay];
-            [self addSubview:videoView];
-            [videoView setFrame:frame];
+            [_containerForVideoView removeFromSuperviewWithoutNeedingDisplay];
+            [self addSubview:_containerForVideoView];
+            [_containerForVideoView setFrame:frame];
             [self _removeBelowWindow];
             return;
         }
         VLCAssertNotReached(@"Previous conditions should not lead here");
     }
 #else
-    if (![videoView superview])
-        [self addSubview:videoView];
-    [videoView setFrame:frame];
+    if (![_containerForVideoView superview])
+        [self addSubview:_containerForVideoView];
+    [_containerForVideoView setFrame:frame];
 #endif
 }
 

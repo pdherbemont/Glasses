@@ -27,6 +27,7 @@
 @class VLCStyledVideoWindowView;
 @interface VLCStyledVideoWindowController : NSWindowController {
     IBOutlet VLCExtendedVideoView *_videoView;
+    IBOutlet NSView *_containerForVideoView;
     IBOutlet VLCStyledVideoWindowView *_styledWindowView;
     IBOutlet NSButton *_accessoryButton;
     IBOutlet NSView *_accessoryView;
@@ -39,6 +40,7 @@
 - (void)setStyleWantsCocoaTitleBar:(BOOL)titleBar;
 
 @property (readonly, retain) VLCExtendedVideoView *videoView;
+
 @property (readonly, retain) VLCStyledVideoWindowView *styledWindowView;
 
 @end

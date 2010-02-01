@@ -56,6 +56,13 @@
 {
     NSTrackingArea *_contentTracking;
 
+    /**
+     * We keep the videoView in a superview, hence
+     * when transiting to fullscreen, we can keep all the
+     * bounds changes. They will be applied to _containerForVideoView
+     * instead of videoView */
+    NSView *_containerForVideoView;
+
 #ifdef SUPPORT_VIDEO_BELOW_CONTENT
     NSWindow *_videoWindow;
 #endif

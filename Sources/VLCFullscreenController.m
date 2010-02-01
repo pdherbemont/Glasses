@@ -330,6 +330,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 {
     NSAssert(!_placeholderView, @"There shouldn't be a place holder view at this time");
     _placeholderView = [[NSView alloc] init];
+    [_placeholderView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable];
     NSAssert([_view superview], @"This view has no superview, this means that we won't be able to re-attach it.");
     [[_view superview] replaceSubview:_view with:_placeholderView];
     [_placeholderView setFrame:[_view frame]];
