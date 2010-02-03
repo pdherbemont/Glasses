@@ -18,22 +18,18 @@ body {
 
 #main-window {
     position: absolute;
-    background-color:transparent;
+    background: transparent;
     overflow: hidden;
+
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 /*
  * Window decoration
  */
-
-#content.key-window .titlebar {
-    /* Window is key window */
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222), to(#111));
-}
-#content .titlebar {
-    /* Window is non key window */
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#444), to(#333));
-}
 
 .titlebar {
     -webkit-user-select: none;
@@ -44,9 +40,8 @@ body {
     height: 20px;
     border-bottom: thin #434343 solid;
     border-top: 1px rgba(255, 255, 255, 0.8) solid;
-    -webkit-border-top-left-radius: 15px;
-    -webkit-border-top-right-radius: 15px;
     padding-left: 4px;
+    background: rgba(255, 255, 255, 0.4)
 }
 
 .window-decoration {
@@ -101,8 +96,7 @@ body {
 }
 
 .key-window .title {
-    color: white;
-    text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.1);
+    text-shadow: 0px 0px 10px #111;
 }
 
 #content .title {
@@ -116,6 +110,7 @@ body {
 }
 
 .title {
+    color: white;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -128,7 +123,6 @@ body {
     text-align: center;
     font-family: LucidaGrande;
     font-size: 13px;
-    color: rgba(0,0,0,0.6);
 }
 
 .resize {
@@ -157,20 +151,7 @@ body {
  * Controls
  */
 
-#content.key-window .controls {
-    /* Window is key window */
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#222), to(#000));
-}
-
-#content .controls {
-    /* Window is non key window */
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666), to(#444));
-}
-
 .controls {
-    -webkit-border-bottom-left-radius: 15px;
-    -webkit-border-bottom-right-radius: 15px;
-
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-align: center;
@@ -183,6 +164,8 @@ body {
     border-top: thin rgba(255,255,255, 0.2) solid;
     box-sizing: border-box;
     height: 31px;
+
+    background-color: rgba(255,255,255,0.4);
 }
 
 #content .controls>:nth-child(n)  {
@@ -253,7 +236,7 @@ body {
     -webkit-box-flex: 1;
     height: 2px;
 
-    background-color: black;
+    background-color: #6896ff;
     -webkit-border-radius: 4px;
 
     box-sizing: border-box;
@@ -265,15 +248,15 @@ body {
 
 .timeline::-webkit-slider-thumb {
     -webkit-appearance: none;
-    background-color: gray;
-    border: thin solid #999999;
-    -webkit-border-radius: 5px;
-    width: 5px;
-    height: 5px;
+    background-color: black;
+    border: 3px solid #999999;
+    -webkit-border-radius: 8px;
+    width: 8px;
+    height: 8px;
 }
 
 .ellapsed-time {
-    color: black;
+    color: white;
     font-family: LucidaGrande;
     font-size: 10px;
 }
