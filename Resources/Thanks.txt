@@ -9,6 +9,7 @@ flac - Josh Coalson et al.
 
 Lunettes makes use of the following third party code:
 Sparkle - Andy Matuschak et al.
+BWToolkit - Brandon Walkin
 Apple Remote support based upon works by Martin Kahr (c) 2006
 
 
