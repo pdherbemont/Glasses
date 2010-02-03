@@ -21,13 +21,17 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "VLCFeatures.h"
 
 @interface VLCSplashScreenWindowController : NSWindowController
 {
-    IBOutlet NSCollectionView *_unfinishedItemsCollection;
-    IBOutlet NSCollectionView *_mediaDiscoverCollection;
     IBOutlet NSArrayController *_mediaDiscovererArrayController;
     BOOL _hasSelection;
+
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
+    IBOutlet NSCollectionView *_unfinishedItemsCollection;
+    IBOutlet NSCollectionView *_mediaDiscoverCollection;
+#endif
 }
 
 @property (retain, readonly) NSArray *availableMediaDiscoverer;

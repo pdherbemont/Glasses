@@ -42,7 +42,11 @@
 
 - (NSString *)windowNibName
 {
+#if ENABLE_EXTENDED_SPLASH_SCREEN
+    return @"NewSplashScreenWindow";
+#else
     return @"SplashScreenWindow";
+#endif
 }
 
 - (void)windowDidLoad
@@ -52,15 +56,19 @@
 
     [window center];
     [window setDelegate:self];
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
     NSAssert(_mediaDiscoverCollection, @"There is no collectionView");
     NSAssert(_unfinishedItemsCollection, @"There is no collectionView");
     [_unfinishedItemsCollection registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+#endif
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
     [_unfinishedItemsCollection setDelegate:nil];
     [_mediaDiscoverCollection setDelegate:nil];
+#endif
     [[VLCDocumentController sharedDocumentController] closeSplashScreen];
 }
 
@@ -71,6 +79,8 @@
 {
     return [VLCDocumentController sharedDocumentController];
 }
+
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
 
 - (void)collectionView:(NSCollectionView *)collectionView doubleClickedOnItemAtIndex:(NSUInteger)index
 {
@@ -89,7 +99,9 @@
 #else
         id representedObject = [[[NSUserDefaults standardUserDefaults] arrayForKey:kUnfinishedMoviesAsArray] objectAtIndex:index];
 #endif
-        NSURL *url = [NSURL URLWithString:[representedObject valueForKey:@"url"]];
+        NSString *stringURL = [representedObject valueForKey:@"url"];
+        NSURL *url = [NSURL URLWithString:stringURL];
+        NSAssert(url, @"Invalid string in DB!");
         double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
     }
@@ -130,8 +142,10 @@
     return YES;
 }
 
+#endif
 - (IBAction)openSelection:(id)sender
 {
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
     NSAssert(_mediaDiscoverCollection, @"Should be binded");
     NSIndexSet *discoverers = [_mediaDiscoverCollection selectionIndexes];
     NSIndexSet *unfinished = [_unfinishedItemsCollection selectionIndexes];
@@ -141,5 +155,6 @@
          [self collectionView:_unfinishedItemsCollection doubleClickedOnItemAtIndex:[unfinished firstIndex]];
     else
          VLCAssertNotReached(@"We shouldn't have received this action in the first place");
+#endif
 }
 @end

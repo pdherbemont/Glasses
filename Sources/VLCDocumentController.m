@@ -40,7 +40,7 @@
 - (void)setTitleFromMenuItem:(NSMenuItem *)sender;
 @end
 
-@interface VLCDocumentController ()
+@interface VLCDocumentController () <NSMetadataQueryDelegate>
 // See -setMainWindow:
 @property (readwrite, retain) id currentDocument;
 @end
@@ -234,11 +234,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     }
 }
 
-- (NSPredicate *)predicateThatFiltersEmptyDiscoverer
-{
-    return [NSPredicate predicateWithFormat:@"discoveredMedia.media.@count != 0"];
-}
-
 - (void)bakeDocument:(VLCMediaDocument *)mediaDocument
 {
     [self addDocument:mediaDocument];
@@ -353,46 +348,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [moc save:nil];
 }
 
-#pragma mark -
-#pragma mark NSApp delegate
-
-- (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visibleWindows
-{
-    if (!visibleWindows) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([defaults boolForKey:kDontShowSplashScreen])
-            return YES;
-        [self openSplashScreen:self];
-        return NO;
-    }
-    return YES;
-}
-
-- (void)applicationWillFinishLaunching:(NSNotification *)notification
-{
-    // Load VLC from now on.
-    [VLCLibrary sharedLibrary];
-}
-
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
-    [self rebuildStyleMenu];
-    [self rebuildScriptsMenu];
-    [self rebuildRateMenuItem];
-
-    // We have some document open already, don't bother to show the splashScreen.
-    if ([[self documents] count] > 0)
-        return;
-
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:kDontShowSplashScreen])
-        return;
-
-    // auto-releases itself when the window is closed
-    _splashScreen = [[VLCSplashScreenWindowController alloc] init];
-    [_splashScreen showWindow:self];
-}
-
 
 #pragma mark -
 #pragma mark Non document-based window
@@ -490,7 +445,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)savePendingChangesToMoc
 {
-    [[self managedObjectContext] save:nil];
+    //r[[self managedObjectContext] save:nil];
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     NSProcessInfo *process = [NSProcessInfo processInfo];
@@ -508,9 +463,127 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
             [process disableSuddenTermination];
 #endif
 
-        [self performSelector:@selector(savePendingChangesToMoc) withObject:nil afterDelay:0];
+        [self performSelector:@selector(savePendingChangesToMoc) withObject:nil afterDelay:1.];
         return;
     }
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+- (NSPredicate *)predicateThatFiltersEmptyDiscoverer
+{
+    return [NSPredicate predicateWithFormat:@"discoveredMedia.media.@count != 0"];
+}
+
+#pragma mark Media Library: Path Watcher
+
+#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
+- (void)addMetadataItem:(NSMetadataItem *)result
+{
+    NSString *url = [NSURL fileURLWithPath:[result valueForAttribute:@"kMDItemPath"]];
+#if 1
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
+    [request setFetchLimit:1];
+    [request setEntity:entity];
+#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
+    if ([request respondsToSelector:@selector(setPropertiesToFetch:)])
+        [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
+#endif
+    [request setPredicate:[NSPredicate predicateWithFormat:@"url LIKE[c] %@", [url description]]];
+
+    NSArray *results = [moc executeFetchRequest:request error:nil];
+    [request release];
+
+
+    if ([results count] > 0)
+        return;
+
+    id movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
+    [movie setValue:[url description] forKey:@"url"];
+
+    // Yes, this is a negative number. VLCTime nicely display negative time
+    // with "XX minutes remaining". And we are using this facility.
+
+    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"currentlyWatching"];
+    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
+    [movie setValue:[NSNumber numberWithDouble:30] forKey:@"remainingTime"];
+
+    [movie setValue:[result valueForAttribute:@"kMDItemDisplayName"] forKey:@"title"];
+
+#endif
+}
+
+- (void)gotResults:(NSNotification *)notification
+{
+    NSMetadataQuery *query = [notification object];
+    NSArray *array = [query results];
+    for (NSMetadataItem *item in array) {
+        NSLog(@"%@", item);
+        [self addMetadataItem:item];
+    }
+}
+
+- (id)metadataQuery:(NSMetadataQuery *)query replacementObjectForResultObject:(NSMetadataItem *)result
+{
+    [self addMetadataItem:result];
+    return result;
+
+}
+
+#endif
+
+- (void)startWatchingFolders
+{
+#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
+    NSMetadataQuery *query = [[NSMetadataQuery alloc] init];
+    [query setSearchScopes:[NSArray arrayWithObject:[NSURL fileURLWithPath:[@"~/Downloads" stringByExpandingTildeInPath]]]];
+    [query setPredicate:[NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.movie'"]];
+    //[query setDelegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotResults:) name:NSMetadataQueryDidFinishGatheringNotification object:query];
+    [query startQuery];
+#endif
+}
+
+#pragma mark -
+#pragma mark NSApp delegate
+
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visibleWindows
+{
+    if (!visibleWindows) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        if ([defaults boolForKey:kDontShowSplashScreen])
+            return YES;
+        [self openSplashScreen:self];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)applicationWillFinishLaunching:(NSNotification *)notification
+{
+    // Load VLC from now on.
+    [VLCLibrary sharedLibrary];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    [self rebuildStyleMenu];
+    [self rebuildScriptsMenu];
+    [self rebuildRateMenuItem];
+
+    // We have some document open already, don't bother to show the splashScreen.
+    if ([[self documents] count] > 0)
+        return;
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:kDontShowSplashScreen])
+        return;
+
+    [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:3];
+
+    // auto-releases itself when the window is closed
+    _splashScreen = [[VLCSplashScreenWindowController alloc] init];
+    [_splashScreen showWindow:self];
 }
 @end

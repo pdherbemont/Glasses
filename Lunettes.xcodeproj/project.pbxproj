@@ -19,6 +19,7 @@
 		6301465E1040992F00534090 /* StyledVideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6301465A1040991000534090 /* StyledVideoWindow.xib */; };
 		63014A721042AC9900534090 /* Coding Style.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63014A711042AC9900534090 /* Coding Style.rtf */; };
 		63032501104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */; };
+		63075091111900900027B8C2 /* NewSplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6307508F111900900027B8C2 /* NewSplashScreenWindow.xib */; };
 		63099784110FA787005F46AE /* fs_exit_fullscreen_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6309977E110FA787005F46AE /* fs_exit_fullscreen_highlight.png */; };
 		63099785110FA787005F46AE /* fs_exit_fullscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 6309977F110FA787005F46AE /* fs_exit_fullscreen.png */; };
 		63099786110FA787005F46AE /* fs_pause_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 63099780110FA787005F46AE /* fs_pause_highlight.png */; };
@@ -147,6 +148,8 @@
 		639F7283104754BB00117832 /* video-window.html in Resources */ = {isa = PBXBuildFile; fileRef = 639F7281104754BB00117832 /* video-window.html */; };
 		639F7284104754BB00117832 /* black.css in Resources */ = {isa = PBXBuildFile; fileRef = 639F7282104754BB00117832 /* black.css */; };
 		639F7296104755AB00117832 /* Black.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F72671047548200117832 /* Black.lunettesstyle */; };
+		639FDAC91117863E007EE416 /* VLCSplashScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 639FDAC81117863E007EE416 /* VLCSplashScreenView.m */; };
+		639FDAF9111787B1007EE416 /* splash-screen.html in Resources */ = {isa = PBXBuildFile; fileRef = 639FDAF8111787B1007EE416 /* splash-screen.html */; };
 		63B1DE53104381C20029C49C /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
 		63B1E0F510440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
 		63B1E10410440DF50029C49C /* VLCStyledFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10010440DF50029C49C /* VLCStyledFullscreenHUDWindowController.m */; };
@@ -297,6 +300,7 @@
 		63014A711042AC9900534090 /* Coding Style.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "Coding Style.rtf"; sourceTree = "<group>"; };
 		630324FF104A82C400CC82B6 /* VLCPlaylistDebugWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlaylistDebugWindowController.h; path = Sources/VLCPlaylistDebugWindowController.h; sourceTree = "<group>"; };
 		63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlaylistDebugWindowController.m; path = Sources/VLCPlaylistDebugWindowController.m; sourceTree = "<group>"; };
+		63075090111900900027B8C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/NewSplashScreenWindow.xib; sourceTree = "<group>"; };
 		6309977E110FA787005F46AE /* fs_exit_fullscreen_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen_highlight.png; path = Style/TV/fs_exit_fullscreen_highlight.png; sourceTree = "<group>"; };
 		6309977F110FA787005F46AE /* fs_exit_fullscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_exit_fullscreen.png; path = Style/TV/fs_exit_fullscreen.png; sourceTree = "<group>"; };
 		63099780110FA787005F46AE /* fs_pause_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fs_pause_highlight.png; path = Style/TV/fs_pause_highlight.png; sourceTree = "<group>"; };
@@ -468,6 +472,9 @@
 		639F7281104754BB00117832 /* video-window.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "video-window.html"; path = "Style/Black/video-window.html"; sourceTree = "<group>"; };
 		639F7282104754BB00117832 /* black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = black.css; path = Style/Black/black.css; sourceTree = "<group>"; };
 		639F772010480F8300117832 /* No Playlist.lunettesstyle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "No Playlist.lunettesstyle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		639FDAC71117863E007EE416 /* VLCSplashScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenView.h; path = Sources/VLCSplashScreenView.h; sourceTree = "<group>"; };
+		639FDAC81117863E007EE416 /* VLCSplashScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCSplashScreenView.m; path = Sources/VLCSplashScreenView.m; sourceTree = "<group>"; };
+		639FDAF8111787B1007EE416 /* splash-screen.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "splash-screen.html"; path = "Style/Default/splash-screen.html"; sourceTree = "<group>"; };
 		63B1DE51104381C20029C49C /* VLCFullscreenController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCFullscreenController.h; path = Sources/VLCFullscreenController.h; sourceTree = "<group>"; };
 		63B1DE52104381C20029C49C /* VLCFullscreenController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCFullscreenController.m; path = Sources/VLCFullscreenController.m; sourceTree = "<group>"; };
 		63B1DF6E104395EC0029C49C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -653,6 +660,7 @@
 			isa = PBXGroup;
 			children = (
 				63161BEF10CAC3EF0091974E /* default.css */,
+				639FDAF8111787B1007EE416 /* splash-screen.html */,
 				63161BF010CAC3EF0091974E /* hud.css */,
 				63161BF210CAC3EF0091974E /* hud.js */,
 				63161BF310CAC3EF0091974E /* PlaylistController.js */,
@@ -685,6 +693,7 @@
 				635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */,
 				635D112B104A846400D34A87 /* PreferencesWindow.xib */,
 				635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */,
+				6307508F111900900027B8C2 /* NewSplashScreenWindow.xib */,
 				63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */,
 				6301465A1040991000534090 /* StyledVideoWindow.xib */,
 				63D441CF100469A60086772A /* VideoWindow.xib */,
@@ -918,6 +927,8 @@
 		639FDAAC111782EA007EE416 /* Splash Screen */ = {
 			isa = PBXGroup;
 			children = (
+				639FDAC71117863E007EE416 /* VLCSplashScreenView.h */,
+				639FDAC81117863E007EE416 /* VLCSplashScreenView.m */,
 				639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */,
 				639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */,
 			);
@@ -1193,6 +1204,7 @@
 				63161C3110CAC48B0091974E /* Info.plist in Resources */,
 				6314289D10D96B3200363AB7 /* volume_high.png in Resources */,
 				63374C7310EAF38A0072A0D9 /* noartwork.png in Resources */,
+				639FDAF9111787B1007EE416 /* splash-screen.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1305,6 +1317,7 @@
 				CC54DD5E10EE79D10031D0A2 /* CrashReporter.xib in Resources */,
 				639163E21115E23000480B08 /* InfoWindow.xib in Resources */,
 				32D85F4911149F4800591CE5 /* errorImage.pdf in Resources */,
+				63075091111900900027B8C2 /* NewSplashScreenWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1397,6 +1410,7 @@
 				CC74565410EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m in Sources */,
 				631393C810FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel in Sources */,
 				639163E01115E21500480B08 /* VLCInfoWindowController.m in Sources */,
+				639FDAC91117863E007EE416 /* VLCSplashScreenView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1426,6 +1440,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6307508F111900900027B8C2 /* NewSplashScreenWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63075090111900900027B8C2 /* English */,
+			);
+			name = NewSplashScreenWindow.xib;
+			sourceTree = "<group>";
+		};
 		6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
