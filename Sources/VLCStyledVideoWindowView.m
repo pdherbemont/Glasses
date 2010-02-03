@@ -83,6 +83,17 @@
     BOOL enterFS = [[NSUserDefaults standardUserDefaults] boolForKey:kStartPlaybackInFullscreen];
     NSWindow *window = [self window];
 
+    // Make sure we remove the videoView from superview or from the below window
+    // hence, we'll be able to properly recreate it.
+    [self _removeBelowWindow];
+    [_containerForVideoView removeFromSuperview];
+
+    [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
+
+    [window setIgnoresMouseEvents:NO];
+
+    [self videoDidResize];
+
     // Time to go fullscreen, this can't be done before,
     // because we need (for fullscreen exit) to have the video view
     // properly setuped. A bit of coding could fix that, but that's enough
@@ -103,17 +114,6 @@
     VLCStyledVideoWindowController *controller = [window windowController];
     BOOL wantsCocoaTitleBar = [self contentHasClassName:@"wants-cocoatitlebar"];
     [controller setStyleWantsCocoaTitleBar:wantsCocoaTitleBar];
-
-    // Make sure we remove the videoView from superview or from the below window
-    // hence, we'll be able to properly recreate it.
-    [self _removeBelowWindow];
-    [_containerForVideoView removeFromSuperview];
-
-    [[self windowScriptObject] setValue:window forKey:@"PlatformWindow"];
-
-    [window setIgnoresMouseEvents:NO];
-
-    [self videoDidResize];
 
     if (!enterFS || [self hasLoadedAFirstFrame])
         [window makeKeyAndOrderFront:self];
