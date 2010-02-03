@@ -41,7 +41,7 @@ body {
     border-bottom: thin #434343 solid;
     border-top: 1px rgba(255, 255, 255, 0.8) solid;
     padding-left: 4px;
-    background: rgba(255, 255, 255, 0.4)
+    background: rgba(255, 255, 255, 0.4);
 }
 
 .window-decoration {
@@ -55,17 +55,51 @@ body {
     cursor: default;
     background-color: transparent;
     border: none;
-    height: 10px;
-    width: 10px;
-    opacity: 0;
-    -webkit-transition: opacity 0.3s ease-in;
 
-    font-family: Courier;
-    font-weight: bold;
-    color: rgba(255,255,255,0.9);
-    margin: 2px;
-    text-align: center;
+    height: 15px; width: 14px;
+    padding: 0px;
+    margin: 0;
+    margin-top: 3px;
+    margin-right: 4px;
 }
+
+#content .window-buttons>button {
+    background-repeat: no-repeat;
+    background-image: url(window-buttons-off.png);
+}
+
+.close:active {
+    background: url(window-close-on.png) no-repeat 0 0 !important;
+}
+
+.miniaturize:active {
+    background: url(window-minimize-on.png) no-repeat 0 0 !important;
+}
+
+.zoom:active {
+    background: url(window-zoom-on.png) no-repeat 0 0 !important;
+}
+
+.window-buttons:hover>button {
+    background-image: url(window-buttons-over.png) !important;
+}
+
+#content.key-window .window-buttons>button {
+    background-image: url(window-buttons.png);
+}
+
+
+
+.close {
+    background-position-x: 0px;
+}
+.miniaturize {
+    background-position-x: -21px;
+}
+.zoom {
+    background-position-x: -42px;
+}
+
 
 #content:hover .titlebar,
 #content:hover .window-decoration button,
@@ -74,6 +108,7 @@ body {
     opacity: 1;
     -webkit-transition: opacity 0.1s ease-in;
 }
+
 
 .titlebar,
 .window-decoration button,
