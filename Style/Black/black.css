@@ -19,16 +19,6 @@ body {
 #main-window {
     position: absolute;
     background-color:transparent;
-/* rgb(0.90,.90,.90) rgb(0.50,0.50,0.50) rgb(0.59,0.59,0.59) */
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    -webkit-border-radius: 15px;
-    border-left: 1px rgba(136, 136, 136, 1.0) solid;
-    border-right: 1px #434343 solid;
-    border-top: 1px rgba(136, 136, 136, 0.5) solid;
-    border-bottom: thin #434343 solid;
     overflow: hidden;
 }
 
@@ -157,10 +147,10 @@ body {
 #video .view {
     position: absolute;
     background: transparent;
-    bottom: 10px;
+    bottom: 0px;
     right: 0px;
     left: 0px;
-    top: 10px;
+    top: 0px;
 }
 
 /*

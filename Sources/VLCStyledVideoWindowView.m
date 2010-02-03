@@ -212,7 +212,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     [_videoWindow setIgnoresMouseEvents:YES];
     [_videoWindow setReleasedWhenClosed:NO];
     [_videoWindow setAcceptsMouseMovedEvents:NO];
-    [_videoWindow setHasShadow:NO];
+    [_videoWindow setHasShadow:YES];
     NSWindow *window = [self window];
     [_videoWindow setAlphaValue:[window alphaValue]];
     [window addChildWindow:_videoWindow ordered:NSWindowBelow];
