@@ -21,6 +21,7 @@
 
 #import "VLCSplashScreenWindowController.h"
 #import "VLCDocumentController.h"
+#import "VLCDVDDiscoverer.h"
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface VLCSplashScreenWindowController () <NSWindowDelegate>
@@ -31,6 +32,7 @@
 @property (assign, readwrite) BOOL hasSelection;
 @end
 
+static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of media discoverers
 
 @implementation VLCSplashScreenWindowController
 @synthesize hasSelection=_hasSelection;
@@ -55,7 +57,17 @@
 
 - (NSArray *)availableMediaDiscoverer
 {
-    return [VLCMediaDiscoverer availableMediaDiscoverer];
+    if( !availableMediaDiscoverer )
+    {
+        availableMediaDiscoverer = [[NSArray arrayWithObjects:
+                                     [[[VLCMediaDiscoverer alloc] initWithName:@"sap"] autorelease],
+                                     [[[VLCMediaDiscoverer alloc] initWithName:@"upnp_intel"] autorelease],
+                                     [[[VLCMediaDiscoverer alloc] initWithName:@"freebox"] autorelease],
+                                     [[[VLCMediaDiscoverer alloc] initWithName:@"video_dir"] autorelease],
+                                     [[[VLCDVDDiscoverer alloc] init] autorelease],nil] retain];
+    }
+    return availableMediaDiscoverer;
+
 }
 
 - (NSString *)windowNibName

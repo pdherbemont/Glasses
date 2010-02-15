@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		326F9CF11125C3C9006117C7 /* VLCDVDDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 326F9CF01125C3C9006117C7 /* VLCDVDDiscoverer.m */; };
 		32D85F4911149F4800591CE5 /* errorImage.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 32D85F4811149F4800591CE5 /* errorImage.pdf */; };
 		4AFE8A6810E6F2DA00FD5ACD /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
 		4AFE8A7010E6F34800FD5ACD /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
@@ -293,6 +294,8 @@
 		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		326F9CEF1125C3C9006117C7 /* VLCDVDDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCDVDDiscoverer.h; path = Sources/VLCDVDDiscoverer.h; sourceTree = "<group>"; };
+		326F9CF01125C3C9006117C7 /* VLCDVDDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCDVDDiscoverer.m; path = Sources/VLCDVDDiscoverer.m; sourceTree = "<group>"; };
 		32D85F4811149F4800591CE5 /* errorImage.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = errorImage.pdf; sourceTree = "<group>"; };
 		4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = Frameworks/BWToolkitFramework.framework; sourceTree = "<group>"; };
 		630141D5104062B300534090 /* Common Settings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = "Common Settings.xcconfig"; sourceTree = "<group>"; };
@@ -1045,6 +1048,8 @@
 				CCABEBA7107FD06B004A471E /* AppleRemote.m */,
 				63161B1110CAADDF0091974E /* VLCCollectionView.h */,
 				63161B1210CAADDF0091974E /* VLCCollectionView.m */,
+				326F9CEF1125C3C9006117C7 /* VLCDVDDiscoverer.h */,
+				326F9CF01125C3C9006117C7 /* VLCDVDDiscoverer.m */,
 				635F0F7910CC63DC006EC30E /* VLCValueTransformers.h */,
 				635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */,
 				635F109110CC7E29006EC30E /* VLCPlayedProgressIndicator.h */,
@@ -1451,6 +1456,7 @@
 				639163E01115E21500480B08 /* VLCInfoWindowController.m in Sources */,
 				639FDAC91117863E007EE416 /* VLCSplashScreenView.m in Sources */,
 				639271F8112B567C00DD9323 /* VLCStyledVideoView.m in Sources */,
+				326F9CF11125C3C9006117C7 /* VLCDVDDiscoverer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
