@@ -79,7 +79,7 @@
     [super mouseDown:theEvent];
 }
 
-- (void)setSelectionIndexes:(NSIndexSet *)indexes;
+- (void)setSelectionIndexes:(NSIndexSet *)indexes
 {
     [self selectionWillChangeToIndexSet:indexes];
     [super setSelectionIndexes:indexes];

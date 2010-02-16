@@ -7,7 +7,7 @@
 //
 
 #import "VLCSplashScreenView.h"
-
+#import "VLCDocumentController.h"
 
 @implementation VLCSplashScreenView
 - (NSString *)pageName
@@ -15,37 +15,53 @@
     return @"splash-screen";
 }
 
-- (NSURL *)urlForPluginName:(NSString *)pluginName
-{
-    NSAssert(pluginName, @"pluginName shouldn't be null.");
-    NSString *pluginFilename = [pluginName stringByAppendingPathExtension:@"lunettesstyle"];
-    NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:pluginFilename];
-    NSAssert(pluginPath, @"Can't find the plugin path, this is bad");
-    NSBundle *plugin = [NSBundle bundleWithPath:pluginPath];
-    if (!plugin)
-        return nil;
-    NSString *path = [plugin pathForResource:[self pageName] ofType:@"html"];
-    if (!path)
-        return nil;
-    return [NSURL fileURLWithPath:path];
-}
-
-- (NSURL *)url
-{
-    NSLog(@"loading %@", [self urlForPluginName:@"Default"]);
-    return [self urlForPluginName:@"Default"];
-}
-
-- (void)setup
-{
-    NSURLRequest *request = [NSURLRequest requestWithURL:[self url]];
-    [[self mainFrame] loadRequest:request];
-}
-
 - (void)awakeFromNib
 {
     [self setup];
 }
 
+- (NSArrayController *)mediaDiscovererArrayController
+{
+    return [[[self window] windowController] mediaDiscovererArrayController];
+}
 
+- (NSArrayController *)currentlyWatchingItemsArrayController
+{
+    return [[[self window] windowController] currentlyWatchingItemsArrayController];
+}
+
+- (NSArrayController *)unseenItemsArrayController
+{
+    return [[[self window] windowController] unseenItemsArrayController];
+}
+
+- (NSArrayController *)seenItemsArrayController
+{
+    return [[[self window] windowController] seenItemsArrayController];
+}
+
+
+- (void)playCocoaObject:(WebScriptObject *)object
+{
+    id representedObject = [object valueForKey:@"backendObject"];
+    NSString *stringURL = [representedObject valueForKey:@"url"];
+    NSURL *url = [NSURL URLWithString:stringURL];
+    NSAssert(url, @"Invalid string in DB!");
+    double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
+    [[VLCDocumentController sharedDocumentController] makeDocumentWithURL:url andStartingPosition:position];
+}
+
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
+{
+    if (sel == @selector(playCocoaObject:))
+        return NO;
+    return [super isSelectorExcludedFromWebScript:sel];
+}
+
++ (NSString *)webScriptNameForSelector:(SEL)sel
+{
+    if (sel == @selector(playCocoaObject:))
+        return @"playCocoaObject";
+    return [super webScriptNameForSelector:sel];
+}
 @end

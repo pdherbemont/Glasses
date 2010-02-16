@@ -50,9 +50,9 @@
 
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-#import "VLCStyledView.h"
+#import "VLCStyledVideoView.h"
 
-@interface VLCStyledVideoWindowView : VLCStyledView
+@interface VLCStyledVideoWindowView : VLCStyledVideoView
 {
     NSTrackingArea *_contentTracking;
 

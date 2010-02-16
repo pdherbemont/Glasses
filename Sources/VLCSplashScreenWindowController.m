@@ -34,6 +34,24 @@
 
 @implementation VLCSplashScreenWindowController
 @synthesize hasSelection=_hasSelection;
+@synthesize seenItemsArrayController=_seenItemsArrayController;
+@synthesize unseenItemsArrayController=_unseenItemsArrayController;
+@synthesize currentlyWatchingItemsArrayController=_currentlyWatchingItemsArrayController;
+@synthesize mediaDiscovererArrayController=_mediaDiscovererArrayController;
+
+
+- (NSArray *)sortDescriptor
+{
+    NSSortDescriptor *title = [[[NSSortDescriptor alloc]
+                                initWithKey:@"title"
+                                ascending:YES
+                                selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];
+    NSSortDescriptor *lastPosition = [[[NSSortDescriptor alloc]
+                                initWithKey:@"lastPosition"
+                                ascending:NO
+                                selector:@selector(compare:)] autorelease];
+    return [NSArray arrayWithObjects:lastPosition, title, nil];
+}
 
 - (NSArray *)availableMediaDiscoverer
 {

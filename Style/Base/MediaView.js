@@ -202,6 +202,7 @@ MediaView.prototype = {
     {
         if (this.subitemsCount > 0) {
             var listView = new MediaListView(this.cocoaObject);
+            this.subItemsKeyPath = "subitems.media";
             listView.showNavigationHeader = true;
             window.windowController.navigationController.push(listView);
         }

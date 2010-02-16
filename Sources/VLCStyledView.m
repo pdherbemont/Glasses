@@ -22,7 +22,6 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 #import "VLCStyledView.h"
-#import "VLCMediaDocument.h"
 #import "VLCPathWatcher.h"
 #import "VLCWebBindingsController.h"
 
@@ -58,7 +57,6 @@ static BOOL watchForStyleModification(void)
     [_currentArrayController release];
     [_resourcesFilePathArray release];
     [_lunettesStyleRoot release];
-    [_title release];
     [super dealloc];
 }
 
@@ -99,10 +97,6 @@ static BOOL watchForStyleModification(void)
     [super close];
 }
 
-- (VLCMediaPlayer *)mediaPlayer
-{
-    return [[[[self window] windowController] document] mediaListPlayer].mediaPlayer;
-}
 
 - (NSString *)defaultPluginName
 {
@@ -199,15 +193,6 @@ static BOOL watchForStyleModification(void)
 {
     self.isFrameLoaded = YES;
     [self didFinishLoadForFrame:frame];
-
-    // Tell our Document that we are now ready and initialized.
-    // This is to make sure that we play only once the webview is loaded.
-    // This way we wont overload the CPU, during opening.
-    if (!self.hasLoadedAFirstFrame) {
-        NSWindowController *controller = [[self window] windowController];
-        [[controller document] didFinishLoadingWindowController:controller];
-    }
-
     self.hasLoadedAFirstFrame = YES;
 
     if (watchForStyleModification()) {
@@ -219,8 +204,7 @@ static BOOL watchForStyleModification(void)
             [[self mainFrame] reload];
         }];
 #else
-        [_pathWatcher startWithMainFrame:[self mainFrame]];
-        [[self mainFrame]reload];
+        [_pathWatcher startWithDelegate:self];
 #endif
     }
 }
@@ -233,17 +217,7 @@ static BOOL watchForStyleModification(void)
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame
 {
-    NSWindow *window = [self window];
-    [self setWindowTitle:[window title]];
-    [self setViewedPlaying:_viewedPlaying];
-    [self setSeekable:_seekable];
-    [self setListCount:_listCount];
-    [self setSublistCount:_sublistCount];
-    [self setMediaPlayerState:_mediaPlayerState];
-
-    // We are coming out of a style change, let's fade in back
-    if (![window alphaValue])
-        [[self window] setAlphaValue:1];
+    // Nothing here yet.
 }
 
 - (NSUInteger)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo
@@ -256,6 +230,15 @@ static BOOL watchForStyleModification(void)
 {
     // Only allow javascript to handle drag.
     return WebDragSourceActionDHTML;
+}
+
+#pragma mark -
+#pragma mark Path Watcher delegate
+
+- (void)pathWatcherDidChange:(VLCPathWatcher *)pathWatcher
+{
+    NSLog(@"Reloading because style changed on file system");
+    [[self mainFrame] reload];
 }
 
 #pragma mark -
@@ -358,63 +341,6 @@ static BOOL watchForStyleModification(void)
 #pragma mark -
 #pragma mark Javascript
 
-@synthesize currentArrayController=_currentArrayController;
-
-- (void)setCurrentArrayController:(NSArrayController *)arrayController
-{
-    NSLog(@"setCurrentArrayController %@", arrayController);
-    if (!arrayController)
-    {
-        NSLog(@"nil");
-    }
-    NSLog(@"%@", [arrayController selectedObjects]);
-    _currentArrayController = [arrayController retain];
-}
-
-- (NSArrayController *)currentArrayController
-{
-    return _currentArrayController;
-}
-
-- (void)setPosition:(float)position
-{
-    VLCMediaPlayer *player = [self mediaPlayer];
-    if (![player isPlaying])
-        [player play];
-    [player setPosition:position];
-    [[[[self window] windowController] document] playbackPositionChanged];
-}
-
-- (void)play
-{
-    [[self mediaPlayer] play];
-}
-
-- (void)pause
-{
-    [[self mediaPlayer] pause];
-}
-
-- (BOOL)isSeekable
-{
-    return [[self mediaPlayer] isSeekable];
-}
-
-- (VLCMediaListPlayer *)mediaListPlayer
-{
-    return [[[[self window] windowController] document] mediaListPlayer];
-}
-
-
-- (VLCMediaList *)rootMediaList
-{
-    return [[[[self window] windowController] document] rootMediaList];
-}
-
-- (NSUInteger)count
-{
-    return [[self rootMediaList] count];
-}
 
 - (void)setSelectedIndex:(NSNumber *)index inArrayController:(WebScriptObject *)target
 {
@@ -455,6 +381,8 @@ static BOOL watchForStyleModification(void)
                 nameInNS = NSPredicateFormatBindingOption;
             else if ([name isEqualToString:@"NSNullPlaceholderBindingOption"])
                 nameInNS = NSNullPlaceholderBindingOption;
+            else if ([name isEqualToString:@"NSValueTransformerNameBindingOption"])
+                nameInNS = NSValueTransformerNameBindingOption;
 
             NSString *tempString = [NSString stringWithFormat:@"Unable to find the name for the option '%@'",name];
             NSAssert(nameInNS, tempString);
@@ -480,11 +408,6 @@ static BOOL watchForStyleModification(void)
 - (void)addObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     [_bindings observe:[object valueForKey:@"backendObject"] withKeyPath:keyPath observer:observer];
-}
-
-- (void)playCocoaObject:(WebScriptObject *)object
-{
-    [[self mediaListPlayer] playMedia:[object valueForKey:@"backendObject"]];
 }
 
 - (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
@@ -528,21 +451,9 @@ static BOOL watchForStyleModification(void)
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
-    if (sel == @selector(count))
-        return NO;
-    if (sel == @selector(play))
-        return NO;
-    if (sel == @selector(pause))
-        return NO;
-    if (sel == @selector(setPosition:))
-        return NO;
-    if (sel == @selector(isSeekable))
-        return NO;
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return NO;
     if (sel == @selector(createMediaFromURL:inCocoaObject:))
-        return NO;
-    if (sel == @selector(setCurrentArrayController:))
         return NO;
     if (sel == @selector(setSelectedIndex:inArrayController:))
         return NO;
@@ -553,8 +464,6 @@ static BOOL watchForStyleModification(void)
     if (sel == @selector(bindDOMObject:property:toObject:withKeyPath:options:))
         return NO;
     if (sel == @selector(unbindDOMObject:property:))
-        return NO;
-    if (sel == @selector(playCocoaObject:))
         return NO;
     if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
         return NO;
@@ -577,8 +486,6 @@ static BOOL watchForStyleModification(void)
         return @"didChange";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
-    if (sel == @selector(setCurrentArrayController:))
-        return @"setCurrentArrayController";
     if (sel == @selector(setSelectedIndex:inArrayController:))
         return @"setSelectedIndexInArrayController";
     if (sel == @selector(insertCocoaObject:atIndex:inArrayController:))
@@ -591,8 +498,6 @@ static BOOL watchForStyleModification(void)
         return @"bindDOMObjectToObject";
     if (sel == @selector(unbindDOMObject:property:))
         return @"unbindDOMObject";
-    if (sel == @selector(playCocoaObject:))
-        return @"playCocoaObject";
     if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
         return @"createArrayControllerFromBackendObjectWithKeyPath";
     if (sel == @selector(viewBackendObject:))
@@ -601,131 +506,6 @@ static BOOL watchForStyleModification(void)
         return @"documentBackendObject";
     return nil;
 }
-
-#pragma mark -
-#pragma mark Core -> Javascript setters
-
-- (void)setMediaPlayerState:(VLCMediaPlayerState)state
-{
-    _mediaPlayerState = state;
-
-    if (![self isFrameLoaded])
-        return;
-
-    if (state == VLCMediaPlayerStateError)
-        [self addClassToContent:@"media-player-error"];
-    else
-        [self removeClassFromContent:@"media-player-error"];
-}
-
-- (VLCMediaPlayerState)mediaPlayerState
-{
-    return _mediaPlayerState;
-}
-
-- (void)setWindowTitle:(NSString *)title
-{
-    if (_title != title) {
-        [_title release];
-        _title = [title copy];
-    }
-    if (!_isFrameLoaded)
-        return;
-    [self setInnerText:title forElementsOfClass:@"title"];
-}
-
-- (NSString *)windowTitle
-{
-    return _title;
-}
-
-- (void)setViewedPlaying:(BOOL)isPlaying
-{
-    _viewedPlaying = isPlaying;
-    if (!_isFrameLoaded)
-        return;
-    if (isPlaying)
-        [self addClassToContent:@"playing"];
-    else
-        [self removeClassFromContent:@"playing"];
-}
-
-- (BOOL)viewedPlaying
-{
-    return _viewedPlaying;
-}
-
-- (void)setSeekable:(BOOL)isSeekable
-{
-    _seekable = isSeekable;
-    if (!_isFrameLoaded)
-        return;
-    if (isSeekable)
-        [self addClassToContent:@"seekable"];
-    else
-        [self removeClassFromContent:@"seekable"];
-
-}
-
-- (BOOL)seekable
-{
-    return _seekable;
-}
-
-- (void)setHTMLListCount:(NSUInteger)count
-{
-    DOMHTMLElement *element = [self htmlElementForId:@"items-count" canBeNil:YES];
-    [element setInnerText:[NSString stringWithFormat:@"%d", count]];
-
-    [self setListCountString:[NSString stringWithFormat:@"%d item%s", count, count > 1 ? "s" : ""]];
-    if (count == 1)
-        [self removeClassFromContent:@"multiple-play-items"];
-    else
-        [self addClassToContent:@"multiple-play-items"];
-}
-
-- (void)setListCount:(NSUInteger)count
-{
-    _listCount = count;
-
-    // Use the sublist count if we have subitems.
-    if (_sublistCount > 0)
-        return;
-
-    [self setHTMLListCount:count];
-}
-
-- (NSUInteger)listCount
-{
-    return _listCount;
-}
-
-- (void)setSublistCount:(NSUInteger)count
-{
-    _sublistCount = count;
-
-    // No subitems, use the list count.
-    if (_sublistCount == 0)
-        return;
-
-    [self setHTMLListCount:count];
-}
-
-- (NSUInteger)sublistCount
-{
-    return _sublistCount;
-}
-
-- (void)setShowPlaylist:(BOOL)show
-{
-    _showPlaylist = show;
-}
-
-- (BOOL)showPlaylist
-{
-    return _showPlaylist;
-}
-
 
 #pragma mark -
 #pragma mark DOM manipulation

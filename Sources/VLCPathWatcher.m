@@ -52,12 +52,11 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
     return self;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
+    NSAssert(!_started, @"Shouldn't be started");
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     Block_release(_block);
-#else
-    [_mainFrame release];
 #endif
     FSEventStreamRelease(_stream);
     [super dealloc];
@@ -66,6 +65,7 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 - (void)startWithBlock:(void (^)(void))block
 {
+    _started = YES;
     Block_release(_block);
     _block = Block_copy((void *)block);
     FSEventStreamScheduleWithRunLoop(_stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
@@ -74,12 +74,10 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 #endif
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5
-- (void)startWithMainFrame:(id)frame
+- (void)startWithDelegate:(id)frame
 {
-    if (_mainFrame)
-        [_mainFrame release];
-    _mainFrame = frame;
-    [_mainFrame retain];
+    _started = YES;
+    _delegate = frame;
     FSEventStreamScheduleWithRunLoop(_stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     FSEventStreamStart(_stream);
 }
@@ -87,6 +85,7 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 
 - (void)stop
 {
+    _started = NO;
     FSEventStreamStop(_stream);
     FSEventStreamInvalidate(_stream); /* will remove from runloop */
 }
@@ -96,8 +95,7 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     _block();
 #else
-    NSLog(@"Reloading because of style change");
-    [_mainFrame reload];
+    [_delegate pathWatcherDidChange:self];
 #endif
 }
 @end

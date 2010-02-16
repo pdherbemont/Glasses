@@ -117,15 +117,11 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
                 NSAssert([new isKindOfClass:[NSArray class]], @"Only support array");
 
                 NSMutableArray *array = [NSMutableArray arrayWithCapacity:[new count]];
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-                [new enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                for(id obj in new) {
                     WebScriptObject *cocoaObject = [observer callWebScriptMethod:@"createCocoaObject" withArguments:nil];
                     [array addObject:cocoaObject];
                     [cocoaObject setValue:obj forKey:@"backendObject"];
-                }];
-#else
-                /* FIXME: code missing here!" */
-#endif
+                }
                 [observer callWebScriptMethod:@"setCocoaObjects" withArguments:[NSArray arrayWithObject:array]];
                 break;
             case NSKeyValueChangeInsertion:
@@ -177,15 +173,18 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
 #ifndef USE_BIND
             if ([[dictMutable objectForKey:@"bindingsControllerIsSetting"] boolValue])
                 return;
-            if (!value || [value isKindOfClass:[NSNull class]])
-            {
-                NSDictionary *options = [dictMutable objectForKey:@"options"];
+            NSDictionary *options = [dictMutable objectForKey:@"options"];
+
+            if (!value || [value isKindOfClass:[NSNull class]]) {
                 if (options) {
                     id obj = [options objectForKey:NSNullPlaceholderBindingOption];
                     if (obj)
                         value = obj;
                 }
             }
+            NSString *transformerName = [options objectForKey:NSValueTransformerNameBindingOption];
+            if (transformerName)
+                value = [[NSValueTransformer valueTransformerForName:transformerName] transformedValue:value];
             id target = [dictMutable objectForKey:@"domObject"];
             NSString *targetKeyPath = [dictMutable objectForKey:@"property"];
             [dictMutable setObject:[NSNumber numberWithBool:YES] forKey:@"bindingsControllerIsSetting"];

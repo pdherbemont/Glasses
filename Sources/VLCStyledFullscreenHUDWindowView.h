@@ -20,8 +20,7 @@
 
 #import <WebKit/WebKit.h>
 
-#import "VLCStyledView.h"
-#import "VLCWebBindingsController.h"
+#import "VLCStyledVideoView.h"
 
-@interface VLCStyledFullscreenHUDWindowView : VLCStyledView
+@interface VLCStyledFullscreenHUDWindowView : VLCStyledVideoView
 @end

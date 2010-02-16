@@ -141,9 +141,13 @@
 		635F0F7B10CC63DC006EC30E /* VLCValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */; };
 		635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */; };
 		635F15E010CDB4D8006EC30E /* GPLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635F15DF10CDB4D8006EC30E /* GPLWindow.xib */; };
+		636C48101121623700817611 /* ListView.js in Resources */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
+		636C481A11216E5000817611 /* ListView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
+		636C481B11216E5000817611 /* ListItemView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C48131121624C00817611 /* ListItemView.js */; };
 		6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */; };
 		639163E01115E21500480B08 /* VLCInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639163DF1115E21500480B08 /* VLCInfoWindowController.m */; };
 		639163E21115E23000480B08 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639163E11115E23000480B08 /* InfoWindow.xib */; };
+		639271F8112B567C00DD9323 /* VLCStyledVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 639271F7112B567C00DD9323 /* VLCStyledVideoView.m */; };
 		639F64831046BE2B00117832 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
 		639F661C1046D89900117832 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
 		639F68481046E9AC00117832 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
@@ -254,6 +258,8 @@
 			dstPath = "Lunettes Style Root";
 			dstSubfolderSpec = 7;
 			files = (
+				636C481A11216E5000817611 /* ListView.js in Create Lunettes Style Root */,
+				636C481B11216E5000817611 /* ListItemView.js in Create Lunettes Style Root */,
 				6312778610C6C4E500A01F33 /* dom-drag.js in Create Lunettes Style Root */,
 				6312768610C6A57A00A01F33 /* Lunettes.js in Create Lunettes Style Root */,
 				6312768710C6A57A00A01F33 /* MediaListView.js in Create Lunettes Style Root */,
@@ -465,11 +471,15 @@
 		635F109110CC7E29006EC30E /* VLCPlayedProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayedProgressIndicator.h; path = Sources/VLCPlayedProgressIndicator.h; sourceTree = "<group>"; };
 		635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayedProgressIndicator.m; path = Sources/VLCPlayedProgressIndicator.m; sourceTree = "<group>"; };
 		635F15DF10CDB4D8006EC30E /* GPLWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GPLWindow.xib; path = Resources/GPLWindow.xib; sourceTree = "<group>"; };
+		636C480F1121623700817611 /* ListView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ListView.js; sourceTree = "<group>"; };
+		636C48131121624C00817611 /* ListItemView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ListItemView.js; sourceTree = "<group>"; };
 		6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMHTMLElement_Additions.h; path = Sources/DOMHTMLElement_Additions.h; sourceTree = "<group>"; };
 		6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DOMHTMLElement_Additions.m; path = Sources/DOMHTMLElement_Additions.m; sourceTree = "<group>"; };
 		639163DE1115E21500480B08 /* VLCInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCInfoWindowController.h; path = Sources/VLCInfoWindowController.h; sourceTree = "<group>"; };
 		639163DF1115E21500480B08 /* VLCInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCInfoWindowController.m; path = Sources/VLCInfoWindowController.m; sourceTree = "<group>"; };
 		639163E11115E23000480B08 /* InfoWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InfoWindow.xib; path = Resources/InfoWindow.xib; sourceTree = "<group>"; };
+		639271F6112B567C00DD9323 /* VLCStyledVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCStyledVideoView.h; path = Sources/VLCStyledVideoView.h; sourceTree = "<group>"; };
+		639271F7112B567C00DD9323 /* VLCStyledVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledVideoView.m; path = Sources/VLCStyledVideoView.m; sourceTree = "<group>"; };
 		639F647C1046BDEF00117832 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/SplashScreenWindow.xib; sourceTree = "<group>"; };
 		639F64821046BE2B00117832 /* lunettes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lunettes.png; sourceTree = "<group>"; };
 		639F661A1046D89900117832 /* VLCSplashScreenWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCSplashScreenWindowController.h; path = Sources/VLCSplashScreenWindowController.h; sourceTree = "<group>"; };
@@ -616,7 +626,6 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				63014656104098E200534090 /* VLCFeatures.h */,
 				6311DA5C0FF85993004BC7D1 /* VLC_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 			);
@@ -663,6 +672,7 @@
 		630141B11040629700534090 /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				63014656104098E200534090 /* VLCFeatures.h */,
 				630141D5104062B300534090 /* Common Settings.xcconfig */,
 			);
 			name = Configurations;
@@ -809,6 +819,8 @@
 				6312768B10C6A5C400A01F33 /* Utilities.js */,
 				6312768D10C6A61200A01F33 /* CocoaObject.js */,
 				6312768210C6A57A00A01F33 /* MediaListView.js */,
+				636C480F1121623700817611 /* ListView.js */,
+				636C48131121624C00817611 /* ListItemView.js */,
 				6312768310C6A57A00A01F33 /* MediaView.js */,
 				6312768410C6A57A00A01F33 /* NavigationController.js */,
 				6312768510C6A57A00A01F33 /* WindowController.js */,
@@ -960,6 +972,8 @@
 				631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */,
 				63B1E10810440EB00029C49C /* VLCStyledView.h */,
 				63B1E10910440EB00029C49C /* VLCStyledView.m */,
+				639271F6112B567C00DD9323 /* VLCStyledVideoView.h */,
+				639271F7112B567C00DD9323 /* VLCStyledVideoView.m */,
 			);
 			name = "Common Class for Styled Windows";
 			sourceTree = "<group>";
@@ -1342,6 +1356,7 @@
 				639163E21115E23000480B08 /* InfoWindow.xib in Resources */,
 				32D85F4911149F4800591CE5 /* errorImage.pdf in Resources */,
 				63075091111900900027B8C2 /* NewSplashScreenWindow.xib in Resources */,
+				636C48101121623700817611 /* ListView.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1435,6 +1450,7 @@
 				631393C810FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel in Sources */,
 				639163E01115E21500480B08 /* VLCInfoWindowController.m in Sources */,
 				639FDAC91117863E007EE416 /* VLCSplashScreenView.m in Sources */,
+				639271F8112B567C00DD9323 /* VLCStyledVideoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

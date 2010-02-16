@@ -26,6 +26,9 @@
 @interface VLCSplashScreenWindowController : NSWindowController
 {
     IBOutlet NSArrayController *_mediaDiscovererArrayController;
+    IBOutlet NSArrayController *_seenItemsArrayController;
+    IBOutlet NSArrayController *_unseenItemsArrayController;
+    IBOutlet NSArrayController *_currentlyWatchingItemsArrayController;
     BOOL _hasSelection;
 
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
@@ -33,7 +36,12 @@
     IBOutlet NSCollectionView *_mediaDiscoverCollection;
 #endif
 }
+@property (retain, readonly) NSArrayController *mediaDiscovererArrayController;
+@property (retain, readonly) NSArrayController *seenItemsArrayController;
+@property (retain, readonly) NSArrayController *unseenItemsArrayController;
+@property (retain, readonly) NSArrayController *currentlyWatchingItemsArrayController;
 
+// Content of mediaDiscovererArrayController
 @property (retain, readonly) NSArray *availableMediaDiscoverer;
 
 /* Used in xib, for the "Open" button enabled state */

@@ -19,7 +19,6 @@
  *****************************************************************************/
 
 #import <WebKit/WebKit.h>
-#import <VLCKit/VLCKit.h>
 
 /* This is a base class that should only be subclassed.
  * It contains the shared code between VLCStyledVideoWindowView
@@ -29,29 +28,18 @@
 @class VLCWebBindingsController;
 
 @interface VLCStyledView : WebView {
-    NSUInteger _listCount;
-    NSUInteger _sublistCount;
-    NSString *_listCountString;
-
-    NSString *_title;
-
-    NSString *_pluginName;
-
     NSString *_lunettesStyleRoot;
     NSMutableArray *_resourcesFilePathArray;
+    NSString *_pluginName;
 
     NSArrayController *_currentArrayController;
 
-    VLCMediaPlayerState _mediaPlayerState;
 
     VLCPathWatcher *_pathWatcher;
     VLCWebBindingsController *_bindings;
 
     BOOL _isFrameLoaded;
     BOOL _hasLoadedAFirstFrame;
-    BOOL _viewedPlaying;
-    BOOL _seekable;
-    BOOL _showPlaylist;
 }
 
 /**
@@ -91,21 +79,6 @@
 - (void)removeClassFromContent:(NSString *)className;
 - (DOMHTMLElement *)htmlElementForId:(NSString *)idName;
 - (DOMHTMLElement *)htmlElementForId:(NSString *)idName canBeNil:(BOOL)canBeNil;
-
-
-/**
- * This will be used to bind some value in the DOM
- */
-@property (readonly, retain) NSArrayController *currentArrayController;
-
-@property (copy) NSString *windowTitle;
-@property BOOL viewedPlaying;
-@property BOOL seekable;
-@property NSUInteger listCount;
-@property NSUInteger sublistCount;
-@property BOOL showPlaylist;
-@property VLCMediaPlayerState mediaPlayerState;
-
-- (VLCMediaPlayer *)mediaPlayer;
+- (void)setInnerText:(NSString *)text forElementsOfClass:(NSString *)className;
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <WebKit/WebKit.h>
+#import "VLCStyledView.h"
 
-
-@interface VLCSplashScreenView : WebView {
+@interface VLCSplashScreenView : VLCStyledView {
 
 }
 

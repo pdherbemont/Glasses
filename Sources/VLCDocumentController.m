@@ -320,7 +320,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         movie = [results objectAtIndex:0];
 
     // Remove/don't save if we are nearly done or if the length is less than 30 secs.
-    if (position > 0.99 || [[media length] intValue] < 30) {
+    if (position > 0.99 || [[media length] intValue] < 30000) {
         if (movie) {
             [movie setValue:[NSNumber numberWithInt:0] forKey:@"lastPosition"];
             [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
@@ -505,9 +505,9 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     // Yes, this is a negative number. VLCTime nicely display negative time
     // with "XX minutes remaining". And we are using this facility.
 
-    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"currentlyWatching"];
+    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
-    [movie setValue:[NSNumber numberWithDouble:30] forKey:@"remainingTime"];
+    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
 
     [movie setValue:[result valueForAttribute:@"kMDItemDisplayName"] forKey:@"title"];
 

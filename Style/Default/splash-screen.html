@@ -1,5 +1,12 @@
 <html>
 <head>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/Lunettes.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/Utilities.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/CocoaObject.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/ListViewItem.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/ListView.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaView.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaListView.js"></script>
 <style>
 body {
 	background: white;
@@ -17,6 +24,7 @@ li {
     padding: 0;
     overflow: hidden;
 }
+
 li:last-child {
 	border-bottom: thin solid #eee;
 }
@@ -52,8 +60,28 @@ li:last-child {
     text-overflow: ellipsis;
     overflow: hidden;
     word-wrap: break-word;
+    margin: 1em;
     -webkit-text-wrap: suppress;
 }
+
+.selected .name {
+    text-shadow:  #222 0px 1px 1px;
+}
+
+.item {
+    -webkit-box-sizing: border-box;
+}
+
+.sidebar .item {
+    height: 26px;
+}
+.item.selected {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
+    color: white;
+    border-bottom: thin solid rgb(105, 123, 157);
+    border-top: thin solid rgb(105, 133, 157);
+}
+
 .remaining {
 	font-family: "Lucida Grande";
 	font-size: 10px;
@@ -61,7 +89,16 @@ li:last-child {
 .container {
 	background: white;
 	border: thin solid grey;
+    border-top:none;
 }
+
+.container .list-view {
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 0; left: 300px;
+    overflow: auto;
+}
+
 .header {
 	height: 44px;
 	background: #6D85A3 url(file://localhost/Users/steg/Downloads/UiUIKit-1/images/bgHeader.png) repeat-x 50% 0%;
@@ -89,7 +126,15 @@ li:last-child {
 	letter-spacing: 1px;
     overflow: hidden;
 }
-ol {
+
+.collapsed ul {
+    height: 0px;
+    -webkit-transition: height ease-out 0.2s;
+}
+
+ul {
+    height: auto;
+
     overflow: auto;
     left: 0px;
     right: 0px;
@@ -97,60 +142,644 @@ ol {
     padding: 0px;
     list-style-type: none;
     -webkit-padding-start: 0;
+    -webkit-transition: height ease-out 0.2s;
+}
+
+.action-bar {
+    position: relative;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EBEBEB), to(#D8D8D8));
+    border-bottom: thin solid #aaa;
+    height: auto;
+    -webkit-transition: height ease-out 0.2;
+    overflow: hidden;
+}
+
+.sidebar .name {
+    margin: 0;
+    padding: 0;
+}
+.action-bar>div
+{
+    display: inline-block;
+}
+
+.collapsed .action-bar
+{
+    height: 0;
+    -webkit-transition: height ease-out 0.2;
 }
 
 
+.view-kind
+{
+    position: absolute;
+    right: 0;
+    text-align: right;
+}
+.action-button {
+    display: inline-block;
+	text-shadow: #eee 0px 1px 0px;
+	font-family: "Lucida Grande";
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+	-webkit-box-sizing: border-box;
+    margin: 4px;
+}
+
+.action-button:hover, .action-button:active, .action-button.selected{
+	text-shadow: #000 0px 1px 0px;
+    color: white;
+	-webkit-border-radius: 10px;
+}
+
+.action-button:hover {
+    background: #aaa;
+}
+
+.action-button:active {
+    background: #444 !important;
+}
+
+.action-button.selected {
+    background: #777;
+}
+
+.progress-bar-content {
+    position: relative;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#aaa));
+    width: 100% - 28px;
+    margin: 14px;
+    height: 14px;
+    -webkit-border-radius: 10px;
+    border: thin solid #888;
+}
+
+.progress-bar {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8888ed), to(#aaaaee));
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 14px;
+    -webkit-border-radius: 10px;
+    border: thin solid #8888ed;
+    -webkit-box-sizing: border-box;
+    -webkit-transition: width ease-out 0.2;
+}
+
+.sidebar {
+    width: 300px;
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: auto;
+    background: #dde4eb;
+    border-right: thin solid #B3B3B3;
+    overflow: auto;
+}
+
+.sidebar-list {
+    background: #dde4eb;
+}
+
+.sidebar .name
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.sidebar li {
+    position: relative;
+    text-shadow: #eee 0px 1px 0px;
+	font-family: "Lucida Grande";
+    font-size: 12px;
+    border: none;
+}
+
+.sidebar hr {
+    height: 1px;
+    border: none;
+    background: rgba(0,0,0,0.2);
+    margin-right: 60px;
+}
+
+.sidebar ul li {
+    padding-left: 2em;
+}
+.sidebar h1 {
+    text-transform: uppercase;
+    color: #677C95;
+    font-family: "Lucida Grande";
+    font-size: 12px;
+	text-shadow: #eee 0px 1px 0px;
+    width: auto;
+    margin: 1em;
+    margin-bottom: 0.4em;
+}
+
+.sidebar li .count {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    -webkit-border-radius: 50px;
+
+    color: white;
+    background: #96A5C9;
+
+    text-shadow: none;
+    font-weight: bold;
+
+    padding: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+    margin-right: 10px;
+}
+
+.sidebar .selected .count {
+    color: #96A5C9;
+    background: white;
+    -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
+}
 </style>
+<script>
+/**
+ * A list of SDView
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
+var SDView = function(cocoaObject, parent, elementTag)
+{
+    this.parent = parent;
+
+    this.element = document.createElement(elementTag);
+    this.element.className = "item";
+
+    this.cocoaObject = cocoaObject;
+
+    this.nameElement = document.createElement("div");
+    this.nameElement.className = "name";
+    this.nameElement.textContent = "Undefined";
+
+    this.isAttached = false;
+
+    this._subitemsCount = 0;
+    this.subitemsCount = 0;
+
+    this.displayName = "MediaView";
+}
+
+
+SDView.prototype = {
+    /**
+     * @param {Node=} parentElement
+     */
+    attach: function(parentElement)
+    {
+        console.assert(!this.isAttached, "shouldn't be attached");
+
+        this.element.appendChild(this.nameElement);
+
+        parentElement.appendChild(this.element);
+
+        this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
+        this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
+        this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
+
+        this.isAttached = true;
+    },
+    detachWithoutRemoving: function()
+    {
+        this.visible = false;
+        this.isAttached = false;
+    },
+    detach: function()
+    {
+        this.element.detach();
+    },
+
+    _length: null,
+    set length(length)
+    {
+        if (!length)
+            length = null;
+        this._length = length;
+        if (length == "00:00") {
+            this.lengthElement.innerText = "--:--";
+            return;
+        }
+        this.lengthElement.innerText = length;
+    },
+    get length()
+    {
+        return this._length;
+    },
+    _visible: false,
+    get visible()
+    {
+        return this._visible;
+    },
+    set visible(visible)
+    {
+        console.assert(this.isAttached);
+
+        if (this._visible == visible)
+            return;
+        this._visible = visible;
+        if (visible) {
+            Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "localizedName");
+//            Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
+            //Lunettes.connect(this, "length", this.cocoaObject, "length.stringValue");
+        } else {
+            Lunettes.unconnect(this.nameElement, "textContent");
+//            Lunettes.unconnect(this, "subitemsCount");
+            //Lunettes.unconnect(this, "length");
+        }
+    },
+
+    /**
+     * @type {number}
+     */
+    _state: 0,
+    set state(state){
+
+        // Make sure if count is undef (which might be the case, especially
+        // if one in the object of the binding is nil.
+        // Default it to 0 instead of undefined.
+        if (!state)
+            state = 0;
+        this._state = state;
+        if (this._state)
+            this.element.addClassName("item-playing");
+        else
+            this.element.removeClassName("item-playing");
+    },
+    get state(){
+        return this._state;
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    dragStarted: function(event)
+    {
+        event.effectAllowed = "copyMove";
+        event.dataTransfer.setData("application/lunettes-item", this);
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    mouseDown: function(event)
+    {
+        if (!this.parent)
+            return;
+
+        this.parent.select(this);
+        event.stopPropagation();
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    mouseDoubleClicked: function(event)
+    {
+        this.action();
+        event.stopPropagation();
+    },
+
+    /**
+     * When double clicked
+     */
+    action: function()
+    {
+        window.PlatformView.playCocoaObject(this.cocoaObject);
+    }
+
+}
+
+/**
+ * A list of MediaDBView
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
+var MediaDBView = function(cocoaObject, parent, elementTag)
+{
+    this.parent = parent;
+
+    this.element = document.createElement(elementTag);
+    this.element.className = "item";
+
+    this.cocoaObject = cocoaObject;
+
+    this.nameElement = document.createElement("div");
+    this.nameElement.className = "name";
+    this.nameElement.textContent = "Undefined";
+
+    this.isAttached = false;
+
+    this._subitemsCount = 0;
+    this.subitemsCount = 0;
+
+    this.displayName = "MediaView";
+}
+
+
+MediaDBView.prototype = {
+    /**
+     * @param {Node=} parentElement
+     */
+    attach: function(parentElement)
+    {
+        console.assert(!this.isAttached, "shouldn't be attached");
+
+        this.element.appendChild(this.nameElement);
+
+        parentElement.appendChild(this.element);
+
+        this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
+        this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
+        this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
+
+        this.isAttached = true;
+    },
+    detachWithoutRemoving: function()
+    {
+        this.visible = false;
+        this.isAttached = false;
+    },
+    detach: function()
+    {
+        this.element.detach();
+    },
+
+    _length: null,
+    set length(length)
+    {
+        if (!length)
+            length = null;
+        this._length = length;
+    },
+    get length()
+    {
+        return this._length;
+    },
+    _visible: false,
+    get visible()
+    {
+        return this._visible;
+    },
+    set visible(visible)
+    {
+        console.assert(this.isAttached);
+
+        if (this._visible == visible)
+            return;
+        this._visible = visible;
+        if (visible) {
+            Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
+//            Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
+            //Lunettes.connect(this, "length", this.cocoaObject, "length.stringValue");
+        } else {
+            Lunettes.unconnect(this.nameElement, "textContent");
+//            Lunettes.unconnect(this, "subitemsCount");
+            //Lunettes.unconnect(this, "length");
+        }
+    },
+
+    /**
+     * @type {number}
+     */
+    _state: 0,
+    set state(state){
+
+        // Make sure if count is undef (which might be the case, especially
+        // if one in the object of the binding is nil.
+        // Default it to 0 instead of undefined.
+        if (!state)
+            state = 0;
+        this._state = state;
+        if (this._state)
+            this.element.addClassName("item-playing");
+        else
+            this.element.removeClassName("item-playing");
+    },
+    get state(){
+        return this._state;
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    dragStarted: function(event)
+    {
+        event.effectAllowed = "copyMove";
+        event.dataTransfer.setData("application/lunettes-item", this);
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    mouseDown: function(event)
+    {
+        if (!this.parent)
+            return;
+
+        this.parent.select(this);
+        event.stopPropagation();
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    mouseDoubleClicked: function(event)
+    {
+        this.action();
+        event.stopPropagation();
+    },
+
+    /**
+     * When double clicked
+     */
+    action: function()
+    {
+        window.PlatformView.playCocoaObject(this.cocoaObject);
+    }
+
+}
+
+
+/**
+ * A list of MediaDBView
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
+var CurrentlyWatchingMediaDBView = function(cocoaObject, parent, elementTag)
+{
+    MediaDBView.call(this, cocoaObject, parent, elementTag);
+
+    this.remainingTimeElement = document.createElement("div");
+    this.remainingTimeElement.className = "remaining-time";
+
+    this.progressBarContent = document.createElement("div");
+    this.progressBarContent.className = "progress-bar-content";
+
+    this.progressBar = document.createElement("div");
+    this.progressBar.className = "progress-bar";
+
+    this.progressBarContent.appendChild(this.progressBar);
+}
+
+
+CurrentlyWatchingMediaDBView.prototype = {
+    set visible(visible)
+    {
+        if (this._visible == visible)
+            return;
+
+        MediaDBView.prototype.__lookupSetter__("visible").call(this, visible);
+
+        if (visible) {
+            Lunettes.connect(this, "remainingTime", this.cocoaObject, "lastPosition");
+            var options = new Object;
+            options["NSValueTransformerNameBindingOption"] = "VLCTimeAsNumberToPrettyTime";
+            Lunettes.connect(this.remainingTimeElement, "innerText", this.cocoaObject, "remainingTime", options);
+        } else
+            Lunettes.unconnect(this.remainingTimeElement, "innerText");
+    },
+
+    set remainingTime(time)
+    {
+        this._remainingTime = time;
+        this.progressBar.style.width = time * 100 + "%";
+    },
+    get remainingTime()
+    {
+        if (!this._remainingTime)
+            this._remainingTime = 0;
+        return this._remainingTime;
+    },
+    attach: function(parentElement)
+    {
+        this.element.appendChild(this.remainingTimeElement);
+        this.element.appendChild(this.progressBarContent);
+        MediaDBView.prototype.attach.call(this, parentElement);
+    }
+}
+CurrentlyWatchingMediaDBView.prototype.__proto__ = MediaDBView.prototype;
+
+function init()
+{
+    if (document.readyState != "complete")
+    {
+        setTimeout(init, 0);
+        return;
+    }
+
+    var librariesElement = document.getElementById("libraries");
+
+    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), SDView, librariesElement);
+    window.rootMediaList.subItemsKeyPath = "mediaDiscovererArrayController.arrangedObjects";
+    window.rootMediaList.attach();
+
+    var currentlyWatchingMovies = document.getElementById("currently-watching-movies");
+    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView, currentlyWatchingMovies);
+    window.rootMediaList.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
+    window.rootMediaList.attach();
+
+    var unseenMovies = document.getElementById("unseen-movies");
+    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView, unseenMovies);
+    window.rootMediaList.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
+    window.rootMediaList.attach();
+
+    var seenMovies = document.getElementById("seen-movies");
+    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView, seenMovies);
+    window.rootMediaList.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
+    window.rootMediaList.attach();
+
+    var count = document.getElementById("watching-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "currentlyWatchingItemsArrayController.arrangedObjects.@count");
+
+    var count = document.getElementById("towatch-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "unseenItemsArrayController.arrangedObjects.@count");
+
+    var count = document.getElementById("seen-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "seenItemsArrayController.arrangedObjects.@count");
+
+    var count = document.getElementById("all-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "seenItemsArrayController.arrangedObjects.@count");
+
+}
+
+function click(event)
+{
+    var element = event.currentTarget;
+    var siblings = element.parentElement.childNodes;
+    for (var i = 0; i < siblings.length; i++)
+    {
+        if (siblings[i].removeClassName)
+            siblings[i].removeClassName("selected");
+    }
+    element.addClassName("selected");
+
+    if (window.attachedList)
+        window.attachedList.detach();
+
+    var detailElement = document.getElementById("list");
+
+    if (element.hasClassName("watching-category")) {
+        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView);
+        window.attachedList.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
+    }
+    else if (element.hasClassName("towatch-category")) {
+        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+        window.attachedList.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
+    }
+    else if (element.hasClassName("all-category")) {
+        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+        window.attachedList.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
+    }
+    else if (element.hasClassName("seen-category")) {
+        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+        window.attachedList.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
+    }
+    window.attachedList.attach(detailElement);
+
+}
+
+</script>
 </head>
-<body>
-<div class="container icon-view">
-	<div class="header libraries">
-
-		<h1>Libraries</h1>
-
-	</div>
-    <ol>
-	<li class="item">
-		<img src="freebox.png">
-		<div class="name">Freebox TV</div>
-	</li>
-	<li class="item">
-        <img src="freebox.png">
-		<div class="name">Desperate.Housewivesdedede dee de d de de de d</div>
-	</li>
-	</ol>
+<body onload="init();" tabindex="1">
+<div class="sidebar">
+    <div class="sidebar-list">
+        <h1>Movies</h1>
+        <ul class="movies">
+        <li onclick="click(event)" class="item watching-category"><div class="name">Watching<span id="watching-category-count" class="count">4</span></div></li>
+        <li onclick="click(event)" class="item towatch-category"><div class="name">To watch<span id="towatch-category-count" class="count">21</span></div></li>
+        <li><hr></li>
+        <li onclick="click(event)" class="item all-category"><div class="name">All<span id="all-category-count" class="count">31</span></div></li>
+        <li onclick="click(event)" class="item seen-category"><div class="name">Seen<span id="seen-category-count" class="count">10</span></div></li>
+        </ul>
+        <h1>Sources</h1>
+        <div id="libraries">
+        </div>
+    </div>
 </div>
 
-<div class="container">
-	<div class="header">
-
-		<h1>Unfinished Movies</h1>
-
-	</div>
-    <ol>
-	<li class="item">
-		<p class="name">Dexter.S04E12.HDTV.XviD-SYS.mpg</p>
-		<p class="remaining">2 hours 30 minutes remaining</p>
-	</li>
-	<li class="item">
-		<p class="name">Desperate.Housewives.S06E10.HDTV.XviD-2HD.avi</p>
-	</li>
-	<li class="item">
-		<p class="name">Heroes.S04E12.HDTV.XviD-LOL.avi</p>
-	</li>
-	<li class="item">
-		<p class="name">Dexter.S04E12.HDTV.XviD-SYS.mpg</p>
-	</li>
-	<li class="item">
-		<p class="name">Dexter.S04E12.HDTV.XviD-SYS.mpg</p>
-	</li>
-	<li class="item">
-		<p class="name">Dexter.S04E12.HDTV.XviD-SYS.mpg</p>
-	</li>
-        <li class="item">
-		<p class="name">Dexter.S04E12.HDTV.XviD-SYS.mpg</p>
-        </li>
-	</ol>
+<div id="list" class="container">
 </div>
+
 </body>
 </html>
