@@ -22,6 +22,8 @@ var ListView = function(cocoaObject, listItemViewClass, element)
     this.element.className = "list-view";
     this.name = "No Name";
 
+    console.log(this.element);
+
     /**
      * @type {Element}
      */
@@ -292,7 +294,7 @@ updateVisibleItems: function()
         if (count > this.subviews.length)
             count = this.subviews.length;
 
-        console.log("There is " + (count - firstVisibleIndex) + " visible");
+        console.log("There are " + (count - firstVisibleIndex) + " visible");
         for (var i = firstVisibleIndex; i < count; i++)
             this.subviews[i].visible = true;
     },
@@ -369,7 +371,7 @@ scrollToSelectionForNonScrollBar: function()
     /**
      * Unselect selected elements
      */
-unselectAll: function()
+    _unselectAll: function()
     {
         this.arrayController.setSelectedIndex(-1);
 
@@ -377,6 +379,18 @@ unselectAll: function()
             this.selection[i].element.removeClassName("selected");
 
         this.selection = new Array;
+    },
+
+    unselectAllBeforeSelection: function()
+    {
+        this._unselectAll();
+    },
+    /**
+     * Unselect selected elements
+     */
+    unselectAll: function()
+    {
+        this._unselectAll();
     },
 
     /**
@@ -418,7 +432,7 @@ selectNext: function()
      */
 select: function(subitem)
     {
-        this.unselectAll();
+        this.unselectAllBeforeSelection();
         this.selection.push(subitem);
         var index = this.subviews.indexOf(this.selection[0]);
         this.arrayController.setSelectedIndex(index);

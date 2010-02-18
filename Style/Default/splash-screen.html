@@ -16,6 +16,7 @@ body {
 * {
 	-webkit-user-select: none;
 	cursor: default;
+    border-collapse: none;
 }
 li {
 	border-top: thin solid #eee;
@@ -52,24 +53,31 @@ li:last-child {
     margin: auto;
 }
 
+#detail .name
+{
+    padding-left: 40px;
+}
 
 .name {
 	font-family: "Lucida Grande";
 	font-size: 13px;
 	padding-left: 10px;
     text-overflow: ellipsis;
+    white-space:nowrap;
     overflow: hidden;
-    word-wrap: break-word;
-    margin: 1em;
-    -webkit-text-wrap: suppress;
+    padding: 1em;
 }
 
-.selected .name {
+.selected .name, .selected .remaining-time {
+    color: white;
     text-shadow:  #222 0px 1px 1px;
 }
 
 .item {
+    position: relative;
     -webkit-box-sizing: border-box;
+    height: 44px;
+    overflow: hidden;
 }
 
 .sidebar .item {
@@ -77,7 +85,6 @@ li:last-child {
 }
 .item.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
-    color: white;
     border-bottom: thin solid rgb(105, 123, 157);
     border-top: thin solid rgb(105, 133, 157);
 }
@@ -95,7 +102,7 @@ li:last-child {
 .container .list-view {
     position: absolute;
     top: 0; bottom: 0;
-    right: 0; left: 300px;
+    right: 0; left: 230px;
     overflow: auto;
 }
 
@@ -205,14 +212,28 @@ ul {
     background: #777;
 }
 
+.remaining-time
+{
+    margin-left: 50px;
+    color: #999;
+    font-size: 10px;
+}
+
+.selected .remaining-time
+{
+    color: white;
+
+}
+
 .progress-bar-content {
     position: relative;
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#aaa));
-    width: 100% - 28px;
-    margin: 14px;
-    height: 14px;
+    width: 100% - 40px;
+    margin: 4px;
+    height: 7px;
     -webkit-border-radius: 10px;
     border: thin solid #888;
+    margin-left: 50px;
 }
 
 .progress-bar {
@@ -221,21 +242,22 @@ ul {
     top: 0;
     left: 0;
     width: 0%;
-    height: 14px;
-    -webkit-border-radius: 10px;
+    min-width: 10px;
+    height: 7px;
+    -webkit-border-radius: 15px;
     border: thin solid #8888ed;
     -webkit-box-sizing: border-box;
-    -webkit-transition: width ease-out 0.2;
 }
 
 .sidebar {
-    width: 300px;
+    width: 230px;
     position: absolute;
     top: 0; bottom: 0;
     left: 0; right: auto;
     background: #dde4eb;
     border-right: thin solid #B3B3B3;
     overflow: auto;
+    -webkit-box-sizing: border-box;
 }
 
 .sidebar-list {
@@ -277,7 +299,7 @@ ul {
     margin-bottom: 0.4em;
 }
 
-.sidebar li .count {
+.sidebar li .count, .subitems-count {
     position: absolute;
     right: 0;
     top: 2px;
@@ -296,11 +318,34 @@ ul {
     margin-right: 10px;
 }
 
-.sidebar .selected .count {
+.sidebar .selected .count, .selected .subitems-count {
     color: #96A5C9;
     background: white;
     -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
 }
+
+.thumbnail {
+    position: absolute;
+    margin: auto;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    height: 32px;
+    max-width: 32px;
+}
+
+.subitems-count {
+    display: absolute;
+}
+
+.reveal-subitems {
+    display: none;
+}
+
+.item-length {
+    display: none;
+}
+
 </style>
 <script>
 /**
@@ -310,25 +355,50 @@ ul {
  * @param {Object} parent
  * @param {string} elementTag
  */
+var SDListView = function(cocoaObject, parent, elementTag)
+{
+    ListView.call(this, cocoaObject, parent, elementTag);
+
+    this.displayName = "SDListView";
+}
+
+SDListView.prototype = {
+    unselectAllBeforeSelection: function()
+    {
+        ListView.prototype.unselectAllBeforeSelection.call(this);
+        window.unselectAll();
+    },
+    unselectAll: function()
+    {
+        // Prevent unselectingAll
+    },
+    select: function(item)
+    {
+        ListView.prototype.select.call(this, item);
+        if (!item)
+            return;
+        var list = new ListView(item.cocoaObject, MediaSDView);
+        list.subItemsKeyPath = "discoveredMedia.media";
+        window.setDetailList(list);
+    }
+}
+SDListView.prototype.__proto__ = ListView.prototype;
+
+/**
+ * A list of SDView
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
 var SDView = function(cocoaObject, parent, elementTag)
 {
-    this.parent = parent;
+    MediaView.call(this, cocoaObject, parent, elementTag);
 
-    this.element = document.createElement(elementTag);
-    this.element.className = "item";
+    this.subitemsCountElement = document.createElement("div");
+    this.subitemsCountElement.className = "subitems-count";
 
-    this.cocoaObject = cocoaObject;
-
-    this.nameElement = document.createElement("div");
-    this.nameElement.className = "name";
-    this.nameElement.textContent = "Undefined";
-
-    this.isAttached = false;
-
-    this._subitemsCount = 0;
-    this.subitemsCount = 0;
-
-    this.displayName = "MediaView";
+    this.displayName = "SDView";
 }
 
 
@@ -341,6 +411,7 @@ SDView.prototype = {
         console.assert(!this.isAttached, "shouldn't be attached");
 
         this.element.appendChild(this.nameElement);
+        this.element.appendChild(this.subitemsCountElement);
 
         parentElement.appendChild(this.element);
 
@@ -349,32 +420,6 @@ SDView.prototype = {
         this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
 
         this.isAttached = true;
-    },
-    detachWithoutRemoving: function()
-    {
-        this.visible = false;
-        this.isAttached = false;
-    },
-    detach: function()
-    {
-        this.element.detach();
-    },
-
-    _length: null,
-    set length(length)
-    {
-        if (!length)
-            length = null;
-        this._length = length;
-        if (length == "00:00") {
-            this.lengthElement.innerText = "--:--";
-            return;
-        }
-        this.lengthElement.innerText = length;
-    },
-    get length()
-    {
-        return this._length;
     },
     _visible: false,
     get visible()
@@ -390,67 +435,11 @@ SDView.prototype = {
         this._visible = visible;
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "localizedName");
-//            Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
-            //Lunettes.connect(this, "length", this.cocoaObject, "length.stringValue");
+            Lunettes.connect(this.subitemsCountElement, "textContent", this.cocoaObject, "discoveredMedia.media.@count");
         } else {
             Lunettes.unconnect(this.nameElement, "textContent");
-//            Lunettes.unconnect(this, "subitemsCount");
-            //Lunettes.unconnect(this, "length");
+            Lunettes.unconnect(this.subitemsCountElement, "textContent");
         }
-    },
-
-    /**
-     * @type {number}
-     */
-    _state: 0,
-    set state(state){
-
-        // Make sure if count is undef (which might be the case, especially
-        // if one in the object of the binding is nil.
-        // Default it to 0 instead of undefined.
-        if (!state)
-            state = 0;
-        this._state = state;
-        if (this._state)
-            this.element.addClassName("item-playing");
-        else
-            this.element.removeClassName("item-playing");
-    },
-    get state(){
-        return this._state;
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    dragStarted: function(event)
-    {
-        event.effectAllowed = "copyMove";
-        event.dataTransfer.setData("application/lunettes-item", this);
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    mouseDown: function(event)
-    {
-        if (!this.parent)
-            return;
-
-        this.parent.select(this);
-        event.stopPropagation();
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    mouseDoubleClicked: function(event)
-    {
-        this.action();
-        event.stopPropagation();
     },
 
     /**
@@ -458,10 +447,31 @@ SDView.prototype = {
      */
     action: function()
     {
-        window.PlatformView.playCocoaObject(this.cocoaObject);
     }
 
 }
+SDView.prototype.__proto__ = MediaView.prototype;
+
+/**
+ * A list of MediaSDView
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
+var MediaSDView = function(cocoaObject, parent, elementTag)
+{
+    MediaView.call(this, cocoaObject, parent, elementTag);
+}
+
+
+MediaSDView.prototype = {
+    action: function(parentElement)
+    {
+        window.PlatformView.playMediaDiscovererWithMedia(this.parent.cocoaObject, this.cocoaObject);
+    }
+}
+MediaSDView.prototype.__proto__ = MediaView.prototype;
 
 /**
  * A list of MediaDBView
@@ -472,23 +482,9 @@ SDView.prototype = {
  */
 var MediaDBView = function(cocoaObject, parent, elementTag)
 {
-    this.parent = parent;
+    MediaView.call(this, cocoaObject, parent, elementTag);
 
-    this.element = document.createElement(elementTag);
-    this.element.className = "item";
-
-    this.cocoaObject = cocoaObject;
-
-    this.nameElement = document.createElement("div");
-    this.nameElement.className = "name";
-    this.nameElement.textContent = "Undefined";
-
-    this.isAttached = false;
-
-    this._subitemsCount = 0;
-    this.subitemsCount = 0;
-
-    this.displayName = "MediaView";
+    this.displayName = "MediaDBView";
 }
 
 
@@ -510,27 +506,8 @@ MediaDBView.prototype = {
 
         this.isAttached = true;
     },
-    detachWithoutRemoving: function()
-    {
-        this.visible = false;
-        this.isAttached = false;
-    },
-    detach: function()
-    {
-        this.element.detach();
-    },
 
     _length: null,
-    set length(length)
-    {
-        if (!length)
-            length = null;
-        this._length = length;
-    },
-    get length()
-    {
-        return this._length;
-    },
     _visible: false,
     get visible()
     {
@@ -545,67 +522,9 @@ MediaDBView.prototype = {
         this._visible = visible;
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
-//            Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
-            //Lunettes.connect(this, "length", this.cocoaObject, "length.stringValue");
         } else {
             Lunettes.unconnect(this.nameElement, "textContent");
-//            Lunettes.unconnect(this, "subitemsCount");
-            //Lunettes.unconnect(this, "length");
         }
-    },
-
-    /**
-     * @type {number}
-     */
-    _state: 0,
-    set state(state){
-
-        // Make sure if count is undef (which might be the case, especially
-        // if one in the object of the binding is nil.
-        // Default it to 0 instead of undefined.
-        if (!state)
-            state = 0;
-        this._state = state;
-        if (this._state)
-            this.element.addClassName("item-playing");
-        else
-            this.element.removeClassName("item-playing");
-    },
-    get state(){
-        return this._state;
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    dragStarted: function(event)
-    {
-        event.effectAllowed = "copyMove";
-        event.dataTransfer.setData("application/lunettes-item", this);
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    mouseDown: function(event)
-    {
-        if (!this.parent)
-            return;
-
-        this.parent.select(this);
-        event.stopPropagation();
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    mouseDoubleClicked: function(event)
-    {
-        this.action();
-        event.stopPropagation();
     },
 
     /**
@@ -617,6 +536,7 @@ MediaDBView.prototype = {
     }
 
 }
+MediaDBView.prototype.__proto__ = MediaView.prototype;
 
 
 /**
@@ -673,9 +593,10 @@ CurrentlyWatchingMediaDBView.prototype = {
     },
     attach: function(parentElement)
     {
-        this.element.appendChild(this.remainingTimeElement);
-        this.element.appendChild(this.progressBarContent);
         MediaDBView.prototype.attach.call(this, parentElement);
+        this.element.appendChild(this.nameElement);
+        this.element.appendChild(this.progressBarContent);
+        this.element.appendChild(this.remainingTimeElement);
     }
 }
 CurrentlyWatchingMediaDBView.prototype.__proto__ = MediaDBView.prototype;
@@ -690,23 +611,8 @@ function init()
 
     var librariesElement = document.getElementById("libraries");
 
-    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), SDView, librariesElement);
+    window.rootMediaList = new SDListView(CocoaObject.windowCocoaObject(), SDView, librariesElement);
     window.rootMediaList.subItemsKeyPath = "mediaDiscovererArrayController.arrangedObjects";
-    window.rootMediaList.attach();
-
-    var currentlyWatchingMovies = document.getElementById("currently-watching-movies");
-    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView, currentlyWatchingMovies);
-    window.rootMediaList.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
-    window.rootMediaList.attach();
-
-    var unseenMovies = document.getElementById("unseen-movies");
-    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView, unseenMovies);
-    window.rootMediaList.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
-    window.rootMediaList.attach();
-
-    var seenMovies = document.getElementById("seen-movies");
-    window.rootMediaList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView, seenMovies);
-    window.rootMediaList.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
     window.rootMediaList.attach();
 
     var count = document.getElementById("watching-category-count");
@@ -723,47 +629,67 @@ function init()
 
 }
 
-function click(event)
+function unselectAll(element)
 {
-    var element = event.currentTarget;
-    var siblings = element.parentElement.childNodes;
+    if (!element)
+        element = document.getElementById("sidebar-list");
+    var siblings = element.childNodes;
     for (var i = 0; i < siblings.length; i++)
     {
         if (siblings[i].removeClassName)
             siblings[i].removeClassName("selected");
+        unselectAll(siblings[i]);
     }
+}
+
+function setDetailList(list)
+{
+    var detailElement = document.getElementById("detail");
+
+    if (window.attachedList && window.attachedList.isAttached)
+        window.attachedList.detach();
+
+    window.attachedList = list;
+
+    window.attachedList.attach(detailElement);
+}
+
+function click(event)
+{
+    var element = event.currentTarget;
+
+    unselectAll();
     element.addClassName("selected");
 
     if (window.attachedList)
         window.attachedList.detach();
 
-    var detailElement = document.getElementById("list");
-
+    var list = null;
     if (element.hasClassName("watching-category")) {
-        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView);
-        window.attachedList.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
+        list = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView);
+        list.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
     }
     else if (element.hasClassName("towatch-category")) {
-        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-        window.attachedList.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
+        list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+        list.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
     }
     else if (element.hasClassName("all-category")) {
-        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-        window.attachedList.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
+        list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+        list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
     }
     else if (element.hasClassName("seen-category")) {
-        window.attachedList = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-        window.attachedList.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
+        list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+        list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
     }
-    window.attachedList.attach(detailElement);
-
+    setDetailList(list);
+    event.preventDefault();
 }
 
 </script>
 </head>
 <body onload="init();" tabindex="1">
 <div class="sidebar">
-    <div class="sidebar-list">
+    <div class="sidebar-list" id="sidebar-list">
         <h1>Movies</h1>
         <ul class="movies">
         <li onclick="click(event)" class="item watching-category"><div class="name">Watching<span id="watching-category-count" class="count">4</span></div></li>
@@ -778,7 +704,7 @@ function click(event)
     </div>
 </div>
 
-<div id="list" class="container">
+<div id="detail" class="container">
 </div>
 
 </body>

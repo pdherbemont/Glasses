@@ -50,6 +50,7 @@
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
 - (void)makeDocumentWithObject:(id)object;
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position;
+- (void)makeDocumentWithMediaDiscoverer:(VLCMediaDiscoverer *)md andMediaToPlay:(VLCMedia *)media;
 
 - (NSManagedObjectContext *)managedObjectContext;
 

@@ -255,6 +255,14 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [mediaDocument release];
 }
 
+- (void)makeDocumentWithMediaDiscoverer:(VLCMediaDiscoverer *)md andMediaToPlay:(VLCMedia *)media
+{
+    VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:[md discoveredMedia] andName:[md localizedName]];
+    [self bakeDocument:mediaDocument];
+    [[mediaDocument mediaListPlayer] playMedia:media];
+    [mediaDocument release];
+}
+
 - (void)makeDocumentWithObject:(id)object
 {
     if ([object isKindOfClass:[VLCMediaList class]])
@@ -319,11 +327,17 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     if ([results count] > 0)
         movie = [results objectAtIndex:0];
 
-    // Remove/don't save if we are nearly done or if the length is less than 30 secs.
-    if (position > 0.99 || [[media length] intValue] < 30000) {
+    // Remove/don't save if we are nearly done or if the length is less 2:30 secs.
+    if ([[media length] intValue] < 150000)
+        return;
+
+    if (position > 0.95) {
         if (movie) {
             [movie setValue:[NSNumber numberWithInt:0] forKey:@"lastPosition"];
             [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
+            // Increment the play count
+            NSNumber *count = [movie valueForKey:@"playCount"];
+            [movie setValue:[NSNumber numberWithUnsignedInt:[count unsignedIntValue] + 1] forKey:@"playCount"];
         }
         return;
     }
@@ -345,7 +359,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [movie setValue:[NSNumber numberWithDouble:remainingTime] forKey:@"remainingTime"];
 
     [movie setValue:[media valueForKeyPath:@"metaDictionary.title"] forKey:@"title"];
-    [moc save:nil];
 }
 
 
@@ -445,7 +458,8 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)savePendingChangesToMoc
 {
-    //r[[self managedObjectContext] save:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(savePendingChangesToMoc) object:nil];
+    [[self managedObjectContext] save:nil];
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     NSProcessInfo *process = [NSProcessInfo processInfo];
@@ -463,6 +477,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
             [process disableSuddenTermination];
 #endif
 
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(savePendingChangesToMoc) object:nil];
         [self performSelector:@selector(savePendingChangesToMoc) withObject:nil afterDelay:1.];
         return;
     }
@@ -519,7 +534,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSMetadataQuery *query = [notification object];
     NSArray *array = [query results];
     for (NSMetadataItem *item in array) {
-        NSLog(@"%@", item);
         [self addMetadataItem:item];
     }
 }
@@ -547,6 +561,12 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 #pragma mark -
 #pragma mark NSApp delegate
+
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
+{
+    [self savePendingChangesToMoc];
+    return NSTerminateNow;
+}
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)application hasVisibleWindows:(BOOL)visibleWindows
 {
