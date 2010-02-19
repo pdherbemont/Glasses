@@ -290,7 +290,7 @@ updateVisibleItems: function()
 
         var firstVisibleIndex = Math.max(Math.floor(top / height), 0);
         var nVisibleIndexes = Math.floor(this.element.clientHeight / height);
-        var count = firstVisibleIndex + nVisibleIndexes + 1;
+        var count = firstVisibleIndex + nVisibleIndexes + 2;
         if (count > this.subviews.length)
             count = this.subviews.length;
 
