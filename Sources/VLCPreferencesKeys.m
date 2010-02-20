@@ -26,3 +26,7 @@ DEFINE(SuppressShareOnLANReminder);
 DEFINE(DebugStyledWindow);
 DEFINE(DebugFullscreen);
 DEFINE(ShowDebugMenu);
+
+DEFINE(LastFMEnabled);
+DEFINE(lastFMUsername);
+DEFINE(lastFMPassword);

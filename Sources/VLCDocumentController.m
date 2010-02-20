@@ -556,6 +556,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     //[query setDelegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotResults:) name:NSMetadataQueryDidFinishGatheringNotification object:query];
     [query startQuery];
+    [query autorelease];
 #endif
 }
 

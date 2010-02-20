@@ -64,7 +64,8 @@
                                 yes, kControlWithHIDRemote,
                                 yes, kUseDeinterlaceFilter,
                                 yes, kShowDebugMenu,
-                                @"~/Desktop", kSelectedSnapshotFolder, nil]];
+                                @"~/Desktop", kSelectedSnapshotFolder,
+                                yes, kLastFMEnabled, nil]];
 
     // Always reset if the WebKitInspector was attached.
     // Because its mostly unusable else.

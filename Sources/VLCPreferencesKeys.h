@@ -28,3 +28,7 @@ extern NSString *kSuppressShareOnLANReminder;
 extern NSString *kDebugFullscreen;
 extern NSString *kDebugStyledWindow;
 extern NSString *kShowDebugMenu;
+
+extern NSString *kLastFMEnabled;
+extern NSString *klastFMUsername;
+extern NSString *klastFMPassword;

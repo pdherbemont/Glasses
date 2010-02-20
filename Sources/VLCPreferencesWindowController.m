@@ -61,6 +61,18 @@
     return [SUUpdater sharedUpdater];
 }
 
+- (IBAction)lastFMAction: (id)sender
+{
+    NSDictionary * userData = [NSDictionary dictionaryWithObjectsAndKeys:
+                               [[NSUserDefaults standardUserDefaults] stringForKey:kLastFMEnabled], @"enabled",
+                               [[NSUserDefaults standardUserDefaults] stringForKey:klastFMUsername], @"username",
+                               [[NSUserDefaults standardUserDefaults] stringForKey:klastFMPassword], @"password", nil];
+
+   [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"VLCLastFMSettingChanged"
+                                                                  object:@"VLCLastFMSupport"
+                                                                userInfo:userData];
+}
+
 - (IBAction)toolbarAction:(id)sender
 {
     NSAssert([sender isKindOfClass:[NSToolbarItem class]], @"Only receive from NSToolbarItem");

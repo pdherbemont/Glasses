@@ -33,5 +33,6 @@
 
 - (void)setView: (id)newView;
 - (IBAction)toolbarAction: (id)sender;
+- (IBAction)lastFMAction: (id)sender;
 
 @end
