@@ -62,7 +62,6 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
         availableMediaDiscoverer = [[NSArray arrayWithObjects:
                                      [[[VLCMediaDiscoverer alloc] initWithName:@"sap"] autorelease],
                                      [[[VLCMediaDiscoverer alloc] initWithName:@"upnp_intel"] autorelease],
-                                     [[[VLCMediaDiscoverer alloc] initWithName:@"freebox"] autorelease],
                                      [[[VLCMediaDiscoverer alloc] initWithName:@"video_dir"] autorelease],
                                      [[[VLCDVDDiscoverer alloc] init] autorelease],nil] retain];
     }
