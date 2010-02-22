@@ -1598,6 +1598,7 @@
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx10.6;
+				VALID_ARCHS = "i386 ppc ppc64 ppc7400 x86_64";
 			};
 			name = "Debug - Snow Leopard";
 		};
@@ -2011,6 +2012,7 @@
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx10.6;
+				VALID_ARCHS = "i386 ppc ppc64 ppc7400 x86_64";
 			};
 			name = Debug;
 		};
@@ -2048,6 +2050,7 @@
 				PREBINDING = NO;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx10.6;
+				VALID_ARCHS = "i386 ppc ppc64 ppc7400 x86_64";
 			};
 			name = Release;
 		};
