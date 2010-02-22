@@ -1,7 +1,7 @@
 /*****************************************************************************
  * Copyright (C) 2010 the VideoLAN team
  *
- * Authors: Felix Paul Kühne
+ * Authors: Felix Paul Kühne <fkuehne # videolan dot org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,23 @@
 
 @interface NSURL (SnowLeopardAdditions)
 - (NSString *)lastPathComponent;
+- (NSURL *)URLByAppendingPathComponent:(NSString *)component;
 @end
+
+enum {
+    /* The mounted volume enumeration will skip hidden volumes.
+     */
+    NSVolumeEnumerationSkipHiddenVolumes = 1UL << 1,
+
+    /* The mounted volume enumeration will produce file reference URLs rather than path-based URLs.
+     */
+    NSVolumeEnumerationProduceFileReferenceURLs = 1UL << 2
+};
+typedef NSUInteger NSVolumeEnumerationOptions;
+
+@interface NSFileManager (SnowLeopardAdditions)
+- (NSArray *)mountedVolumeURLsIncludingResourceValuesForKeys:(NSArray *)propertyKeys options:(NSVolumeEnumerationOptions)options;
+@end
+
 
 #endif
