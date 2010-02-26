@@ -603,34 +603,11 @@ CurrentlyWatchingMediaDBView.prototype = {
 }
 CurrentlyWatchingMediaDBView.prototype.__proto__ = MediaDBView.prototype;
 
-function init()
-{
-    if (document.readyState != "complete")
-    {
-        setTimeout(init, 0);
-        return;
-    }
 
-    var librariesElement = document.getElementById("libraries");
-
-    window.rootMediaList = new SDListView(CocoaObject.windowCocoaObject(), SDView, librariesElement);
-    window.rootMediaList.subItemsKeyPath = "mediaDiscovererArrayController.arrangedObjects";
-    window.rootMediaList.attach();
-
-    var count = document.getElementById("watching-category-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "currentlyWatchingItemsArrayController.arrangedObjects.@count");
-
-    var count = document.getElementById("towatch-category-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "unseenItemsArrayController.arrangedObjects.@count");
-
-    var count = document.getElementById("seen-category-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "seenItemsArrayController.arrangedObjects.@count");
-
-    var count = document.getElementById("all-category-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "seenItemsArrayController.arrangedObjects.@count");
-
-    selectMasterElementNamed("watching-category");
-}
+/**
+ * Unselect everything in the master view
+ * @param {DOMNode=} element only used internally
+ */
 
 function unselectAll(element)
 {
@@ -645,6 +622,11 @@ function unselectAll(element)
     }
 }
 
+/**
+ * Set the current list to be show
+ * @param {DOMNode} masterElement the corresponding item in the master view
+ * @param {ListView} list the List view to show in the detail area.
+ */
 function setDetailList(masterElement, list)
 {
     if (!list)
@@ -663,6 +645,10 @@ function setDetailList(masterElement, list)
     window.attachedList.attach(detailElement);
 }
 
+/**
+ * Select on of the item beneath "Movies"
+ * @param {string} name of the category to select
+ */
 function selectMasterElementNamed(name)
 {
     var list = null;
@@ -692,11 +678,41 @@ function selectMasterElementNamed(name)
     setDetailList(masterElement, list);
 }
 
+/**
+ * Callback event on the Movies category
+ * @param {Event} event
+ */
 function click(event)
 {
     var masterElement = event.currentTarget;
     selectMasterElementNamed(masterElement.id);
     event.preventDefault();
+}
+
+/**
+ * Called at the very beginning
+ */
+function init()
+{
+    var librariesElement = document.getElementById("libraries");
+
+    window.rootMediaList = new SDListView(CocoaObject.windowCocoaObject(), SDView, librariesElement);
+    window.rootMediaList.subItemsKeyPath = "mediaDiscovererArrayController.arrangedObjects";
+    window.rootMediaList.attach();
+
+    var count = document.getElementById("watching-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "currentlyWatchingItemsArrayController.arrangedObjects.@count");
+
+    var count = document.getElementById("towatch-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "unseenItemsArrayController.arrangedObjects.@count");
+
+    var count = document.getElementById("seen-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "seenItemsArrayController.arrangedObjects.@count");
+
+    var count = document.getElementById("all-category-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "allItemsArrayController.arrangedObjects.@count");
+
+    selectMasterElementNamed("watching-category");
 }
 
 </script>
@@ -708,8 +724,8 @@ function click(event)
         <ul class="movies">
         <li onclick="click(event)" id="watching-category" class="item"><div class="name">Recent Movies<span id="watching-category-count" class="count">4</span></div></li>
         <li onclick="click(event)" id="towatch-category"  class="item"><div class="name">Unseen<span id="towatch-category-count" class="count">21</span></div></li>
-        <li onclick="click(event)" id="all-category"      class="item"><div class="name">Seen<span id="all-category-count" class="count">31</span></div></li>
-        <li onclick="click(event)" id="seen-category"     class="item"><div class="name">All<span id="seen-category-count" class="count">10</span></div></li>
+        <li onclick="click(event)" id="seen-category"     class="item"><div class="name">Seen<span id="seen-category-count" class="count">10</span></div></li>
+        <li onclick="click(event)" id="all-category"      class="item"><div class="name">All<span id="all-category-count" class="count">31</span></div></li>
         </ul>
         <h1>Sources</h1>
         <div id="libraries">

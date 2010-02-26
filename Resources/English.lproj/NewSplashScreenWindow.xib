@@ -278,6 +278,23 @@
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
 					<string key="NSEntityName">File</string>
+				</object>
+				<bool key="_NSIsUsingManagedProxy">YES</bool>
+				<bool key="NSAvoidsEmptySelection">YES</bool>
+				<bool key="NSPreservesSelection">YES</bool>
+				<bool key="NSFilterRestrictsInsertion">YES</bool>
+				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
+				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
+			</object>
+			<object class="NSArrayController" id="51724051">
+				<object class="NSMutableArray" key="NSDeclaredKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<string>title</string>
+				</object>
+				<bool key="NSEditable">YES</bool>
+				<bool key="NSAutomaticallyPreparesContent">YES</bool>
+				<object class="_NSManagedProxy" key="_NSManagedProxy">
+					<string key="NSEntityName">File</string>
 					<object class="NSCompoundPredicate" key="NSFetchPredicate">
 						<object class="NSArray" key="NSSubpredicates">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -577,14 +594,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">_seenItemsArrayController</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="359058989"/>
-					</object>
-					<int key="connectionID">543</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">_unseenItemsArrayController</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="733161874"/>
@@ -646,6 +655,54 @@
 						<reference key="destination" ref="872776482"/>
 					</object>
 					<int key="connectionID">553</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">managedObjectContext: documentController.managedObjectContext</string>
+						<reference key="source" ref="51724051"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="51724051"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">managedObjectContext: documentController.managedObjectContext</string>
+							<string key="NSBinding">managedObjectContext</string>
+							<string key="NSKeyPath">documentController.managedObjectContext</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">555</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">sortDescriptors: sortDescriptor</string>
+						<reference key="source" ref="51724051"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="51724051"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">sortDescriptors: sortDescriptor</string>
+							<string key="NSBinding">sortDescriptors</string>
+							<string key="NSKeyPath">sortDescriptor</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">556</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_allItemsArrayController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="359058989"/>
+					</object>
+					<int key="connectionID">557</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_seenItemsArrayController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="51724051"/>
+					</object>
+					<int key="connectionID">558</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -770,13 +827,19 @@
 						<int key="objectID">538</int>
 						<reference key="object" ref="359058989"/>
 						<reference key="parent" ref="0"/>
-						<string key="objectName">Seen Items Array Controller</string>
+						<string key="objectName">All Items Array Controller</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">540</int>
 						<reference key="object" ref="733161874"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Unseen Items Array Controller</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">554</int>
+						<reference key="object" ref="51724051"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Seen Items Array Controller</string>
 					</object>
 				</object>
 			</object>
@@ -807,6 +870,7 @@
 					<string>535.IBPluginDependency</string>
 					<string>538.IBPluginDependency</string>
 					<string>540.IBPluginDependency</string>
+					<string>554.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>70.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
@@ -814,9 +878,9 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{287, 434}, {586, 290}}</string>
+					<string>{{147, 434}, {586, 290}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{287, 434}, {586, 290}}</string>
+					<string>{{147, 434}, {586, 290}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -834,6 +898,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>VLCSplashScreenView</string>
 					<string>com.apple.WebKitIBPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -857,7 +922,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">553</int>
+			<int key="maxID">558</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -916,6 +981,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>_allItemsArrayController</string>
 							<string>_currentlyWatchingItemsArrayController</string>
 							<string>_mediaDiscoverCollection</string>
 							<string>_mediaDiscovererArrayController</string>
@@ -925,6 +991,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSArrayController</string>
 							<string>NSArrayController</string>
 							<string>NSCollectionView</string>
 							<string>NSArrayController</string>

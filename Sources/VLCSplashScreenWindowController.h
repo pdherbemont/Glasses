@@ -26,6 +26,7 @@
 @interface VLCSplashScreenWindowController : NSWindowController
 {
     IBOutlet NSArrayController *_mediaDiscovererArrayController;
+    IBOutlet NSArrayController *_allItemsArrayController;
     IBOutlet NSArrayController *_seenItemsArrayController;
     IBOutlet NSArrayController *_unseenItemsArrayController;
     IBOutlet NSArrayController *_currentlyWatchingItemsArrayController;
@@ -37,6 +38,7 @@
 #endif
 }
 @property (retain, readonly) NSArrayController *mediaDiscovererArrayController;
+@property (retain, readonly) NSArrayController *allItemsArrayController;
 @property (retain, readonly) NSArrayController *seenItemsArrayController;
 @property (retain, readonly) NSArrayController *unseenItemsArrayController;
 @property (retain, readonly) NSArrayController *currentlyWatchingItemsArrayController;

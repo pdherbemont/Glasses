@@ -60,6 +60,11 @@
     return [[[self window] windowController] seenItemsArrayController];
 }
 
+- (NSArrayController *)allItemsArrayController
+{
+    return [[[self window] windowController] allItemsArrayController];
+}
+
 
 - (void)playCocoaObject:(WebScriptObject *)object
 {
