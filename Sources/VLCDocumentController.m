@@ -379,6 +379,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)closeSplashScreen
 {
+    [_splashScreen close];
     [_splashScreen release];
     _splashScreen = nil;
 }

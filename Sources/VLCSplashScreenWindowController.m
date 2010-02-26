@@ -92,7 +92,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 #endif
 }
 
-- (void)windowWillClose:(NSNotification *)notification
+- (void)windowDidClose:(NSNotification *)notification
 {
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
     [_unfinishedItemsCollection setDelegate:nil];

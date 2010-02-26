@@ -18,7 +18,7 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>740</string>
 				<string>740</string>
-				<string>1.2.2</string>
+				<string>1.2.5</string>
 			</object>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
@@ -55,7 +55,7 @@
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{196, 227}, {586, 290}}</string>
-				<int key="NSWTFlags">1610613760</int>
+				<int key="NSWTFlags">536871936</int>
 				<string key="NSWindowTitle">Lunettes</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
@@ -204,6 +204,7 @@
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMinSize">{581, 295}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSFrameAutosaveName">lunettes.splashscreen</string>
 			</object>
 			<object class="NSUserDefaultsController" id="535830631">
 				<bool key="NSSharedInstance">YES</bool>
@@ -813,9 +814,9 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{63, 439}, {586, 290}}</string>
+					<string>{{287, 434}, {586, 290}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{63, 439}, {586, 290}}</string>
+					<string>{{287, 434}, {586, 290}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
