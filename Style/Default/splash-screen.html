@@ -360,6 +360,8 @@ var SDListView = function(cocoaObject, parent, elementTag)
     ListView.call(this, cocoaObject, parent, elementTag);
 
     this.displayName = "SDListView";
+    this._shouldSyncSelectionWithArrayController = false;
+    this._shouldAutoSelectInsertedItem = false;
 }
 
 SDListView.prototype = {
@@ -379,7 +381,7 @@ SDListView.prototype = {
             return;
         var list = new ListView(item.cocoaObject, MediaSDView);
         list.subItemsKeyPath = "discoveredMedia.media";
-        window.setDetailList(list);
+        window.setDetailList(item.element, list);
     }
 }
 SDListView.prototype.__proto__ = ListView.prototype;
@@ -627,6 +629,7 @@ function init()
     var count = document.getElementById("all-category-count");
     Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "seenItemsArrayController.arrangedObjects.@count");
 
+    selectMasterElementNamed("watching-category");
 }
 
 function unselectAll(element)
@@ -642,8 +645,14 @@ function unselectAll(element)
     }
 }
 
-function setDetailList(list)
+function setDetailList(masterElement, list)
 {
+    if (!list)
+        return;
+
+    unselectAll();
+    masterElement.addClassName("selected");
+
     var detailElement = document.getElementById("detail");
 
     if (window.attachedList && window.attachedList.isAttached)
@@ -654,34 +663,39 @@ function setDetailList(list)
     window.attachedList.attach(detailElement);
 }
 
+function selectMasterElementNamed(name)
+{
+    var list = null;
+    switch(name)
+    {
+        case "watching-category":
+            list = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView);
+            list.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
+            break;
+        case "towatch-category":
+            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+            list.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
+            break;
+        case "all-category":
+            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+            list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
+            break;
+        case "seen-category":
+            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+            list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
+            break;
+        default:
+            console.assert(0, "Should not be reached");
+            break;
+    }
+    var masterElement = document.getElementById(name);
+    setDetailList(masterElement, list);
+}
+
 function click(event)
 {
-    var element = event.currentTarget;
-
-    unselectAll();
-    element.addClassName("selected");
-
-    if (window.attachedList)
-        window.attachedList.detach();
-
-    var list = null;
-    if (element.hasClassName("watching-category")) {
-        list = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView);
-        list.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
-    }
-    else if (element.hasClassName("towatch-category")) {
-        list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-        list.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
-    }
-    else if (element.hasClassName("all-category")) {
-        list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-        list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
-    }
-    else if (element.hasClassName("seen-category")) {
-        list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-        list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
-    }
-    setDetailList(list);
+    var masterElement = event.currentTarget;
+    selectMasterElementNamed(masterElement.id);
     event.preventDefault();
 }
 
@@ -692,10 +706,10 @@ function click(event)
     <div class="sidebar-list" id="sidebar-list">
         <h1>Movies</h1>
         <ul class="movies">
-        <li onclick="click(event)" class="item watching-category"><div class="name">Recent Movies<span id="watching-category-count" class="count">4</span></div></li>
-        <li onclick="click(event)" class="item towatch-category"><div class="name">Unseen<span id="towatch-category-count" class="count">21</span></div></li>
-        <li onclick="click(event)" class="item all-category"><div class="name">Seen<span id="all-category-count" class="count">31</span></div></li>
-        <li onclick="click(event)" class="item seen-category"><div class="name">All<span id="seen-category-count" class="count">10</span></div></li>
+        <li onclick="click(event)" id="watching-category" class="item"><div class="name">Recent Movies<span id="watching-category-count" class="count">4</span></div></li>
+        <li onclick="click(event)" id="towatch-category"  class="item"><div class="name">Unseen<span id="towatch-category-count" class="count">21</span></div></li>
+        <li onclick="click(event)" id="all-category"      class="item"><div class="name">Seen<span id="all-category-count" class="count">31</span></div></li>
+        <li onclick="click(event)" id="seen-category"     class="item"><div class="name">All<span id="seen-category-count" class="count">10</span></div></li>
         </ul>
         <h1>Sources</h1>
         <div id="libraries">

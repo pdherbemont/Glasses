@@ -440,7 +440,8 @@ select: function(subitem)
         subitem.element.addClassName("selected");
     },
 
-appendCocoaObject: function(cocoaObject, index)
+    _shouldAutoSelectInsertedItem: true,
+    appendCocoaObject: function(cocoaObject, index)
     {
         var mediaView = new this.listItemViewClass(cocoaObject, this, "li");
         this.subviews.push(mediaView);
@@ -448,7 +449,7 @@ appendCocoaObject: function(cocoaObject, index)
         if (this.isAttached)
             mediaView.attach(this.subviewsElement);
 
-        if (this.selection.length == 0)
+        if (this._shouldAutoSelectInsertedItem && this.selection.length == 0)
             this.select(mediaView);
 
         this.updateVisibleItems();
@@ -546,7 +547,8 @@ removeAllInsertedCocoaObjects: function()
     /**
      * Callback from KVC Cocoa bindings
      */
-_arrayController: null,
+    _shouldSyncSelectionWithArrayController: true,
+    _arrayController: null,
     set arrayController(controller)
     {
         if (!controller)
@@ -557,7 +559,7 @@ _arrayController: null,
         Lunettes.didChange(this, "arrayController");
 
         /* Sync selection */
-        if (this.selection[0]) {
+        if (this._shouldSyncSelectionWithArrayController && this.selection[0]) {
             var index = this.subviews.indexOf(this.selection[0]) + 1;
             this.arrayController.setSelectedIndex(index);
         }
