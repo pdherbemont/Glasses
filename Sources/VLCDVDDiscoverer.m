@@ -59,7 +59,7 @@
     running = NO;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
     NSNotificationCenter *center = [[NSWorkspace sharedWorkspace] notificationCenter];
     [center removeObserver:self name:NSWorkspaceDidUnmountNotification object:nil];
