@@ -11,9 +11,10 @@
 			<string key="NS.object.0">740</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="232"/>
-			<integer value="76"/>
 			<integer value="169"/>
+			<integer value="76"/>
+			<integer value="232"/>
+			<integer value="75"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -80,7 +81,7 @@
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">NSSlideshowTemplate</string>
+								<string key="NSResourceName">playback</string>
 							</object>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
@@ -129,23 +130,16 @@
 				</object>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="883404474">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<string key="NSFrameSize">{527, 95}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSFrameAutosaveName">Preferences Window</string>
 			</object>
 			<object class="NSUserDefaultsController" id="242931913">
-				<array class="NSMutableArray" key="NSDeclaredKeys">
-					<string>EnableLastFM</string>
-					<string>LastFMUsername</string>
-					<string>LastFMPassword</string>
-					<string>LastFMEnabled</string>
-					<string>lastFMUsername</string>
-					<string>lastFMPassword</string>
-				</array>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSCustomView" id="439030223">
@@ -273,7 +267,7 @@
 									<integer value="1040" key="formatterBehavior"/>
 									<integer value="1" key="timeStyle"/>
 								</dictionary>
-								<string key="NS.format">dd.MM.yyyy HH:mm</string>
+								<string key="NS.format">MMM d, yyyy h:mm a</string>
 								<bool key="NS.natural">NO</bool>
 							</object>
 							<reference key="NSControlView" ref="912679882"/>
@@ -1587,7 +1581,7 @@
 				<string key="168.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="168.designableToolbarItemIdentifier">advanced</string>
 				<boolean value="YES" key="168.toolbarItem.selectable"/>
-				<string key="169.IBEditorWindowLastContentRect">{{350, 531}, {525, 64}}</string>
+				<string key="169.IBEditorWindowLastContentRect">{{208, 531}, {525, 64}}</string>
 				<string key="169.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="170.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="177.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1624,6 +1618,7 @@
 				<string key="229.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="230.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="231.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="232.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3.IBEditorWindowLastContentRect">{{136, 543}, {527, 95}}</string>
 				<string key="3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="3.IBWindowTemplateEditedContentRect">{{136, 543}, {527, 95}}</string>
@@ -1644,7 +1639,7 @@
 				<string key="41.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="66.IBEditorWindowLastContentRect">{{91, 638}, {617, 0}}</string>
+				<string key="66.IBEditorWindowLastContentRect">{{91, 469}, {617, 169}}</string>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1653,9 +1648,9 @@
 				<string key="75.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="75.designableToolbarItemIdentifier">playback</string>
 				<boolean value="YES" key="75.toolbarItem.selectable"/>
-				<string key="76.IBEditorWindowLastContentRect">{{350, 540}, {530, 136}}</string>
+				<string key="76.IBEditorWindowLastContentRect">{{203, 540}, {530, 136}}</string>
 				<string key="76.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="77.IBEditorWindowLastContentRect">{{350, 178}, {528, 312}}</string>
+				<string key="77.IBEditorWindowLastContentRect">{{205, 178}, {528, 312}}</string>
 				<string key="77.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="78.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="78.ImportedFromIB2"/>
