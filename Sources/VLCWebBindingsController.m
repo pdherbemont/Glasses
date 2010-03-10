@@ -15,6 +15,17 @@
 @end
 
 @implementation VLCWebBindingsController
+
++ (WebScriptObject *)backendObject:(id)object withWebScriptObject:(WebScriptObject *)webScriptObject
+{
+    [webScriptObject setValue:object forKey:@"backendObject"];
+
+    // This is weak but will do for now.
+    [webScriptObject setValue:[NSNumber numberWithInt:[object hash]] forKey:@"uid"];
+
+    return webScriptObject;
+}
+
 - (id)init
 {
     self = [super init];
@@ -119,26 +130,20 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
                 NSMutableArray *array = [NSMutableArray arrayWithCapacity:[new count]];
                 for(id obj in new) {
                     WebScriptObject *cocoaObject = [observer callWebScriptMethod:@"createCocoaObject" withArguments:nil];
+                    cocoaObject = [VLCWebBindingsController backendObject:obj withWebScriptObject:cocoaObject];
                     [array addObject:cocoaObject];
-                    [cocoaObject setValue:obj forKey:@"backendObject"];
                 }
                 [observer callWebScriptMethod:@"setCocoaObjects" withArguments:[NSArray arrayWithObject:array]];
                 break;
             case NSKeyValueChangeInsertion:
-                for (NSUInteger i = 0; i < [new count]; i++) {
-                    id object = [new objectAtIndex:i];
-                    WebScriptObject *child = [observer callWebScriptMethod:@"createCocoaObject" withArguments:[NSArray arrayWithObject:observer]];
-                    NSAssert(child, @"createCocoaObject() should return something");
-                    [child setValue:object forKey:@"backendObject"];
-                    [observer callWebScriptMethod:@"insertCocoaObject" withArguments:[NSArray arrayWithObjects:child, [setAsArray objectAtIndex:i], nil]];
-                }
+                VLCAssertNotReached(@"Not supported");
                 break;
             case NSKeyValueChangeRemoval:
                 [observer callWebScriptMethod:@"removeCocoaObjectAtIndexes" withArguments:[NSArray arrayWithObject:setAsArray]];
                 break;
             case NSKeyValueChangeReplacement:
             default:
-                NSAssert(0, @"Should not be reached");
+                VLCAssertNotReached(@"Not supported");
                 break;
         }
         return;

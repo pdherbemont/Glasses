@@ -359,8 +359,7 @@ static BOOL watchForStyleModification(void)
 - (WebScriptObject *)createMediaFromURL:(NSString *)urlAsString inCocoaObject:(WebScriptObject *)object
 {
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlAsString]];
-    [object setValue:media forKey:@"backendObject"];
-    return object;
+    return [VLCWebBindingsController backendObject:media withWebScriptObject:object];
 }
 
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
@@ -417,21 +416,20 @@ static BOOL watchForStyleModification(void)
     [controller setAutomaticallyRearrangesObjects:YES];
     [controller bind:@"contentArray" toObject:backendObject withKeyPath:keyPath options:nil];
     WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
-    [ret setValue:controller forKey:@"backendObject"];
+    ret = [VLCWebBindingsController backendObject:controller withWebScriptObject:ret];
     [controller release];
     return ret;
 }
 
 - (WebScriptObject *)viewBackendObject:(WebScriptObject *)object
 {
-    [object setValue:self forKey:@"backendObject"];
-    return object;
+    return [VLCWebBindingsController backendObject:self withWebScriptObject:object];
 }
 
 - (WebScriptObject *)documentBackendObject:(WebScriptObject *)object
 {
-    [object setValue:[[[self window] windowController] document] forKey:@"backendObject"];
-    return object;
+    NSDocument *doc = [[[self window] windowController] document];
+    return [VLCWebBindingsController backendObject:doc withWebScriptObject:object];
 }
 
 - (void)willChangeObject:(WebScriptObject *)object valueForKey:(NSString *)key
