@@ -10,3 +10,4 @@
 
 #define VLCLogDebug NSLog
 #define VLCAssertNotReached(a) NSAssert(0, a)
+#define VLCAssertMainThread() NSAssert([NSThread isMainThread], @"Should be on main thread")

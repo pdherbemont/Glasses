@@ -13,6 +13,10 @@
 #import "VLCCompatibilityAdditions.h"
 #endif
 
+@interface VLCDVDDiscoverer (Internal)
+- (void)registerNotifications;
+@end
+
 @implementation VLCDVDDiscoverer
 
 - (id)init
@@ -21,17 +25,35 @@
     if (!self)
         return nil;
     localizedName = @"DVD";
+    discoveredMedia = [[VLCMediaList alloc] init];
 
+    [self performSelectorInBackground:@selector(registerNotifications) withObject:nil];
+    return self;
+}
+
+- (void)registerNotifications
+{
     NSNotificationCenter *center = [[NSWorkspace sharedWorkspace] notificationCenter];
+
+    // Somehow this methods cost a lot and may block for several seconds.
+    // This is why we are calling this from non main thread.
+
+    // FIXME- it is unclear if this is thread safe or not.
+    // We'll probably have to use the lower level API.
     [center addObserver:self selector:@selector(updateDVDList:) name:NSWorkspaceDidUnmountNotification object:nil];
     [center addObserver:self selector:@selector(updateDVDList:) name:NSWorkspaceDidMountNotification object:nil];
 
     [self updateDVDList:nil];
-    return self;
 }
 
 - (void)updateDVDList:(NSNotification *)notification
 {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:_cmd withObject:notification waitUntilDone:YES];
+        return;
+    }
+
+    VLCAssertMainThread();
     NSFileManager * fileManager = [NSFileManager defaultManager];
     NSArray *volumes = [fileManager mountedVolumeURLsIncludingResourceValuesForKeys:NULL options:NSVolumeEnumerationSkipHiddenVolumes];
 
