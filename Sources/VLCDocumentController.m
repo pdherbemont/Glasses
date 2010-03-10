@@ -47,6 +47,11 @@
 #endif
 // See -setMainWindow:
 @property (readwrite, retain) id currentDocument;
+
+#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
+- (void)startWatchingFolders;
+#endif
+
 @end
 
 @implementation VLCDocumentController
@@ -57,24 +62,26 @@
     [NSApp setDelegate:self];
 }
 
-- (BOOL) becomeFirstResponder
+- (BOOL)becomeFirstResponder
 {
     return YES;
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError
 {
-    if ([[inAbsoluteURL scheme] isEqualToString:@"http"] || [[inAbsoluteURL scheme] isEqualToString:@"mms"]
-     || [[inAbsoluteURL scheme] isEqualToString:@"ftp"] || [[inAbsoluteURL scheme] isEqualToString:@"rtsp"]
-     || [[inAbsoluteURL scheme] isEqualToString:@"rtmp"] || [[inAbsoluteURL scheme] isEqualToString:@"udp"]
-     || [[inAbsoluteURL scheme] isEqualToString:@"file"] || [[inAbsoluteURL scheme] isEqualToString:@"rtp"]
-     || [[inAbsoluteURL scheme] isEqualToString:@"qtcapture"])
-    {
-        return @"VLCMediaDocument";
-    }
-    else
-        NSRunCriticalAlertPanel(@"Lunettes does not support this protocol", [NSString stringWithFormat:@"%@ is no valid URL scheme.", [inAbsoluteURL scheme]], @"OK", nil, nil);
+    NSString *scheme = [inAbsoluteURL scheme];
+    NSArray *schemes = [NSArray arrayWithObjects:
+                        @"http", @"mms", @"ftp", @"rtsp", @"rtmp", @"udp",
+                        @"file", @"rtp", @"qtcapture", nil];
 
+    // FIXME - Binary search
+    for (NSString *supportedScheme in schemes) {
+        if ([scheme isEqualToString:supportedScheme])
+            return @"VLCMediaDocument";
+    }
+    NSRunCriticalAlertPanel(@"Lunettes does not support this protocol",
+                            [NSString stringWithFormat:@"%@ is no valid URL scheme.", scheme],
+                            @"OK", nil, nil);
     return nil;
 }
 
@@ -371,10 +378,14 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 - (IBAction)openSplashScreen:(id)sender
 {
     if (!_splashScreen) {
-        // auto-releases itself when the window is closed
         _splashScreen = [[VLCSplashScreenWindowController alloc] init];
+
+#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
+        [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:0.3];
+#endif
     }
     [_splashScreen showWindow:self];
+
 }
 
 - (void)closeSplashScreen
@@ -500,17 +511,16 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 - (void)addMetadataItem:(NSMetadataItem *)result
 {
     NSString *url = [NSURL fileURLWithPath:[result valueForAttribute:@"kMDItemPath"]];
-#if 1
+
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
     [request setFetchLimit:1];
     [request setEntity:entity];
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-    if ([request respondsToSelector:@selector(setPropertiesToFetch:)])
-        [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
-#endif
-    [request setPredicate:[NSPredicate predicateWithFormat:@"url LIKE[c] %@", [url description]]];
+
+    NSString *title = [result valueForAttribute:@"kMDItemDisplayName"];
+
+    [request setPredicate:[NSPredicate predicateWithFormat:@"title LIKE[c] %@", title]];
 
     NSArray *results = [moc executeFetchRequest:request error:nil];
     [request release];
@@ -529,9 +539,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
 
-    [movie setValue:[result valueForAttribute:@"kMDItemDisplayName"] forKey:@"title"];
-
-#endif
+    [movie setValue:title forKey:@"title"];
 }
 
 - (void)gotResults:(NSNotification *)notification
@@ -550,20 +558,21 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 }
 
-#endif
 
 - (void)startWatchingFolders
 {
-#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
-    NSMetadataQuery *query = [[NSMetadataQuery alloc] init];
-    [query setSearchScopes:[NSArray arrayWithObject:[NSURL fileURLWithPath:[@"~/Downloads" stringByExpandingTildeInPath]]]];
-    [query setPredicate:[NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.movie'"]];
+    if (_watchedFolderQuery)
+        return;
+    _watchedFolderQuery = [[NSMetadataQuery alloc] init];
+    [_watchedFolderQuery setSearchScopes:[NSArray arrayWithObjects:
+                            [NSURL fileURLWithPath:[@"~/Downloads" stringByExpandingTildeInPath]],
+                            [NSURL fileURLWithPath:[@"~/Movies" stringByExpandingTildeInPath]], nil]];
+    [_watchedFolderQuery setPredicate:[NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.movie'"]];
     //[query setDelegate:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotResults:) name:NSMetadataQueryDidFinishGatheringNotification object:query];
-    [query startQuery];
-    [query autorelease];
-#endif
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_watchedFolderQuery];
+    [_watchedFolderQuery startQuery];
 }
+#endif
 
 #pragma mark -
 #pragma mark NSApp delegate
@@ -606,10 +615,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     if ([defaults boolForKey:kDontShowSplashScreen])
         return;
 
-    [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:3];
-
-    // auto-releases itself when the window is closed
-    _splashScreen = [[VLCSplashScreenWindowController alloc] init];
-    [_splashScreen showWindow:self];
+    [self openSplashScreen:nil];
 }
 @end

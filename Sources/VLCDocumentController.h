@@ -45,6 +45,7 @@
 
     NSManagedObjectContext *_managedObjectContext;
     NSManagedObjectModel   *_managedObjectModel;
+    NSMetadataQuery *_watchedFolderQuery;
 }
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
