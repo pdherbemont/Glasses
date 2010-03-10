@@ -61,7 +61,13 @@
 
     for (NSURL *volumeURL in volumes) {
         NSURL *potentialDVDURL = [volumeURL URLByAppendingPathComponent:@"VIDEO_TS"];
-        if ([fileManager fileExistsAtPath:[potentialDVDURL path]]) {
+        NSString *path = [potentialDVDURL path];
+
+        // Fast path.
+        if ([path isEqualToString:@"/"])
+            continue;
+
+        if ([fileManager fileExistsAtPath:path]) {
             VLCMedia *DVD = [[VLCMedia alloc] initWithURL:potentialDVDURL];
             NSString *title = [[volumeURL lastPathComponent] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
             [DVD setValue:title forMeta:@"title"];
