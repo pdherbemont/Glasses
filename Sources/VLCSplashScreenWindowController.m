@@ -34,6 +34,25 @@
 
 static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of media discoverers
 
+
+@implementation NSNumber (SortAdditions)
+
+// We display a small "unread" like icon if playCount is 0.
+// This helps us sort using that filter. However this could
+// be seen as a hack as we should probably have an "unread" index
+// in our db instead.
+
+- (NSComparisonResult)compareNullityWith:(NSNumber *)number
+{
+    if ([self isEqualToNumber:number])
+        return NSOrderedSame;
+    if ([self intValue] == 0)
+        return NSOrderedDescending;
+    return NSOrderedAscending;
+}
+
+@end
+
 @implementation VLCSplashScreenWindowController
 @synthesize hasSelection=_hasSelection;
 @synthesize allItemsArrayController=_allItemsArrayController;
@@ -49,11 +68,15 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
                                 initWithKey:@"title"
                                 ascending:YES
                                 selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];
+    NSSortDescriptor *unread = [[[NSSortDescriptor alloc]
+                                 initWithKey:@"playCount"
+                                 ascending:NO
+                                 selector:@selector(compareNullityWith:)] autorelease];
     NSSortDescriptor *lastPosition = [[[NSSortDescriptor alloc]
                                 initWithKey:@"lastPosition"
                                 ascending:NO
                                 selector:@selector(compare:)] autorelease];
-    return [NSArray arrayWithObjects:lastPosition, title, nil];
+    return [NSArray arrayWithObjects:lastPosition, unread, title, nil];
 }
 
 - (NSArray *)availableMediaDiscoverer

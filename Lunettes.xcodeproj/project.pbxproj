@@ -170,12 +170,19 @@
 		63B1E42E10444D540029C49C /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E42D10444D540029C49C /* Icon.icns */; };
 		63D441D0100469A60086772A /* VideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441CF100469A60086772A /* VideoWindow.xib */; };
 		63D441D2100469AD0086772A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441D1100469AD0086772A /* MainMenu.xib */; };
+		63E3F0201144E79500A62577 /* not-played.png in Resources */ = {isa = PBXBuildFile; fileRef = 63E3F01F1144E79500A62577 /* not-played.png */; };
+		63E3F0291144EAAE00A62577 /* remove-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 63E3F0271144EAAE00A62577 /* remove-on.png */; };
+		63E3F02A1144EAAE00A62577 /* remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 63E3F0281144EAAE00A62577 /* remove.png */; };
+		63E3F34311453CDB00A62577 /* playback.png in Resources */ = {isa = PBXBuildFile; fileRef = 63E3F34211453CDB00A62577 /* playback.png */; };
 		63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */; };
 		63F161FA10D1BBAC003B99BE /* Authors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F161F910D1BBAC003B99BE /* Authors.txt */; };
 		63F161FE10D1BBD2003B99BE /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F161FD10D1BBD2003B99BE /* License.txt */; };
 		63F1620210D1BBE9003B99BE /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620110D1BBE9003B99BE /* About.txt */; };
 		63F1621010D1BC30003B99BE /* Thanks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620F10D1BC30003B99BE /* Thanks.txt */; };
 		63F163E310D2941C003B99BE /* VLCPathWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F163E210D2941C003B99BE /* VLCPathWatcher.m */; };
+		63F24CF111481268001B71E2 /* movies.png in Resources */ = {isa = PBXBuildFile; fileRef = 63F24CF011481268001B71E2 /* movies.png */; };
+		63F24D39114836D2001B71E2 /* sources.png in Resources */ = {isa = PBXBuildFile; fileRef = 63F24D38114836D2001B71E2 /* sources.png */; };
+		63F24D4F11483953001B71E2 /* tvshows.png in Resources */ = {isa = PBXBuildFile; fileRef = 63F24D4E11483953001B71E2 /* tvshows.png */; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
@@ -515,6 +522,10 @@
 		63B1E42D10444D540029C49C /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = Resources/Icon.icns; sourceTree = "<group>"; };
 		63D441CB100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/VideoWindow.xib; sourceTree = "<group>"; };
 		63D441CC100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		63E3F01F1144E79500A62577 /* not-played.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "not-played.png"; path = "Style/Default/not-played.png"; sourceTree = "<group>"; };
+		63E3F0271144EAAE00A62577 /* remove-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "remove-on.png"; path = "Style/Default/remove-on.png"; sourceTree = "<group>"; };
+		63E3F0281144EAAE00A62577 /* remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remove.png; path = Style/Default/remove.png; sourceTree = "<group>"; };
+		63E3F34211453CDB00A62577 /* playback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playback.png; sourceTree = "<group>"; };
 		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = ../vlc/projects/macosx/framework/VLCKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
 		63F161F910D1BBAC003B99BE /* Authors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Authors.txt; path = Resources/Authors.txt; sourceTree = "<group>"; };
@@ -523,6 +534,9 @@
 		63F1620F10D1BC30003B99BE /* Thanks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Thanks.txt; path = Resources/Thanks.txt; sourceTree = "<group>"; };
 		63F163E110D2941C003B99BE /* VLCPathWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPathWatcher.h; path = Sources/VLCPathWatcher.h; sourceTree = "<group>"; };
 		63F163E210D2941C003B99BE /* VLCPathWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPathWatcher.m; path = Sources/VLCPathWatcher.m; sourceTree = "<group>"; };
+		63F24CF011481268001B71E2 /* movies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = movies.png; path = Style/Default/movies.png; sourceTree = "<group>"; };
+		63F24D38114836D2001B71E2 /* sources.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sources.png; path = Style/Default/sources.png; sourceTree = "<group>"; };
+		63F24D4E11483953001B71E2 /* tvshows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tvshows.png; path = Style/Default/tvshows.png; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Lunettes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunettes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
@@ -755,6 +769,7 @@
 		6311DAAC0FF85AC0004BC7D1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				63E3F34211453CDB00A62577 /* playback.png */,
 				639F64821046BE2B00117832 /* lunettes.png */,
 				6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */,
 				6311DB320FF85BE3004BC7D1 /* fullscreen_blue.png */,
@@ -866,6 +881,12 @@
 		63161BF910CAC3FA0091974E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				63F24D4E11483953001B71E2 /* tvshows.png */,
+				63F24D38114836D2001B71E2 /* sources.png */,
+				63F24CF011481268001B71E2 /* movies.png */,
+				63E3F0271144EAAE00A62577 /* remove-on.png */,
+				63E3F0281144EAAE00A62577 /* remove.png */,
+				63E3F01F1144E79500A62577 /* not-played.png */,
 				63374C7210EAF3890072A0D9 /* noartwork.png */,
 				6314289C10D96B3200363AB7 /* volume_high.png */,
 				63161BFC10CAC4190091974E /* fs_exit_fullscreen_highlight.png */,
@@ -1242,6 +1263,12 @@
 				6314289D10D96B3200363AB7 /* volume_high.png in Resources */,
 				63374C7310EAF38A0072A0D9 /* noartwork.png in Resources */,
 				639FDAF9111787B1007EE416 /* splash-screen.html in Resources */,
+				63E3F0201144E79500A62577 /* not-played.png in Resources */,
+				63E3F0291144EAAE00A62577 /* remove-on.png in Resources */,
+				63E3F02A1144EAAE00A62577 /* remove.png in Resources */,
+				63F24CF111481268001B71E2 /* movies.png in Resources */,
+				63F24D39114836D2001B71E2 /* sources.png in Resources */,
+				63F24D4F11483953001B71E2 /* tvshows.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1362,6 +1389,7 @@
 				32D85F4911149F4800591CE5 /* errorImage.pdf in Resources */,
 				63075091111900900027B8C2 /* NewSplashScreenWindow.xib in Resources */,
 				636C48101121623700817611 /* ListView.js in Resources */,
+				63E3F34311453CDB00A62577 /* playback.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1394,7 +1422,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\nprettyfiles=\"\"\n\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
+			shellScript = "cd $SRCROOT/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\nprettyfiles=\"\"\nexit 0;\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
 		};
 		63F15C3910D143B2003B99BE /* Set Git Version */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -5,8 +5,9 @@
  * @param {CocoaObject} cocoaObject
  * @param {ListItemView} listItemViewClass
  * @param {Node=} element
+ * @param {string=} className
  */
-var ListView = function(cocoaObject, listItemViewClass, element)
+var ListView = function(cocoaObject, listItemViewClass, element, className)
 {
     this.listItemViewClass = listItemViewClass;
 
@@ -19,10 +20,11 @@ var ListView = function(cocoaObject, listItemViewClass, element)
      * @type {Node}
      */
     this.element = element || document.createElement("div");
-    this.element.className = "list-view";
-    this.name = "No Name";
 
-    console.log(this.element);
+    if (!className)
+        className = "list-view";
+    this.element.className = className;
+    this.name = "No Name";
 
     /**
      * @type {Element}
@@ -294,7 +296,6 @@ updateVisibleItems: function()
         if (count > this.subviews.length)
             count = this.subviews.length;
 
-        console.log("There are " + (count - firstVisibleIndex) + " visible");
         for (var i = firstVisibleIndex; i < count; i++)
             this.subviews[i].visible = true;
     },

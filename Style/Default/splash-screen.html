@@ -1,5 +1,7 @@
 <html>
 <head>
+    <script type="text/ecmascript" encoding="utf-8" src="jquery.min.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="jquery.quicksand.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/Lunettes.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/Utilities.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/CocoaObject.js"></script>
@@ -40,23 +42,6 @@ li:last-child {
     border: none;
 }
 
-.icon-view .name
-{
-    position: absolute;
-}
-
-.icon-view img
-{
-    position: absolute;
-    height: 64px;
-    width: 64px;
-    margin: auto;
-}
-
-#detail .name
-{
-    padding-left: 40px;
-}
 
 .name {
 	font-family: "Lucida Grande";
@@ -65,7 +50,12 @@ li:last-child {
     text-overflow: ellipsis;
     white-space:nowrap;
     overflow: hidden;
+}
+
+#detail .name
+{
     padding: 1em;
+    padding-left: 40px;
 }
 
 .selected .name, .selected .remaining-time {
@@ -76,34 +66,48 @@ li:last-child {
 .item {
     position: relative;
     -webkit-box-sizing: border-box;
-    height: 44px;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-align: center;
 }
 
-.sidebar .item {
-    height: 26px;
+#detail .item {
+    height: 44px;
 }
+
+#sidebar .item {
+    height: 34px;
+    border: none;
+}
+
+#sidebar .item img {
+    height: 32px;
+}
+
 .item.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
-    border-bottom: thin solid rgb(105, 123, 157);
-    border-top: thin solid rgb(105, 133, 157);
+    border-bottom: thin solid rgb(105, 123, 157) !important;
+    border-top: thin solid rgb(105, 133, 157)  !important;
 }
 
 .remaining {
 	font-family: "Lucida Grande";
 	font-size: 10px;
 }
-.container {
-	background: white;
-	border: thin solid grey;
-    border-top:none;
-}
 
-.container .list-view {
+#detail {
     position: absolute;
     top: 0; bottom: 0;
     right: 0; left: 230px;
+    overflow: hidden;
+}
+
+#detail .list-view {
     overflow: auto;
+
+    position: absolute;
+    top: 24px; bottom: 0;
+    right: 0; left: 0px;
 }
 
 .header {
@@ -161,10 +165,6 @@ ul {
     overflow: hidden;
 }
 
-.sidebar .name {
-    margin: 0;
-    padding: 0;
-}
 .action-bar>div
 {
     display: inline-block;
@@ -188,10 +188,13 @@ ul {
 	text-shadow: #eee 0px 1px 0px;
 	font-family: "Lucida Grande";
     font-size: 12px;
+    padding: 0;
     padding-left: 10px;
     padding-right: 10px;
 	-webkit-box-sizing: border-box;
     margin: 4px;
+    background: none;
+    border: none;
 }
 
 .action-button:hover, .action-button:active, .action-button.selected{
@@ -214,8 +217,9 @@ ul {
 
 .remaining-time
 {
-    margin-left: 50px;
-    color: #999;
+    margin-top: 3px;
+    color: #337CBE;
+    text-shadow: 0px 1px 0px #eee;
     font-size: 10px;
 }
 
@@ -227,29 +231,48 @@ ul {
 
 .progress-bar-content {
     position: relative;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#aaa));
-    width: 100% - 40px;
-    margin: 4px;
-    height: 7px;
-    -webkit-border-radius: 10px;
-    border: thin solid #888;
-    margin-left: 50px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#438CCE), to(#8AABDE));
+    margin: 0px;
+    height: 14px;
+    border: 1px solid #333;
+    width: 150px;
+}
+
+.progress-bar-content {
+    opacity: 0;
+}
+
+.currently-watching .progress-bar-content {
+    opacity: 1;
+}
+
+.remaining {
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: end;
+    -webkit-box-align: end;
+}
+
+.remaining {
+    display: none;
+}
+
+.currently-watching .remaining {
+    display: -webkit-box;
 }
 
 .progress-bar {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8888ed), to(#aaaaee));
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#aaa));
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 0; left: 0;
     width: 0%;
     min-width: 10px;
-    height: 7px;
-    -webkit-border-radius: 15px;
-    border: thin solid #8888ed;
+    height: 14px;
+
+    border: 1px solid #aaa;
     -webkit-box-sizing: border-box;
 }
 
-.sidebar {
+#sidebar {
     width: 230px;
     position: absolute;
     top: 0; bottom: 0;
@@ -264,45 +287,43 @@ ul {
     background: #dde4eb;
 }
 
-.sidebar .name
-{
-    margin-top: 5px;
-    margin-bottom: 5px;
+.name {
+    -webkit-box-flex: 1;
 }
 
-.sidebar li {
+#sidebar li {
     position: relative;
     text-shadow: #eee 0px 1px 0px;
 	font-family: "Lucida Grande";
     font-size: 12px;
-    border: none;
 }
 
-.sidebar hr {
+#sidebar hr {
     height: 1px;
     border: none;
     background: rgba(0,0,0,0.2);
     margin-right: 60px;
 }
 
-.sidebar ul li {
+#sidebar ul li {
     padding-left: 2em;
 }
-.sidebar h1 {
+#sidebar h1 {
     text-transform: uppercase;
-    color: #677C95;
+    color: #5C6E81;
     font-family: "Lucida Grande";
+    font-weight: bold;
     font-size: 12px;
-	text-shadow: #eee 0px 1px 0px;
+    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
     width: auto;
     margin: 1em;
     margin-bottom: 0.4em;
 }
 
-.sidebar li .count, .subitems-count {
+#sidebar li .count, .subitems-count {
     position: absolute;
     right: 0;
-    top: 2px;
+    top: 6px;
     -webkit-border-radius: 50px;
 
     color: white;
@@ -318,7 +339,7 @@ ul {
     margin-right: 10px;
 }
 
-.sidebar .selected .count, .selected .subitems-count {
+#sidebar .selected .count, .selected .subitems-count {
     color: #96A5C9;
     background: white;
     -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
@@ -345,6 +366,33 @@ ul {
 .item-length {
     display: none;
 }
+
+.status {
+    height: 15px; width: 19px;
+}
+.not-played .status {
+    background: url(not-played.png);
+}
+
+.remove-button {
+    opacity: 0;
+    background: url(remove.png);
+    border: none;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 13px; width: 13px;
+    -webkit-transition: opacity 0.1s ease-in;
+}
+
+.item:hover .remove-button {
+    opacity: 1;
+    -webkit-transition: opacity 0.2s ease-in;
+}
+
+.remove-button:active {
+    background: url(remove-on.png);
+}
+
 
 </style>
 <script>
@@ -400,6 +448,9 @@ var SDView = function(cocoaObject, parent, elementTag)
     this.subitemsCountElement = document.createElement("div");
     this.subitemsCountElement.className = "subitems-count";
 
+    this.imgElement = document.createElement("img");
+    this.imgElement.src = "sources.png"
+
     this.displayName = "SDView";
 }
 
@@ -412,6 +463,7 @@ SDView.prototype = {
     {
         console.assert(!this.isAttached, "shouldn't be attached");
 
+        this.element.appendChild(this.imgElement);
         this.element.appendChild(this.nameElement);
         this.element.appendChild(this.subitemsCountElement);
 
@@ -487,6 +539,28 @@ var MediaDBView = function(cocoaObject, parent, elementTag)
     MediaView.call(this, cocoaObject, parent, elementTag);
 
     this.displayName = "MediaDBView";
+
+    this.statusElement = document.createElement("div");
+    this.statusElement.className = "status";
+
+    this.removeButton = document.createElement("button");
+    this.removeButton.className = "remove-button";
+
+    this.remainingElement = document.createElement("div");
+    this.remainingElement.className = "remaining";
+
+    this.remainingTimeElement = document.createElement("div");
+    this.remainingTimeElement.className = "remaining-time";
+
+    this.progressBarContent = document.createElement("div");
+    this.progressBarContent.className = "progress-bar-content";
+
+    this.progressBar = document.createElement("div");
+    this.progressBar.className = "progress-bar";
+
+    this.progressBarContent.appendChild(this.progressBar);
+    this.remainingElement.appendChild(this.progressBarContent);
+    this.remainingElement.appendChild(this.remainingTimeElement);
 }
 
 
@@ -498,7 +572,10 @@ MediaDBView.prototype = {
     {
         console.assert(!this.isAttached, "shouldn't be attached");
 
+        this.element.appendChild(this.statusElement);
         this.element.appendChild(this.nameElement);
+        this.element.appendChild(this.remainingElement);
+        this.element.appendChild(this.removeButton);
 
         parentElement.appendChild(this.element);
 
@@ -509,7 +586,57 @@ MediaDBView.prototype = {
         this.isAttached = true;
     },
 
-    _length: null,
+    _playCount: 0,
+    get playCount()
+    {
+        return this._playCount;
+    },
+    set playCount(playCount)
+    {
+        if (!playCount)
+            playCount = 0;
+
+        this._playCount = playCount;
+        if (playCount == 0)
+            this.element.addClassName("not-played");
+        else
+            this.element.removeClassName("not-played");
+    },
+
+    _remainingTime: 0,
+    set remainingTime(time)
+    {
+        if (this._remainingTime == time)
+            return;
+        if (!time)
+            time = 0;
+        this._remainingTime = time;
+        if (time > 0) {
+            this.progressBar.style.width = time * 100 + "%";
+            this.element.addClassName("currently-watching");
+        }
+        else
+            this.element.removeClassName("currently-watching");
+    },
+    get remainingTime()
+    {
+        return this._remainingTime;
+    },
+
+    _currentlyWatching: 0,
+    set currentlyWatching(watching)
+    {
+        this._currentlyWatching = watching;
+        if (watching)
+            this.element.addClassName("currently-watching");
+        else
+            this.element.removeClassName("currently-watching");
+    },
+    get currentlyWatching()
+    {
+        return this._remainingTime;
+    },
+
     _visible: false,
     get visible()
     {
@@ -524,8 +651,16 @@ MediaDBView.prototype = {
         this._visible = visible;
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
+            Lunettes.connect(this, "playCount", this.cocoaObject, "playCount");
+            Lunettes.connect(this, "currentlyWatching", this.cocoaObject, "currentlyWatching");
+            Lunettes.connect(this, "remainingTime", this.cocoaObject, "lastPosition");
+            var options = new Object;
+            options["NSValueTransformerNameBindingOption"] = "VLCTimeAsNumberToPrettyTime";
+            Lunettes.connect(this.remainingTimeElement, "textContent", this.cocoaObject, "remainingTime", options);
         } else {
+            Lunettes.unconnect(this, "playCount");
             Lunettes.unconnect(this.nameElement, "textContent");
+            Lunettes.unconnect(this.remainingTimeElement, "textContent");
         }
     },
 
@@ -539,69 +674,6 @@ MediaDBView.prototype = {
 
 }
 MediaDBView.prototype.__proto__ = MediaView.prototype;
-
-
-/**
- * A list of MediaDBView
- * @constructor
- * @param {CocoaObject} cocoaObject
- * @param {Object} parent
- * @param {string} elementTag
- */
-var CurrentlyWatchingMediaDBView = function(cocoaObject, parent, elementTag)
-{
-    MediaDBView.call(this, cocoaObject, parent, elementTag);
-
-    this.remainingTimeElement = document.createElement("div");
-    this.remainingTimeElement.className = "remaining-time";
-
-    this.progressBarContent = document.createElement("div");
-    this.progressBarContent.className = "progress-bar-content";
-
-    this.progressBar = document.createElement("div");
-    this.progressBar.className = "progress-bar";
-
-    this.progressBarContent.appendChild(this.progressBar);
-}
-
-
-CurrentlyWatchingMediaDBView.prototype = {
-    set visible(visible)
-    {
-        if (this._visible == visible)
-            return;
-
-        MediaDBView.prototype.__lookupSetter__("visible").call(this, visible);
-
-        if (visible) {
-            Lunettes.connect(this, "remainingTime", this.cocoaObject, "lastPosition");
-            var options = new Object;
-            options["NSValueTransformerNameBindingOption"] = "VLCTimeAsNumberToPrettyTime";
-            Lunettes.connect(this.remainingTimeElement, "innerText", this.cocoaObject, "remainingTime", options);
-        } else
-            Lunettes.unconnect(this.remainingTimeElement, "innerText");
-    },
-
-    set remainingTime(time)
-    {
-        this._remainingTime = time;
-        this.progressBar.style.width = time * 100 + "%";
-    },
-    get remainingTime()
-    {
-        if (!this._remainingTime)
-            this._remainingTime = 0;
-        return this._remainingTime;
-    },
-    attach: function(parentElement)
-    {
-        MediaDBView.prototype.attach.call(this, parentElement);
-        this.element.appendChild(this.nameElement);
-        this.element.appendChild(this.progressBarContent);
-        this.element.appendChild(this.remainingTimeElement);
-    }
-}
-CurrentlyWatchingMediaDBView.prototype.__proto__ = MediaDBView.prototype;
 
 
 /**
@@ -654,21 +726,13 @@ function selectMasterElementNamed(name)
     var list = null;
     switch(name)
     {
-        case "watching-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), CurrentlyWatchingMediaDBView);
-            list.subItemsKeyPath = "currentlyWatchingItemsArrayController.arrangedObjects";
+        case "movies-category":
+            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
+            list.subItemsKeyPath = "allItemsArrayController.arrangedObjects";
             break;
-        case "towatch-category":
+        case "tvshows-category":
             list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
             list.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
-            break;
-        case "all-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-            list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
-            break;
-        case "seen-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-            list.subItemsKeyPath = "seenItemsArrayController.arrangedObjects";
             break;
         default:
             console.assert(0, "Should not be reached");
@@ -676,6 +740,17 @@ function selectMasterElementNamed(name)
     }
     var masterElement = document.getElementById(name);
     setDetailList(masterElement, list);
+}
+
+/**
+ * Callback event on the Movies category
+ * @param {Event} event
+ */
+function click(event)
+{
+    var masterElement = event.currentTarget;
+    selectMasterElementNamed(masterElement.id);
+    event.preventDefault();
 }
 
 /**
@@ -700,32 +775,21 @@ function init()
     window.rootMediaList.subItemsKeyPath = "mediaDiscovererArrayController.arrangedObjects";
     window.rootMediaList.attach();
 
-    var count = document.getElementById("watching-category-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "currentlyWatchingItemsArrayController.arrangedObjects.@count");
-
-    var count = document.getElementById("towatch-category-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "unseenItemsArrayController.arrangedObjects.@count");
-
-    var count = document.getElementById("seen-category-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "seenItemsArrayController.arrangedObjects.@count");
-
-    var count = document.getElementById("all-category-count");
+    var count = document.getElementById("movies-count");
     Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "allItemsArrayController.arrangedObjects.@count");
 
-    selectMasterElementNamed("watching-category");
+    selectMasterElementNamed("movies-category");
 }
 
 </script>
 </head>
 <body onload="init();" tabindex="1">
-<div class="sidebar">
+<div id="sidebar">
     <div class="sidebar-list" id="sidebar-list">
-        <h1>Movies</h1>
+        <h1>Media</h1>
         <ul class="movies">
-        <li onclick="click(event)" id="watching-category" class="item"><div class="name">Recent Movies<span id="watching-category-count" class="count">4</span></div></li>
-        <li onclick="click(event)" id="towatch-category"  class="item"><div class="name">Unseen<span id="towatch-category-count" class="count">21</span></div></li>
-        <li onclick="click(event)" id="seen-category"     class="item"><div class="name">Seen<span id="seen-category-count" class="count">10</span></div></li>
-        <li onclick="click(event)" id="all-category"      class="item"><div class="name">All<span id="all-category-count" class="count">31</span></div></li>
+        <li onclick="click(event)" id="movies-category" class="item"><img src="movies.png"><div class="name">Movies<span id="movies-count" class="count">0</span></div></li>
+        <li onclick="click(event)" id="tvshows-category"  class="item"><img src="tvshows.png"><div class="name">TV Shows<span id="tvshows-count" class="count">0</span></div></li>
         </ul>
         <h1>Sources</h1>
         <div id="libraries">
@@ -734,7 +798,10 @@ function init()
 </div>
 
 <div id="detail" class="container">
+<div class="action-bar">
+    <button class="action-button" onclick="order(event)">State</button>
+    <button class="action-button">Name</button>
 </div>
-
+</div>
 </body>
 </html>
