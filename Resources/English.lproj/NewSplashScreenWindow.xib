@@ -209,23 +209,6 @@
 			<object class="NSUserDefaultsController" id="535830631">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
-			<object class="NSArrayController" id="872776482">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>arrangedObjects</string>
-					<string>count</string>
-					<string>localizedName</string>
-				</object>
-				<bool key="NSEditable">YES</bool>
-				<bool key="NSAutomaticallyPreparesContent">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
-				<bool key="NSPreservesSelection">YES</bool>
-				<bool key="NSSelectsInsertedObjects">YES</bool>
-				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
-			</object>
 			<object class="NSArrayController" id="649524055">
 				<object class="NSMutableArray" key="NSDeclaredKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -442,46 +425,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">filterPredicate: documentController.predicateThatFiltersEmptyDiscoverer</string>
-						<reference key="source" ref="872776482"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="872776482"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">filterPredicate: documentController.predicateThatFiltersEmptyDiscoverer</string>
-							<string key="NSBinding">filterPredicate</string>
-							<string key="NSKeyPath">documentController.predicateThatFiltersEmptyDiscoverer</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValidatesImmediately</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">93</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: availableMediaDiscoverer</string>
-						<reference key="source" ref="872776482"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="872776482"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">contentArray: availableMediaDiscoverer</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">availableMediaDiscoverer</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValidatesImmediately</string>
-								<boolean value="YES" key="NS.object.0"/>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">309</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: values.DontShowSplashScreen</string>
 						<reference key="source" ref="434140271"/>
 						<reference key="destination" ref="535830631"/>
@@ -649,14 +592,6 @@
 					<int key="connectionID">552</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">_mediaDiscovererArrayController</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="872776482"/>
-					</object>
-					<int key="connectionID">553</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">managedObjectContext: documentController.managedObjectContext</string>
 						<reference key="source" ref="51724051"/>
@@ -774,12 +709,6 @@
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">70</int>
-						<reference key="object" ref="872776482"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Libraries Array Controller</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">122</int>
 						<reference key="object" ref="134008429"/>
 						<object class="NSMutableArray" key="children">
@@ -872,7 +801,6 @@
 					<string>540.IBPluginDependency</string>
 					<string>554.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
-					<string>70.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -898,7 +826,6 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>VLCSplashScreenView</string>
 					<string>com.apple.WebKitIBPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

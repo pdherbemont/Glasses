@@ -71,4 +71,7 @@
 - (IBAction)openInfoWindow:(id)sender;
 - (void)closeInfoWindow;
 
+/* Used by Nibs */
+- (NSPredicate *)predicateThatFiltersEmptyDiscoverer;
+
 @end

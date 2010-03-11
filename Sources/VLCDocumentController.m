@@ -377,15 +377,21 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 #pragma mark Non document-based window
 - (IBAction)openSplashScreen:(id)sender
 {
+    BOOL didCreateWindow = NO;
     if (!_splashScreen) {
         _splashScreen = [[VLCSplashScreenWindowController alloc] init];
-
-#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
-        [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:0.3];
-#endif
+        didCreateWindow = YES;
     }
     [_splashScreen showWindow:self];
 
+#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
+    // Do it after showing the window.
+    // The window creating might trigger a local runloop
+    // and we don't want this to run in the run loop.
+
+    if (didCreateWindow)
+        [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:0.4];
+#endif
 }
 
 - (void)closeSplashScreen
@@ -561,6 +567,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)startWatchingFolders
 {
+    return;
     if (_watchedFolderQuery)
         return;
     _watchedFolderQuery = [[NSMetadataQuery alloc] init];
@@ -599,13 +606,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 {
     // Load VLC from now on.
     [VLCLibrary sharedLibrary];
-}
-
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
-    [self rebuildStyleMenu];
-    [self rebuildScriptsMenu];
-    [self rebuildRateMenuItem];
 
     // We have some document open already, don't bother to show the splashScreen.
     if ([[self documents] count] > 0)
@@ -616,5 +616,12 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         return;
 
     [self openSplashScreen:nil];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)notification
+{
+    [self rebuildStyleMenu];
+    [self rebuildScriptsMenu];
+    [self rebuildRateMenuItem];
 }
 @end

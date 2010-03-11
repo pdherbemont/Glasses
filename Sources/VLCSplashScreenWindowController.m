@@ -62,6 +62,14 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 @synthesize mediaDiscovererArrayController=_mediaDiscovererArrayController;
 
 
+- (void)dealloc
+{
+#if ENABLE_EXTENDED_SPLASH_SCREEN
+    [_mediaDiscovererArrayController release];
+#endif
+    [super dealloc];
+}
+
 - (NSArray *)sortDescriptor
 {
     NSSortDescriptor *title = [[[NSSortDescriptor alloc]
@@ -211,4 +219,20 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
          VLCAssertNotReached(@"We shouldn't have received this action in the first place");
 #endif
 }
+
+#if ENABLE_EXTENDED_SPLASH_SCREEN
+
+// See comment in definition.
+- (void)loadArrayControllers
+{
+    [self willChangeValueForKey:@"mediaDiscovererArrayController"];
+
+    _mediaDiscovererArrayController = [[NSArrayController alloc] init];
+    [_mediaDiscovererArrayController setContent:[self availableMediaDiscoverer]];
+    [_mediaDiscovererArrayController setFilterPredicate:[[self documentController] predicateThatFiltersEmptyDiscoverer]];
+
+    [self didChangeValueForKey:@"mediaDiscovererArrayController"];
+}
+#endif
+
 @end

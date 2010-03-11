@@ -7,6 +7,7 @@
 //
 
 #import "VLCSplashScreenView.h"
+#import "VLCSplashScreenWindowController.h"
 #import "VLCDocumentController.h"
 
 @implementation VLCSplashScreenView
@@ -40,6 +41,11 @@
     [super drawRect:rect];
 }
 
++ (NSSet *)keyPathsForValuesAffectingMediaDiscovererArrayController
+{
+    return [NSSet setWithObject:@"window.windowController.mediaDiscovererArrayController"];
+}
+
 - (NSArrayController *)mediaDiscovererArrayController
 {
     return [[[self window] windowController] mediaDiscovererArrayController];
@@ -65,6 +71,15 @@
     return [[[self window] windowController] allItemsArrayController];
 }
 
+- (void)didFinishLoadForFrame:(WebFrame *)frame
+{
+    [super didFinishLoadForFrame:frame];
+
+    // See the comment in -loadArrayControllers definition.
+    // We do it in the next run loop run to make sure we'll still properly
+    // display the view first.
+    [[[self window] windowController] performSelector:@selector(loadArrayControllers) withObject:nil afterDelay:0];
+}
 
 - (void)playCocoaObject:(WebScriptObject *)object
 {

@@ -25,7 +25,12 @@
 
 @interface VLCSplashScreenWindowController : NSWindowController
 {
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
     IBOutlet NSArrayController *_mediaDiscovererArrayController;
+#else
+    NSArrayController *_mediaDiscovererArrayController;
+#endif
+
     IBOutlet NSArrayController *_allItemsArrayController;
     IBOutlet NSArrayController *_seenItemsArrayController;
     IBOutlet NSArrayController *_unseenItemsArrayController;
@@ -42,6 +47,15 @@
 @property (retain, readonly) NSArrayController *seenItemsArrayController;
 @property (retain, readonly) NSArrayController *unseenItemsArrayController;
 @property (retain, readonly) NSArrayController *currentlyWatchingItemsArrayController;
+
+#if ENABLE_EXTENDED_SPLASH_SCREEN
+/* This methods is used to load the loadable arrayControllers.
+ * This is used by VLCSplashScreenView to ensure that we will
+ * load them after loading the view. For instance the mediaDiscovererArrayController
+ * is time consuming to create, and postponing its creation results in visible
+ * speed gain when opening the splashscreen. */
+- (void)loadArrayControllers;
+#endif
 
 // Content of mediaDiscovererArrayController
 @property (retain, readonly) NSArray *availableMediaDiscoverer;
