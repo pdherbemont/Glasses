@@ -390,7 +390,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     // and we don't want this to run in the run loop.
 
     if (didCreateWindow)
-        [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:0.4];
+        [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:0.];
 #endif
 }
 
@@ -473,7 +473,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     } else
         [[NSApplication sharedApplication] presentError:error];
     [coordinator release];
-
+    [_managedObjectContext setUndoManager:nil];
     [_managedObjectContext addObserver:self forKeyPath:@"hasChanges" options:NSKeyValueObservingOptionInitial context:nil];
     return _managedObjectContext;
 }
@@ -516,24 +516,10 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 #if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
 - (void)addMetadataItem:(NSMetadataItem *)result
 {
-    NSString *url = [NSURL fileURLWithPath:[result valueForAttribute:@"kMDItemPath"]];
-
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSManagedObjectContext *moc = [self managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
-    [request setFetchLimit:1];
-    [request setEntity:entity];
-
+    NSString *url = [NSURL fileURLWithPath:[result valueForAttribute:@"kMDItemPath"]];
     NSString *title = [result valueForAttribute:@"kMDItemDisplayName"];
-
-    [request setPredicate:[NSPredicate predicateWithFormat:@"title LIKE[c] %@", title]];
-
-    NSArray *results = [moc executeFetchRequest:request error:nil];
-    [request release];
-
-
-    if ([results count] > 0)
-        return;
+    NSDate *date = [result valueForAttribute:@"kMDItemLastUsedDate"];
 
     id movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
     [movie setValue:[url description] forKey:@"url"];
@@ -544,22 +530,77 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
+    if (date)
+        [movie setValue:[NSNumber numberWithDouble:1] forKey:@"playCount"];
 
     [movie setValue:title forKey:@"title"];
 }
 
-- (void)gotResults:(NSNotification *)notification
+
+- (void)addMetadataItems:(NSArray *)metaDataItems
 {
+    NSUInteger count = [metaDataItems count];
+    NSMutableArray *fetchPredicates = [NSMutableArray arrayWithCapacity:count];
+    NSMutableDictionary *titleToObject = [NSMutableDictionary dictionaryWithCapacity:count];
+
+    // Prepare a fetch request for all items
+    for (NSMetadataItem *metaDataItem in metaDataItems) {
+        NSString *title = [metaDataItem valueForAttribute:@"kMDItemDisplayName"];
+        [fetchPredicates addObject:[NSPredicate predicateWithFormat:@"title == %@", title]];
+        [titleToObject setObject:metaDataItem forKey:title];
+    }
+
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
+
+    [request setEntity:entity];
+
+    [request setPredicate:[NSCompoundPredicate orPredicateWithSubpredicates:fetchPredicates]];
+
+    NSLog(@"Fetching");
+    NSArray *dbResults = [moc executeFetchRequest:request error:nil];
+    [request release];
+    NSLog(@"Done");
+
+    NSMutableArray *metaDataItemsToAdd = [NSMutableArray arrayWithArray:metaDataItems];
+
+    // Remove objects that are already in db.
+    for (NSManagedObjectContext *dbResult in dbResults) {
+        NSString *title = [dbResult valueForKey:@"title"];
+        [metaDataItemsToAdd removeObject:[titleToObject objectForKey:title]];
+    }
+
+    // Add only the newly added items
+    for (NSMetadataItem *metaDataItem in metaDataItemsToAdd) {
+        NSLog(@"Adding %@", [metaDataItem valueForAttribute:@"kMDItemDisplayName"]);
+        [self addMetadataItem:metaDataItem];
+    }
+}
+
+- (void)gotFirstResults:(NSNotification *)notification
+{
+    NSLog(@"Got First results");
     NSMetadataQuery *query = [notification object];
     NSArray *array = [query results];
-    for (NSMetadataItem *item in array) {
-        [self addMetadataItem:item];
-    }
+    [self addMetadataItems:array];
+    NSLog(@"Adding done");
+}
+
+- (void)gotAdditionalResults:(NSNotification *)notification
+{
+    NSLog(@"Got Additional results");
+    NSMetadataQuery *query = [notification object];
+    NSArray *array = [query results];
+    [self addMetadataItems:array];
+    NSLog(@"Adding done");
 }
 
 - (id)metadataQuery:(NSMetadataQuery *)query replacementObjectForResultObject:(NSMetadataItem *)result
 {
+    NSLog(@"Got item");
     [self addMetadataItem:result];
+    NSLog(@"Adding done");
     return result;
 
 }
@@ -567,7 +608,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)startWatchingFolders
 {
-    return;
     if (_watchedFolderQuery)
         return;
     _watchedFolderQuery = [[NSMetadataQuery alloc] init];
@@ -575,8 +615,9 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
                             [NSURL fileURLWithPath:[@"~/Downloads" stringByExpandingTildeInPath]],
                             [NSURL fileURLWithPath:[@"~/Movies" stringByExpandingTildeInPath]], nil]];
     [_watchedFolderQuery setPredicate:[NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.movie'"]];
-    //[query setDelegate:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_watchedFolderQuery];
+    //[_watchedFolderQuery setDelegate:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotFirstResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_watchedFolderQuery];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotAdditionalResults:) name:NSMetadataQueryDidUpdateNotification object:_watchedFolderQuery];
     [_watchedFolderQuery startQuery];
 }
 #endif
