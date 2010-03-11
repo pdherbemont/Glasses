@@ -208,13 +208,13 @@ input[type=search] {
 }
 
 .search {
-    width: 150px;
+    width: 185px;
     margin: 0;
 }
 
 .spacer {
     margin: 0;
-    width: 50px;
+    width: 20px;
 }
 
 /****************************************************************************
