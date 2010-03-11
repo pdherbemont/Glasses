@@ -25,22 +25,6 @@
     return self;
 }
 
-- (void)drawRect:(NSRect)rect
-{
-    // Make sure we don't see the empty webview
-    // Wait for the webview to be loaded before doing anything
-    BOOL loading = [self isLoading];
-    while ([self isLoading])
-        CFRunLoopRunInMode((CFStringRef)NSDefaultRunLoopMode, 0.5, YES);
-
-    // It seems that we may be missing an important event, without this.
-    // resulting in a glitch
-    if (loading)
-        [self performSelector:@selector(display) withObject:nil afterDelay:0];
-
-    [super drawRect:rect];
-}
-
 + (NSSet *)keyPathsForValuesAffectingMediaDiscovererArrayController
 {
     return [NSSet setWithObject:@"window.windowController.mediaDiscovererArrayController"];
