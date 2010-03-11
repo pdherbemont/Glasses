@@ -57,10 +57,6 @@ MediaView.prototype = {
 
         parentElement.appendChild(this.element);
 
-        this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
-        this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
-        this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
-
         this.isAttached = true;
     },
     detachWithoutRemoving: function()
@@ -102,6 +98,11 @@ MediaView.prototype = {
             return;
         this._visible = visible;
         if (visible) {
+
+            this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
+            this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
+            this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
+
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
             var options = new Object;
             options["NSNullPlaceholderBindingOption"] = "noartwork.png";
