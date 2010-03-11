@@ -282,14 +282,6 @@ updateVisibleItems: function()
         else
             top = this.element.scrollTop;
 
-        if (this.visibleTimer)
-            window.clearTimeout(this.visibleTimer);
-
-        if (isNaN(top) || isNaN(height) || !height) {
-            this.visibleTimer = window.setTimeout(this.updateVisibleItems.bind(this), 50);
-            return;
-        }
-
         var firstVisibleIndex = Math.max(Math.floor(top / height), 0);
         var nVisibleIndexes = Math.floor(this.element.clientHeight / height);
         var count = firstVisibleIndex + nVisibleIndexes + 2;
@@ -306,9 +298,6 @@ detach: function()
             window.clearTimeout(this.detachTimer);
             this.detachTimer = null;
         }
-
-        for (var i = 0; i < this.subviews.length; i++)
-            this.subviews[i].detach();
 
         this.element.detach();
 
@@ -453,7 +442,6 @@ select: function(subitem)
         if (this._shouldAutoSelectInsertedItem && this.selection.length == 0)
             this.select(mediaView);
 
-        this.updateVisibleItems();
     },
 
     /**
@@ -491,37 +479,62 @@ removeCocoaObjectAtIndex: function(index)
 
 setCocoaObjects: function(array)
     {
-        console.time("setCocoaObjects");
-
         console.profile("setCocoaObjects");
+
+        console.time("setCocoaObjects");
 
         var needToReattachSubviewsElement = false;
 
-        this.subviewsElement.parentNode.removeChild(this.subviewsElement);
-        if (this.isAttached) {
-            for (var i = 0; i < this.subviews.length; i++)
-                this.subviews[i].detachWithoutRemoving();
+        var oldSubviewsElement = this.subviewsElement;
+        var oldSubviews = this.subviews;
+
+        this.subviews = [];
+
+        // The following is to optimize a setting of the same array.
+        // Create a dictionary that associate the media uid -> object
+        // Mark it has toBeTrashed by default.
+        var dict = { };
+        for (var i = 0; i < oldSubviews.length; i++) {
+            dict[oldSubviews[i].uid] = oldSubviews[i];
+            oldSubviews[i].toBeTrashed = true;
         }
-        this.subviews = new Array();
 
         // Create the new one and add it from here.
         this.subviewsElement = document.createElement("ul");
 
-
-        console.time("insertCocoaObject");
-        for (var i = 0; i < array.length; i++)
-            this.appendCocoaObject(array[i]);
-        console.timeEnd("insertCocoaObject");
+        for (var i = 0; i < array.length; i++) {
+            // Here look for a previous view.
+            var oldView = dict[array[i].uid];
+            if (oldView)
+            {
+                this.subviews.push(oldView);
+                this.subviewsElement.appendChild(oldView);
+                oldView.toBeTrashed = false;
+            }
+            else
+            {
+                this.appendCocoaObject(array[i]);
+            }
+        }
 
         // We are done, add back the child.
-        this.element.appendChild(this.subviewsElement);
+        if (oldSubviewsElement.parentNode)
+            this.element.replaceChild(this.subviewsElement, oldSubviewsElement);
+        else
+            this.element.appendChild(this.subviewsElement);
 
-        console.time("updateVisibleItems");
+        if (this.isAttached) {
+            for (var i = 0; i < oldSubviews.length; i++) {
+                if (oldSubviews[i].toBeTrashed)
+                    oldSubviews[i].detachWithoutRemoving();
+            }
+        }
+
         this.updateVisibleItems();
-        console.timeEnd("updateVisibleItems");
+
+        console.timeEnd("setCocoaObjects");
 
         console.profileEnd("setCocoaObjects");
-        console.timeEnd("setCocoaObjects");
 
     },
 
