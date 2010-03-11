@@ -519,7 +519,8 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSManagedObjectContext *moc = [self managedObjectContext];
     NSString *url = [NSURL fileURLWithPath:[result valueForAttribute:@"kMDItemPath"]];
     NSString *title = [result valueForAttribute:@"kMDItemDisplayName"];
-    NSDate *date = [result valueForAttribute:@"kMDItemLastUsedDate"];
+    NSDate *openedDate = [result valueForAttribute:@"kMDItemLastUsedDate"];
+    NSDate *modifiedDate = [result valueForAttribute:@"kMDItemFSContentChangeDate"];
 
     id movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
     [movie setValue:[url description] forKey:@"url"];
@@ -530,7 +531,8 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
-    if (date)
+
+    if ([openedDate isGreaterThan:modifiedDate])
         [movie setValue:[NSNumber numberWithDouble:1] forKey:@"playCount"];
 
     [movie setValue:title forKey:@"title"];
@@ -595,16 +597,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [self addMetadataItems:array];
     NSLog(@"Adding done");
 }
-
-- (id)metadataQuery:(NSMetadataQuery *)query replacementObjectForResultObject:(NSMetadataItem *)result
-{
-    NSLog(@"Got item");
-    [self addMetadataItem:result];
-    NSLog(@"Adding done");
-    return result;
-
-}
-
 
 - (void)startWatchingFolders
 {
