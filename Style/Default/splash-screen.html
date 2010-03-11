@@ -726,6 +726,8 @@ function setDetailList(masterElement, list)
  */
 function selectMasterElementNamed(name)
 {
+    console.profile("selectMasterElementNamed");
+
     var list = null;
     switch(name)
     {
@@ -743,6 +745,7 @@ function selectMasterElementNamed(name)
     }
     var masterElement = document.getElementById(name);
     setDetailList(masterElement, list);
+    console.profileEnd("selectMasterElementNamed");
 }
 
 /**
@@ -754,18 +757,9 @@ function click(event)
     var masterElement = event.currentTarget;
     selectMasterElementNamed(masterElement.id);
     event.preventDefault();
+
 }
 
-/**
- * Callback event on the Movies category
- * @param {Event} event
- */
-function click(event)
-{
-    var masterElement = event.currentTarget;
-    selectMasterElementNamed(masterElement.id);
-    event.preventDefault();
-}
 
 /**
  * Called at the very beginning
