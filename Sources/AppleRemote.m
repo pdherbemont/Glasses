@@ -687,7 +687,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
     IOReturn ioReturnValue = (*_hidDeviceInterface)->open(_hidDeviceInterface, openMode);
 
     if (ioReturnValue != KERN_SUCCESS) {
-        NSLog(@"Can't open the Remote Control");
+        NSLog(@"Can't open the Remote Control %s", [self isOpenInExclusiveMode] ? "In exclusive mode" : "");
         return FALSE;
     }
     //NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when opening HUD device");
