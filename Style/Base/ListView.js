@@ -58,7 +58,7 @@ ListView.prototype = {
      * @return {boolean} handled
      */
 
-keyDown: function(event)
+    keyDown: function(event)
     {
         switch (event.keyCode) {
             case Lunettes.EventKey.UpArrow:
@@ -86,12 +86,12 @@ keyDown: function(event)
     /**
      * @type {boolean}
      */
-isAttached: false,
+    isAttached: false,
 
     /**
      * @param {Node=} parentElement
      */
-attach: function(parentElement)
+    attach: function(parentElement)
     {
         console.assert(!this.isAttached, "shouldn't be attached");
 
@@ -119,9 +119,8 @@ attach: function(parentElement)
 
         this.element.appendChild(this.subviewsElement);
 
-        for (var i = 0; i < this.subviews.length; i++) {
+        for (var i = 0; i < this.subviews.length; i++)
             this.subviews[i].attach(this.subviewsElement);
-        }
 
         if (parentElement)
             parentElement.appendChild(this.element);
@@ -266,7 +265,7 @@ dropped: function(event)
      * The visible MediaView will bind their contents
      * from here.
      */
-updateVisibleItems: function()
+    updateVisibleItems: function()
     {
         if (!this.subviews[0])
             return;
@@ -292,7 +291,7 @@ updateVisibleItems: function()
             this.subviews[i].visible = true;
     },
 
-detach: function()
+    detach: function()
     {
         if (this.detachTimer) {
             window.clearTimeout(this.detachTimer);
@@ -301,17 +300,20 @@ detach: function()
 
         this.element.detach();
 
+        for (var i = 0; i < this.subviews.length; i++)
+            this.subviews[i].detachWithoutRemoving();
+
         this.isAttached = false;
     },
-detachTimer: null,
-detachAfterDelay: function(delay)
+    detachTimer: null,
+    detachAfterDelay: function(delay)
     {
         var item = this;
         if (this.detachTimer)
             window.clearTimeout(this.detachTimer);
         this.detachTimer = window.setTimeout(function () { item.detachTimer = null; item.detach(); }, delay);
     },
-cancelPendingDetach: function()
+    cancelPendingDetach: function()
     {
         if (this.detachTimer)
             window.clearTimeout(this.detachTimer);
@@ -320,7 +322,7 @@ cancelPendingDetach: function()
 
 
 
-scrollToSelection: function()
+    scrollToSelection: function()
     {
         if (!this.navigationController || this.navigationController.elementStyleUsesScrollBar)
             this.scrollToSelectionForScrollBar();
@@ -330,7 +332,7 @@ scrollToSelection: function()
     /**
      * Expects the container div to have a scroll bar.
      */
-scrollToSelectionForScrollBar: function()
+    scrollToSelectionForScrollBar: function()
     {
         var selectionElement = this.selection[0].element;
         var top = selectionElement.offsetTop;
@@ -346,7 +348,7 @@ scrollToSelectionForScrollBar: function()
             this.element.scrollTop = 0;
     },
 
-scrollToSelectionForNonScrollBar: function()
+    scrollToSelectionForNonScrollBar: function()
     {
         var selectionElement = this.selection[0].element;
         var top = selectionElement.offsetTop;
@@ -386,7 +388,7 @@ scrollToSelectionForNonScrollBar: function()
     /**
      * Select previous element
      */
-selectPrevious: function()
+    selectPrevious: function()
     {
         var index = this.subviews.length - 1;
         if (this.selection.length > 0)
@@ -403,7 +405,7 @@ selectPrevious: function()
     /**
      * Select next element
      */
-selectNext: function()
+    selectNext: function()
     {
         var index = 0;
         if (this.selection.length > 0)
@@ -420,7 +422,7 @@ selectNext: function()
      * Select specified element
      *
      */
-select: function(subitem)
+    select: function(subitem)
     {
         this.unselectAllBeforeSelection();
         this.selection.push(subitem);
@@ -447,7 +449,7 @@ select: function(subitem)
     /**
      * Callback from KVC Cocoa bindings.
      */
-createCocoaObject: function()
+    createCocoaObject: function()
     {
         return new CocoaObject();
     },
@@ -457,7 +459,7 @@ createCocoaObject: function()
      * @param {CocoaObject} cocoaObject
      * @param {number} index
      */
-insertCocoaObject: function(cocoaObject, index)
+    insertCocoaObject: function(cocoaObject, index)
     {
         this.appendCocoaObject(cocoaObject);
         this.updateVisibleItems();
@@ -467,7 +469,7 @@ insertCocoaObject: function(cocoaObject, index)
      * Callback from KVC Cocoa bindings
      * @param {number} index
      */
-removeCocoaObjectAtIndex: function(index)
+    removeCocoaObjectAtIndex: function(index)
     {
         if (this.isAttached)
             this.subviews[index].detach();
@@ -477,7 +479,7 @@ removeCocoaObjectAtIndex: function(index)
         this.updateVisibleItems();
     },
 
-setCocoaObjects: function(array)
+    setCocoaObjects: function(array)
     {
         console.profile("setCocoaObjects");
 
@@ -530,7 +532,9 @@ setCocoaObjects: function(array)
             }
         }
 
+        console.time("setCocoaObjects - updateVisibleItems");
         this.updateVisibleItems();
+        console.timeEnd("setCocoaObjects - updateVisibleItems");
 
         console.timeEnd("setCocoaObjects");
 
@@ -601,5 +605,4 @@ setCocoaObjects: function(array)
 
 ListView.prototype.detach.displayName = "ListView.detach()";
 ListView.prototype.attach.displayName = "ListView.attach()";
-ListView.prototype.__lookupSetter__("visible").displayName = "ListView.setCocoaObjects()";
 

@@ -446,50 +446,36 @@ SDListView.prototype.__proto__ = ListView.prototype;
  */
 var SDView = function(cocoaObject, parent, elementTag)
 {
-    MediaView.call(this, cocoaObject, parent, elementTag);
-
-    this.subitemsCountElement = document.createElement("div");
-    this.subitemsCountElement.className = "subitems-count";
-
-    this.imgElement = document.createElement("img");
-    this.imgElement.src = "sources.png"
-
-    this.displayName = "SDView";
+    ListItemView.call(this, cocoaObject, parent, elementTag);
 }
 
 
 SDView.prototype = {
-    /**
-     * @param {Node=} parentElement
-     */
-    attach: function(parentElement)
+    createSubElements: function()
     {
-        console.assert(!this.isAttached, "shouldn't be attached");
+        this.nameElement = document.createElement("div");
+        this.nameElement.className = "name";
 
-        this.element.appendChild(this.imgElement);
-        this.element.appendChild(this.nameElement);
-        this.element.appendChild(this.subitemsCountElement);
+        this.subitemsCountElement = document.createElement("div");
+        this.subitemsCountElement.className = "subitems-count";
 
-        parentElement.appendChild(this.element);
-
-        this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
-        this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
-        this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
-
-        this.isAttached = true;
+        this.imgElement = document.createElement("img");
+        this.imgElement.src = "sources.png"
     },
-    _visible: false,
-    get visible()
+    appendSubElementsToNode: function(element)
     {
-        return this._visible;
+        element.appendChild(this.imgElement);
+        element.appendChild(this.nameElement);
+        element.appendChild(this.subitemsCountElement);
     },
+
     set visible(visible)
     {
-        console.assert(this.isAttached);
-
         if (this._visible == visible)
             return;
-        this._visible = visible;
+
+        ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
+
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "localizedName");
             Lunettes.connect(this.subitemsCountElement, "textContent", this.cocoaObject, "discoveredMedia.media.@count");
@@ -507,7 +493,7 @@ SDView.prototype = {
     }
 
 }
-SDView.prototype.__proto__ = MediaView.prototype;
+SDView.prototype.__proto__ = ListItemView.prototype;
 
 /**
  * A list of MediaSDView
@@ -519,27 +505,31 @@ SDView.prototype.__proto__ = MediaView.prototype;
 var TVShowView = function(cocoaObject, parent, elementTag)
 {
     ListItemView.call(this, cocoaObject, parent, elementTag);
-    this.nameElement = document.createElement("div");
-    this.nameElement.className = "name";
 }
 
 
 TVShowView.prototype = {
+    createSubElements: function()
+    {
+        this.nameElement = document.createElement("div");
+        this.nameElement.className = "name";
+    },
+    appendSubElementsToNode: function(element)
+    {
+        element.appendChild(this.nameElement);
+    },
     set visible(visible)
     {
         if (this._visible == visible)
             return;
+
         ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
+
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "name");
         } else {
             Lunettes.unconnect(this.nameElement, "textContent");
         }
-    },
-    attach: function(parentElement)
-    {
-        this.element.appendChild(this.nameElement);
-        ListItemView.prototype.attach.call(this, parentElement);
     },
 
 }
@@ -576,53 +566,43 @@ MediaSDView.prototype.__proto__ = MediaView.prototype;
 var MediaDBView = function(cocoaObject, parent, elementTag)
 {
     MediaView.call(this, cocoaObject, parent, elementTag);
-
-    this.displayName = "MediaDBView";
-
-    this.statusElement = document.createElement("div");
-    this.statusElement.className = "status";
-
-    this.removeButton = document.createElement("button");
-    this.removeButton.className = "remove-button";
-
-    this.remainingElement = document.createElement("div");
-    this.remainingElement.className = "remaining";
-
-    this.remainingTimeElement = document.createElement("div");
-    this.remainingTimeElement.className = "remaining-time";
-
-    this.progressBarContent = document.createElement("div");
-    this.progressBarContent.className = "progress-bar-content";
-
-    this.progressBar = document.createElement("div");
-    this.progressBar.className = "progress-bar";
-
-    this.progressBarContent.appendChild(this.progressBar);
-    this.remainingElement.appendChild(this.progressBarContent);
-    this.remainingElement.appendChild(this.remainingTimeElement);
 }
 
 
 MediaDBView.prototype = {
-    /**
-     * @param {Node=} parentElement
-     */
-    attach: function(parentElement)
+    createSubElements: function()
     {
-        console.assert(!this.isAttached, "shouldn't be attached");
+        this.nameElement = document.createElement("div");
+        this.nameElement.className = "name";
 
-        this.element.appendChild(this.statusElement);
-        this.element.appendChild(this.nameElement);
-        this.element.appendChild(this.remainingElement);
-        this.element.appendChild(this.removeButton);
+        this.statusElement = document.createElement("div");
+        this.statusElement.className = "status";
 
-        parentElement.appendChild(this.element);
+        this.removeButton = document.createElement("button");
+        this.removeButton.className = "remove-button";
 
-        this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
-        this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
-        this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
+        this.remainingElement = document.createElement("div");
+        this.remainingElement.className = "remaining";
 
-        this.isAttached = true;
+        this.remainingTimeElement = document.createElement("div");
+        this.remainingTimeElement.className = "remaining-time";
+
+        this.progressBarContent = document.createElement("div");
+        this.progressBarContent.className = "progress-bar-content";
+
+        this.progressBar = document.createElement("div");
+        this.progressBar.className = "progress-bar";
+
+        this.progressBarContent.appendChild(this.progressBar);
+        this.remainingElement.appendChild(this.progressBarContent);
+        this.remainingElement.appendChild(this.remainingTimeElement);
+    },
+    appendSubElementsToNode: function(element)
+    {
+        element.appendChild(this.statusElement);
+        element.appendChild(this.nameElement);
+        element.appendChild(this.remainingElement);
+        element.appendChild(this.removeButton);
     },
 
     _playCount: 0,
@@ -676,18 +656,13 @@ MediaDBView.prototype = {
         return this._remainingTime;
     },
 
-    _visible: false,
-    get visible()
-    {
-        return this._visible;
-    },
     set visible(visible)
     {
-        console.assert(this.isAttached);
-
         if (this._visible == visible)
             return;
-        this._visible = visible;
+
+        ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
+
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
             Lunettes.connect(this, "playCount", this.cocoaObject, "playCount");
@@ -767,6 +742,7 @@ function setDetailList(masterElement, list)
 function selectMasterElementNamed(name)
 {
     console.profile("selectMasterElementNamed");
+    console.time("selectMasterElementNamed");
 
     var list = null;
     switch(name)
@@ -785,6 +761,8 @@ function selectMasterElementNamed(name)
     }
     var masterElement = document.getElementById(name);
     setDetailList(masterElement, list);
+
+    console.timeEnd("selectMasterElementNamed");
     console.profileEnd("selectMasterElementNamed");
 }
 

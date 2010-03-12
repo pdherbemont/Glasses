@@ -46,6 +46,29 @@ ListItemView.prototype = {
         return this._visible;
     },
 
+    createSubElements: function()
+    {
+        // Override
+    },
+    appendSubElementsToNode: function(element)
+    {
+        // Override
+    },
+    _subElementsAttached: false,
+    attachSubElementsIfNeeded: function()
+    {
+        if (!this._subElementsAttached) {
+            this._subElementsAttached = true;
+
+            var tmpElement = this.element.cloneNode(false);
+
+            this.createSubElements();
+            this.appendSubElementsToNode(tmpElement);
+            this.element.parentNode.replaceChild(tmpElement, this.element);
+            this.element = tmpElement;
+        }
+    },
+
     set visible(visible)
     {
         console.assert(this.isAttached);
@@ -55,6 +78,7 @@ ListItemView.prototype = {
 
         this._visible = visible;
         if (visible) {
+            this.attachSubElementsIfNeeded();
             this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
             this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
             this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);

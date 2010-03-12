@@ -9,46 +9,13 @@ var MediaView = function(cocoaObject, parent, elementTag)
 {
     ListItemView.call(this, cocoaObject, parent, elementTag);
 
-    this.itemStatusElement = document.createElement("div");
-    this.itemStatusElement.className = "item-status";
-
-
-    this.nameElement = document.createElement("div");
-    this.nameElement.className = "name";
-    this.nameElement.textContent = "Undefined";
-
-    this.lengthElement = document.createElement("div");
-    this.lengthElement.className = "item-length";
-    this.lengthElement.textContent = "--:--";
-
-    this.imgElement = document.createElement("img");
-    this.imgElement.className = "thumbnail";
-
-    this.revealSubitemsElement = document.createElement("div");
-    this.revealSubitemsElement.className = "reveal-subitems hidden";
-    this.revealSubitemsElement.textContent = ">";
-
     this._subitemsCount = 0;
-    this.subitemsCount = 0;
 
     this.displayName = "MediaView";
 }
 
 
 MediaView.prototype = {
-    /**
-     * @param {Node=} parentElement
-     */
-    attach: function(parentElement)
-    {
-        this.element.appendChild(this.itemStatusElement);
-        this.element.appendChild(this.imgElement);
-        this.element.appendChild(this.nameElement);
-        this.element.appendChild(this.lengthElement);
-        this.element.appendChild(this.revealSubitemsElement);
-
-        ListItemView.prototype.attach.call(this, parentElement);
-    },
 
     _length: null,
     set length(length)
@@ -67,6 +34,34 @@ MediaView.prototype = {
         return this._length;
     },
 
+    createSubElements: function()
+    {
+        this.itemStatusElement = document.createElement("div");
+        this.itemStatusElement.className = "item-status";
+
+        this.nameElement = document.createElement("div");
+        this.nameElement.className = "name";
+        this.nameElement.textContent = "Undefined";
+
+        this.lengthElement = document.createElement("div");
+        this.lengthElement.className = "item-length";
+        this.lengthElement.textContent = "--:--";
+
+        this.imgElement = document.createElement("img");
+        this.imgElement.className = "thumbnail";
+
+        this.revealSubitemsElement = document.createElement("div");
+        this.revealSubitemsElement.className = "reveal-subitems hidden";
+        this.revealSubitemsElement.textContent = ">";
+    },
+    appendSubElementsToNode: function(element)
+    {
+        element.appendChild(this.itemStatusElement);
+        element.appendChild(this.imgElement);
+        element.appendChild(this.nameElement);
+        element.appendChild(this.lengthElement);
+        element.appendChild(this.revealSubitemsElement);
+    },
     set visible(visible)
     {
         if (this._visible == visible)
