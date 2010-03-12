@@ -134,7 +134,7 @@ ListView.prototype = {
      * Event handler for scroll.
      * {Event} event
      */
-didScroll: function(event)
+    didScroll: function(event)
     {
         this.updateVisibleItems();
     },
@@ -142,12 +142,12 @@ didScroll: function(event)
      * Event handler for scroll.
      * {Event} event
      */
-didResize: function(event)
+    didResize: function(event)
     {
         this.updateVisibleItems();
     },
 
-indexAtPosition: function(x, y)
+    indexAtPosition: function(x, y)
     {
         var item = this.subviews[0].element;
         var height = item.offsetHeight;
@@ -160,7 +160,7 @@ indexAtPosition: function(x, y)
         return ret;
     },
 
-resetDrag: function()
+    resetDrag: function()
     {
         for(var i = 0; i < this.subviews.length; i++) {
             if (this.subviews[i].element.style.marginTop != "0px") {
@@ -170,7 +170,7 @@ resetDrag: function()
         }
     },
 
-highlightDragPosition: function(index)
+    highlightDragPosition: function(index)
     {
         for(var i = 0; i < this.subviews.length; i++) {
             var top = this.subviews[i].element.style.marginTop;
@@ -196,7 +196,7 @@ highlightDragPosition: function(index)
      * {Event} event
      */
 
-dragEntered: function(event)
+    dragEntered: function(event)
     {
         // Work around what seems to be a webkit bug.
         if (!this._dragEnteredNumber)
@@ -218,7 +218,7 @@ dragEntered: function(event)
     /**
      * {Event} event
      */
-dragDidLeave: function(event)
+    dragDidLeave: function(event)
     {
         this._dragEnteredNumber--;
         if (this._dragEnteredNumber <= 0)
@@ -234,7 +234,7 @@ dragDidLeave: function(event)
     /**
      * {Event} event
      */
-dragOvered: function(event)
+    dragOvered: function(event)
     {
         var url = event.dataTransfer.getData("public.file-url");
         if (!url)
@@ -247,7 +247,7 @@ dragOvered: function(event)
     /**
      * {Event} event
      */
-dropped: function(event)
+    dropped: function(event)
     {
         var url = event.dataTransfer.getData("public.file-url");
         if (!url)
@@ -425,11 +425,54 @@ dropped: function(event)
     select: function(subitem)
     {
         this.unselectAllBeforeSelection();
+        this.addToSelection(subitem);
+    },
+    addToSelection: function(subitem)
+    {
         this.selection.push(subitem);
         var index = this.subviews.indexOf(this.selection[0]);
         this.arrayController.setSelectedIndex(index);
+        if (subitem.element)
+            subitem.element.addClassName("selected");
+    },
+    removeFromSelection: function(subitem)
+    {
+        subitem.element.removeClassName("selected");
+    },
+    toggleSelection: function(subitem)
+    {
+        if (this.selection.contains(subitem))
+            this.removeFromSelection(subitem);
+        else
+            this.addToSelection(subitem);
+    },
 
-        subitem.element.addClassName("selected");
+    selectTo: function(subitem)
+    {
+        var length = this.selection.length;
+        if (length == 0) {
+            this.select(subitem);
+            return;
+        }
+        var selection = this.selection;
+        var minIndex = this.subviews.indexOf(selection[0]);
+        var maxIndex = this.subviews.indexOf(selection[length - 1]);
+        var thisIndex = this.subviews.indexOf(subitem);
+
+        var startIndex;
+        var endIndex;
+        if (thisIndex < minIndex) {
+            startIndex = thisIndex;
+            endIndex = minIndex;
+        } else if (thisIndex < maxIndex) {
+            startIndex = minIndex;
+            endIndex = thisIndex;
+        } else {
+            startIndex = maxIndex;
+            endIndex = thisIndex;
+        }
+        for (var i = startIndex; i <= endIndex; i++)
+            this.addToSelection(this.subviews[i]);
     },
 
     _shouldAutoSelectInsertedItem: true,

@@ -104,7 +104,12 @@ ListItemView.prototype = {
         if (!this.parent)
             return;
 
-        this.parent.select(this);
+        if (event.shiftKey == 1)
+            this.parent.selectTo(this);
+        else if (event.metaKey)
+            this.parent.toggleSelect(this);
+        else
+            this.parent.select(this);
         event.stopPropagation();
     },
 
