@@ -463,9 +463,9 @@ ListView.prototype = {
         this.selection.splice(index);
         subitem.element.removeClassName("selected");
     },
-    toggleSelection: function(subitem)
+    toggleItemSelection: function(subitem)
     {
-        if (this.selection.contains(subitem))
+        if (this.selection.indexOf(subitem) >= 0)
             this.removeFromSelection(subitem);
         else
             this.addToSelection(subitem);
