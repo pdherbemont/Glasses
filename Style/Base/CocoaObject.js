@@ -114,11 +114,11 @@ CocoaObject.prototype.insertObjectAtIndex = function (object, index)
 
 /**
  * @param {CocoaObject} observer
- * @param {number} keyPath to observe
+ * @param {array} keyPath to observe
  */
-CocoaObject.prototype.setSelectedIndex = function (index)
+CocoaObject.prototype.setSelectedIndexes = function (index)
 {
-    window.PlatformView.setSelectedIndexInArrayController(index, this);
+    window.PlatformView.setSelectedIndexesInArrayController(index, this);
 }
 
 

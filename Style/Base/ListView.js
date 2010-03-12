@@ -367,12 +367,11 @@ ListView.prototype = {
      */
     _unselectAll: function()
     {
-        this.arrayController.setSelectedIndex(-1);
-
         for (var i = 0; i < this.selection.length; i++)
             this.selection[i].element.removeClassName("selected");
 
-        this.selection = new Array;
+        this.arrayController.setSelectedIndexes([]);
+        this.selection = [];
     },
 
     unselectAllBeforeSelection: function()
@@ -429,16 +428,39 @@ ListView.prototype = {
         this.unselectAllBeforeSelection();
         this.addToSelection(subitem);
     },
+    selectedIndexes: function()
+    {
+        var ret = [];
+        for (var i = 0; i < this.selection.length; i++)
+            ret.push(this.subviews.indexOf(this.selection[i]));
+        return ret;
+    },
     addToSelection: function(subitem)
     {
-        this.selection.push(subitem);
-        var index = this.subviews.indexOf(this.selection[0]);
-        this.arrayController.setSelectedIndex(index);
+        // Insert our item at the right place.
+        var selection = this.selection;
+        var subviews = this.subviews;
+        var index = subviews.indexOf(subitem);
+        var min = 0;
+        var max = selection.length - 1;
+        var middle = min - max / 2;
+        while (middle > 0) {
+            var middleIndex = subviews.indexOf(selection[middle]);
+            if (middleIndex < index)
+                min = middleIndex;
+            else
+                max = middleIndex;
+            middle = min - max / 2;
+        }
+        this.selection.splice(min, 0, subitem);
+        this.arrayController.setSelectedIndexes(this.selectedIndexes());
         if (subitem.element)
             subitem.element.addClassName("selected");
     },
     removeFromSelection: function(subitem)
     {
+        var index = this.selection.indexOf(subitem);
+        this.selection.splice(index);
         subitem.element.removeClassName("selected");
     },
     toggleSelection: function(subitem)

@@ -341,12 +341,23 @@ static BOOL watchForStyleModification(void)
 #pragma mark -
 #pragma mark Javascript
 
-- (void)setSelectedIndex:(NSNumber *)index inArrayController:(WebScriptObject *)target
+- (void)setSelectedIndexes:(WebScriptObject *)indexes inArrayController:(WebScriptObject *)target
 {
     FROM_JS();
     NSArrayController *array = [target valueForKey:@"backendObject"];
     VLCAssert([array isKindOfClass:[NSArrayController class]], @"Must be a writable NSArrayController");
-    [array setSelectionIndex:[index unsignedIntValue]];
+
+    NSMutableIndexSet *set = [NSMutableIndexSet indexSet];
+    if (indexes && ![indexes isKindOfClass:[WebUndefined class]]) {
+        id object = nil;
+        for (size_t i = 0; (object = [indexes webScriptValueAtIndex:i]); i++) {
+            if ([object isKindOfClass:[WebUndefined class]])
+                break;
+            [set addIndex:[object unsignedIntValue]];
+        }
+    }
+
+    [array setSelectionIndexes:set];
     RETURN_NOTHING_TO_JS();
 }
 
@@ -476,7 +487,7 @@ static BOOL watchForStyleModification(void)
         return NO;
     if (sel == @selector(createMediaFromURL:inCocoaObject:))
         return NO;
-    if (sel == @selector(setSelectedIndex:inArrayController:))
+    if (sel == @selector(setSelectedIndexes:inArrayController:))
         return NO;
     if (sel == @selector(insertCocoaObject:atIndex:inArrayController:))
         return NO;
@@ -509,8 +520,8 @@ static BOOL watchForStyleModification(void)
         return @"removeObserverForCocoaObjectWithKeyPath";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
-    if (sel == @selector(setSelectedIndex:inArrayController:))
-        return @"setSelectedIndexInArrayController";
+    if (sel == @selector(setSelectedIndexes:inArrayController:))
+        return @"setSelectedIndexesInArrayController";
     if (sel == @selector(insertCocoaObject:atIndex:inArrayController:))
         return @"insertObjectAtIndexInArrayController";
     if (sel == @selector(createMediaFromURL:inCocoaObject:))
