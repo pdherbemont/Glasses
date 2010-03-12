@@ -303,6 +303,8 @@ ListView.prototype = {
         for (var i = 0; i < this.subviews.length; i++)
             this.subviews[i].detachWithoutRemoving();
 
+        this.arrayController.removeObserver(this, "arrangedObjects");
+
         this.isAttached = false;
     },
     detachTimer: null,
@@ -633,15 +635,12 @@ ListView.prototype = {
     },
     observe: function()
     {
-        console.assert(!this.arrayController);
-        if (this.arrayController)
-            return;
-        console.assert(this.subItemsKeyPath, "No keypath provided");
-
-
-        var cocoaObject = this.cocoaObject;
-        this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
-
+        if (!this.arrayController)
+        {
+            console.assert(this.subItemsKeyPath, "No keypath provided");
+            var cocoaObject = this.cocoaObject;
+            this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
+        }
         this.arrayController.addObserver(this, "arrangedObjects");
     }
 }

@@ -207,6 +207,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
                           observer, @"observer",
                           keyPath, @"keyPath", nil];
     [_observers addObject:dict];
+
     [object addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:dict];
 }
 

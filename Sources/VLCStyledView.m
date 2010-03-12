@@ -421,6 +421,14 @@ static BOOL watchForStyleModification(void)
     RETURN_NOTHING_TO_JS();
 }
 
+- (void)removeObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
+{
+    FROM_JS();
+    [_bindings unobserve:[object valueForKey:@"backendObject"] withKeyPath:keyPath observer:observer];
+    RETURN_NOTHING_TO_JS();
+}
+
+
 - (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
     FROM_JS();
@@ -462,6 +470,8 @@ static BOOL watchForStyleModification(void)
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
+    if (sel == @selector(removeObserver:forCocoaObject:withKeyPath:))
+        return NO;
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return NO;
     if (sel == @selector(createMediaFromURL:inCocoaObject:))
@@ -495,6 +505,8 @@ static BOOL watchForStyleModification(void)
         return @"willChange";
     if (sel == @selector(didChangeObject:valueForKey:))
         return @"didChange";
+    if (sel == @selector(removeObserver:forCocoaObject:withKeyPath:))
+        return @"removeObserverForCocoaObjectWithKeyPath";
     if (sel == @selector(addObserver:forCocoaObject:withKeyPath:))
         return @"addObserverForCocoaObjectWithKeyPath";
     if (sel == @selector(setSelectedIndex:inArrayController:))

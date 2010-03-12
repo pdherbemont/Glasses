@@ -100,7 +100,7 @@ CocoaObject.prototype.addObserver = function (observer, keyPath)
 CocoaObject.prototype.removeObserver = function (observer, keyPath)
 {
     window.console.assert(observer);
-    window.PlatformView.unobserve(observer, this, keyPath);
+    window.PlatformView.removeObserverForCocoaObjectWithKeyPath(observer, this, keyPath);
 }
 
 /**
