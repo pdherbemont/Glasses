@@ -25,7 +25,7 @@
     VLCDocumentController *controller = [self documentController];
     NSArray *array = [[controller currentArrayController] selectedObjects];
 
-    NSAssert([sender isKindOfClass:[NSComboBox class]], @"Should be a combobox");
+    VLCAssert([sender isKindOfClass:[NSComboBox class]], @"Should be a combobox");
     NSComboBox *combo = sender;
     NSString *tvShowName = [combo stringValue];
 
@@ -54,6 +54,7 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
+    [[NSException exceptionWithName:@"Test" reason:@"teet" userInfo:nil] raise];
     [[VLCDocumentController sharedDocumentController] closeInfoWindow];
 }
 @end

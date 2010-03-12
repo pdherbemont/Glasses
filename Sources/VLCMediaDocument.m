@@ -68,13 +68,13 @@
 
 - (void)dealloc
 {
-    NSAssert(!_rememberTimer, @"This timer should be closed");
+    VLCAssert(!_rememberTimer, @"This timer should be closed");
 
     [_name release];
 	[_media release];
 	[_mediaList release];
 
-    NSAssert(!_mediaListPlayer, @"The current media player should be removed in -close");
+    VLCAssert(!_mediaListPlayer, @"The current media player should be removed in -close");
 
 	[super dealloc];
 }
@@ -101,7 +101,7 @@
         return;
 
     VLCMediaPlayer *mediaPlayer = _mediaListPlayer.mediaPlayer;
-    NSAssert(mediaPlayer, @"There is no media Player, the following is incorrect");
+    VLCAssert(mediaPlayer, @"There is no media Player, the following is incorrect");
 
     BOOL seekable = [mediaPlayer isSeekable];
     double position = [mediaPlayer position];
@@ -163,7 +163,7 @@
     [windowController window];
 
     VLCExtendedVideoView *videoView = windowController.videoView;
-    NSAssert(videoView, @"There should be a videoView at this point");
+    VLCAssert(videoView, @"There should be a videoView at this point");
 
     VLCMediaListPlayer *mediaListPlayer = [[VLCMediaListPlayer alloc] init];
     [mediaListPlayer.mediaPlayer setVideoView:videoView];
@@ -294,7 +294,7 @@
             NSRunCriticalAlertPanel(@"Sharing failed", @"Lunettes cannot share media from list-based players yet. Please open the input separately.", @"Hum, okay", nil, nil);
             return;
         }
-        NSAssert(!_theLANStreamingSession, @"There should not be a _theLANStreamingSession at this time.");
+        VLCAssert(!_theLANStreamingSession, @"There should not be a _theLANStreamingSession at this time.");
         _theLANStreamingSession = [[VLCStreamSession streamSession] retain];
         _theLANStreamingSession.media = ourMedia;
         _theLANStreamingSession.streamOutput = [VLCStreamOutput rtpBroadcastStreamOutputWithSAPAnnounce:[self displayName]];
@@ -345,7 +345,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberUnfinishedMovies])
         return;
     static const NSTimeInterval mediaPositionPollingInterval = 10.0;
-    NSAssert(!_rememberTimer, @"There shouldn't be a timer at this point");
+    VLCAssert(!_rememberTimer, @"There shouldn't be a timer at this point");
     _rememberTimer = [[NSTimer timerWithTimeInterval:mediaPositionPollingInterval target:self selector:@selector(saveUnfinishedMovieState) userInfo:nil repeats:YES] retain];
     [[NSRunLoop mainRunLoop] addTimer:_rememberTimer forMode:NSDefaultRunLoopMode];
 }

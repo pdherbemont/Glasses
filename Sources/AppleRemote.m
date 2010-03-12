@@ -113,7 +113,7 @@ const NSTimeInterval HOLD_RECOGNITION_TIME_INTERVAL=0.4;
     [self setListeningOnAppActivate:NO]; // This free _appDelegate and set back the old delegate.
     [self stopListening:self];
     [_cookieToButtonMapping release];
-    NSAssert(!_allCookies, @"should be released");
+    VLCAssert(!_allCookies, @"should be released");
 
     [super dealloc];
 }
@@ -575,11 +575,11 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
     SInt32                  score = 0;
     IOReturn                ioReturnValue = kIOReturnSuccess;
 
-    NSAssert(!_hidDeviceInterface, @"Should be NULL or we leak");
+    VLCAssert(!_hidDeviceInterface, @"Should be NULL or we leak");
 
     ioReturnValue = IOObjectGetClass(hidDevice, className);
 
-    NSAssert(ioReturnValue == kIOReturnSuccess, @"Error: Failed to get IOKit class name.");
+    VLCAssert(ioReturnValue == kIOReturnSuccess, @"Error: Failed to get IOKit class name.");
 
     ioReturnValue = IOCreatePlugInInterfaceForService(hidDevice,
                                                       kIOHIDDeviceUserClientTypeID,
@@ -591,7 +591,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
         //Call a method of the intermediate plug-in to create the device interface
         plugInResult = (*plugInInterface)->QueryInterface(plugInInterface, CFUUIDGetUUIDBytes(kIOHIDDeviceInterfaceID), (LPVOID) &_hidDeviceInterface);
 
-        NSAssert(plugInResult == S_OK, @"Error: Couldn't create HID class device interface");
+        VLCAssert(plugInResult == S_OK, @"Error: Couldn't create HID class device interface");
 
         // Release
         if (plugInInterface)
@@ -646,7 +646,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
      cookies = calloc(NUMBER_OF_APPLE_REMOTE_ACTIONS, sizeof(IOHIDElementCookie));
      memset(cookies, 0, sizeof(IOHIDElementCookie) * NUMBER_OF_APPLE_REMOTE_ACTIONS);
      */
-    NSAssert(!_allCookies, @"We would be leaking _allCookies");
+    VLCAssert(!_allCookies, @"We would be leaking _allCookies");
     _allCookies = [[NSMutableArray alloc] init];
     for (unsigned i = 0; i < CFArrayGetCount(elements); i++) {
         NSDictionary *element = (id)CFArrayGetValueAtIndex(elements, i);
@@ -690,13 +690,13 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
         NSLog(@"Can't open the Remote Control %s", [self isOpenInExclusiveMode] ? "In exclusive mode" : "");
         return FALSE;
     }
-    //NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when opening HUD device");
+    //VLCAssert(ioReturnValue == KERN_SUCCESS, @"Error when opening HUD device");
 
-    NSAssert(!_queue, @"We are going to leak _queue");
+    VLCAssert(!_queue, @"We are going to leak _queue");
     _queue = (*_hidDeviceInterface)->allocQueue(_hidDeviceInterface);
-    NSAssert(_queue, @"Error when creating async event source");
+    VLCAssert(_queue, @"Error when creating async event source");
     result = (*_queue)->create(_queue, 0, 12);    //depth: maximum number of elements in queue before oldest elements in queue begin to be lost.
-    NSAssert(result == kIOReturnSuccess, @"Can't init the remote");
+    VLCAssert(result == kIOReturnSuccess, @"Can't init the remote");
 
     for(NSUInteger i = 0; i < [_allCookies count]; i++) {
         IOHIDElementCookie cookie = (IOHIDElementCookie)[[_allCookies objectAtIndex:i] intValue];
@@ -705,9 +705,9 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
 
     // add callback for async events
     ioReturnValue = (*_queue)->createAsyncEventSource(_queue, &_eventSource);
-    NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when creating async event source");
+    VLCAssert(ioReturnValue == KERN_SUCCESS, @"Error when creating async event source");
     ioReturnValue = (*_queue)->setEventCallout(_queue, QueueCallbackFunction, self, NULL);
-    NSAssert(ioReturnValue == KERN_SUCCESS, @"Error when setting event callout");
+    VLCAssert(ioReturnValue == KERN_SUCCESS, @"Error when setting event callout");
     CFRunLoopAddSource(CFRunLoopGetCurrent(), _eventSource, kCFRunLoopDefaultMode);
     //start data delivery to queue
     (*_queue)->start(_queue);

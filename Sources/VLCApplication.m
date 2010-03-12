@@ -29,6 +29,7 @@
 #import "VLCStyledVideoWindowController.h"
 #import "VLCMediaDocument.h"
 #import "VLCDocumentController.h"
+#import "VLCExceptionHandler.h"
 
 @interface NSObject (RemoteResponder)
 - (void)remoteMiddleButtonPressed:(id)sender;
@@ -97,6 +98,12 @@
     [_remote stopListening:self];
     [_remote release];
     [super dealloc];
+}
+
+- (void)reportException:(NSException *)anException
+{
+	// Make sure our VLCExceptionHandler get this exception
+	[[VLCExceptionHandler sharedHandler] handleUncaughtException:anException];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification

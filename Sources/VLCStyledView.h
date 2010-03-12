@@ -20,6 +20,12 @@
 
 #import <WebKit/WebKit.h>
 
+/* Helper when calling a function from JS */
+#define FROM_JS() NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]
+#define RETURN_NOTHING_TO_JS() [pool drain]
+#define RETURN_OBJECT_TO_JS(a) id __ret = [a retain]; [pool drain]; return [__ret autorelease]
+#define DIRECTLY_RETURN_OBJECT_TO_JS(a) FROM_JS(); RETURN_OBJECT_TO_JS(a)
+
 /* This is a base class that should only be subclassed.
  * It contains the shared code between VLCStyledVideoWindowView
  * and VLCStyledFullscreenHUDWindowView */

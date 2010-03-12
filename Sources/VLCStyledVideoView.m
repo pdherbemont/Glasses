@@ -44,51 +44,65 @@
 
 - (void)setPosition:(float)position
 {
+    FROM_JS();
     VLCMediaPlayer *player = [self mediaPlayer];
     if (![player isPlaying])
         [player play];
     [player setPosition:position];
     [[[[self window] windowController] document] playbackPositionChanged];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)play
 {
+    FROM_JS();
     [[self mediaPlayer] play];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)pause
 {
+    FROM_JS();
     [[self mediaPlayer] pause];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (BOOL)isSeekable
 {
-    return [[self mediaPlayer] isSeekable];
+    FROM_JS();
+    BOOL isSeekable = [[self mediaPlayer] isSeekable];
+    RETURN_NOTHING_TO_JS();
+    return isSeekable;
 }
 
 - (VLCMediaListPlayer *)mediaListPlayer
 {
-    return [[[[self window] windowController] document] mediaListPlayer];
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[[self window] windowController] document] mediaListPlayer]);
 }
 
 - (VLCMediaPlayer *)mediaPlayer
 {
-    return [[[[self window] windowController] document] mediaListPlayer].mediaPlayer;
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[[self window] windowController] document] mediaListPlayer].mediaPlayer);
 }
 
 - (VLCMediaList *)rootMediaList
 {
-    return [[[[self window] windowController] document] rootMediaList];
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[[self window] windowController] document] rootMediaList]);
 }
 
 - (NSUInteger)count
 {
-    return [[self rootMediaList] count];
+    FROM_JS();
+    NSUInteger count = [[self rootMediaList] count];
+    RETURN_NOTHING_TO_JS();
+    return count;
 }
 
 - (void)playCocoaObject:(WebScriptObject *)object
 {
+    FROM_JS();
     [[self mediaListPlayer] playMedia:[object valueForKey:@"backendObject"]];
+    RETURN_NOTHING_TO_JS();
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel

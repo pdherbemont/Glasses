@@ -110,7 +110,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
     NSString *pluginsPath = [[NSBundle mainBundle] builtInPlugInsPath];
     NSFileManager *manager = [NSFileManager defaultManager];
     NSArray *plugins = [manager contentsOfDirectoryAtPath:pluginsPath error:nil];
-    NSAssert(_styleMenu, @"There is no style menu connected");
+    VLCAssert(_styleMenu, @"There is no style menu connected");
 
     // First add the special 'Default' menu and a separator
     NSMenu *submenu = [_styleMenu submenu];
@@ -135,7 +135,7 @@ static NSMenuItem *createStyleMenuItemWithPlugInName(NSString *name)
 
 - (void)runScriptFromMenuItem:(id)sender
 {
-    NSAssert([sender isKindOfClass:[NSMenuItem class]], @"should be a menuItem");
+    VLCAssert([sender isKindOfClass:[NSMenuItem class]], @"should be a menuItem");
     NSMenuItem *item = (NSMenuItem *)sender;
     [[VLCExtensionsManager sharedManager] runExtension:[item representedObject]];
 }
@@ -154,7 +154,7 @@ static NSMenuItem *createScriptsMenuItemWithExtension(VLCExtension *extension)
 
 - (void)rebuildScriptsMenu
 {
-    NSAssert(_scriptsMenu, @"There is no style menu connected");
+    VLCAssert(_scriptsMenu, @"There is no style menu connected");
 
     NSMenu *submenu = [_scriptsMenu submenu];
 
@@ -174,8 +174,8 @@ static NSMenuItem *createScriptsMenuItemWithExtension(VLCExtension *extension)
 
 - (void)rebuildRateMenuItem
 {
-    NSAssert(_rateMenuItem, @"_rateMenuItem should be connected");
-    NSAssert(_rateMenuView, @"_rateMenuView should be connected");
+    VLCAssert(_rateMenuItem, @"_rateMenuItem should be connected");
+    VLCAssert(_rateMenuView, @"_rateMenuView should be connected");
     [_rateMenuItem setView:_rateMenuView];
 }
 
@@ -322,7 +322,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position
 {
-    NSAssert(![[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberUnfinishedMovies], @"kDontRememberUnfinishedMovies is here");
+    VLCAssert(![[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberUnfinishedMovies], @"kDontRememberUnfinishedMovies is here");
 
     NSManagedObject *movie = nil;
 
@@ -450,7 +450,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSString *applicationSupportFolder = nil;
     FSRef foundRef;
     OSErr err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, &foundRef);
-    NSAssert(err == noErr, @"Can't find application support folder");
+    VLCAssert(err == noErr, @"Can't find application support folder");
 
     unsigned char path[1024];
     FSRefMakePath(&foundRef, path, sizeof(path));

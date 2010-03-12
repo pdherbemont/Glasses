@@ -145,7 +145,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
 - (void)dealloc
 {
-    NSAssert(!_animation1 && !_animation2, @"There should be no animation running at this point");
+    VLCAssert(!_animation1 && !_animation2, @"There should be no animation running at this point");
     [_placeholderView release];
     [_fullscreenWindow release];
     [_originalViewWindow release];
@@ -221,7 +221,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     SetSystemUIMode( kUIModeAllHidden, kUIOptionAutoShowMenuBar);
 #endif
 
-    NSAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
+    VLCAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
     _animation1 = createFadeAnimation([self _windowToHide], FadeOut);
     _animation2 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], [screen frame]);
 
@@ -266,7 +266,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
     SetSystemUIMode( kUIModeNormal, kUIOptionAutoShowMenuBar);
 #endif
 
-    NSAssert(_fullscreenWindow, @"There should be a fullscreen Window at this time");
+    VLCAssert(_fullscreenWindow, @"There should be a fullscreen Window at this time");
 
     // This might happen if we quickly exit fullscreen and release us.
     // Balanced in -fullscreenDidEnd
@@ -288,7 +288,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
     NSRect screenRect = screenRectForView(_placeholderView);
 
-    NSAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
+    VLCAssert(!_animation1 && !_animation2, @"There should not be any animation from now");
     _animation1 = createScaleAnimation(_fullscreenWindow, [_fullscreenWindow frame], screenRect);
     _animation2 = createFadeAnimation([self _windowToHide], FadeIn);
 
@@ -313,7 +313,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
 - (void)animationDidEnd:(NSAnimation *)animation
 {
-    NSAssert(animation == _animation2, @"We should only be the delegate from _animation2");
+    VLCAssert(animation == _animation2, @"We should only be the delegate from _animation2");
     if ([animation currentValue] < 1.0)
         return;
 
@@ -331,10 +331,10 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 // This method must only be used from -enterFullscreen
 - (void)_installPlaceholderView
 {
-    NSAssert(!_placeholderView, @"There shouldn't be a place holder view at this time");
+    VLCAssert(!_placeholderView, @"There shouldn't be a place holder view at this time");
     _placeholderView = [[NSView alloc] init];
     [_placeholderView setAutoresizingMask:NSViewHeightSizable | NSViewWidthSizable];
-    NSAssert([_view superview], @"This view has no superview, this means that we won't be able to re-attach it.");
+    VLCAssert([_view superview], @"This view has no superview, this means that we won't be able to re-attach it.");
     [[_view superview] replaceSubview:_view with:_placeholderView];
     [_placeholderView setFrame:[_view frame]];
     [_fullscreenWindow setContentView:_view];
@@ -342,7 +342,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 
 - (void)_restoreViewFromPlaceholderView
 {
-    NSAssert(_placeholderView, @"There should be a place holder view at this time");
+    VLCAssert(_placeholderView, @"There should be a place holder view at this time");
     [[_placeholderView superview] replaceSubview:_placeholderView with:_view];
     [_view setFrame:[_placeholderView frame]];
     [_placeholderView release];
@@ -352,7 +352,7 @@ static void unfadeScreens(CGDisplayFadeReservationToken token)
 - (void)_stopAnimationsIfNeeded
 {
     if (_animation1 || _animation2) {
-        NSAssert(_animation1 && _animation2, @"The two animations should have the same life cycle");
+        VLCAssert(_animation1 && _animation2, @"The two animations should have the same life cycle");
         [_animation1 stopAnimation];
         [_animation2 stopAnimation];
         [_animation1 release];

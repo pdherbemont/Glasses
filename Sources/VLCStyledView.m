@@ -26,6 +26,7 @@
 #import "VLCWebBindingsController.h"
 
 
+
 @interface WebCoreStatistics : NSObject
 + (BOOL)shouldPrintExceptions;
 + (void)setShouldPrintExceptions:(BOOL)print;
@@ -52,8 +53,8 @@ static BOOL watchForStyleModification(void)
 
 - (void)dealloc
 {
-    NSAssert(!_bindings, @"_bindings should have been released");
-    NSAssert(!_pathWatcher, @"Should not be here");
+    VLCAssert(!_bindings, @"_bindings should have been released");
+    VLCAssert(!_pathWatcher, @"Should not be here");
     [_resourcesFilePathArray release];
     [_lunettesStyleRoot release];
     [super dealloc];
@@ -107,7 +108,7 @@ static BOOL watchForStyleModification(void)
 
 - (void)setDefaultPluginName:(NSString *)pluginName
 {
-    NSAssert(pluginName, @"We shouldn't set a null pluginName");
+    VLCAssert(pluginName, @"We shouldn't set a null pluginName");
     [[NSUserDefaults standardUserDefaults] setObject:pluginName forKey:kLastSelectedStyle];
 }
 
@@ -119,10 +120,10 @@ static BOOL watchForStyleModification(void)
 
 - (NSURL *)urlForPluginName:(NSString *)pluginName
 {
-    NSAssert(pluginName, @"pluginName shouldn't be null.");
+    VLCAssert(pluginName, @"pluginName shouldn't be null.");
     NSString *pluginFilename = [pluginName stringByAppendingPathExtension:@"lunettesstyle"];
     NSString *pluginPath = [[[NSBundle mainBundle] builtInPlugInsPath] stringByAppendingPathComponent:pluginFilename];
-    NSAssert(pluginPath, @"Can't find the plugin path, this is bad");
+    VLCAssert(pluginPath, @"Can't find the plugin path, this is bad");
     NSBundle *plugin = [NSBundle bundleWithPath:pluginPath];
     if (!plugin)
         return nil;
@@ -195,7 +196,7 @@ static BOOL watchForStyleModification(void)
     self.hasLoadedAFirstFrame = YES;
 
     if (watchForStyleModification()) {
-        NSAssert(!_pathWatcher, @"Shouldn't be created");
+        VLCAssert(!_pathWatcher, @"Shouldn't be created");
         _pathWatcher = [[VLCPathWatcher alloc] initWithFilePathArray:_resourcesFilePathArray];
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
         [_pathWatcher startWithBlock:^{
@@ -249,7 +250,7 @@ static BOOL watchForStyleModification(void)
     [[self window] setAlphaValue:0];
 
     // First, set the new style in our ivar, then reload using -setup.
-    NSAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
+    VLCAssert([sender isKindOfClass:[NSMenuItem class]], @"Only menu item are supported");
     NSMenuItem *item = sender;
     self.pluginName = [item title];
     [self setDefaultPluginName:self.pluginName];
@@ -328,7 +329,7 @@ static BOOL watchForStyleModification(void)
 {
     DOMElement *element = [[[self mainFrame] DOMDocument] getElementById:idName];
     if (!canBeNil)
-        NSAssert1([element isKindOfClass:[DOMHTMLElement class]], @"The '%@' element should be a DOMHTMLElement", idName);
+        VLCAssert([element isKindOfClass:[DOMHTMLElement class]], @"The '%@' element should be a DOMHTMLElement", idName);
     return (id)element;
 }
 
@@ -340,29 +341,34 @@ static BOOL watchForStyleModification(void)
 #pragma mark -
 #pragma mark Javascript
 
-
 - (void)setSelectedIndex:(NSNumber *)index inArrayController:(WebScriptObject *)target
 {
+    FROM_JS();
     NSArrayController *array = [target valueForKey:@"backendObject"];
-    NSAssert([array isKindOfClass:[NSArrayController class]], @"Must be a writable NSArrayController");
+    VLCAssert([array isKindOfClass:[NSArrayController class]], @"Must be a writable NSArrayController");
     [array setSelectionIndex:[index unsignedIntValue]];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)insertCocoaObject:(WebScriptObject *)object atIndex:(NSNumber *)index inArrayController:(WebScriptObject *)target
 {
+    FROM_JS();
     NSArrayController  *array = [target valueForKey:@"backendObject"];
-    NSAssert([array isKindOfClass:[NSArrayController class]], @"Must be a writable NSArrayController");
+    VLCAssert([array isKindOfClass:[NSArrayController class]], @"Must be a writable NSArrayController");
     [array insertObject:[object valueForKey:@"backendObject"] atArrangedObjectIndex:[index unsignedIntValue]];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (WebScriptObject *)createMediaFromURL:(NSString *)urlAsString inCocoaObject:(WebScriptObject *)object
 {
+    FROM_JS();
     VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:urlAsString]];
-    return [VLCWebBindingsController backendObject:media withWebScriptObject:object];
+    RETURN_OBJECT_TO_JS([VLCWebBindingsController backendObject:media withWebScriptObject:object]);
 }
 
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
 {
+    FROM_JS();
     NSMutableDictionary *opt = nil;
     if (options && ![options isKindOfClass:[WebUndefined class]]) {
         opt = [NSMutableDictionary dictionary];
@@ -383,7 +389,7 @@ static BOOL watchForStyleModification(void)
                 nameInNS = NSValueTransformerNameBindingOption;
 
             NSString *tempString = [NSString stringWithFormat:@"Unable to find the name for the option '%@'",name];
-            NSAssert(nameInNS, tempString);
+            VLCAssert(nameInNS, tempString);
             [opt setObject:[options valueForKey:name] forKey:nameInNS];
             [name release];
         }
@@ -391,25 +397,33 @@ static BOOL watchForStyleModification(void)
     }
 
     [_bindings bindDOMObject:domObject property:property toObject:object withKeyPath:keyPath options:opt];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)bindDOMObject:(DOMNode *)domObject property:(NSString *)property toBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath options:(WebScriptObject *)options
 {
+    FROM_JS();
     [self bindDOMObject:domObject property:property toObject:[object valueForKey:@"backendObject"] withKeyPath:keyPath options:options];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)unbindDOMObject:(DOMNode *)domObject property:(NSString *)property
 {
+    FROM_JS();
     [_bindings unbindDOMObject:domObject property:property];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)addObserver:(WebScriptObject *)observer forCocoaObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
+    FROM_JS();
     [_bindings observe:[object valueForKey:@"backendObject"] withKeyPath:keyPath observer:observer];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
 {
+    FROM_JS();
     id backendObject = [object valueForKey:@"backendObject"];
     NSArrayController *controller = [[NSArrayController alloc] init];
     [controller setAutomaticallyRearrangesObjects:YES];
@@ -417,28 +431,33 @@ static BOOL watchForStyleModification(void)
     WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
     ret = [VLCWebBindingsController backendObject:controller withWebScriptObject:ret];
     [controller release];
-    return ret;
+    RETURN_OBJECT_TO_JS(ret);
 }
 
 - (WebScriptObject *)viewBackendObject:(WebScriptObject *)object
 {
-    return [VLCWebBindingsController backendObject:self withWebScriptObject:object];
+    DIRECTLY_RETURN_OBJECT_TO_JS([VLCWebBindingsController backendObject:self withWebScriptObject:object]);
 }
 
 - (WebScriptObject *)documentBackendObject:(WebScriptObject *)object
 {
+    FROM_JS();
     NSDocument *doc = [[[self window] windowController] document];
-    return [VLCWebBindingsController backendObject:doc withWebScriptObject:object];
+    RETURN_OBJECT_TO_JS([VLCWebBindingsController backendObject:doc withWebScriptObject:object]);
 }
 
 - (void)willChangeObject:(WebScriptObject *)object valueForKey:(NSString *)key
 {
+    FROM_JS();
     [object willChangeValueForKey:key];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)didChangeObject:(WebScriptObject *)object valueForKey:(NSString *)key
 {
+    FROM_JS();
     [object didChangeValueForKey:key];
+    RETURN_NOTHING_TO_JS();
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
@@ -530,7 +549,7 @@ static NSString *escape(NSString *string)
 
 - (BOOL)contentHasClassName:(NSString *)class
 {
-    NSAssert(_isFrameLoaded, @"Frame should be loaded");
+    VLCAssert(_isFrameLoaded, @"Frame should be loaded");
     DOMHTMLElement *content = [self htmlElementForId:@"content"];
     NSString *currentClassName = content.className;
     return [currentClassName rangeOfString:class].length > 0;

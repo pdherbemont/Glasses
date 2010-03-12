@@ -86,7 +86,7 @@ static inline BOOL debugStyledWindow(void)
     [window center];
 
     // FIXME - do it only if theme requires it
-    NSAssert(_accessoryButton, @"There should be an accessory view");
+    VLCAssert(_accessoryButton, @"There should be an accessory view");
 
     NSView *themeFrame = [[window contentView] superview];
     NSSize size = [_accessoryView frame].size;

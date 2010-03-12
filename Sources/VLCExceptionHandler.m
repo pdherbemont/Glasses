@@ -25,6 +25,10 @@
 #import "VLCExceptionHandler.h"
 #import <ExceptionHandling/ExceptionHandling.h>
 
+static void VLCUncaughtExceptionHandler(NSException *exception)
+{
+    [[VLCExceptionHandler sharedHandler] handleUncaughtException:exception];
+}
 
 @implementation VLCExceptionHandler
 static VLCExceptionHandler *expectionHandlerDelegate = nil;
@@ -34,39 +38,48 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
     NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
     [handler setDelegate:expectionHandlerDelegate];
 
-    [handler setExceptionHandlingMask: NSLogUncaughtExceptionMask | NSHandleUncaughtExceptionMask
-                                     | NSLogUncaughtSystemExceptionMask | NSHandleUncaughtSystemExceptionMask
-                                     | NSLogUncaughtRuntimeErrorMask | NSHandleUncaughtRuntimeErrorMask
-                                     | NSLogTopLevelExceptionMask | NSHandleTopLevelExceptionMask
-                                     | NSLogOtherExceptionMask | NSHandleOtherExceptionMask];
+    [handler setExceptionHandlingMask: NSLogUncaughtExceptionMask | NSLogTopLevelExceptionMask];
+    NSSetUncaughtExceptionHandler(VLCUncaughtExceptionHandler);
+}
 
-    [handler setExceptionHangingMask:
-                NSHangOnUncaughtExceptionMask|
-                NSHangOnUncaughtSystemExceptionMask|
-                NSHangOnUncaughtRuntimeErrorMask|
-                NSHangOnTopLevelExceptionMask|
-                NSHangOnOtherExceptionMask];
++ (VLCExceptionHandler *)sharedHandler
+{
+    return expectionHandlerDelegate;
+}
+
+#define DEBUG
+
+- (void)handleUncaughtException:(NSException *)exception
+{
+    @try {
+        // From now on, just log followin exception
+        [[NSExceptionHandler defaultExceptionHandler] setExceptionHandlingMask:NSLogUncaughtExceptionMask];
+
+        NSLog(@"*** Exception Handled! %@: %@", [exception name], [exception reason]);
+        [self printStackTrace:exception];
+#ifdef DEBUG
+        NSString *continueString = @"Attempt to continue";
+#else
+        NSString *continueString = nil;
+#endif
+        int ret = NSRunCriticalAlertPanel(@"Exception not handled!",
+                                          [NSString stringWithFormat:@"%@: %@\n\nBack trace has been printed to Console.\n\n",
+                                           [exception name], [exception reason]],
+                                          @"Quit", continueString, nil);
+        if (ret != NSOKButton)
+            return;
+
+        abort();
+    }
+    @catch (NSException *e) {
+        abort();
+    }
 }
 
 /* From Apple's guide on exception */
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask
 {
-    @try {
-        // From now on, just log followin exception
-        [[NSExceptionHandler defaultExceptionHandler] setExceptionHandlingMask:NSLogUncaughtExceptionMask | NSLogUncaughtSystemExceptionMask | NSLogUncaughtRuntimeErrorMask];
-
-        NSLog(@"*** Exception Handled! %@: %@", [exception name], [exception reason]);
-        [self printStackTrace:exception];
-        int ret = NSRunCriticalAlertPanel(@"Exception not handled!",
-                                          [NSString stringWithFormat:@"%@: %@\n\nBack trace has been printed to Console.\n\nWe will now wait for debugger connection...\n",
-                                           [exception name], [exception reason]],
-                                          @"Quit", @"Wait Debugger", nil);
-        if (ret == NSOKButton)
-            abort();
-    }
-    @catch (NSException *e) {
-        abort();
-    }
+    [self handleUncaughtException:exception];
     return YES;
 }
 

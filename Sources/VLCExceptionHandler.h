@@ -26,5 +26,7 @@
 
 
 @interface VLCExceptionHandler : NSObject
-- (void)printStackTrace:(NSException *)e;
++ (VLCExceptionHandler *)sharedHandler;
+- (void)handleUncaughtException:(NSException *)exception;
+- (void)printStackTrace:(NSException *)exception;
 @end

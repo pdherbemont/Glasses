@@ -34,32 +34,32 @@
 
 - (NSDocumentController *)documentController
 {
-    return [NSDocumentController sharedDocumentController];
+    DIRECTLY_RETURN_OBJECT_TO_JS([NSDocumentController sharedDocumentController]);
 }
 
 - (NSArrayController *)mediaDiscovererArrayController
 {
-    return [[[self window] windowController] mediaDiscovererArrayController];
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] mediaDiscovererArrayController]);
 }
 
 - (NSArrayController *)tvShowsArrayController
 {
-    return [[[self window] windowController] tvShowsArrayController];
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] tvShowsArrayController]);
 }
 
 - (NSArrayController *)unseenItemsArrayController
 {
-    return [[[self window] windowController] unseenItemsArrayController];
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] unseenItemsArrayController]);
 }
 
 - (NSArrayController *)seenItemsArrayController
 {
-    return [[[self window] windowController] seenItemsArrayController];
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] seenItemsArrayController]);
 }
 
 - (NSArrayController *)allItemsArrayController
 {
-    return [[[self window] windowController] allItemsArrayController];
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] allItemsArrayController]);
 }
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame
@@ -74,21 +74,25 @@
 
 - (void)playCocoaObject:(WebScriptObject *)object
 {
+    FROM_JS();
     id representedObject = [object valueForKey:@"backendObject"];
     NSString *stringURL = [representedObject valueForKey:@"url"];
     NSURL *url = [NSURL URLWithString:stringURL];
-    NSAssert(url, @"Invalid string in DB!");
+    VLCAssert(url, @"Invalid string in DB!");
     double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
     [[VLCDocumentController sharedDocumentController] makeDocumentWithURL:url andStartingPosition:position];
     [[[self window] windowController] close];
+    RETURN_NOTHING_TO_JS();
 }
 
 - (void)playMediaDiscoverer:(WebScriptObject *)mdObject withMedia:(WebScriptObject *)mediaObject
 {
+    FROM_JS();
     VLCMedia *media = [mediaObject valueForKey:@"backendObject"];
     VLCMediaDiscoverer *mediaDiscoverer = [mdObject valueForKey:@"backendObject"];
     [[VLCDocumentController sharedDocumentController] makeDocumentWithMediaDiscoverer:mediaDiscoverer andMediaToPlay:media];
     [[[self window] windowController] close];
+    RETURN_NOTHING_TO_JS();
 }
 
 

@@ -38,9 +38,9 @@
 
 - (void)dealloc
 {
-    NSAssert([_bindings count] == 0, @"Bindings should be empty");
+    VLCAssert([_bindings count] == 0, @"Bindings should be empty");
     [_bindings release];
-    NSAssert([_observers count] == 0, @"Observers should be empty");
+    VLCAssert([_observers count] == 0, @"Observers should be empty");
     [_observers release];
     [super dealloc];
 }
@@ -92,55 +92,39 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     NSDictionary *dict = context;
-    NSAssert(dict, @"No dict. Super class shouldn't be observing either.");
+    VLCAssert(dict, @"No dict. Super class shouldn't be observing either.");
 
     id observer = [dict objectForKey:@"observer"];
     if (observer) {
         WebScriptObject *observer = [dict objectForKey:@"observer"];
 
         NSInteger kind = [[change objectForKey:NSKeyValueChangeKindKey] intValue];
-        id new = [change objectForKey:NSKeyValueChangeNewKey];
-
-        // Get all modified indexes.
-        NSMutableArray *setAsArray = nil;
-        NSIndexSet *set = [change objectForKey:NSKeyValueChangeIndexesKey];
-        if (set) {
-            NSUInteger bufSize = [set count];
-            setAsArray = [NSMutableArray arrayWithCapacity:bufSize];
-            NSUInteger buf[bufSize];
-            NSRange range = NSMakeRange([set firstIndex], [set lastIndex]);
-            [set getIndexes:buf maxCount:bufSize inIndexRange:&range];
-            for(NSUInteger i = 0; i < bufSize; i++) {
-                NSUInteger index = buf[i];
-                [setAsArray addObject:[NSNumber numberWithInt:index]];
-            }
-        }
 
         switch (kind) {
             case NSKeyValueChangeSetting:
+            {
                 // I sometimes get NSNull value during setting but [object valueForKeyPath:keyPath]
                 // returns a better results, so use it. This happen with NSArrayController arrangedObjects.
-                new = [object valueForKeyPath:keyPath];
+                id new = [object valueForKeyPath:keyPath];
 
                 if ([new isKindOfClass:[NSNull class]])
                     break;
 
-                NSAssert([new isKindOfClass:[NSArray class]], @"Only support array");
+                VLCAssert([new isKindOfClass:[NSArray class]], @"Only support array");
 
-                NSMutableArray *array = [NSMutableArray arrayWithCapacity:[new count]];
+                NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:[new count]];
                 for(id obj in new) {
                     WebScriptObject *cocoaObject = [observer callWebScriptMethod:@"createCocoaObject" withArguments:nil];
                     cocoaObject = [VLCWebBindingsController backendObject:obj withWebScriptObject:cocoaObject];
                     [array addObject:cocoaObject];
                 }
                 [observer callWebScriptMethod:@"setCocoaObjects" withArguments:[NSArray arrayWithObject:array]];
+                [array release];
                 break;
+            }
+            // Those are never sent in practice.
             case NSKeyValueChangeInsertion:
-                VLCAssertNotReached(@"Not supported");
-                break;
             case NSKeyValueChangeRemoval:
-                [observer callWebScriptMethod:@"removeCocoaObjectAtIndexes" withArguments:[NSArray arrayWithObject:setAsArray]];
-                break;
             case NSKeyValueChangeReplacement:
             default:
                 VLCAssertNotReached(@"Not supported");
@@ -229,7 +213,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
 - (void)unobserve:(id)object withKeyPath:(NSString *)keyPath observer:(WebScriptObject *)observer
 {
     NSDictionary *dict = [self observerDictForObserver:observer withObject:object andKeypath:keyPath];
-    NSAssert(dict, @"No registered observer");
+    VLCAssert(dict, @"No registered observer");
     [self _removeObserverWithDict:dict];
 }
 
@@ -280,7 +264,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
 
     NSUInteger count = [_bindings count];
     [_bindings removeObject:dict];
-    NSAssert(count - [_bindings count] == 1, @"");
+    VLCAssert(count - [_bindings count] == 1, @"");
 }
 
 - (void)handleEvent:(DOMEvent *)evt
@@ -288,7 +272,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
     DOMNode *node = [evt target];
     NSSet *set = [self bindingsForDOMObject:node] ;
     if ([set count] == 0) {
-        NSAssert([[evt type] isEqualToString:@"DOMNodeRemoved"], @"Only DOMNodeRemoved can be emitted for children");
+        VLCAssert([[evt type] isEqualToString:@"DOMNodeRemoved"], @"Only DOMNodeRemoved can be emitted for children");
         // We are receiving this event for a children
         // Just abort.
         return;
@@ -328,7 +312,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
 
 - (void)bindDOMObject:(DOMObject *)domObject property:(NSString *)property toObject:(id)object withKeyPath:(NSString *)keyPath options:(NSDictionary *)options
 {
-    NSAssert(![self bindingForDOMObject:domObject property:property], ([NSString stringWithFormat:@"Binding of %@.%@ already exists", domObject, property]));
+    VLCAssert(![self bindingForDOMObject:domObject property:property], ([NSString stringWithFormat:@"Binding of %@.%@ already exists", domObject, property]));
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:domObject, @"domObject", property, @"property", keyPath, @"keyPath", object, @"object", options, @"options", nil];
     [_bindings addObject:dict];
@@ -362,7 +346,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
 - (void)unbindDOMObject:(DOMObject *)domObject property:(NSString *)property
 {
     NSDictionary * dict = [self bindingForDOMObject:domObject property:property];
-    NSAssert(dict, ([NSString stringWithFormat:@"No binding for %@.%@", domObject, property]));
+    VLCAssert(dict, ([NSString stringWithFormat:@"No binding for %@.%@", domObject, property]));
     [self _removeBindingWithDict:dict];
 }
 

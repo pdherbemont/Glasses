@@ -19,7 +19,7 @@
 
 - (IBAction)playSelectedItem:(id)sender
 {
-    NSAssert(_playlistTreeController, @"No tree controller in the xib file");
+    VLCAssert(_playlistTreeController, @"No tree controller in the xib file");
 
     NSArray *selectedObjects = [_playlistTreeController selectedObjects];
     if ([selectedObjects count] <= 0)

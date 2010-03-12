@@ -155,9 +155,9 @@ static NSString *contentOfTextResource(NSString *resource)
 
 - (void)dealloc
 {
-    NSAssert(!_animation, @"Should have been released");
-    NSAssert(!_rewindAnimation, @"Should have been released");
-    NSAssert(!_gplWindowController, @"Should have been released");
+    VLCAssert(!_animation, @"Should have been released");
+    VLCAssert(!_rewindAnimation, @"Should have been released");
+    VLCAssert(!_gplWindowController, @"Should have been released");
 
     [super dealloc];
 }
@@ -188,7 +188,7 @@ static NSString *contentOfTextResource(NSString *resource)
 
 - (void)windowDidBecomeKey:(NSNotification *)notification
 {
-    NSAssert(!_animation, @"Should have been released");
+    VLCAssert(!_animation, @"Should have been released");
     _animation = [[VLCTextScrollAnimation alloc] init];
     _animation.textview = _creditsTextView;
 
@@ -203,7 +203,7 @@ static NSString *contentOfTextResource(NSString *resource)
 
 - (void)launchRewindAnimationWithProgress:(CGFloat)progress
 {
-    NSAssert(!_rewindAnimation, @"There should be no _rewindAnimation");
+    VLCAssert(!_rewindAnimation, @"There should be no _rewindAnimation");
     _rewindAnimation = [[VLCTextScrollAnimation alloc] init];
     _rewindAnimation.textview = _creditsTextView;
     _rewindAnimation.reverse = YES;
@@ -234,7 +234,7 @@ static NSString *contentOfTextResource(NSString *resource)
         _rewindAnimation = nil;
         return;
     }
-    NSAssert(animation == _animation, @"This should be _animation");
+    VLCAssert(animation == _animation, @"This should be _animation");
     [_animation release];
     _animation = nil;
     [self launchRewindAnimationWithProgress:0];

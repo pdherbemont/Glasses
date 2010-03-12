@@ -33,7 +33,7 @@
 
 - (void)dealloc
 {
-    NSAssert(!_currentView, @"This should have been released");
+    VLCAssert(!_currentView, @"This should have been released");
     [super dealloc];
 }
 
@@ -75,7 +75,7 @@
 
 - (IBAction)toolbarAction:(id)sender
 {
-    NSAssert([sender isKindOfClass:[NSToolbarItem class]], @"Only receive from NSToolbarItem");
+    VLCAssert([sender isKindOfClass:[NSToolbarItem class]], @"Only receive from NSToolbarItem");
     NSToolbarItem *item = sender;
     NSString *identifier = [item itemIdentifier];
     NSWindow *window = [self window];

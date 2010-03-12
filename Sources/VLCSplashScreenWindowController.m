@@ -117,8 +117,8 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
     [window center];
     [window setDelegate:self];
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
-    NSAssert(_mediaDiscoverCollection, @"There is no collectionView");
-    NSAssert(_unfinishedItemsCollection, @"There is no collectionView");
+    VLCAssert(_mediaDiscoverCollection, @"There is no collectionView");
+    VLCAssert(_unfinishedItemsCollection, @"There is no collectionView");
     [_unfinishedItemsCollection registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 #endif
 }
@@ -161,7 +161,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 #endif
         NSString *stringURL = [representedObject valueForKey:@"url"];
         NSURL *url = [NSURL URLWithString:stringURL];
-        NSAssert(url, @"Invalid string in DB!");
+        VLCAssert(url, @"Invalid string in DB!");
         double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
     }
@@ -188,10 +188,10 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id < NSDraggingInfo >)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation
 {
-    NSAssert(collectionView == _unfinishedItemsCollection, @"Not the right collectionView");
+    VLCAssert(collectionView == _unfinishedItemsCollection, @"Not the right collectionView");
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
     NSArray *array = [pboard propertyListForType:NSFilenamesPboardType];
-    NSAssert([array count] > 0, @"There should be at least one item dropped");
+    VLCAssert([array count] > 0, @"There should be at least one item dropped");
 
     VLCMedia *media = [VLCMedia mediaWithPath:[array objectAtIndex:0]];
 
@@ -206,7 +206,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 - (IBAction)openSelection:(id)sender
 {
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
-    NSAssert(_mediaDiscoverCollection, @"Should be binded");
+    VLCAssert(_mediaDiscoverCollection, @"Should be binded");
     NSIndexSet *discoverers = [_mediaDiscoverCollection selectionIndexes];
     NSIndexSet *unfinished = [_unfinishedItemsCollection selectionIndexes];
     if ([discoverers count] > 0)

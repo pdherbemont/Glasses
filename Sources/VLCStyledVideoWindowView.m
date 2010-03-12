@@ -35,9 +35,9 @@
 @implementation VLCStyledVideoWindowView
 - (void)dealloc
 {
-    NSAssert(!_contentTracking, @"_contentTracking should have been released");
-    NSAssert(!_videoWindow, @"_videoWindow should have been released");
-    NSAssert(!_containerForVideoView, @"_containerForVideoView should have been released");
+    VLCAssert(!_contentTracking, @"_contentTracking should have been released");
+    VLCAssert(!_videoWindow, @"_videoWindow should have been released");
+    VLCAssert(!_containerForVideoView, @"_containerForVideoView should have been released");
     [super dealloc];
 }
 
@@ -202,7 +202,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 - (void)_addBelowWindowInRect:(NSRect)screenRect withView:(NSView *)view
 {
-    NSAssert(!_videoWindow, @"There should not be a video window at this point");
+    VLCAssert(!_videoWindow, @"There should not be a video window at this point");
 
     // Create the window now.
     _videoWindow = [[NSWindow alloc] initWithContentRect:screenRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
@@ -220,6 +220,8 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
 - (void)videoDidResize
 {
+    FROM_JS();
+
     // This synchronize the VLCVideoView on top of the element whose id is "video-view"
     // When the style wants the video-view to be below the rest of the page, we
     // put the VLCVideoView in a Window that will be a child window.
@@ -229,15 +231,17 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
     // parent window.
 
     // First, fast path for the liveresize case when there is no belowwindow.
-    if (!_videoWindow && [self inLiveResize])
+    if (!_videoWindow && [self inLiveResize]) {
+        RETURN_NOTHING_TO_JS();
         return;
+    }
 
     DOMHTMLElement *element = [self htmlElementForId:@"video-view"];
-    NSAssert(element, @"No video-view element in this style");
+    VLCAssert(element, @"No video-view element in this style");
 
     if (!_containerForVideoView) {
         NSView *videoView = [[[self window] windowController] videoView];
-        NSAssert(videoView, @"There is no videoView.");
+        VLCAssert(videoView, @"There is no videoView.");
         _containerForVideoView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 128, 128)];
         [_containerForVideoView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
         [videoView setAutoresizingMask:NSViewWidthSizable | NSViewHeightSizable];
@@ -286,6 +290,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
             [self addSubview:_containerForVideoView];
             [_containerForVideoView setFrame:frame];
             [self _removeBelowWindow];
+            RETURN_NOTHING_TO_JS();
             return;
         }
         VLCAssertNotReached(@"Previous conditions should not lead here");
@@ -295,6 +300,7 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
         [self addSubview:_containerForVideoView];
     [_containerForVideoView setFrame:frame];
 #endif
+    RETURN_NOTHING_TO_JS();
 }
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel

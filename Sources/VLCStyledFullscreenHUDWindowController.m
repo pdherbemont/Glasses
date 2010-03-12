@@ -31,7 +31,7 @@
 - (void)windowDidLoad
 {
     [super windowDidLoad];
-    NSAssert(_styledWindowView, @"_styledWindowView is not properly set in Nib file");
+    VLCAssert(_styledWindowView, @"_styledWindowView is not properly set in Nib file");
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSNullPlaceholderBindingOption, nil];
     [_styledWindowView bind:@"viewedPlaying" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.playing" options:options];
     [_styledWindowView bind:@"mediaPlayerState" toObject:self withKeyPath:@"document.mediaListPlayer.mediaPlayer.state" options:options];
@@ -54,7 +54,7 @@
 {
     _fullscreenController = controller;
     NSWindow *window = [self window];
-    NSAssert(window, @"There is no window associated to this windowController. Check the .xib files.");
+    VLCAssert(window, @"There is no window associated to this windowController. Check the .xib files.");
     [window setFrame:[screen frame] display:NO];
     [window makeKeyAndOrderFront:self];
 }
