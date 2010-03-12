@@ -232,7 +232,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
 
     // First, fast path for the liveresize case when there is no belowwindow.
     if (!_videoWindow && [self inLiveResize]) {
-        RETURN_NOTHING_TO_JS();
         return;
     }
 
@@ -290,7 +289,6 @@ static NSRect screenRectForViewRect(NSView *view, NSRect rect)
             [self addSubview:_containerForVideoView];
             [_containerForVideoView setFrame:frame];
             [self _removeBelowWindow];
-            RETURN_NOTHING_TO_JS();
             return;
         }
         VLCAssertNotReached(@"Previous conditions should not lead here");

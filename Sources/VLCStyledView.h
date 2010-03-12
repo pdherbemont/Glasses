@@ -20,11 +20,36 @@
 
 #import <WebKit/WebKit.h>
 
-/* Helper when calling a function from JS */
-#define FROM_JS() NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]
-#define RETURN_NOTHING_TO_JS() [pool drain]
-#define RETURN_OBJECT_TO_JS(a) id __ret = [a retain]; [pool drain]; return [__ret autorelease]
-#define DIRECTLY_RETURN_OBJECT_TO_JS(a) FROM_JS(); RETURN_OBJECT_TO_JS(a)
+/* Helper when calling a function from JS.
+ * Those have two uses:
+ * 1. Set up an autorelease pool for finer grain memory control
+ * 2. Set up an exception handler to actually handle the exception */
+
+#define CATCH_EXCEPTION \
+    } @catch (NSException *e) { \
+        (*NSGetUncaughtExceptionHandler())(e); \
+    } @finally { \
+        [pool drain]; \
+    }
+
+#define FROM_JS() \
+    id __ret = nil; (void)__ret; \
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init]; \
+    @try {
+
+#define RETURN_NOTHING_TO_JS() \
+    CATCH_EXCEPTION
+
+#define RETURN_OBJECT_TO_JS(a) \
+    __ret = [a retain]; \
+    CATCH_EXCEPTION \
+    return [__ret autorelease]; \
+
+#define DIRECTLY_RETURN_OBJECT_TO_JS(a) \
+    FROM_JS(); RETURN_OBJECT_TO_JS(a)
+
+#define DIRECTLY_RETURN_VALUE_TO_JS(a) \
+    FROM_JS(); return a; CATCH_EXCEPTION return 0;
 
 /* This is a base class that should only be subclassed.
  * It contains the shared code between VLCStyledVideoWindowView

@@ -69,10 +69,7 @@
 
 - (BOOL)isSeekable
 {
-    FROM_JS();
-    BOOL isSeekable = [[self mediaPlayer] isSeekable];
-    RETURN_NOTHING_TO_JS();
-    return isSeekable;
+    DIRECTLY_RETURN_VALUE_TO_JS([[self mediaPlayer] isSeekable]);
 }
 
 - (VLCMediaListPlayer *)mediaListPlayer
@@ -92,10 +89,7 @@
 
 - (NSUInteger)count
 {
-    FROM_JS();
-    NSUInteger count = [[self rootMediaList] count];
-    RETURN_NOTHING_TO_JS();
-    return count;
+    DIRECTLY_RETURN_VALUE_TO_JS([[self rootMediaList] count]);
 }
 
 - (void)playCocoaObject:(WebScriptObject *)object
