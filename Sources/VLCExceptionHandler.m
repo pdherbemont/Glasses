@@ -38,7 +38,9 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
     NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
     [handler setDelegate:expectionHandlerDelegate];
 
-    [handler setExceptionHandlingMask: NSLogUncaughtExceptionMask | NSLogTopLevelExceptionMask];
+    NSUInteger mask = NSLogUncaughtExceptionMask | NSLogTopLevelExceptionMask;
+
+    [handler setExceptionHandlingMask:mask];
     NSSetUncaughtExceptionHandler(VLCUncaughtExceptionHandler);
 }
 
@@ -46,8 +48,6 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
 {
     return expectionHandlerDelegate;
 }
-
-#define DEBUG
 
 - (void)handleUncaughtException:(NSException *)exception
 {
