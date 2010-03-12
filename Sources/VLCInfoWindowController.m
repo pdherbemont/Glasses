@@ -54,7 +54,6 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    [[NSException exceptionWithName:@"Test" reason:@"teet" userInfo:nil] raise];
     [[VLCDocumentController sharedDocumentController] closeInfoWindow];
 }
 @end
