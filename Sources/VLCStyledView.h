@@ -32,9 +32,6 @@
     NSMutableArray *_resourcesFilePathArray;
     NSString *_pluginName;
 
-    NSArrayController *_currentArrayController;
-
-
     VLCPathWatcher *_pathWatcher;
     VLCWebBindingsController *_bindings;
 

@@ -11,6 +11,8 @@
 #import "VLCDocumentController.h"
 
 @implementation VLCSplashScreenView
+@synthesize currentArrayController=_currentArrayController;
+
 - (NSString *)pageName
 {
     return @"splash-screen";
@@ -30,14 +32,19 @@
     return [NSSet setWithObject:@"window.windowController.mediaDiscovererArrayController"];
 }
 
+- (NSDocumentController *)documentController
+{
+    return [NSDocumentController sharedDocumentController];
+}
+
 - (NSArrayController *)mediaDiscovererArrayController
 {
     return [[[self window] windowController] mediaDiscovererArrayController];
 }
 
-- (NSArrayController *)currentlyWatchingItemsArrayController
+- (NSArrayController *)tvShowsArrayController
 {
-    return [[[self window] windowController] currentlyWatchingItemsArrayController];
+    return [[[self window] windowController] tvShowsArrayController];
 }
 
 - (NSArrayController *)unseenItemsArrayController

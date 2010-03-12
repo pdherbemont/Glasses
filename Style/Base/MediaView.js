@@ -1,5 +1,5 @@
 /**
- * A list of MediaView
+ * A view for a Media
  * @constructor
  * @param {CocoaObject} cocoaObject
  * @param {Object} parent
@@ -7,15 +7,11 @@
  */
 var MediaView = function(cocoaObject, parent, elementTag)
 {
-    this.parent = parent;
-
-    this.element = document.createElement(elementTag);
-    this.element.className = "item";
-
-    this.cocoaObject = cocoaObject;
+    ListItemView.call(this, cocoaObject, parent, elementTag);
 
     this.itemStatusElement = document.createElement("div");
     this.itemStatusElement.className = "item-status";
+
 
     this.nameElement = document.createElement("div");
     this.nameElement.className = "name";
@@ -32,8 +28,6 @@ var MediaView = function(cocoaObject, parent, elementTag)
     this.revealSubitemsElement.className = "reveal-subitems hidden";
     this.revealSubitemsElement.textContent = ">";
 
-    this.isAttached = false;
-
     this._subitemsCount = 0;
     this.subitemsCount = 0;
 
@@ -47,26 +41,13 @@ MediaView.prototype = {
      */
     attach: function(parentElement)
     {
-        console.assert(!this.isAttached, "shouldn't be attached");
-
         this.element.appendChild(this.itemStatusElement);
         this.element.appendChild(this.imgElement);
         this.element.appendChild(this.nameElement);
         this.element.appendChild(this.lengthElement);
         this.element.appendChild(this.revealSubitemsElement);
 
-        parentElement.appendChild(this.element);
-
-        this.isAttached = true;
-    },
-    detachWithoutRemoving: function()
-    {
-        this.visible = false;
-        this.isAttached = false;
-    },
-    detach: function()
-    {
-        this.element.detach();
+        ListItemView.prototype.attach.call(this, parentElement);
     },
 
     _length: null,
@@ -85,24 +66,15 @@ MediaView.prototype = {
     {
         return this._length;
     },
-    _visible: false,
-    get visible()
-    {
-        return this._visible;
-    },
+
     set visible(visible)
     {
-        console.assert(this.isAttached);
-
         if (this._visible == visible)
             return;
-        this._visible = visible;
+
+        ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
+
         if (visible) {
-
-            this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
-            this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
-            this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
-
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
             var options = new Object;
             options["NSNullPlaceholderBindingOption"] = "noartwork.png";
@@ -163,38 +135,6 @@ MediaView.prototype = {
         return this._subitemsCount;
     },
 
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    dragStarted: function(event)
-    {
-        event.effectAllowed = "copyMove";
-        event.dataTransfer.setData("application/lunettes-item", this);
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    mouseDown: function(event)
-    {
-        if (!this.parent)
-            return;
-
-        this.parent.select(this);
-        event.stopPropagation();
-    },
-
-    /**
-     * Event Handler
-     * @param {Event} event
-     */
-    mouseDoubleClicked: function(event)
-    {
-        this.action();
-        event.stopPropagation();
-    },
 
     /**
      * When double clicked
@@ -212,3 +152,6 @@ MediaView.prototype = {
     }
 
 }
+
+MediaView.prototype.__proto__ = ListItemView.prototype;
+

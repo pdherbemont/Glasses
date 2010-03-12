@@ -5,7 +5,7 @@
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/Lunettes.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/Utilities.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/CocoaObject.js"></script>
-    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/ListViewItem.js"></script>
+    <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/ListItemView.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/ListView.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaView.js"></script>
     <script type="text/ecmascript" encoding="utf-8" src="%lunettes_style_root%/MediaListView.js"></script>
@@ -516,6 +516,42 @@ SDView.prototype.__proto__ = MediaView.prototype;
  * @param {Object} parent
  * @param {string} elementTag
  */
+var TVShowView = function(cocoaObject, parent, elementTag)
+{
+    ListItemView.call(this, cocoaObject, parent, elementTag);
+    this.nameElement = document.createElement("div");
+    this.nameElement.className = "name";
+}
+
+
+TVShowView.prototype = {
+    set visible(visible)
+    {
+        if (this._visible == visible)
+            return;
+        ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
+        if (visible) {
+            Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "name");
+        } else {
+            Lunettes.unconnect(this.nameElement, "textContent");
+        }
+    },
+    attach: function(parentElement)
+    {
+        this.element.appendChild(this.nameElement);
+        ListItemView.prototype.attach.call(this, parentElement);
+    },
+
+}
+TVShowView.prototype.__proto__ = ListItemView.prototype;
+
+/**
+ * A list of MediaSDView
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
 var MediaSDView = function(cocoaObject, parent, elementTag)
 {
     MediaView.call(this, cocoaObject, parent, elementTag);
@@ -661,9 +697,11 @@ MediaDBView.prototype = {
             options["NSValueTransformerNameBindingOption"] = "VLCTimeAsNumberToPrettyTime";
             Lunettes.connect(this.remainingTimeElement, "textContent", this.cocoaObject, "remainingTime", options);
         } else {
+            Lunettes.unconnect(this.remainingTimeElement, "textContent");
+            Lunettes.unconnect(this, "remainingTime");
+            Lunettes.unconnect(this, "currentlyWatching");
             Lunettes.unconnect(this, "playCount");
             Lunettes.unconnect(this.nameElement, "textContent");
-            Lunettes.unconnect(this.remainingTimeElement, "textContent");
         }
     },
 
@@ -712,12 +750,14 @@ function setDetailList(masterElement, list)
 
     var detailElement = document.getElementById("detail");
 
-    if (window.attachedList && window.attachedList.isAttached)
-        window.attachedList.detach();
+    Lunettes.willChange(window, "detailList");
+    if (window.detailList && window.detailList.isAttached)
+        window.detailList.detach();
 
-    window.attachedList = list;
+    window.detailList = list;
 
-    window.attachedList.attach(detailElement);
+    window.detailList.attach(detailElement);
+    Lunettes.didChange(window, "detailList");
 }
 
 /**
@@ -736,8 +776,8 @@ function selectMasterElementNamed(name)
             list.subItemsKeyPath = "allItemsArrayController.arrangedObjects";
             break;
         case "tvshows-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-            list.subItemsKeyPath = "unseenItemsArrayController.arrangedObjects";
+            list = new ListView(CocoaObject.windowCocoaObject(), TVShowView);
+            list.subItemsKeyPath = "tvShowsArrayController.arrangedObjects";
             break;
         default:
             console.assert(0, "Should not be reached");
@@ -772,10 +812,19 @@ function init()
     window.rootMediaList.subItemsKeyPath = "mediaDiscovererArrayController.arrangedObjects";
     window.rootMediaList.attach();
 
+    window.detailList = null;
+
     var count = document.getElementById("movies-count");
     Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "allItemsArrayController.arrangedObjects.@count");
 
+    var count = document.getElementById("tvshows-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects.@count");
+
     selectMasterElementNamed("movies-category");
+
+    Lunettes.connect(CocoaObject.windowCocoaObject(), "backendObject.currentArrayController", window, "detailList.arrayController.backendObject");
+    Lunettes.connect(CocoaObject.windowCocoaObject(), "backendObject.documentController.currentArrayController", window, "detailList.arrayController.backendObject");
+
 }
 
 </script>

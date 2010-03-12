@@ -23,11 +23,6 @@
     BOOL _showPlaylist;
 }
 
-/**
- * This will be used to bind some value in the DOM
- */
-@property (readonly, retain) NSArrayController *currentArrayController;
-
 @property (copy) NSString *windowTitle;
 @property BOOL viewedPlaying;
 @property BOOL seekable;

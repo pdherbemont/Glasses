@@ -18,4 +18,6 @@
  * Used by the xib bindings.
  */
 @property (readonly, retain) VLCDocumentController *documentController;
+
+- (IBAction)tvShowNameChanged:(id)sender;
 @end

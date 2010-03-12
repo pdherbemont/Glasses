@@ -46,7 +46,15 @@
     NSManagedObjectContext *_managedObjectContext;
     NSManagedObjectModel   *_managedObjectModel;
     NSMetadataQuery *_watchedFolderQuery;
+
+    NSArrayController *currentArrayController;
 }
+
+/**
+ * This is the front most selection for media. This
+ * is what the info panel is inspecting.
+ */
+@property (readwrite,retain) NSArrayController *currentArrayController;
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError;
 - (void)makeDocumentWithObject:(id)object;

@@ -42,19 +42,6 @@
     }
 }
 
-- (void)setCurrentArrayController:(NSArrayController *)arrayController
-{
-    if (arrayController == _currentArrayController)
-        return;
-    [_currentArrayController release];
-    _currentArrayController = [arrayController retain];
-}
-
-- (NSArrayController *)currentArrayController
-{
-    return _currentArrayController;
-}
-
 - (void)setPosition:(float)position
 {
     VLCMediaPlayer *player = [self mediaPlayer];
@@ -115,8 +102,6 @@
     if (sel == @selector(setPosition:))
         return NO;
     if (sel == @selector(isSeekable))
-        return NO;
-    if (sel == @selector(setCurrentArrayController:))
         return NO;
     if (sel == @selector(playCocoaObject:))
         return NO;
@@ -253,6 +238,5 @@
 {
     return _showPlaylist;
 }
-
 
 @end

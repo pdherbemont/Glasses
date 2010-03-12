@@ -54,7 +54,6 @@ static BOOL watchForStyleModification(void)
 {
     NSAssert(!_bindings, @"_bindings should have been released");
     NSAssert(!_pathWatcher, @"Should not be here");
-    [_currentArrayController release];
     [_resourcesFilePathArray release];
     [_lunettesStyleRoot release];
     [super dealloc];
@@ -441,11 +440,6 @@ static BOOL watchForStyleModification(void)
 {
     [object didChangeValueForKey:key];
 }
-
-//- (void)setCurrentArrayControllerAsCocoaObject:(WebScriptObject *)object
-//{
-//    [self setCurrentArrayController:[object valueForKey:@"backendObject"]];
-//}
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {

@@ -56,9 +56,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 @implementation VLCSplashScreenWindowController
 @synthesize hasSelection=_hasSelection;
 @synthesize allItemsArrayController=_allItemsArrayController;
-@synthesize seenItemsArrayController=_seenItemsArrayController;
-@synthesize unseenItemsArrayController=_unseenItemsArrayController;
-@synthesize currentlyWatchingItemsArrayController=_currentlyWatchingItemsArrayController;
+@synthesize tvShowsArrayController=_tvShowsArrayController;
 @synthesize mediaDiscovererArrayController=_mediaDiscovererArrayController;
 
 

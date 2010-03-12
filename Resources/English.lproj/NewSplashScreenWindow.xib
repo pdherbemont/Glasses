@@ -209,49 +209,6 @@
 			<object class="NSUserDefaultsController" id="535830631">
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
-			<object class="NSArrayController" id="649524055">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>title</string>
-				</object>
-				<bool key="NSEditable">YES</bool>
-				<bool key="NSAutomaticallyPreparesContent">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy">
-					<string key="NSEntityName">File</string>
-					<object class="NSComparisonPredicate" key="NSFetchPredicate">
-						<object class="NSKeyPathExpression" key="NSLeftExpression">
-							<int key="NSExpressionType">3</int>
-							<string key="NSSelectorName">valueForKey:</string>
-							<object class="NSSelfExpression" key="NSOperand" id="909768781">
-								<int key="NSExpressionType">1</int>
-							</object>
-							<object class="NSMutableArray" key="NSArguments">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSKeyPathSpecifierExpression">
-									<int key="NSExpressionType">10</int>
-									<string key="NSKeyPath">currentlyWatching</string>
-								</object>
-							</object>
-						</object>
-						<object class="NSConstantValueExpression" key="NSRightExpression">
-							<int key="NSExpressionType">0</int>
-							<boolean value="YES" key="NSConstantValue"/>
-						</object>
-						<object class="NSEqualityPredicateOperator" key="NSPredicateOperator">
-							<int key="NSOperatorType">4</int>
-							<int key="NSModifier">0</int>
-							<bool key="NSNegate">NO</bool>
-							<int key="NSOptions">0</int>
-						</object>
-					</object>
-				</object>
-				<bool key="_NSIsUsingManagedProxy">YES</bool>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
-				<bool key="NSPreservesSelection">YES</bool>
-				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
-			</object>
 			<object class="NSArrayController" id="359058989">
 				<object class="NSMutableArray" key="NSDeclaredKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -269,77 +226,6 @@
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
 			</object>
-			<object class="NSArrayController" id="51724051">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>title</string>
-				</object>
-				<bool key="NSEditable">YES</bool>
-				<bool key="NSAutomaticallyPreparesContent">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy">
-					<string key="NSEntityName">File</string>
-					<object class="NSCompoundPredicate" key="NSFetchPredicate">
-						<object class="NSArray" key="NSSubpredicates">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="NSComparisonPredicate">
-								<object class="NSKeyPathExpression" key="NSLeftExpression">
-									<int key="NSExpressionType">3</int>
-									<string key="NSSelectorName">valueForKey:</string>
-									<reference key="NSOperand" ref="909768781"/>
-									<object class="NSMutableArray" key="NSArguments">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<object class="NSKeyPathSpecifierExpression">
-											<int key="NSExpressionType">10</int>
-											<string key="NSKeyPath">currentlyWatching</string>
-										</object>
-									</object>
-								</object>
-								<object class="NSConstantValueExpression" key="NSRightExpression">
-									<int key="NSExpressionType">0</int>
-									<integer value="0" key="NSConstantValue"/>
-								</object>
-								<object class="NSEqualityPredicateOperator" key="NSPredicateOperator">
-									<int key="NSOperatorType">4</int>
-									<int key="NSModifier">0</int>
-									<bool key="NSNegate">NO</bool>
-									<int key="NSOptions">0</int>
-								</object>
-							</object>
-							<object class="NSComparisonPredicate">
-								<object class="NSKeyPathExpression" key="NSLeftExpression">
-									<int key="NSExpressionType">3</int>
-									<string key="NSSelectorName">valueForKey:</string>
-									<reference key="NSOperand" ref="909768781"/>
-									<object class="NSMutableArray" key="NSArguments">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<object class="NSKeyPathSpecifierExpression">
-											<int key="NSExpressionType">10</int>
-											<string key="NSKeyPath">playCount</string>
-										</object>
-									</object>
-								</object>
-								<object class="NSConstantValueExpression" key="NSRightExpression">
-									<int key="NSExpressionType">0</int>
-									<integer value="0" key="NSConstantValue"/>
-								</object>
-								<object class="NSComparisonPredicateOperator" key="NSPredicateOperator">
-									<int key="NSOperatorType">2</int>
-									<int key="NSModifier">0</int>
-									<int key="NSVariant">2</int>
-									<int key="NSOptions">0</int>
-								</object>
-							</object>
-						</object>
-						<int key="NSCompoundPredicateType">1</int>
-					</object>
-				</object>
-				<bool key="_NSIsUsingManagedProxy">YES</bool>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
-				<bool key="NSPreservesSelection">YES</bool>
-				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-				<bool key="NSAutomaticallyRearrangesObjects">YES</bool>
-			</object>
 			<object class="NSArrayController" id="733161874">
 				<object class="NSMutableArray" key="NSDeclaredKeys">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -348,61 +234,7 @@
 				<bool key="NSEditable">YES</bool>
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
-					<string key="NSEntityName">File</string>
-					<object class="NSCompoundPredicate" key="NSFetchPredicate">
-						<object class="NSArray" key="NSSubpredicates">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="NSComparisonPredicate">
-								<object class="NSKeyPathExpression" key="NSLeftExpression">
-									<int key="NSExpressionType">3</int>
-									<string key="NSSelectorName">valueForKey:</string>
-									<reference key="NSOperand" ref="909768781"/>
-									<object class="NSMutableArray" key="NSArguments">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<object class="NSKeyPathSpecifierExpression">
-											<int key="NSExpressionType">10</int>
-											<string key="NSKeyPath">currentlyWatching</string>
-										</object>
-									</object>
-								</object>
-								<object class="NSConstantValueExpression" key="NSRightExpression">
-									<int key="NSExpressionType">0</int>
-									<integer value="0" key="NSConstantValue"/>
-								</object>
-								<object class="NSEqualityPredicateOperator" key="NSPredicateOperator">
-									<int key="NSOperatorType">4</int>
-									<int key="NSModifier">0</int>
-									<bool key="NSNegate">NO</bool>
-									<int key="NSOptions">0</int>
-								</object>
-							</object>
-							<object class="NSComparisonPredicate">
-								<object class="NSKeyPathExpression" key="NSLeftExpression">
-									<int key="NSExpressionType">3</int>
-									<string key="NSSelectorName">valueForKey:</string>
-									<reference key="NSOperand" ref="909768781"/>
-									<object class="NSMutableArray" key="NSArguments">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<object class="NSKeyPathSpecifierExpression">
-											<int key="NSExpressionType">10</int>
-											<string key="NSKeyPath">playCount</string>
-										</object>
-									</object>
-								</object>
-								<object class="NSConstantValueExpression" key="NSRightExpression">
-									<int key="NSExpressionType">0</int>
-									<integer value="0" key="NSConstantValue"/>
-								</object>
-								<object class="NSEqualityPredicateOperator" key="NSPredicateOperator">
-									<int key="NSOperatorType">4</int>
-									<int key="NSModifier">0</int>
-									<bool key="NSNegate">NO</bool>
-									<int key="NSOptions">0</int>
-								</object>
-							</object>
-						</object>
-						<int key="NSCompoundPredicateType">1</int>
-					</object>
+					<string key="NSEntityName">Show</string>
 				</object>
 				<bool key="_NSIsUsingManagedProxy">YES</bool>
 				<bool key="NSAvoidsEmptySelection">YES</bool>
@@ -450,22 +282,6 @@
 						<reference key="destination" ref="685583709"/>
 					</object>
 					<int key="connectionID">465</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">managedObjectContext: documentController.managedObjectContext</string>
-						<reference key="source" ref="649524055"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="649524055"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">managedObjectContext: documentController.managedObjectContext</string>
-							<string key="NSBinding">managedObjectContext</string>
-							<string key="NSKeyPath">documentController.managedObjectContext</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">497</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -529,35 +345,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">_currentlyWatchingItemsArrayController</string>
+						<string key="label">_allItemsArrayController</string>
 						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="649524055"/>
+						<reference key="destination" ref="359058989"/>
 					</object>
-					<int key="connectionID">542</int>
+					<int key="connectionID">557</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">_unseenItemsArrayController</string>
+						<string key="label">_tvShowsArrayController</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="733161874"/>
 					</object>
-					<int key="connectionID">544</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">sortDescriptors: sortDescriptor</string>
-						<reference key="source" ref="649524055"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="649524055"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">sortDescriptors: sortDescriptor</string>
-							<string key="NSBinding">sortDescriptors</string>
-							<string key="NSKeyPath">sortDescriptor</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">548</int>
+					<int key="connectionID">559</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -573,71 +373,7 @@
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">550</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">sortDescriptors: sortDescriptor</string>
-						<reference key="source" ref="733161874"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="733161874"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">sortDescriptors: sortDescriptor</string>
-							<string key="NSBinding">sortDescriptors</string>
-							<string key="NSKeyPath">sortDescriptor</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">552</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">managedObjectContext: documentController.managedObjectContext</string>
-						<reference key="source" ref="51724051"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="51724051"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">managedObjectContext: documentController.managedObjectContext</string>
-							<string key="NSBinding">managedObjectContext</string>
-							<string key="NSKeyPath">documentController.managedObjectContext</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">555</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">sortDescriptors: sortDescriptor</string>
-						<reference key="source" ref="51724051"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="51724051"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">sortDescriptors: sortDescriptor</string>
-							<string key="NSBinding">sortDescriptors</string>
-							<string key="NSKeyPath">sortDescriptor</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">556</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">_allItemsArrayController</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="359058989"/>
-					</object>
-					<int key="connectionID">557</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">_seenItemsArrayController</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="51724051"/>
-					</object>
-					<int key="connectionID">558</int>
+					<int key="connectionID">561</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -723,12 +459,6 @@
 						<reference key="parent" ref="134008429"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">182</int>
-						<reference key="object" ref="649524055"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Currently Watching Items Array Controller</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">373</int>
 						<reference key="object" ref="689850389"/>
 						<reference key="parent" ref="1006"/>
@@ -762,13 +492,7 @@
 						<int key="objectID">540</int>
 						<reference key="object" ref="733161874"/>
 						<reference key="parent" ref="0"/>
-						<string key="objectName">Unseen Items Array Controller</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">554</int>
-						<reference key="object" ref="51724051"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Seen Items Array Controller</string>
+						<string key="objectName">TV Shows Array Controller</string>
 					</object>
 				</object>
 			</object>
@@ -789,7 +513,6 @@
 					<string>1.windowTemplate.minSize</string>
 					<string>122.IBPluginDependency</string>
 					<string>123.IBPluginDependency</string>
-					<string>182.IBPluginDependency</string>
 					<string>2.IBPluginDependency</string>
 					<string>29.IBPluginDependency</string>
 					<string>373.IBPluginDependency</string>
@@ -799,16 +522,15 @@
 					<string>535.IBPluginDependency</string>
 					<string>538.IBPluginDependency</string>
 					<string>540.IBPluginDependency</string>
-					<string>554.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 					<string>8.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{147, 434}, {586, 290}}</string>
+					<string>{{37, 434}, {586, 290}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{147, 434}, {586, 290}}</string>
+					<string>{{37, 434}, {586, 290}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -820,13 +542,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.brandonwalkin.BWToolkit</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>VLCSplashScreenView</string>
 					<string>com.apple.WebKitIBPlugin</string>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -849,7 +569,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">558</int>
+			<int key="maxID">561</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -909,22 +629,18 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>_allItemsArrayController</string>
-							<string>_currentlyWatchingItemsArrayController</string>
 							<string>_mediaDiscoverCollection</string>
 							<string>_mediaDiscovererArrayController</string>
-							<string>_seenItemsArrayController</string>
+							<string>_tvShowsArrayController</string>
 							<string>_unfinishedItemsCollection</string>
-							<string>_unseenItemsArrayController</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSArrayController</string>
-							<string>NSArrayController</string>
 							<string>NSCollectionView</string>
 							<string>NSArrayController</string>
 							<string>NSArrayController</string>
 							<string>NSCollectionView</string>
-							<string>NSArrayController</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

@@ -46,7 +46,7 @@
 @interface VLCDocumentController ()
 #endif
 // See -setMainWindow:
-@property (readwrite, retain) id currentDocument;
+@property (readwrite, assign) id currentDocument;
 
 #if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
 - (void)startWatchingFolders;
@@ -56,6 +56,13 @@
 
 @implementation VLCDocumentController
 @synthesize currentDocument=_currentDocument;
+@synthesize currentArrayController=_currentArrayController;
+
+- (void)dealloc
+{
+    [currentArrayController release];
+    [super dealloc];
+}
 
 - (void)awakeFromNib
 {

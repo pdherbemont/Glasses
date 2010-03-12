@@ -541,7 +541,7 @@ setCocoaObjects: function(array)
     /**
      * Callback from KVC Cocoa bindings
      */
-removeAllInsertedCocoaObjects: function()
+    removeAllInsertedCocoaObjects: function()
     {
         // Instead of removing elements one by one,
         // remove the parent.
@@ -598,3 +598,8 @@ removeAllInsertedCocoaObjects: function()
         this.arrayController.addObserver(this, "arrangedObjects");
     }
 }
+
+ListView.prototype.detach.displayName = "ListView.detach()";
+ListView.prototype.attach.displayName = "ListView.attach()";
+ListView.prototype.__lookupSetter__("visible").displayName = "ListView.setCocoaObjects()";
+

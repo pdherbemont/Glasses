@@ -10,7 +10,8 @@
 #import "VLCStyledView.h"
 
 @interface VLCSplashScreenView : VLCStyledView {
-
+    NSArrayController *_currentArrayController;
 }
 
+@property (readwrite, retain) NSArrayController *currentArrayController;
 @end
