@@ -187,6 +187,125 @@
 		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC10A7A6103CA66B00B4555A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
 		CC10A7B0103CA96800B4555A /* VLCPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */; };
+		CC29B37B11529E4500BD4CA1 /* ListView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
+		CC29B37C11529E4500BD4CA1 /* ListItemView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C48131121624C00817611 /* ListItemView.js */; };
+		CC29B37D11529E4500BD4CA1 /* dom-drag.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312778510C6C4E500A01F33 /* dom-drag.js */; };
+		CC29B37E11529E4500BD4CA1 /* Lunettes.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768110C6A57A00A01F33 /* Lunettes.js */; };
+		CC29B37F11529E4500BD4CA1 /* MediaListView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768210C6A57A00A01F33 /* MediaListView.js */; };
+		CC29B38011529E4500BD4CA1 /* MediaView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768310C6A57A00A01F33 /* MediaView.js */; };
+		CC29B38111529E4500BD4CA1 /* NavigationController.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768410C6A57A00A01F33 /* NavigationController.js */; };
+		CC29B38211529E4500BD4CA1 /* WindowController.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768510C6A57A00A01F33 /* WindowController.js */; };
+		CC29B38311529E4500BD4CA1 /* Utilities.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768B10C6A5C400A01F33 /* Utilities.js */; };
+		CC29B38411529E4500BD4CA1 /* CocoaObject.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 6312768D10C6A61200A01F33 /* CocoaObject.js */; };
+		CC29B38611529E4500BD4CA1 /* No Playlist.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F772010480F8300117832 /* No Playlist.lunettesstyle */; };
+		CC29B38711529E4500BD4CA1 /* Black.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F72671047548200117832 /* Black.lunettesstyle */; };
+		CC29B38811529E4500BD4CA1 /* TV.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F6CAB104721BD00117832 /* TV.lunettesstyle */; };
+		CC29B38911529E4500BD4CA1 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
+		CC29B38B11529E4500BD4CA1 /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
+		CC29B38C11529E4500BD4CA1 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
+		CC29B38D11529E4500BD4CA1 /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
+		CC29B38F11529E4500BD4CA1 /* pause_embedded.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAC80FF85AC0004BC7D1 /* pause_embedded.png */; };
+		CC29B39011529E4500BD4CA1 /* pause_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAC90FF85AC0004BC7D1 /* pause_embedded_blue.png */; };
+		CC29B39111529E4500BD4CA1 /* pause_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DACA0FF85AC0004BC7D1 /* pause_embedded_graphite.png */; };
+		CC29B39211529E4500BD4CA1 /* play_embedded.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DACB0FF85AC0004BC7D1 /* play_embedded.png */; };
+		CC29B39311529E4500BD4CA1 /* play_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DACC0FF85AC0004BC7D1 /* play_embedded_blue.png */; };
+		CC29B39411529E4500BD4CA1 /* play_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DACD0FF85AC0004BC7D1 /* play_embedded_graphite.png */; };
+		CC29B39511529E4500BD4CA1 /* repeat_embedded.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DACE0FF85AC0004BC7D1 /* repeat_embedded.png */; };
+		CC29B39611529E4500BD4CA1 /* repeat_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DACF0FF85AC0004BC7D1 /* repeat_embedded_blue.png */; };
+		CC29B39711529E4500BD4CA1 /* repeat_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD00FF85AC0004BC7D1 /* repeat_embedded_graphite.png */; };
+		CC29B39811529E4500BD4CA1 /* repeat_single_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD10FF85AC0004BC7D1 /* repeat_single_embedded_blue.png */; };
+		CC29B39911529E4500BD4CA1 /* repeat_single_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD20FF85AC0004BC7D1 /* repeat_single_embedded_graphite.png */; };
+		CC29B39A11529E4500BD4CA1 /* shuffle_embedded.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD30FF85AC0004BC7D1 /* shuffle_embedded.png */; };
+		CC29B39B11529E4500BD4CA1 /* shuffle_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD40FF85AC0004BC7D1 /* shuffle_embedded_blue.png */; };
+		CC29B39C11529E4500BD4CA1 /* shuffle_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD50FF85AC0004BC7D1 /* shuffle_embedded_graphite.png */; };
+		CC29B39D11529E4500BD4CA1 /* skip_forward_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD60FF85AC0004BC7D1 /* skip_forward_embedded_blue.png */; };
+		CC29B39E11529E4500BD4CA1 /* skip_forward_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD70FF85AC0004BC7D1 /* skip_forward_embedded_graphite.png */; };
+		CC29B39F11529E4500BD4CA1 /* skip_previous_active_embedded.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD80FF85AC0004BC7D1 /* skip_previous_active_embedded.png */; };
+		CC29B3A011529E4500BD4CA1 /* skip_previous_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAD90FF85AC0004BC7D1 /* skip_previous_embedded_blue.png */; };
+		CC29B3A111529E4500BD4CA1 /* skip_previous_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DADA0FF85AC0004BC7D1 /* skip_previous_embedded_graphite.png */; };
+		CC29B3A211529E4500BD4CA1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB0F0FF85AF0004BC7D1 /* InfoPlist.strings */; };
+		CC29B3A311529E4500BD4CA1 /* FullscreenHUDWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB1A0FF85B1A004BC7D1 /* FullscreenHUDWindow.xib */; };
+		CC29B3A411529E4500BD4CA1 /* display_left.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB270FF85BDB004BC7D1 /* display_left.png */; };
+		CC29B3A511529E4500BD4CA1 /* display_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB280FF85BDB004BC7D1 /* display_middle.png */; };
+		CC29B3A611529E4500BD4CA1 /* display_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB290FF85BDB004BC7D1 /* display_right.png */; };
+		CC29B3A711529E4500BD4CA1 /* display_slider.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB2A0FF85BDB004BC7D1 /* display_slider.png */; };
+		CC29B3A811529E4500BD4CA1 /* display_track.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB2B0FF85BDB004BC7D1 /* display_track.png */; };
+		CC29B3A911529E4500BD4CA1 /* fullscreen_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DB310FF85BE3004BC7D1 /* fullscreen_active.png */; };
+		CC29B3AA11529E4500BD4CA1 /* VideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441CF100469A60086772A /* VideoWindow.xib */; };
+		CC29B3AB11529E4500BD4CA1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441D1100469AD0086772A /* MainMenu.xib */; };
+		CC29B3AC11529E4500BD4CA1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = CC10A7A5103CA66B00B4555A /* dsa_pub.pem */; };
+		CC29B3AD11529E4500BD4CA1 /* StyledVideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6301465A1040991000534090 /* StyledVideoWindow.xib */; };
+		CC29B3AE11529E4500BD4CA1 /* Coding Style.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 63014A711042AC9900534090 /* Coding Style.rtf */; };
+		CC29B3AF11529E4500BD4CA1 /* StyledFullscreenHUDWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */; };
+		CC29B3B011529E4500BD4CA1 /* lunettes.png in Resources */ = {isa = PBXBuildFile; fileRef = 639F64821046BE2B00117832 /* lunettes.png */; };
+		CC29B3B111529E4500BD4CA1 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E42D10444D540029C49C /* Icon.icns */; };
+		CC29B3B211529E4500BD4CA1 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1123104A844000D34A87 /* AboutWindow.xib */; };
+		CC29B3B311529E4500BD4CA1 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1129104A846400D34A87 /* OpenURLWindow.xib */; };
+		CC29B3B411529E4500BD4CA1 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112B104A846400D34A87 /* PreferencesWindow.xib */; };
+		CC29B3B511529E4500BD4CA1 /* PlaylistDebugWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112D104A847300D34A87 /* PlaylistDebugWindow.xib */; };
+		CC29B3B611529E4500BD4CA1 /* SplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1175104A8A8400D34A87 /* SplashScreenWindow.xib */; };
+		CC29B3B711529E4500BD4CA1 /* ExportStatusWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6312758410C5F0B300A01F33 /* ExportStatusWindow.xib */; };
+		CC29B3B811529E4500BD4CA1 /* GPLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635F15DF10CDB4D8006EC30E /* GPLWindow.xib */; };
+		CC29B3B911529E4500BD4CA1 /* Authors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F161F910D1BBAC003B99BE /* Authors.txt */; };
+		CC29B3BA11529E4500BD4CA1 /* License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F161FD10D1BBD2003B99BE /* License.txt */; };
+		CC29B3BB11529E4500BD4CA1 /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620110D1BBE9003B99BE /* About.txt */; };
+		CC29B3BC11529E4500BD4CA1 /* Thanks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 63F1620F10D1BC30003B99BE /* Thanks.txt */; };
+		CC29B3BD11529E4500BD4CA1 /* CrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */; };
+		CC29B3BE11529E4500BD4CA1 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639163E11115E23000480B08 /* InfoWindow.xib */; };
+		CC29B3BF11529E4500BD4CA1 /* errorImage.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 32D85F4811149F4800591CE5 /* errorImage.pdf */; };
+		CC29B3C011529E4500BD4CA1 /* NewSplashScreenWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6307508F111900900027B8C2 /* NewSplashScreenWindow.xib */; };
+		CC29B3C111529E4500BD4CA1 /* ListView.js in Resources */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
+		CC29B3C211529E4500BD4CA1 /* playback.png in Resources */ = {isa = PBXBuildFile; fileRef = 63E3F34211453CDB00A62577 /* playback.png */; };
+		CC29B3C411529E4500BD4CA1 /* VLCExtendedVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA550FF85980004BC7D1 /* VLCExtendedVideoView.m */; };
+		CC29B3C511529E4500BD4CA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		CC29B3C611529E4500BD4CA1 /* VLCMiscUIElements.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E8FE0103C596D0000601C /* VLCMiscUIElements.m */; };
+		CC29B3C711529E4500BD4CA1 /* NSScreen_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA590FF8598D004BC7D1 /* NSScreen_Additions.m */; };
+		CC29B3C811529E4500BD4CA1 /* VLCVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = CC5E9091103C95000000601C /* VLCVideoWindow.m */; };
+		CC29B3C911529E4500BD4CA1 /* VLCExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4A0FF8595C004BC7D1 /* VLCExceptionHandler.m */; };
+		CC29B3CA11529E4500BD4CA1 /* VLCMediaDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 6311DA4D0FF85970004BC7D1 /* VLCMediaDocument.m */; };
+		CC29B3CB11529E4500BD4CA1 /* VLCPreferencesWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */; };
+		CC29B3CC11529E4500BD4CA1 /* VLCOpenURLWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B346103DDB9C00D13C72 /* VLCOpenURLWindowController.m */; };
+		CC29B3CD11529E4500BD4CA1 /* VLCDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = CC61B415103E088B00D13C72 /* VLCDocumentController.m */; };
+		CC29B3CE11529E4500BD4CA1 /* VLCVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464B104098C500534090 /* VLCVideoWindowController.m */; };
+		CC29B3CF11529E4500BD4CA1 /* VLCStyledVideoWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6301464E104098D300534090 /* VLCStyledVideoWindow.m */; };
+		CC29B3D011529E4500BD4CA1 /* VLCStyledVideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014650104098D300534090 /* VLCStyledVideoWindowController.m */; };
+		CC29B3D111529E4500BD4CA1 /* VLCStyledVideoWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014652104098D300534090 /* VLCStyledVideoWindowView.m */; };
+		CC29B3D211529E4500BD4CA1 /* DOMElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63014657104098F000534090 /* DOMElement_Additions.m */; };
+		CC29B3D311529E4500BD4CA1 /* VLCFullscreenController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1DE52104381C20029C49C /* VLCFullscreenController.m */; };
+		CC29B3D411529E4500BD4CA1 /* VLCStyledFullscreenHUDWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E0F410440D8E0029C49C /* VLCStyledFullscreenHUDWindow.m */; };
+		CC29B3D511529E4500BD4CA1 /* VLCStyledFullscreenHUDWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10010440DF50029C49C /* VLCStyledFullscreenHUDWindowController.m */; };
+		CC29B3D611529E4500BD4CA1 /* VLCStyledFullscreenHUDWindowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10210440DF50029C49C /* VLCStyledFullscreenHUDWindowView.m */; };
+		CC29B3D711529E4500BD4CA1 /* VLCStyledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10910440EB00029C49C /* VLCStyledView.m */; };
+		CC29B3D811529E4500BD4CA1 /* VLCSplashScreenWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639F661B1046D89900117832 /* VLCSplashScreenWindowController.m */; };
+		CC29B3D911529E4500BD4CA1 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */; };
+		CC29B3DA11529E4500BD4CA1 /* VLCPlaylistDebugWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63032500104A82C400CC82B6 /* VLCPlaylistDebugWindowController.m */; };
+		CC29B3DB11529E4500BD4CA1 /* DOMHTMLElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */; };
+		CC29B3DC11529E4500BD4CA1 /* VLCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABE882107F6230004A471E /* VLCApplication.m */; };
+		CC29B3DD11529E4500BD4CA1 /* AppleRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABEBA7107FD06B004A471E /* AppleRemote.m */; };
+		CC29B3DE11529E4500BD4CA1 /* VLCWebBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */; };
+		CC29B3DF11529E4500BD4CA1 /* VLCExportStatusWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6312758A10C5F0D000A01F33 /* VLCExportStatusWindowController.m */; };
+		CC29B3E011529E4500BD4CA1 /* VLCCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63161B1210CAADDF0091974E /* VLCCollectionView.m */; };
+		CC29B3E111529E4500BD4CA1 /* VLCValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */; };
+		CC29B3E211529E4500BD4CA1 /* VLCPlayedProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */; };
+		CC29B3E311529E4500BD4CA1 /* VLCPathWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F163E210D2941C003B99BE /* VLCPathWatcher.m */; };
+		CC29B3E411529E4500BD4CA1 /* VLCPreferencesKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = CCC6B97410DD9C130087884B /* VLCPreferencesKeys.m */; };
+		CC29B3E511529E4500BD4CA1 /* VLCCrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC54DD4810EE75EA0031D0A2 /* VLCCrashReporter.m */; };
+		CC29B3E611529E4500BD4CA1 /* VLCCompatibilityAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC74565310EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m */; };
+		CC29B3E711529E4500BD4CA1 /* MediaLibrary.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 631393C710FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel */; };
+		CC29B3E811529E4500BD4CA1 /* VLCInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639163DF1115E21500480B08 /* VLCInfoWindowController.m */; };
+		CC29B3E911529E4500BD4CA1 /* VLCSplashScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 639FDAC81117863E007EE416 /* VLCSplashScreenView.m */; };
+		CC29B3EA11529E4500BD4CA1 /* VLCStyledVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 639271F7112B567C00DD9323 /* VLCStyledVideoView.m */; };
+		CC29B3EB11529E4500BD4CA1 /* VLCDVDDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 326F9CF01125C3C9006117C7 /* VLCDVDDiscoverer.m */; };
+		CC29B3ED11529E4500BD4CA1 /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
+		CC29B3EE11529E4500BD4CA1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		CC29B3EF11529E4500BD4CA1 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */; };
+		CC29B3F011529E4500BD4CA1 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
+		CC29B3F111529E4500BD4CA1 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCABE8CB107F664B004A471E /* IOKit.framework */; };
+		CC29B3F211529E4500BD4CA1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */; };
+		CC29B3F311529E4500BD4CA1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBB290610EF6E5500055641 /* Carbon.framework */; };
+		CC29B3F411529E4500BD4CA1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC73DEBC10F0F669001FEFE4 /* WebKit.framework */; };
+		CC29B3F511529E4500BD4CA1 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */; };
+		CC29B3F611529E4500BD4CA1 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
 		CC54DD4910EE75EA0031D0A2 /* VLCCrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = CC54DD4810EE75EA0031D0A2 /* VLCCrashReporter.m */; };
 		CC54DD5E10EE79D10031D0A2 /* CrashReporter.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */; };
 		CC54DDAD10EE91CD0031D0A2 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC54DDAC10EE91CD0031D0A2 /* AddressBook.framework */; };
@@ -243,6 +362,34 @@
 			remoteGlobalIDString = 639F725D1047548200117832;
 			remoteInfo = Black.lunettesstyle;
 		};
+		CC29B37311529E4500BD4CA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F683F1046E98400117832;
+			remoteInfo = Default.lunettesstyle;
+		};
+		CC29B37511529E4500BD4CA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F6C8B104721BD00117832;
+			remoteInfo = TV.lunettesstyle;
+		};
+		CC29B37711529E4500BD4CA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F771910480F8300117832;
+			remoteInfo = Experimental.lunettesstyle;
+		};
+		CC29B37911529E4500BD4CA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 639F725D1047548200117832;
+			remoteInfo = Black.lunettesstyle;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -289,6 +436,53 @@
 				4AFE8A7010E6F34800FD5ACD /* BWToolkitFramework.framework in Copy Frameworks */,
 				CC566421103C9F6300FEA1D3 /* Sparkle.framework in Copy Frameworks */,
 				631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC29B37A11529E4500BD4CA1 /* Create Lunettes Style Root */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "Lunettes Style Root";
+			dstSubfolderSpec = 7;
+			files = (
+				CC29B37B11529E4500BD4CA1 /* ListView.js in Create Lunettes Style Root */,
+				CC29B37C11529E4500BD4CA1 /* ListItemView.js in Create Lunettes Style Root */,
+				CC29B37D11529E4500BD4CA1 /* dom-drag.js in Create Lunettes Style Root */,
+				CC29B37E11529E4500BD4CA1 /* Lunettes.js in Create Lunettes Style Root */,
+				CC29B37F11529E4500BD4CA1 /* MediaListView.js in Create Lunettes Style Root */,
+				CC29B38011529E4500BD4CA1 /* MediaView.js in Create Lunettes Style Root */,
+				CC29B38111529E4500BD4CA1 /* NavigationController.js in Create Lunettes Style Root */,
+				CC29B38211529E4500BD4CA1 /* WindowController.js in Create Lunettes Style Root */,
+				CC29B38311529E4500BD4CA1 /* Utilities.js in Create Lunettes Style Root */,
+				CC29B38411529E4500BD4CA1 /* CocoaObject.js in Create Lunettes Style Root */,
+			);
+			name = "Create Lunettes Style Root";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC29B38511529E4500BD4CA1 /* Copy lunettesstyle Plugins */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CC29B38611529E4500BD4CA1 /* No Playlist.lunettesstyle in Copy lunettesstyle Plugins */,
+				CC29B38711529E4500BD4CA1 /* Black.lunettesstyle in Copy lunettesstyle Plugins */,
+				CC29B38811529E4500BD4CA1 /* TV.lunettesstyle in Copy lunettesstyle Plugins */,
+				CC29B38911529E4500BD4CA1 /* Default.lunettesstyle in Copy lunettesstyle Plugins */,
+			);
+			name = "Copy lunettesstyle Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC29B38A11529E4500BD4CA1 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CC29B38B11529E4500BD4CA1 /* BWToolkitFramework.framework in Copy Frameworks */,
+				CC29B38C11529E4500BD4CA1 /* Sparkle.framework in Copy Frameworks */,
+				CC29B38D11529E4500BD4CA1 /* VLCKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -542,6 +736,7 @@
 		CC10A7A5103CA66B00B4555A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		CC10A7AE103CA96800B4555A /* VLCPreferencesWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPreferencesWindowController.h; path = Sources/VLCPreferencesWindowController.h; sourceTree = "<group>"; };
 		CC10A7AF103CA96800B4555A /* VLCPreferencesWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPreferencesWindowController.m; path = Sources/VLCPreferencesWindowController.m; sourceTree = "<group>"; };
+		CC29B3FD11529E4500BD4CA1 /* Lunettes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lunettes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC54DD4710EE75EA0031D0A2 /* VLCCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCCrashReporter.h; path = Sources/VLCCrashReporter.h; sourceTree = "<group>"; };
 		CC54DD4810EE75EA0031D0A2 /* VLCCrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCCrashReporter.m; path = Sources/VLCCrashReporter.m; sourceTree = "<group>"; };
 		CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CrashReporter.xib; path = Resources/CrashReporter.xib; sourceTree = "<group>"; };
@@ -588,6 +783,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC29B3EC11529E4500BD4CA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC29B3ED11529E4500BD4CA1 /* VLCKit.framework in Frameworks */,
+				CC29B3EE11529E4500BD4CA1 /* Cocoa.framework in Frameworks */,
+				CC29B3EF11529E4500BD4CA1 /* ExceptionHandling.framework in Frameworks */,
+				CC29B3F011529E4500BD4CA1 /* Sparkle.framework in Frameworks */,
+				CC29B3F111529E4500BD4CA1 /* IOKit.framework in Frameworks */,
+				CC29B3F211529E4500BD4CA1 /* AddressBook.framework in Frameworks */,
+				CC29B3F311529E4500BD4CA1 /* Carbon.framework in Frameworks */,
+				CC29B3F411529E4500BD4CA1 /* WebKit.framework in Frameworks */,
+				CC29B3F511529E4500BD4CA1 /* JavaScriptCore.framework in Frameworks */,
+				CC29B3F611529E4500BD4CA1 /* BWToolkitFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -599,6 +811,7 @@
 				639F6CAB104721BD00117832 /* TV.lunettesstyle */,
 				639F72671047548200117832 /* Black.lunettesstyle */,
 				639F772010480F8300117832 /* No Playlist.lunettesstyle */,
+				CC29B3FD11529E4500BD4CA1 /* Lunettes.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1189,6 +1402,34 @@
 			productReference = 8D15AC370486D014006FF6A4 /* Lunettes.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CC29B37111529E4500BD4CA1 /* Lunettes for 10.5 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC29B3FA11529E4500BD4CA1 /* Build configuration list for PBXNativeTarget "Lunettes for 10.5" */;
+			buildPhases = (
+				CC29B37A11529E4500BD4CA1 /* Create Lunettes Style Root */,
+				CC29B38511529E4500BD4CA1 /* Copy lunettesstyle Plugins */,
+				CC29B38A11529E4500BD4CA1 /* Copy Frameworks */,
+				CC29B38E11529E4500BD4CA1 /* Resources */,
+				CC29B3C311529E4500BD4CA1 /* Sources */,
+				CC29B3EC11529E4500BD4CA1 /* Frameworks */,
+				CC29B3F711529E4500BD4CA1 /* Check Javascript code */,
+				CC29B3F811529E4500BD4CA1 /* Set Git Version */,
+				CC29B3F911529E4500BD4CA1 /* Package in a Zip Archive */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC29B37211529E4500BD4CA1 /* PBXTargetDependency */,
+				CC29B37411529E4500BD4CA1 /* PBXTargetDependency */,
+				CC29B37611529E4500BD4CA1 /* PBXTargetDependency */,
+				CC29B37811529E4500BD4CA1 /* PBXTargetDependency */,
+			);
+			name = "Lunettes for 10.5";
+			productInstallPath = "$(HOME)/Applications";
+			productName = Lunettes;
+			productReference = CC29B3FD11529E4500BD4CA1 /* Lunettes.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1212,6 +1453,7 @@
 				639F6C8B104721BD00117832 /* TV.lunettesstyle */,
 				639F725D1047548200117832 /* Black.lunettesstyle */,
 				639F771910480F8300117832 /* No Playlist.lunettesstyle */,
+				CC29B37111529E4500BD4CA1 /* Lunettes for 10.5 */,
 			);
 		};
 /* End PBXProject section */
@@ -1393,6 +1635,65 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC29B38E11529E4500BD4CA1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC29B38F11529E4500BD4CA1 /* pause_embedded.png in Resources */,
+				CC29B39011529E4500BD4CA1 /* pause_embedded_blue.png in Resources */,
+				CC29B39111529E4500BD4CA1 /* pause_embedded_graphite.png in Resources */,
+				CC29B39211529E4500BD4CA1 /* play_embedded.png in Resources */,
+				CC29B39311529E4500BD4CA1 /* play_embedded_blue.png in Resources */,
+				CC29B39411529E4500BD4CA1 /* play_embedded_graphite.png in Resources */,
+				CC29B39511529E4500BD4CA1 /* repeat_embedded.png in Resources */,
+				CC29B39611529E4500BD4CA1 /* repeat_embedded_blue.png in Resources */,
+				CC29B39711529E4500BD4CA1 /* repeat_embedded_graphite.png in Resources */,
+				CC29B39811529E4500BD4CA1 /* repeat_single_embedded_blue.png in Resources */,
+				CC29B39911529E4500BD4CA1 /* repeat_single_embedded_graphite.png in Resources */,
+				CC29B39A11529E4500BD4CA1 /* shuffle_embedded.png in Resources */,
+				CC29B39B11529E4500BD4CA1 /* shuffle_embedded_blue.png in Resources */,
+				CC29B39C11529E4500BD4CA1 /* shuffle_embedded_graphite.png in Resources */,
+				CC29B39D11529E4500BD4CA1 /* skip_forward_embedded_blue.png in Resources */,
+				CC29B39E11529E4500BD4CA1 /* skip_forward_embedded_graphite.png in Resources */,
+				CC29B39F11529E4500BD4CA1 /* skip_previous_active_embedded.png in Resources */,
+				CC29B3A011529E4500BD4CA1 /* skip_previous_embedded_blue.png in Resources */,
+				CC29B3A111529E4500BD4CA1 /* skip_previous_embedded_graphite.png in Resources */,
+				CC29B3A211529E4500BD4CA1 /* InfoPlist.strings in Resources */,
+				CC29B3A311529E4500BD4CA1 /* FullscreenHUDWindow.xib in Resources */,
+				CC29B3A411529E4500BD4CA1 /* display_left.png in Resources */,
+				CC29B3A511529E4500BD4CA1 /* display_middle.png in Resources */,
+				CC29B3A611529E4500BD4CA1 /* display_right.png in Resources */,
+				CC29B3A711529E4500BD4CA1 /* display_slider.png in Resources */,
+				CC29B3A811529E4500BD4CA1 /* display_track.png in Resources */,
+				CC29B3A911529E4500BD4CA1 /* fullscreen_active.png in Resources */,
+				CC29B3AA11529E4500BD4CA1 /* VideoWindow.xib in Resources */,
+				CC29B3AB11529E4500BD4CA1 /* MainMenu.xib in Resources */,
+				CC29B3AC11529E4500BD4CA1 /* dsa_pub.pem in Resources */,
+				CC29B3AD11529E4500BD4CA1 /* StyledVideoWindow.xib in Resources */,
+				CC29B3AE11529E4500BD4CA1 /* Coding Style.rtf in Resources */,
+				CC29B3AF11529E4500BD4CA1 /* StyledFullscreenHUDWindow.xib in Resources */,
+				CC29B3B011529E4500BD4CA1 /* lunettes.png in Resources */,
+				CC29B3B111529E4500BD4CA1 /* Icon.icns in Resources */,
+				CC29B3B211529E4500BD4CA1 /* AboutWindow.xib in Resources */,
+				CC29B3B311529E4500BD4CA1 /* OpenURLWindow.xib in Resources */,
+				CC29B3B411529E4500BD4CA1 /* PreferencesWindow.xib in Resources */,
+				CC29B3B511529E4500BD4CA1 /* PlaylistDebugWindow.xib in Resources */,
+				CC29B3B611529E4500BD4CA1 /* SplashScreenWindow.xib in Resources */,
+				CC29B3B711529E4500BD4CA1 /* ExportStatusWindow.xib in Resources */,
+				CC29B3B811529E4500BD4CA1 /* GPLWindow.xib in Resources */,
+				CC29B3B911529E4500BD4CA1 /* Authors.txt in Resources */,
+				CC29B3BA11529E4500BD4CA1 /* License.txt in Resources */,
+				CC29B3BB11529E4500BD4CA1 /* About.txt in Resources */,
+				CC29B3BC11529E4500BD4CA1 /* Thanks.txt in Resources */,
+				CC29B3BD11529E4500BD4CA1 /* CrashReporter.xib in Resources */,
+				CC29B3BE11529E4500BD4CA1 /* InfoWindow.xib in Resources */,
+				CC29B3BF11529E4500BD4CA1 /* errorImage.pdf in Resources */,
+				CC29B3C011529E4500BD4CA1 /* NewSplashScreenWindow.xib in Resources */,
+				CC29B3C111529E4500BD4CA1 /* ListView.js in Resources */,
+				CC29B3C211529E4500BD4CA1 /* playback.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1437,6 +1738,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/usr/bin/env ruby";
 			shellScript = "#!/usr/bin/env ruby\n \n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n \n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n \n# Create new tags with \"git tag <version> -m <message>\"\n \n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n \n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n \n \ngitnum = `git describe --always`.chomp()\nversion = \"#{gitnum}\"\ninfo_file = File.join(ENV['BUILT_PRODUCTS_DIR'], ENV['INFOPLIST_PATH'])\ninfo = File.open(info_file, \"r\").read\n \nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbefore = $1\nafter = $2\nif !after || !before\n   puts \"Invalid Info.plist (no CFBundleVersion key).\"\n\tputs info\n   exit 1\nend\n\nbundle_version_string = before + version + after\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"\n";
+		};
+		CC29B3F711529E4500BD4CA1 /* Check Javascript code */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Javascript code";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd $SRCROOT/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\nprettyfiles=\"\"\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
+		};
+		CC29B3F811529E4500BD4CA1 /* Set Git Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Set Git Version";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env ruby";
+			shellScript = "#!/usr/bin/env ruby\n \n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n \n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n \n# Create new tags with \"git tag <version> -m <message>\"\n \n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n \n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n \n \ngitnum = `git describe --always`.chomp()\nversion = \"#{gitnum}\"\ninfo_file = File.join(ENV['BUILT_PRODUCTS_DIR'], ENV['INFOPLIST_PATH'])\ninfo = File.open(info_file, \"r\").read\n \nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbefore = $1\nafter = $2\nif !after || !before\n   puts \"Invalid Info.plist (no CFBundleVersion key).\"\n\tputs info\n   exit 1\nend\n\nbundle_version_string = before + version + after\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"\n";
+		};
+		CC29B3F911529E4500BD4CA1 /* Package in a Zip Archive */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Package in a Zip Archive";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test \"$BUILD_STYLE\" != \"Release\"; then\n\techo \"No in Release, not building the zip archive\";\n\texit 0;\nfi\n\nversion=`git describe --always`\nARCHIVE_FILENAME=\"Lunettes-$version.zip\"\n\ncd \"$BUILT_PRODUCTS_DIR\"\nditto -ck --keepParent \"$FULL_PRODUCT_NAME\" \"$ARCHIVE_FILENAME\"\nopen \"$BUILT_PRODUCTS_DIR\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1488,6 +1831,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC29B3C311529E4500BD4CA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC29B3C411529E4500BD4CA1 /* VLCExtendedVideoView.m in Sources */,
+				CC29B3C511529E4500BD4CA1 /* main.m in Sources */,
+				CC29B3C611529E4500BD4CA1 /* VLCMiscUIElements.m in Sources */,
+				CC29B3C711529E4500BD4CA1 /* NSScreen_Additions.m in Sources */,
+				CC29B3C811529E4500BD4CA1 /* VLCVideoWindow.m in Sources */,
+				CC29B3C911529E4500BD4CA1 /* VLCExceptionHandler.m in Sources */,
+				CC29B3CA11529E4500BD4CA1 /* VLCMediaDocument.m in Sources */,
+				CC29B3CB11529E4500BD4CA1 /* VLCPreferencesWindowController.m in Sources */,
+				CC29B3CC11529E4500BD4CA1 /* VLCOpenURLWindowController.m in Sources */,
+				CC29B3CD11529E4500BD4CA1 /* VLCDocumentController.m in Sources */,
+				CC29B3CE11529E4500BD4CA1 /* VLCVideoWindowController.m in Sources */,
+				CC29B3CF11529E4500BD4CA1 /* VLCStyledVideoWindow.m in Sources */,
+				CC29B3D011529E4500BD4CA1 /* VLCStyledVideoWindowController.m in Sources */,
+				CC29B3D111529E4500BD4CA1 /* VLCStyledVideoWindowView.m in Sources */,
+				CC29B3D211529E4500BD4CA1 /* DOMElement_Additions.m in Sources */,
+				CC29B3D311529E4500BD4CA1 /* VLCFullscreenController.m in Sources */,
+				CC29B3D411529E4500BD4CA1 /* VLCStyledFullscreenHUDWindow.m in Sources */,
+				CC29B3D511529E4500BD4CA1 /* VLCStyledFullscreenHUDWindowController.m in Sources */,
+				CC29B3D611529E4500BD4CA1 /* VLCStyledFullscreenHUDWindowView.m in Sources */,
+				CC29B3D711529E4500BD4CA1 /* VLCStyledView.m in Sources */,
+				CC29B3D811529E4500BD4CA1 /* VLCSplashScreenWindowController.m in Sources */,
+				CC29B3D911529E4500BD4CA1 /* VLCAboutWindowController.m in Sources */,
+				CC29B3DA11529E4500BD4CA1 /* VLCPlaylistDebugWindowController.m in Sources */,
+				CC29B3DB11529E4500BD4CA1 /* DOMHTMLElement_Additions.m in Sources */,
+				CC29B3DC11529E4500BD4CA1 /* VLCApplication.m in Sources */,
+				CC29B3DD11529E4500BD4CA1 /* AppleRemote.m in Sources */,
+				CC29B3DE11529E4500BD4CA1 /* VLCWebBindingsController.m in Sources */,
+				CC29B3DF11529E4500BD4CA1 /* VLCExportStatusWindowController.m in Sources */,
+				CC29B3E011529E4500BD4CA1 /* VLCCollectionView.m in Sources */,
+				CC29B3E111529E4500BD4CA1 /* VLCValueTransformers.m in Sources */,
+				CC29B3E211529E4500BD4CA1 /* VLCPlayedProgressIndicator.m in Sources */,
+				CC29B3E311529E4500BD4CA1 /* VLCPathWatcher.m in Sources */,
+				CC29B3E411529E4500BD4CA1 /* VLCPreferencesKeys.m in Sources */,
+				CC29B3E511529E4500BD4CA1 /* VLCCrashReporter.m in Sources */,
+				CC29B3E611529E4500BD4CA1 /* VLCCompatibilityAdditions.m in Sources */,
+				CC29B3E711529E4500BD4CA1 /* MediaLibrary.xcdatamodel in Sources */,
+				CC29B3E811529E4500BD4CA1 /* VLCInfoWindowController.m in Sources */,
+				CC29B3E911529E4500BD4CA1 /* VLCSplashScreenView.m in Sources */,
+				CC29B3EA11529E4500BD4CA1 /* VLCStyledVideoView.m in Sources */,
+				CC29B3EB11529E4500BD4CA1 /* VLCDVDDiscoverer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1510,6 +1900,26 @@
 			isa = PBXTargetDependency;
 			target = 639F725D1047548200117832 /* Black.lunettesstyle */;
 			targetProxy = 639F72C7104755B000117832 /* PBXContainerItemProxy */;
+		};
+		CC29B37211529E4500BD4CA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F683F1046E98400117832 /* Default.lunettesstyle */;
+			targetProxy = CC29B37311529E4500BD4CA1 /* PBXContainerItemProxy */;
+		};
+		CC29B37411529E4500BD4CA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F6C8B104721BD00117832 /* TV.lunettesstyle */;
+			targetProxy = CC29B37511529E4500BD4CA1 /* PBXContainerItemProxy */;
+		};
+		CC29B37611529E4500BD4CA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F771910480F8300117832 /* No Playlist.lunettesstyle */;
+			targetProxy = CC29B37711529E4500BD4CA1 /* PBXContainerItemProxy */;
+		};
+		CC29B37811529E4500BD4CA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 639F725D1047548200117832 /* Black.lunettesstyle */;
+			targetProxy = CC29B37911529E4500BD4CA1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1919,6 +2329,56 @@
 			};
 			name = Release;
 		};
+		CC29B3FB11529E4500BD4CA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"\\\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\\\"",
+					"\\\"$(SRCROOT)\\\"",
+					"\\\"$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\\\"",
+					"\\\"$(SRCROOT)/../../../Development/Mac/BWToolkit\\ 1.2.2\\\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = VLC_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = Lunettes;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		CC29B3FC11529E4500BD4CA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 630141D5104062B300534090 /* Common Settings.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\\\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\\\"",
+					"\\\"$(SRCROOT)\\\"",
+					"\\\"$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\\\"",
+					"\\\"$(SRCROOT)/../../../Development/Mac/BWToolkit\\ 1.2.2\\\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = VLC_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = Lunettes;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1972,6 +2432,15 @@
 			buildConfigurations = (
 				C05733CC08A9546B00998B17 /* Debug */,
 				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC29B3FA11529E4500BD4CA1 /* Build configuration list for PBXNativeTarget "Lunettes for 10.5" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC29B3FB11529E4500BD4CA1 /* Debug */,
+				CC29B3FC11529E4500BD4CA1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
