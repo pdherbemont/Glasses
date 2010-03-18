@@ -281,7 +281,7 @@
 
 - (IBAction)reportBug:(id)sender
 {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://github.com/pdherbemont/Glasses/issues"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://trac.videolan.org"]];
 }
 
 - (IBAction)showVideoLANWebsite:(id)sender
