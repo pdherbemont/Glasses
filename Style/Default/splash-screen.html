@@ -673,6 +673,7 @@ MediaDBView.prototype = {
         ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
 
         if (visible) {
+            this.removeButton.addEventListener('click', this.removeButtonClicked.bind(this), false);
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
             Lunettes.connect(this, "unread", this.cocoaObject, "unread");
             Lunettes.connect(this, "currentlyWatching", this.cocoaObject, "currentlyWatching");
@@ -687,6 +688,13 @@ MediaDBView.prototype = {
             Lunettes.unconnect(this, "unread");
             Lunettes.unconnect(this.nameElement, "textContent");
         }
+    },
+    /**
+     * When double clicked
+     */
+    removeButtonClicked: function(event)
+    {
+        event.preventDefault();
     },
 
     /**
@@ -757,10 +765,10 @@ function selectMasterElementNamed(name)
     switch(name)
     {
         case "movies-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), "allItemsArrayController.arrangedObjects", MediaDBView);
+            list = new ListView(CocoaObject.windowCocoaObject(), "moviesArrayController.arrangedObjects", MediaDBView);
             break;
-        case "tvshows-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects", TVShowView);
+        case "clips-category":
+            list = new ListView(CocoaObject.windowCocoaObject(), "clipsArrayController.arrangedObjects", MediaDBView);
             break;
         default:
             console.assert(0, "Should not be reached");
@@ -799,10 +807,10 @@ function init()
     window.detailList = null;
 
     var count = document.getElementById("movies-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "allItemsArrayController.arrangedObjects.@count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "moviesArrayController.arrangedObjects.@count");
 
-    var count = document.getElementById("tvshows-count");
-    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects.@count");
+    var count = document.getElementById("clips-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "clipsArrayController.arrangedObjects.@count");
 
     selectMasterElementNamed("movies-category");
 
@@ -824,7 +832,7 @@ function init()
         <h1>Media</h1>
         <ul class="movies">
         <li onclick="click(event)" id="movies-category" class="item"><img src="movies.png"><div class="name">Movies<span id="movies-count" class="count">0</span></div></li>
-        <li onclick="click(event)" id="tvshows-category"  class="item"><img src="tvshows.png"><div class="name">TV Shows<span id="tvshows-count" class="count">0</span></div></li>
+        <li onclick="click(event)" id="clips-category"  class="item"><img src="tvshows.png"><div class="name">Clips<span id="clips-count" class="count">0</span></div></li>
         </ul>
         <h1>Sources</h1>
         <div id="libraries">

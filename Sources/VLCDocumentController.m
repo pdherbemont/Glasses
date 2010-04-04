@@ -483,8 +483,15 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     if ([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]){
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
         [_managedObjectContext setPersistentStoreCoordinator: coordinator];
-    } else
-        [[NSApplication sharedApplication] presentError:error];
+    } else {
+        // FIXME: Deal with versioning
+        NSInteger ret = NSRunAlertPanel(@"Error", @"The Media Library you have on your disk is not compatible with the one Lunettes can read. Do you want to create a new one?", @"No", @"Yes", nil);
+        if (ret == NSOKButton)
+            [NSApp terminate:nil];
+        [fileManager removeItemAtURL:url error:nil];
+        NSRunInformationalAlertPanel(@"Relaunch Lunettes now", @"We need to relaunch Lunettes to proceed", @"OK", nil, nil);
+        [NSApp terminate:nil];
+    }
     [coordinator release];
     [_managedObjectContext setUndoManager:nil];
     [_managedObjectContext addObserver:self forKeyPath:@"hasChanges" options:NSKeyValueObservingOptionInitial context:nil];
@@ -534,6 +541,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSString *title = [result valueForAttribute:@"kMDItemDisplayName"];
     NSDate *openedDate = [result valueForAttribute:@"kMDItemLastUsedDate"];
     NSDate *modifiedDate = [result valueForAttribute:@"kMDItemFSContentChangeDate"];
+    NSNumber *size = [result valueForAttribute:@"kMDItemFSSize"];
 
     id movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
     [movie setValue:[url description] forKey:@"url"];
@@ -549,8 +557,12 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     if ([openedDate isGreaterThan:modifiedDate]) {
         [movie setValue:[NSNumber numberWithDouble:1] forKey:@"playCount"];
         [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
-
     }
+
+    if ([size longLongValue] < 50000000)
+        [movie setValue:@"clip" forKey:@"type"];
+    else
+        [movie setValue:@"movie" forKey:@"type"];
 
     [movie setValue:title forKey:@"title"];
 }

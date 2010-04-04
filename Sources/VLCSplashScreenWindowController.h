@@ -31,8 +31,8 @@
     NSArrayController *_mediaDiscovererArrayController;
 #endif
 
-    IBOutlet NSArrayController *_allItemsArrayController;
-    IBOutlet NSArrayController *_tvShowsArrayController;
+    IBOutlet NSArrayController *_clipsArrayController;
+    IBOutlet NSArrayController *_moviesArrayController;
     BOOL _hasSelection;
 
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
@@ -41,8 +41,8 @@
 #endif
 }
 @property (retain, readonly) NSArrayController *mediaDiscovererArrayController;
-@property (retain, readonly) NSArrayController *allItemsArrayController;
-@property (retain, readonly) NSArrayController *tvShowsArrayController;
+@property (retain, readonly) NSArrayController *clipsArrayController;
+@property (retain, readonly) NSArrayController *moviesArrayController;
 
 #if ENABLE_EXTENDED_SPLASH_SCREEN
 /* This methods is used to load the loadable arrayControllers.

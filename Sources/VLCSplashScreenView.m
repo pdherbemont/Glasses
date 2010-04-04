@@ -42,24 +42,14 @@
     DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] mediaDiscovererArrayController]);
 }
 
-- (NSArrayController *)tvShowsArrayController
+- (NSArrayController *)clipsArrayController
 {
-    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] tvShowsArrayController]);
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] clipsArrayController]);
 }
 
-- (NSArrayController *)unseenItemsArrayController
+- (NSArrayController *)moviesArrayController
 {
-    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] unseenItemsArrayController]);
-}
-
-- (NSArrayController *)seenItemsArrayController
-{
-    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] seenItemsArrayController]);
-}
-
-- (NSArrayController *)allItemsArrayController
-{
-    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] allItemsArrayController]);
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] moviesArrayController]);
 }
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame
