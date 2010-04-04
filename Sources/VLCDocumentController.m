@@ -559,7 +559,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
     }
 
-    if ([size longLongValue] < 50000000)
+    if ([size longLongValue] < 150000000) /* 150 MB */
         [movie setValue:@"clip" forKey:@"type"];
     else
         [movie setValue:@"movie" forKey:@"type"];
