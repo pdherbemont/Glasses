@@ -3,7 +3,7 @@
  * @constructor
  * @implements {KVCArrayObserver}
  * @param {CocoaObject} cocoaObject
- * @param {ListItemView} listItemViewClass
+ * @param {Object} listItemViewClass
  * @param {Node=} element
  * @param {string=} className
  */
@@ -108,6 +108,8 @@ ListView.prototype = {
         this.element.addEventListener('dragleave', this.dragDidLeave.bind(this), false);
         this.element.addEventListener('drop', this.dropped.bind(this), false);
 
+        this.observe();
+
         if (this.showNavigationHeader && this.cocoaObject) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "metaDictionary.title");
             this.backButtonElement.addEventListener('click', this.backClicked.bind(this), false);
@@ -127,7 +129,6 @@ ListView.prototype = {
 
         this.isAttached = true;
 
-        this.observe();
         this.updateVisibleItems();
     },
     /**
@@ -274,9 +275,18 @@ ListView.prototype = {
 
         var top = 0;
         if (this.navigationController && !this.navigationController.elementStyleUsesScrollBar) {
-            top = -parseInt(this.subviewsElement.style.top);
+            top = -parseInt(this.subviewsElement.style.top, 10);
             if (!top)
                 top = 0;
+
+            // Work around fullscreen hud and css property readiness.
+            if (this.visibleTimer)
+                window.clearTimeout(this.visibleTimer);
+
+            if (isNaN(top) || isNaN(height) || !height) {
+                this.visibleTimer = window.setTimeout(this.updateVisibleItems.bind(this), 100);
+                return;
+            }
         }
         else
             top = this.element.scrollTop;
@@ -367,10 +377,10 @@ ListView.prototype = {
      */
     _unselectAll: function()
     {
-        for (var i = 0; i < this.selection.length; i++)
-            this.selection[i].element.removeClassName("selected");
-
-        this.arrayController.setSelectedIndexes([]);
+        for (var i = 0; i < this.selection.length; i++) {
+            if (this.selection[i])
+                this.selection[i].element.removeClassName("selected");
+        }
         this.selection = [];
     },
 
@@ -428,12 +438,36 @@ ListView.prototype = {
         this.unselectAllBeforeSelection();
         this.addToSelection(subitem);
     },
-    selectedIndexes: function()
+    updateSelectionIndexes: function()
     {
         var ret = [];
         for (var i = 0; i < this.selection.length; i++)
             ret.push(this.subviews.indexOf(this.selection[i]));
-        return ret;
+        this.selectionIndexes = ret;
+    },
+    _selectionIndexes: [],
+    set selectionIndexes(indexes)
+    {
+        if (!indexes)
+            indexes = [];
+
+        Lunettes.willChange(this, "selectionIndexes");
+        this._selectionIndexes = indexes;
+        Lunettes.didChange(this, "selectionIndexes");
+
+        this.unselectAllBeforeSelection();
+        for (var i = 0; i < indexes.length; i++) {
+            var subview = this.subviews[indexes[i]];
+            this.selection.push(subview);
+            var element = subview.element;
+            if (element)
+                element.addClassName("selected");
+        }
+
+    },
+    get selectionIndexes()
+    {
+        return this._selectionIndexes;
     },
     addToSelection: function(subitem)
     {
@@ -453,15 +487,14 @@ ListView.prototype = {
             middle = min - max / 2;
         }
         this.selection.splice(min, 0, subitem);
-        this.arrayController.setSelectedIndexes(this.selectedIndexes());
-        if (subitem.element)
-            subitem.element.addClassName("selected");
+        this.updateSelectionIndexes();
     },
     removeFromSelection: function(subitem)
     {
         var index = this.selection.indexOf(subitem);
         this.selection.splice(index);
         subitem.element.removeClassName("selected");
+        this.updateSelectionIndexes();
     },
     toggleItemSelection: function(subitem)
     {
@@ -663,6 +696,12 @@ ListView.prototype = {
             var cocoaObject = this.cocoaObject;
             this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
         }
+
+        var options = new Object;
+        options["NSValueTransformerNameBindingOption"] = "VLCWebScriptObjectToIndexSet";
+
+        Lunettes.connect(this.arrayController, "backendObject.selectionIndexes", this, "selectionIndexes", options);
+
         this.arrayController.addObserver(this, "arrangedObjects");
     }
 }

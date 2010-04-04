@@ -150,7 +150,13 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
             id target = bindingObject;
             if (!value || [value isKindOfClass:[NSNull class]])
                 return;
+
+            NSDictionary *options = [dictMutable objectForKey:@"options"];
+            NSString *transformerName = [options objectForKey:NSValueTransformerNameBindingOption];
+            if (transformerName)
+                value = [[NSValueTransformer valueTransformerForName:transformerName] reverseTransformedValue:value];
             NSString *targetKeyPath = [dictMutable objectForKey:@"keyPath"];
+
             [dictMutable setObject:[NSNumber numberWithBool:YES] forKey:@"bindingsControllerIsSetting"];
             [target setValue:value forKeyPath:targetKeyPath];
             [dictMutable setObject:[NSNumber numberWithBool:NO] forKey:@"bindingsControllerIsSetting"];
@@ -176,6 +182,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
                 value = [[NSValueTransformer valueTransformerForName:transformerName] transformedValue:value];
             id target = [dictMutable objectForKey:@"domObject"];
             NSString *targetKeyPath = [dictMutable objectForKey:@"property"];
+
             [dictMutable setObject:[NSNumber numberWithBool:YES] forKey:@"bindingsControllerIsSetting"];
             [target setValue:value forKeyPath:targetKeyPath];
             [dictMutable setObject:[NSNumber numberWithBool:NO] forKey:@"bindingsControllerIsSetting"];
@@ -265,7 +272,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
 
     NSUInteger count = [_bindings count];
     [_bindings removeObject:dict];
-    VLCAssert(count - [_bindings count] == 1, @"");
+    VLCAssert(count - [_bindings count] == 1, @"This binding %@, doens't exists", dict);
 }
 
 - (void)handleEvent:(DOMEvent *)evt

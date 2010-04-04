@@ -401,7 +401,7 @@ ul {
  * A list of SDView
  * @constructor
  * @param {CocoaObject} cocoaObject
- * @param {Object} parent
+ * @param {Element} parent
  * @param {string} elementTag
  */
 var SDListView = function(cocoaObject, parent, elementTag)
@@ -438,6 +438,7 @@ SDListView.prototype.__proto__ = ListView.prototype;
 /**
  * A list of SDView
  * @constructor
+ * @extends ListItemView
  * @param {CocoaObject} cocoaObject
  * @param {Object} parent
  * @param {string} elementTag
@@ -496,6 +497,7 @@ SDView.prototype.__proto__ = ListItemView.prototype;
 /**
  * A list of MediaSDView
  * @constructor
+ * @extends ListItemView
  * @param {CocoaObject} cocoaObject
  * @param {Object} parent
  * @param {string} elementTag
@@ -603,18 +605,18 @@ MediaDBView.prototype = {
         element.appendChild(this.removeButton);
     },
 
-    _playCount: 0,
-    get playCount()
+    _unread: false,
+    get unread()
     {
-        return this._playCount;
+        return this._unread;
     },
-    set playCount(playCount)
+    set unread(unread)
     {
-        if (!playCount)
-            playCount = 0;
+        if (!unread)
+            unread = 0;
 
-        this._playCount = playCount;
-        if (playCount == 0)
+        this._unread = unread;
+        if (unread)
             this.element.addClassName("not-played");
         else
             this.element.removeClassName("not-played");
@@ -663,7 +665,7 @@ MediaDBView.prototype = {
 
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
-            Lunettes.connect(this, "playCount", this.cocoaObject, "playCount");
+            Lunettes.connect(this, "unread", this.cocoaObject, "unread");
             Lunettes.connect(this, "currentlyWatching", this.cocoaObject, "currentlyWatching");
             Lunettes.connect(this, "remainingTime", this.cocoaObject, "lastPosition");
             var options = new Object;
@@ -673,7 +675,7 @@ MediaDBView.prototype = {
             Lunettes.unconnect(this.remainingTimeElement, "textContent");
             Lunettes.unconnect(this, "remainingTime");
             Lunettes.unconnect(this, "currentlyWatching");
-            Lunettes.unconnect(this, "playCount");
+            Lunettes.unconnect(this, "unread");
             Lunettes.unconnect(this.nameElement, "textContent");
         }
     },

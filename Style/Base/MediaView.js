@@ -1,6 +1,7 @@
 /**
  * A view for a Media
  * @constructor
+ * @extends ListItemView
  * @param {CocoaObject} cocoaObject
  * @param {Object} parent
  * @param {string} elementTag

@@ -7,6 +7,7 @@
 //
 
 #import <VLCKit/VLCKit.h>
+#import <WebKit/WebKit.h>
 
 #import "VLCValueTransformers.h"
 
@@ -229,6 +230,57 @@
         return nil;
 
     return [value absoluteURL];
+}
+
+@end
+
+@implementation VLCWebScriptObjectToIndexSet
+
++ (void)load
+{
+    id transformer = [[self alloc] init];
+    [NSValueTransformer setValueTransformer:transformer forName:@"VLCWebScriptObjectToIndexSet"];
+    [transformer release];
+}
+
++ (Class)transformedValueClass
+{
+    return [WebScriptObject class];
+}
+
++ (BOOL)allowsReverseTransformation
+{
+    return YES;
+}
+
+- (id)transformedValue:(id)value
+{
+    if (![value isKindOfClass:[WebScriptObject class]])
+        return nil;
+
+    NSMutableIndexSet *set = [NSMutableIndexSet indexSet];
+    for (NSUInteger i = 0;; i++) {
+        id val = [value webScriptValueAtIndex:i];
+        if ([val isKindOfClass:[WebUndefined class]])
+            break;
+        if (![val isKindOfClass:[NSNumber class]])
+            continue;
+        [set addIndex:[val unsignedIntValue]];
+    }
+    return set;
+}
+
+- (id)reverseTransformedValue:(id)value
+{
+    if (![value isKindOfClass:[NSIndexSet class]])
+        return nil;
+    NSIndexSet *set = value;
+    NSMutableArray *array = [NSMutableArray array];
+    NSUInteger index = [set firstIndex];
+    do {
+        [array addObject:[NSNumber numberWithUnsignedInt:index]];
+    } while ((index = [set indexGreaterThanIndex:index]) != NSNotFound);
+    return array;
 }
 
 @end

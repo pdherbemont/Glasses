@@ -352,6 +352,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     if (position > 0.95) {
         if (movie) {
             [movie setValue:[NSNumber numberWithInt:0] forKey:@"lastPosition"];
+            [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
             [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
             // Increment the play count
             NSNumber *count = [movie valueForKey:@"playCount"];
@@ -373,6 +374,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     double remainingTime = [[[media length] numberValue] doubleValue] * (position - 1);
 
     [movie setValue:[NSNumber numberWithBool:YES] forKey:@"currentlyWatching"];
+    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"unread"];
     [movie setValue:[NSNumber numberWithDouble:position] forKey:@"lastPosition"];
     [movie setValue:[NSNumber numberWithDouble:remainingTime] forKey:@"remainingTime"];
 
@@ -473,8 +475,12 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSURL *url = [NSURL fileURLWithPath: [applicationSupportFolder stringByAppendingPathComponent: @"MediaLibrary.sqlite"]];
     NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
 
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+
     NSError *error;
-    if ([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:nil error:&error]){
+    if ([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]){
         _managedObjectContext = [[NSManagedObjectContext alloc] init];
         [_managedObjectContext setPersistentStoreCoordinator: coordinator];
     } else
@@ -538,9 +544,13 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
     [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
+    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"unread"];
 
-    if ([openedDate isGreaterThan:modifiedDate])
+    if ([openedDate isGreaterThan:modifiedDate]) {
         [movie setValue:[NSNumber numberWithDouble:1] forKey:@"playCount"];
+        [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
+
+    }
 
     [movie setValue:title forKey:@"title"];
 }
@@ -550,13 +560,15 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 {
     NSUInteger count = [metaDataItems count];
     NSMutableArray *fetchPredicates = [NSMutableArray arrayWithCapacity:count];
-    NSMutableDictionary *titleToObject = [NSMutableDictionary dictionaryWithCapacity:count];
+    NSMutableDictionary *urlToObject = [NSMutableDictionary dictionaryWithCapacity:count];
 
     // Prepare a fetch request for all items
     for (NSMetadataItem *metaDataItem in metaDataItems) {
-        NSString *title = [metaDataItem valueForAttribute:@"kMDItemDisplayName"];
-        [fetchPredicates addObject:[NSPredicate predicateWithFormat:@"title == %@", title]];
-        [titleToObject setObject:metaDataItem forKey:title];
+        NSString *path = [metaDataItem valueForAttribute:@"kMDItemPath"];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        NSString *urlDescription = [url description];
+        [fetchPredicates addObject:[NSPredicate predicateWithFormat:@"url == %@", urlDescription]];
+        [urlToObject setObject:metaDataItem forKey:urlDescription];
     }
 
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -576,13 +588,13 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
     // Remove objects that are already in db.
     for (NSManagedObjectContext *dbResult in dbResults) {
-        NSString *title = [dbResult valueForKey:@"title"];
-        [metaDataItemsToAdd removeObject:[titleToObject objectForKey:title]];
+        NSString *url = [dbResult valueForKey:@"url"];
+        [metaDataItemsToAdd removeObject:[urlToObject objectForKey:url]];
     }
 
     // Add only the newly added items
     for (NSMetadataItem *metaDataItem in metaDataItemsToAdd) {
-        NSLog(@"Adding %@", [metaDataItem valueForAttribute:@"kMDItemDisplayName"]);
+        NSLog(@"Adding %@", [metaDataItem valueForAttribute:@"kMDItemPath"]);
         [self addMetadataItem:metaDataItem];
     }
 }

@@ -22,3 +22,6 @@
 
 @interface VLCStringToURL : NSObject
 @end
+
+@interface VLCWebScriptObjectToIndexSet : NSObject
+@end

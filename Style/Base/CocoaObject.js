@@ -104,8 +104,8 @@ CocoaObject.prototype.removeObserver = function (observer, keyPath)
 }
 
 /**
- * @param {CocoaObject} observer
- * @param {number} keyPath to observe
+ * @param {CocoaObject} object
+ * @param {number} index
  */
 CocoaObject.prototype.insertObjectAtIndex = function (object, index)
 {
@@ -113,8 +113,7 @@ CocoaObject.prototype.insertObjectAtIndex = function (object, index)
 }
 
 /**
- * @param {CocoaObject} observer
- * @param {array} keyPath to observe
+ * @param {number} index
  */
 CocoaObject.prototype.setSelectedIndexes = function (index)
 {

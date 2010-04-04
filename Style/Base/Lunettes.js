@@ -41,9 +41,7 @@ window.remoteButtonHandler = function (name)
     var navigationController = window.windowController.navigationController;
     if (!navigationController)
         return false;
-    /**
-     * @type {MediaListView}
-     */
+
     var currentMediaListView = navigationController.currentView;
     if (!currentMediaListView)
         return false;

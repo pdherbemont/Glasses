@@ -3,7 +3,7 @@
  * @constructor
  * @extends {ListView}
  * @implements {KVCArrayObserver}
- * @param {CocoaObject=} cocoaObject
+ * @param {CocoaObject} cocoaObject
  * @param {Node=} element
  */
 var MediaListView = function(cocoaObject, element)
