@@ -73,9 +73,11 @@ static BOOL watchForStyleModification(void)
 
     [WebCoreStatistics setShouldPrintExceptions:YES];
     [self setDrawsBackground:NO];
+    [self setMaintainsBackForwardList:NO];
 
     [self setFrameLoadDelegate:self];
     [self setUIDelegate:self];
+    [self setEditingDelegate:self];
     [self setResourceLoadDelegate:self];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:[self url]];
@@ -230,6 +232,37 @@ static BOOL watchForStyleModification(void)
 {
     // Only allow javascript to handle drag.
     return WebDragSourceActionDHTML;
+}
+
+- (BOOL)webView:(WebView *)sender shouldPerformAction:(SEL)action fromSender:(id)fromObject
+{
+    if (action == @selector(selectAll:)) {
+        [self selectAll:fromObject];
+        return NO;
+    }
+    return NO;
+}
+
+- (void)selectAll:(id)sender
+{
+
+}
+
+- (BOOL)webView:(WebView *)webView validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item defaultValidation:(BOOL)defaultValidation
+{
+    return defaultValidation;
+}
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item
+{
+    return YES;
+}
+
+- (BOOL)webView:(WebView *)webView doCommandBySelector:(SEL)selector
+{
+    if (selector == @selector(selectAll:))
+        [self selectAll:nil];
+    return NO;
 }
 
 #pragma mark -
