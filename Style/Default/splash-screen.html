@@ -18,6 +18,10 @@ body {
 	cursor: default;
     border-collapse: none;
 }
+input[type=search] {
+    -webkit-user-select: text;
+    cursor: auto;
+}
 li {
 	border-top: thin solid #eee;
 	-webkit-box-sizing: border-box;
@@ -161,6 +165,7 @@ ul {
     height: auto;
     -webkit-transition: height ease-out 0.2;
     overflow: hidden;
+    height: 23px;
 }
 
 .action-bar>div
@@ -391,6 +396,10 @@ ul {
     background: url(remove-on.png);
 }
 
+#search-detail {
+    position: absolute;
+    right: 0px;
+}
 #preload {
     background: url(sources.png);
 }
@@ -401,12 +410,12 @@ ul {
  * A list of SDView
  * @constructor
  * @param {CocoaObject} cocoaObject
- * @param {Element} parent
- * @param {string} elementTag
+ * @param {string} subItemsKeyPath
+ * @param {Element} elementTag
  */
-var SDListView = function(cocoaObject, parent, elementTag)
+var SDListView = function(cocoaObject, subItemsKeyPath, elementTag)
 {
-    ListView.call(this, cocoaObject, parent, elementTag);
+    ListView.call(this, cocoaObject, subItemsKeyPath, SDView, elementTag);
 
     this.displayName = "SDListView";
     this._shouldSyncSelectionWithArrayController = false;
@@ -428,8 +437,7 @@ SDListView.prototype = {
         ListView.prototype.select.call(this, item);
         if (!item)
             return;
-        var list = new ListView(item.cocoaObject, MediaSDView);
-        list.subItemsKeyPath = "discoveredMedia.media";
+        var list = new ListView(item.cocoaObject, "discoveredMedia.media", MediaSDView);
         window.setDetailList(item.element, list);
     }
 }
@@ -461,6 +469,7 @@ SDView.prototype = {
         this.imgElement = document.createElement("img");
         this.imgElement.src = "sources.png"
     },
+
     appendSubElementsToNode: function(element)
     {
         element.appendChild(this.imgElement);
@@ -495,7 +504,7 @@ SDView.prototype = {
 SDView.prototype.__proto__ = ListItemView.prototype;
 
 /**
- * A list of MediaSDView
+ * A list of MediaView
  * @constructor
  * @extends ListItemView
  * @param {CocoaObject} cocoaObject
@@ -748,12 +757,10 @@ function selectMasterElementNamed(name)
     switch(name)
     {
         case "movies-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), MediaDBView);
-            list.subItemsKeyPath = "allItemsArrayController.arrangedObjects";
+            list = new ListView(CocoaObject.windowCocoaObject(), "allItemsArrayController.arrangedObjects", MediaDBView);
             break;
         case "tvshows-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), TVShowView);
-            list.subItemsKeyPath = "tvShowsArrayController.arrangedObjects";
+            list = new ListView(CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects", TVShowView);
             break;
         default:
             console.assert(0, "Should not be reached");
@@ -786,8 +793,7 @@ function init()
 {
     var librariesElement = document.getElementById("libraries");
 
-    window.rootMediaList = new SDListView(CocoaObject.windowCocoaObject(), SDView, librariesElement);
-    window.rootMediaList.subItemsKeyPath = "mediaDiscovererArrayController.arrangedObjects";
+    window.rootMediaList = new SDListView(CocoaObject.windowCocoaObject(), "mediaDiscovererArrayController.arrangedObjects", librariesElement);
     window.rootMediaList.attach();
 
     window.detailList = null;
@@ -802,6 +808,11 @@ function init()
 
     Lunettes.connect(CocoaObject.windowCocoaObject(), "backendObject.currentArrayController", window, "detailList.arrayController.backendObject");
     Lunettes.connect(CocoaObject.windowCocoaObject(), "backendObject.documentController.currentArrayController", window, "detailList.arrayController.backendObject");
+
+    var search = document.getElementById("search-detail");
+    var options = new Object;
+    options["NSPredicateFormatBindingOption"] = "title contains[cd] $value";
+    Lunettes.connect(search, "value", window, "detailList.arrayController.backendObject.filterPredicate", options);
 
 }
 
@@ -823,8 +834,7 @@ function init()
 
 <div id="detail" class="container">
 <div class="action-bar">
-    <button class="action-button" onclick="order(event)">State</button>
-    <button class="action-button">Name</button>
+    <input type="search" id="search-detail" class="search" placeholder="Search" value="" incremental="true"></input>
 </div>
 </div>
 
