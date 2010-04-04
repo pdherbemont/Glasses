@@ -11,6 +11,8 @@ HUDController.prototype.init = function()
 {
     window.windowController.navigationController.elementStyleUsesScrollBar = false;
     this.resetHudPosition();
+
+    schedulePlaylistHidding();
 }
 
 HUDController.prototype.resetHudPosition =  function resetHudPosition()
@@ -28,6 +30,7 @@ HUDController.prototype.resetHudPosition =  function resetHudPosition()
 
 window.hudController = new HUDController();
 
+
 /* Playlist */
 
 var timer = null;
@@ -39,11 +42,19 @@ function hidePlaylist()
     document.body.removeClassName(name);
 }
 
+function schedulePlaylistHidding()
+{
+    if (hideTimer)
+        window.clearTimeout(hideTimer);
+    hideTimer = window.setTimeout(hidePlaylist, 5000);
+}
+
 function showPlaylist()
 {
     var name = "show-playlist";
     document.getElementById("more").addClassName("visible");
     document.body.addClassName(name);
+    schedulePlaylistHidding();
 }
 
 function onKeyDown(event)
