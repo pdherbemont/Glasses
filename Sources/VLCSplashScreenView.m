@@ -113,4 +113,10 @@
         return @"playCocoaObject";
     return [super webScriptNameForSelector:sel];
 }
+
+- (void)selectAll:(id)sender
+{
+    NSArrayController *controller = [[VLCDocumentController sharedDocumentController] currentArrayController];
+    [controller setSelectedObjects:[controller arrangedObjects]];
+}
 @end
