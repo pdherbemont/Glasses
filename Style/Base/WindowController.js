@@ -86,8 +86,7 @@ WindowController.prototype = {
 
         var mediaList = document.getElementById("mediaList");
         if (mediaList) {
-            this.rootMediaList = new MediaListView(CocoaObject.documentCocoaObject());
-            this.rootMediaList.subItemsKeyPath = "rootMediaList.media";
+            this.rootMediaList = new MediaListView(CocoaObject.documentCocoaObject(), "rootMediaList.media");
             this.navigationController = new NavigationController;
             this.navigationController.attach(mediaList);
 

@@ -77,7 +77,7 @@ MediaView.prototype = {
             Lunettes.connect(this.imgElement, "src", this.cocoaObject, "metaDictionary.artworkURL", options);
             Lunettes.connect(this, "state", this.cocoaObject, "state");
             Lunettes.connect(this, "subitemsCount", this.cocoaObject, "subitems.media.@count");
-            //Lunettes.connect(this, "length", this.cocoaObject, "length.stringValue");
+            //Lunettes.connect(this, "length", this.cocoaObject, "duration.stringValue");
         } else {
             Lunettes.unconnect(this.nameElement, "textContent");
             Lunettes.unconnect(this.imgElement, "src");
@@ -138,8 +138,7 @@ MediaView.prototype = {
     action: function()
     {
         if (this.subitemsCount > 0) {
-            var listView = new MediaListView(this.cocoaObject);
-            this.subItemsKeyPath = "subitems.media";
+            var listView = new MediaListView(this.cocoaObject, "subitems.media");
             listView.showNavigationHeader = true;
             window.windowController.navigationController.push(listView);
         }

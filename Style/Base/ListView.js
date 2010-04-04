@@ -4,12 +4,14 @@
  * @implements {KVCArrayObserver}
  * @param {CocoaObject} cocoaObject
  * @param {Object} listItemViewClass
+ * @param {string} subItemsKeyPath
  * @param {Node=} element
  * @param {string=} className
  */
-var ListView = function(cocoaObject, listItemViewClass, element, className)
+var ListView = function(cocoaObject, subItemsKeyPath, listItemViewClass, element, className)
 {
     this.listItemViewClass = listItemViewClass;
+    this.subItemsKeyPath = subItemsKeyPath;
 
     /**
      * @type {CocoaObject|undefined}
@@ -458,6 +460,8 @@ ListView.prototype = {
         this.unselectAllBeforeSelection();
         for (var i = 0; i < indexes.length; i++) {
             var subview = this.subviews[indexes[i]];
+            if (!subview)
+                continue;
             this.selection.push(subview);
             var element = subview.element;
             if (element)
@@ -676,11 +680,6 @@ ListView.prototype = {
         this._arrayController = controller;
         Lunettes.didChange(this, "arrayController");
 
-        /* Sync selection */
-        if (this._shouldSyncSelectionWithArrayController && this.selection[0]) {
-            var index = this.subviews.indexOf(this.selection[0]) + 1;
-            this.arrayController.setSelectedIndex(index);
-        }
     },
     get arrayController()
     {
@@ -697,10 +696,11 @@ ListView.prototype = {
             this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
         }
 
-        var options = new Object;
-        options["NSValueTransformerNameBindingOption"] = "VLCWebScriptObjectToIndexSet";
-
-        Lunettes.connect(this.arrayController, "backendObject.selectionIndexes", this, "selectionIndexes", options);
+        if (this._shouldSyncSelectionWithArrayController) {
+            var options = new Object;
+            options["NSValueTransformerNameBindingOption"] = "VLCWebScriptObjectToIndexSet";
+            Lunettes.connect(this.arrayController, "backendObject.selectionIndexes", this, "selectionIndexes", options);
+        }
 
         this.arrayController.addObserver(this, "arrangedObjects");
     }

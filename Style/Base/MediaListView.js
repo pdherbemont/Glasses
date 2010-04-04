@@ -4,12 +4,13 @@
  * @extends {ListView}
  * @implements {KVCArrayObserver}
  * @param {CocoaObject} cocoaObject
+ * @param {string} subItemsKeyPath
  * @param {Node=} element
  */
-var MediaListView = function(cocoaObject, element)
+var MediaListView = function(cocoaObject, subItemsKeyPath, element)
 {
     // Calling super class
-    ListView.call(this, cocoaObject, MediaView, element);
+    ListView.call(this, cocoaObject, subItemsKeyPath, MediaView, element);
 }
 
 MediaListView.prototype = {
