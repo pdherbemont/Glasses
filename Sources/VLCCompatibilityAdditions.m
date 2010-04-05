@@ -89,6 +89,11 @@ BOOL isInvisible(NSString *path)
     return URLsToReturn;
 }
 
+- (BOOL)removeItemAtURL:(NSURL *)URL error:(NSError **)error
+{
+    return [self removeItemAtPath:[URL filePathURL] error:error];
+}
+
 @end
 
 

@@ -44,6 +44,7 @@ typedef NSUInteger NSVolumeEnumerationOptions;
 
 @interface NSFileManager (SnowLeopardAdditions)
 - (NSArray *)mountedVolumeURLsIncludingResourceValuesForKeys:(NSArray *)propertyKeys options:(NSVolumeEnumerationOptions)options;
+- (BOOL)removeItemAtURL:(NSURL *)URL error:(NSError **)error;
 @end
 
 
