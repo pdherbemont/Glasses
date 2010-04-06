@@ -219,7 +219,10 @@ static BOOL watchForStyleModification(void)
 
 - (void)didFinishLoadForFrame:(WebFrame *)frame
 {
-    // Nothing here yet.
+    NSWindow *window = [self window];
+    // We are coming out of a style change, let's fade in back
+    if (![window alphaValue])
+        [window setAlphaValue:1];
 }
 
 - (NSUInteger)webView:(WebView *)sender dragDestinationActionMaskForDraggingInfo:(id <NSDraggingInfo>)draggingInfo
