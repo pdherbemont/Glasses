@@ -86,6 +86,21 @@ li:last-child {
     height: 32px;
 }
 
+#detail .item {
+    -webkit-user-drag: element;
+}
+
+#detail .item:-webkit-drag {
+    background: white !important;
+    opacity: 0.5 !important;
+    border: thin solid grey !important;
+}
+
+#detail .item:-webkit-drag .name {
+    color: black;
+    text-shadow: none;
+}
+
 .item.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
     border-bottom: thin solid rgb(105, 123, 157) !important;
@@ -404,6 +419,37 @@ ul {
     background: url(sources.png);
 }
 
+#statusbar {
+    background: url(statusbarBackground.png);
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 24px;
+}
+
+.sidebar-button {
+    background: url(statusbarButtons.png);
+    height: 24px;
+    width: 32px;
+    font-family: 'Myriad Pro';
+    font-size: 15px;
+    border: none;
+    line-height: 12px;
+    font-weight: bold;
+    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
+}
+
+.sidebar-button:active {
+    background-position: 32px 0px !important;
+}
+
+.drag-entered {
+    -webkit-border-radius: 10px;
+    border: 2px solid #5764E1 !important;
+    background: #D0DDF6;
+}
+
 </style>
 <script>
 /**
@@ -442,6 +488,43 @@ SDListView.prototype = {
     }
 }
 SDListView.prototype.__proto__ = ListView.prototype;
+
+/**
+ * A list of LabelView
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {string} subItemsKeyPath
+ * @param {Element} elementTag
+ */
+var LabelListView = function(cocoaObject, subItemsKeyPath, elementTag)
+{
+    ListView.call(this, cocoaObject, subItemsKeyPath, LabelView, elementTag);
+
+    this.displayName = "LabelListView";
+    this._shouldSyncSelectionWithArrayController = false;
+    this._shouldAutoSelectInsertedItem = false;
+}
+
+LabelListView.prototype = {
+    unselectAllBeforeSelection: function()
+    {
+        ListView.prototype.unselectAllBeforeSelection.call(this);
+        window.unselectAll();
+    },
+    unselectAll: function()
+    {
+        // Prevent unselectingAll
+    },
+    select: function(item)
+    {
+        ListView.prototype.select.call(this, item);
+        if (!item)
+            return;
+        var list = new ListView(item.cocoaObject, "files", MediaDBView);
+        window.setDetailList(item.element, list);
+    },
+}
+LabelListView.prototype.__proto__ = ListView.prototype;
 
 /**
  * A list of SDView
@@ -543,6 +626,75 @@ TVShowView.prototype = {
 
 }
 TVShowView.prototype.__proto__ = ListItemView.prototype;
+
+/**
+ * @constructor
+ * @extends ListItemView
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
+var LabelView = function(cocoaObject, parent, elementTag)
+{
+    ListItemView.call(this, cocoaObject, parent, elementTag);
+}
+
+
+LabelView.prototype = {
+    createSubElements: function()
+    {
+        this.nameElement = document.createElement("div");
+        this.nameElement.className = "name";
+    },
+    appendSubElementsToNode: function(element)
+    {
+        element.appendChild(this.nameElement);
+    },
+    set visible(visible)
+    {
+        if (this._visible == visible)
+            return;
+
+        ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
+
+        if (visible) {
+            this.nameElement.addEventListener('dragenter', this.dragEntered.bind(this), false);
+            this.nameElement.addEventListener('dragover', this.dragOvered.bind(this), false);
+            this.nameElement.addEventListener('dragleave', this.dragLeft.bind(this), false);
+            this.nameElement.addEventListener('drop', this.dropped.bind(this), false);
+            Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "name");
+        } else {
+            Lunettes.unconnect(this.nameElement, "textContent");
+        }
+    },
+    dragEntered: function(evt) {
+        event.dataTransfer.dropEffect = "link";
+
+        this.element.addClassName("drag-entered");
+        evt.preventDefault();
+        return true;
+    },
+    dragOvered: function(evt) {
+        event.dataTransfer.dropEffect = "link";
+
+        evt.preventDefault();
+        return true;
+    },
+    dragLeft: function(evt) {
+        this.element.removeClassName("drag-entered");
+    },
+    dropped: function(evt) {
+        var item = event.dataTransfer.getData("application/lunettes-item");
+        this.element.removeClassName("drag-entered");
+        console.log("drop");
+        console.log(item);
+        console.log(item.cocoaObject);
+        console.log(this.cocoaObject);
+        window.PlatformView.setLabelForMedia(this.cocoaObject, window.dragData);
+    }
+
+}
+LabelView.prototype.__proto__ = ListItemView.prototype;
 
 /**
  * A list of MediaSDView
@@ -694,6 +846,7 @@ MediaDBView.prototype = {
      */
     removeButtonClicked: function(event)
     {
+        window.PlatformView.remove(this.cocoaObject, this.parent.arrayController);
         event.preventDefault();
     },
 
@@ -782,6 +935,14 @@ function selectMasterElementNamed(name)
 }
 
 /**
+ * @param {Event} event
+ */
+function addNewLabel(event)
+{
+    window.PlatformView.addNewLabel();
+}
+
+/**
  * Callback event on the Movies category
  * @param {Event} event
  */
@@ -800,9 +961,12 @@ function click(event)
 function init()
 {
     var librariesElement = document.getElementById("libraries");
-
     window.rootMediaList = new SDListView(CocoaObject.windowCocoaObject(), "mediaDiscovererArrayController.arrangedObjects", librariesElement);
     window.rootMediaList.attach();
+
+    var labelsElement = document.getElementById("labels");
+    window.labelsList = new LabelListView(CocoaObject.windowCocoaObject(), "labelsArrayController.arrangedObjects", labelsElement);
+    window.labelsList.attach();
 
     window.detailList = null;
 
@@ -822,6 +986,9 @@ function init()
     options["NSPredicateFormatBindingOption"] = "title contains[cd] $value";
     Lunettes.connect(search, "value", window, "detailList.arrayController.backendObject.filterPredicate", options);
 
+    var addLabelButton = document.getElementById("add-label-button");
+    addLabelButton.addEventListener('click', addNewLabel, false);
+
 }
 
 </script>
@@ -837,6 +1004,12 @@ function init()
         <h1>Sources</h1>
         <div id="libraries">
         </div>
+        <h1>Labels</h1>
+        <div id="labels">
+        </div>
+    </div>
+    <div id="statusbar">
+        <input type="button" id="add-label-button" class="sidebar-button" value="+"></input>
     </div>
 </div>
 

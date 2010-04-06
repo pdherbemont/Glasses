@@ -421,6 +421,8 @@ static BOOL watchForStyleModification(void)
         opt = [NSMutableDictionary dictionary];
         JSGlobalContextRef ctx = [[self mainFrame] globalContext];
         JSObjectRef object = [options JSObject];
+        if (!object)
+            return;
         JSPropertyNameArrayRef props = JSObjectCopyPropertyNames(ctx, object);
         size_t count = JSPropertyNameArrayGetCount(props);
         for (size_t i = 0; i < count; i++) {
@@ -482,7 +484,8 @@ static BOOL watchForStyleModification(void)
     id backendObject = [object valueForKey:@"backendObject"];
     NSArrayController *controller = [[NSArrayController alloc] init];
     [controller setAutomaticallyRearrangesObjects:YES];
-    [controller bind:@"contentArray" toObject:backendObject withKeyPath:keyPath options:nil];
+    [controller setEditable:YES];
+    [controller bind:@"content" toObject:backendObject withKeyPath:keyPath options:nil];
     WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
     ret = [VLCWebBindingsController backendObject:controller withWebScriptObject:ret];
     [controller release];

@@ -52,6 +52,11 @@
     DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] moviesArrayController]);
 }
 
+- (NSArrayController *)labelsArrayController
+{
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] labelsArrayController]);
+}
+
 - (void)didFinishLoadForFrame:(WebFrame *)frame
 {
     [super didFinishLoadForFrame:frame];
@@ -86,11 +91,46 @@
 }
 
 
+- (void)addNewLabel
+{
+    FROM_JS();
+    NSString *name = @"Undefined";
+    [[VLCDocumentController sharedDocumentController] addNewLabelWithName:name];
+    RETURN_NOTHING_TO_JS();
+}
+
+- (void)setLabel:(WebScriptObject *)weblabel forMedia:(WebScriptObject *)webmedia
+{
+    FROM_JS();
+    NSManagedObject *label = [weblabel valueForKey:@"backendObject"];
+    NSManagedObject *media = [webmedia valueForKey:@"backendObject"];
+    if ([media isKindOfClass:[VLCMedia class]]) {
+        // Create a new kind
+    }
+    [[label mutableSetValueForKey:@"files"] addObject:media];
+    RETURN_NOTHING_TO_JS();
+}
+
+- (void)remove:(WebScriptObject *)webobject
+{
+    FROM_JS();
+    id object = [webobject valueForKey:@"backendObject"];
+    [object setValue:@"hidden" forKey:@"type"];
+    RETURN_NOTHING_TO_JS();
+}
+
+
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(playMediaDiscoverer:withMedia:))
         return NO;
     if (sel == @selector(playCocoaObject:))
+        return NO;
+    if (sel == @selector(addNewLabel))
+        return NO;
+    if (sel == @selector(remove:))
+        return NO;
+    if (sel == @selector(setLabel:forMedia:))
         return NO;
     return [super isSelectorExcludedFromWebScript:sel];
 }
@@ -101,6 +141,10 @@
         return @"playMediaDiscovererWithMedia";
     if (sel == @selector(playCocoaObject:))
         return @"playCocoaObject";
+    if (sel == @selector(remove:))
+        return @"remove";
+    if (sel == @selector(setLabel:forMedia:))
+        return @"setLabelForMedia";
     return [super webScriptNameForSelector:sel];
 }
 

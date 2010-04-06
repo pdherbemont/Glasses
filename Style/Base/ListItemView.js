@@ -82,6 +82,7 @@ ListItemView.prototype = {
             this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
             this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
             this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
+            this.element.addEventListener('dragend', this.dragStarted.bind(this), false);
         }
     },
 
@@ -91,8 +92,18 @@ ListItemView.prototype = {
      */
     dragStarted: function(event)
     {
-        event.effectAllowed = "copyMove";
-        event.dataTransfer.setData("application/lunettes-item", this);
+        event.dataTransfer.effectAllowed = "all";
+        event.dataTransfer.setData("application/lunettes-item", this.cocoaObject);
+        window.dragData = this.cocoaObject;
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    dragEnded: function(event)
+    {
+        window.dragData = null;
     },
 
     /**

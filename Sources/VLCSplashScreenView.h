@@ -14,4 +14,5 @@
 }
 
 @property (readwrite, retain) NSArrayController *currentArrayController;
+
 @end
