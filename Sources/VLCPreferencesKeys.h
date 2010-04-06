@@ -21,7 +21,8 @@ extern NSString *kStartPlaybackInFullscreen;
 extern NSString *kRecentNetworkItems;
 extern NSString *kLastNetworkItems;
 extern NSString *kDontRememberUnfinishedMovies;
-
+extern NSString *kScannedFolders;
+extern NSString *kDisableFolderScanning;
 
 extern NSString *kSuppressShareOnLANReminder;
 

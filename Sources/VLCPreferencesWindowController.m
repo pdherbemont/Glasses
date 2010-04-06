@@ -88,6 +88,9 @@
     } else if ([identifier isEqualToString:@"playback"]) {
         [window setTitle:@"Playback"];
         [self setView:_playbackSettingsView];
+    } else if ([identifier isEqualToString:@"folderScanning"]) {
+        [window setTitle:@"Folder Scanning"];
+        [self setView:_folderScanningSettingsView];
     } else
         VLCAssertNotReached( @"invalid view requested by toolbar" );
 }
@@ -122,4 +125,20 @@
     _currentView = newView;
 }
 
+- (IBAction)addScannedFolder:(id)sender
+{
+    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+
+    [openPanel setCanChooseDirectories:YES];
+    [openPanel setCanChooseFiles:NO];
+    [openPanel setAllowsMultipleSelection:NO];
+    [openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSArray *array = [defaults arrayForKey:kScannedFolders];
+            [defaults setObject:[array arrayByAddingObjectsFromArray:[openPanel filenames]] forKey:kScannedFolders];
+        }
+        [openPanel autorelease];
+    }];
+}
 @end

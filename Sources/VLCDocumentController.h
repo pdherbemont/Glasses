@@ -82,4 +82,7 @@
 /* Used by Nibs */
 - (NSPredicate *)predicateThatFiltersEmptyDiscoverer;
 
+/* Media Library */
+- (void)addNewLabelWithName:(NSString *)name;
+
 @end

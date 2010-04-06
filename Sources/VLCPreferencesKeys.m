@@ -21,6 +21,8 @@ DEFINE(StartPlaybackInFullscreen);
 DEFINE(RecentNetworkItems);
 DEFINE(LastNetworkItems);
 DEFINE(DontRememberUnfinishedMovies);
+DEFINE(ScannedFolders);
+DEFINE(DisableFolderScanning);
 
 DEFINE(SuppressShareOnLANReminder);
 DEFINE(DebugStyledWindow);

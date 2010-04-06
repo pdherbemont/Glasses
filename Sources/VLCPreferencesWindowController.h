@@ -27,12 +27,14 @@
     IBOutlet NSView *_generalSettingsView;
     IBOutlet NSView *_advancedSettingsView;
     IBOutlet NSView *_playbackSettingsView;
+    IBOutlet NSView *_folderScanningSettingsView;
     IBOutlet NSDateFormatter *_checkDateFormatter;
     NSView *_currentView;
 }
 
-- (void)setView: (id)newView;
-- (IBAction)toolbarAction: (id)sender;
-- (IBAction)lastFMAction: (id)sender;
+- (void)setView:(id)newView;
+- (IBAction)toolbarAction:(id)sender;
+- (IBAction)lastFMAction:(id)sender;
 
+- (IBAction)addScannedFolder:(id)sender;
 @end

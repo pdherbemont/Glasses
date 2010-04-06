@@ -66,6 +66,9 @@
                                 yes, kUseDeinterlaceFilter,
                                 yes, kShowDebugMenu,
                                 @"~/Desktop", kSelectedSnapshotFolder,
+                                [NSArray arrayWithObjects:
+                                 [@"~/Movies" stringByExpandingTildeInPath],
+                                 [@"~/Downloads" stringByExpandingTildeInPath], nil], kScannedFolders,
                                 yes, kLastFMEnabled, nil]];
 
     // Always reset if the WebKitInspector was attached.

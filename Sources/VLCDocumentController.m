@@ -534,6 +534,13 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 #pragma mark Media Library: Path Watcher
 
 #if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
+- (void)addNewLabelWithName:(NSString *)name
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    id label = [NSEntityDescription insertNewObjectForEntityForName:@"Label" inManagedObjectContext:moc];
+    [label setValue:name forKey:@"name"];
+}
+
 - (void)addMetadataItem:(NSMetadataItem *)result
 {
     NSManagedObjectContext *moc = [self managedObjectContext];
@@ -631,12 +638,14 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
 - (void)startWatchingFolders
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:kDisableFolderScanning])
+        return;
     if (_watchedFolderQuery)
         return;
     _watchedFolderQuery = [[NSMetadataQuery alloc] init];
-    [_watchedFolderQuery setSearchScopes:[NSArray arrayWithObjects:
-                            [NSURL fileURLWithPath:[@"~/Downloads" stringByExpandingTildeInPath]],
-                            [NSURL fileURLWithPath:[@"~/Movies" stringByExpandingTildeInPath]], nil]];
+    NSArray *folders = [defaults arrayForKey:kScannedFolders];
+    [_watchedFolderQuery setSearchScopes:folders];
     [_watchedFolderQuery setPredicate:[NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.movie'"]];
     //[_watchedFolderQuery setDelegate:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotFirstResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_watchedFolderQuery];
