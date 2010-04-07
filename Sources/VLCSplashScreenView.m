@@ -111,14 +111,31 @@
     RETURN_NOTHING_TO_JS();
 }
 
-- (void)remove:(WebScriptObject *)webobject
+
+- (BOOL)remove:(WebScriptObject *)webobject
 {
     FROM_JS();
     id object = [webobject valueForKey:@"backendObject"];
+    NSString *name = [object valueForKey:@"title"];
+    NSAlert *alert = [NSAlert alertWithMessageText:@"Remove an item"
+                                     defaultButton:@"Cancel"
+                                   alternateButton:@"Remove"
+                                       otherButton:nil
+                            informativeTextWithFormat: @"Do you really want to remove the item \"%@\"?", name];
+    NSUInteger btn = [alert runModal];
+    if (btn != 0)
+        return NO;
     [object setValue:@"hidden" forKey:@"type"];
-    RETURN_NOTHING_TO_JS();
+    RETURN_VALUE_TO_JS(YES);
 }
 
+- (void)setType:(NSString *)type forFile:(WebScriptObject *)webfile
+{
+    FROM_JS();
+    id file = [webfile valueForKey:@"backendObject"];
+    [file setValue:type forKey:@"type"];
+    RETURN_NOTHING_TO_JS();
+}
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
@@ -132,6 +149,8 @@
         return NO;
     if (sel == @selector(setLabel:forMedia:))
         return NO;
+    if (sel == @selector(setType:forFile:))
+        return NO;
     return [super isSelectorExcludedFromWebScript:sel];
 }
 
@@ -143,8 +162,8 @@
         return @"playCocoaObject";
     if (sel == @selector(remove:))
         return @"remove";
-    if (sel == @selector(setLabel:forMedia:))
-        return @"setLabelForMedia";
+    if (sel == @selector(setType:forFile:))
+        return @"setTypeForFile";
     return [super webScriptNameForSelector:sel];
 }
 

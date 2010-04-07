@@ -40,6 +40,9 @@
 #define RETURN_NOTHING_TO_JS() \
     CATCH_EXCEPTION
 
+#define RETURN_VALUE_TO_JS(a) \
+CATCH_EXCEPTION return a;
+
 #define RETURN_OBJECT_TO_JS(a) \
     __ret = [a retain]; \
     CATCH_EXCEPTION \

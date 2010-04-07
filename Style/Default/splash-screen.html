@@ -447,7 +447,13 @@ ul {
 .drag-entered {
     -webkit-border-radius: 10px;
     border: 2px solid #5764E1 !important;
-    background: #D0DDF6;
+    background: #D0DDF6 !important;
+}
+
+.drag-entered.selected {
+    -webkit-border-radius: 10px;
+    border: 2px solid #5764E1 !important;
+    background: #D0DDF6, -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210))) !important;
 }
 
 </style>
@@ -667,29 +673,28 @@ LabelView.prototype = {
             Lunettes.unconnect(this.nameElement, "textContent");
         }
     },
+    drag: 0,
     dragEntered: function(evt) {
         event.dataTransfer.dropEffect = "link";
-
+        this.drag++;
         this.element.addClassName("drag-entered");
         evt.preventDefault();
         return true;
     },
     dragOvered: function(evt) {
         event.dataTransfer.dropEffect = "link";
-
         evt.preventDefault();
         return true;
     },
     dragLeft: function(evt) {
-        this.element.removeClassName("drag-entered");
+        this.drag--;
+        if (this.drag <= 0)
+            this.element.removeClassName("drag-entered");
     },
     dropped: function(evt) {
+        this.drag--;
         var item = event.dataTransfer.getData("application/lunettes-item");
         this.element.removeClassName("drag-entered");
-        console.log("drop");
-        console.log(item);
-        console.log(item.cocoaObject);
-        console.log(this.cocoaObject);
         window.PlatformView.setLabelForMedia(this.cocoaObject, window.dragData);
     }
 
@@ -846,7 +851,9 @@ MediaDBView.prototype = {
      */
     removeButtonClicked: function(event)
     {
-        window.PlatformView.remove(this.cocoaObject, this.parent.arrayController);
+        var shouldRemove = window.PlatformView.remove(this.cocoaObject, this.parent.arrayController);
+        if (shouldRemove)
+            this.parent.removeSubview(this);
         event.preventDefault();
     },
 
@@ -860,6 +867,54 @@ MediaDBView.prototype = {
 
 }
 MediaDBView.prototype.__proto__ = MediaView.prototype;
+
+/**
+ * @constructor
+ * @param {string} type
+ * @param {Object} element
+ */
+var CategoryTypeView = function(type, element)
+{
+    this.type = type;
+    this.parent = parent;
+    this.element = element;
+
+    this.element.addEventListener('dragenter', this.dragEntered.bind(this), false);
+    this.element.addEventListener('dragover', this.dragOvered.bind(this), false);
+    this.element.addEventListener('dragleave', this.dragLeft.bind(this), false);
+    this.element.addEventListener('drop', this.dropped.bind(this), false);
+}
+
+
+CategoryTypeView.prototype = {
+    drag: 0,
+    dragEntered: function(evt) {
+        event.dataTransfer.dropEffect = "move";
+        this.drag++;
+        this.element.addClassName("drag-entered");
+        evt.preventDefault();
+        return true;
+    },
+    dragOvered: function(evt) {
+        event.dataTransfer.dropEffect = "move";
+        this.element.addClassName("drag-entered");
+
+        evt.preventDefault();
+        return true;
+    },
+    dragLeft: function(evt) {
+        this.drag--;
+        if (this.drag <= 0)
+            this.element.removeClassName("drag-entered");
+    },
+    dropped: function(evt) {
+        this.drag--;
+        var item = window.dragData;
+        this.element.removeClassName("drag-entered");
+        window.PlatformView.setTypeForFile(this.type, item);
+    }
+
+}
 
 
 /**
@@ -988,6 +1043,12 @@ function init()
 
     var addLabelButton = document.getElementById("add-label-button");
     addLabelButton.addEventListener('click', addNewLabel, false);
+
+    var moviesElement = document.getElementById("movies-category");
+    window.moviesCategory = new CategoryTypeView("movie", moviesElement);
+
+    var clipsElement = document.getElementById("clips-category");
+    window.clipsCategory = new CategoryTypeView("clip", clipsElement);
 
 }
 

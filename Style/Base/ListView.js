@@ -571,6 +571,15 @@ ListView.prototype = {
 
     /**
      * Callback from KVC Cocoa bindings
+     * @param {ListItemView} subview
+     */
+    removeSubview: function(subview)
+    {
+        this.removeCocoaObjectAtIndex(this.subviews.indexOf(subview));
+    },
+
+    /**
+     * Callback from KVC Cocoa bindings
      * @param {number} index
      */
     removeCocoaObjectAtIndex: function(index)
