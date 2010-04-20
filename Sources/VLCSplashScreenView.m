@@ -90,6 +90,25 @@
     RETURN_NOTHING_TO_JS();
 }
 
+- (void)playArrayControllerList:(WebScriptObject *)arrayController withMedia:(WebScriptObject *)webMedia
+{
+    FROM_JS();
+    NSArray *array = [[arrayController valueForKey:@"backendObject"] arrangedObjects];
+    NSManagedObject *managedMediaToPlay = [webMedia valueForKey:@"backendObject"];
+    VLCMediaList *list = [[VLCMediaList alloc] init];
+    VLCMedia *mediaToPlay = nil;
+    for (NSManagedObject *managedMedia in array) {
+        VLCMedia *media = [VLCMedia mediaWithURL:[NSURL URLWithString:[managedMedia valueForKey:@"url"]]];
+        [media setValue:[managedMedia valueForKey:@"title"] forMeta:VLCMetaInformationTitle];
+        [list addMedia:media];
+        if (managedMedia == managedMediaToPlay)
+            mediaToPlay = media;
+    }
+    [[VLCDocumentController sharedDocumentController] makeDocumentWithMediaList:list andName:@"Label" andMediaToPlay:mediaToPlay];
+    [list release];
+    [[[self window] windowController] close];
+    RETURN_NOTHING_TO_JS();
+}
 
 - (void)addNewLabel
 {
@@ -103,11 +122,21 @@
 {
     FROM_JS();
     NSManagedObject *label = [weblabel valueForKey:@"backendObject"];
+    id media = [webmedia valueForKey:@"backendObject"];
+    NSManagedObject *managedMedia = media;
+    if ([media isKindOfClass:[VLCMedia class]])
+        managedMedia = [[VLCDocumentController sharedDocumentController] addSDMediaItem:media];
+    [[label mutableSetValueForKey:@"files"] addObject:managedMedia];
+    RETURN_NOTHING_TO_JS();
+}
+
+- (void)removeLabel:(WebScriptObject *)weblabel forMedia:(WebScriptObject *)webmedia
+{
+    FROM_JS();
+    NSManagedObject *label = [weblabel valueForKey:@"backendObject"];
     NSManagedObject *media = [webmedia valueForKey:@"backendObject"];
-    if ([media isKindOfClass:[VLCMedia class]]) {
-        // Create a new kind
-    }
-    [[label mutableSetValueForKey:@"files"] addObject:media];
+    NSMutableSet *set = [media mutableSetValueForKey:@"labels"];
+    [set removeObject:label];
     RETURN_NOTHING_TO_JS();
 }
 
@@ -126,6 +155,7 @@
     if (btn != 0)
         return NO;
     [object setValue:@"hidden" forKey:@"type"];
+    [object setValue:[NSSet set] forKey:@"labels"];
     RETURN_VALUE_TO_JS(YES);
 }
 
@@ -149,7 +179,11 @@
         return NO;
     if (sel == @selector(setLabel:forMedia:))
         return NO;
+    if (sel == @selector(removeLabel:forMedia:))
+        return NO;
     if (sel == @selector(setType:forFile:))
+        return NO;
+    if (sel == @selector(playArrayControllerList:withMedia:))
         return NO;
     return [super isSelectorExcludedFromWebScript:sel];
 }
@@ -164,6 +198,12 @@
         return @"remove";
     if (sel == @selector(setType:forFile:))
         return @"setTypeForFile";
+    if (sel == @selector(setLabel:forMedia:))
+        return @"setLabelForMedia";
+    if (sel == @selector(playArrayControllerList:withMedia:))
+        return @"playArrayControllerListWithMedia";
+    if (sel == @selector(removeLabel:forMedia:))
+        return @"removeLabelForMedia";
     return [super webScriptNameForSelector:sel];
 }
 

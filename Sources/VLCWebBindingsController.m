@@ -107,7 +107,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
                 // returns a better results, so use it. This happen with NSArrayController arrangedObjects.
                 id new = [object valueForKeyPath:keyPath];
 
-                if ([new isKindOfClass:[NSNull class]])
+                if ([new isKindOfClass:[NSNull class]] || !new)
                     break;
 
                 VLCAssert([new isKindOfClass:[NSArray class]], @"Only support array");

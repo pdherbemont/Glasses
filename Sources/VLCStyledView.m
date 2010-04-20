@@ -77,7 +77,7 @@ static BOOL watchForStyleModification(void)
 
     [self setFrameLoadDelegate:self];
     [self setUIDelegate:self];
-    [self setEditingDelegate:self];
+    //[self setEditingDelegate:self];
     [self setResourceLoadDelegate:self];
 
     NSURLRequest *request = [NSURLRequest requestWithURL:[self url]];
@@ -236,6 +236,7 @@ static BOOL watchForStyleModification(void)
     // Only allow javascript to handle drag.
     return WebDragSourceActionDHTML;
 }
+
 
 - (BOOL)webView:(WebView *)sender shouldPerformAction:(SEL)action fromSender:(id)fromObject
 {
@@ -482,10 +483,22 @@ static BOOL watchForStyleModification(void)
 {
     FROM_JS();
     id backendObject = [object valueForKey:@"backendObject"];
-    NSArrayController *controller = [[NSArrayController alloc] init];
+
+    // Observing an NSArrayController arrangedObjects isn't great for
+    // memory usage and does not work well. Try to simplify.
+    NSArrayController *controller = nil;
+    if ([keyPath hasSuffix:@".arrangedObjects"]) {
+        id obj = [backendObject valueForKeyPath:[keyPath stringByDeletingPathExtension]];
+        if ([obj isKindOfClass:[NSArrayController class]])
+            controller = [obj retain];
+    }
+    if (!controller) {
+        controller = [[NSArrayController alloc] init];
+        [controller bind:@"content" toObject:backendObject withKeyPath:keyPath options:nil];
+    }
     [controller setAutomaticallyRearrangesObjects:YES];
     [controller setEditable:YES];
-    [controller bind:@"content" toObject:backendObject withKeyPath:keyPath options:nil];
+    [controller setAutomaticallyPreparesContent:YES];
     WebScriptObject *ret = [object callWebScriptMethod:@"clone" withArguments:nil];
     ret = [VLCWebBindingsController backendObject:controller withWebScriptObject:ret];
     [controller release];

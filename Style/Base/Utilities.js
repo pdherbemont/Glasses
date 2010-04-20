@@ -190,4 +190,9 @@ Lunettes.didChange = function (object, key)
     window.PlatformView.didChange(object, key);
 }
 
+function isEnterKey(event)
+{
+    return event.keyCode !== 229 && event.keyIdentifier === "Enter";
+}
+
 

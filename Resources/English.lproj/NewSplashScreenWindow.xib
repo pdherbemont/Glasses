@@ -298,7 +298,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>title</string>
 				</object>
-				<bool key="NSEditable">YES</bool>
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
 					<string key="NSEntityName">Label</string>

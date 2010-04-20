@@ -689,6 +689,15 @@ ListView.prototype = {
         this._arrayController = controller;
         Lunettes.didChange(this, "arrayController");
 
+        if (controller) {
+            if (this._shouldSyncSelectionWithArrayController) {
+                var options = new Object;
+                options["NSValueTransformerNameBindingOption"] = "VLCWebScriptObjectToIndexSet";
+                Lunettes.connect(this._arrayController, "selectionIndexes", this, "selectionIndexes", options);
+            }
+
+            this._arrayController.addObserver(this, "arrangedObjects");
+        }
     },
     get arrayController()
     {
@@ -701,17 +710,15 @@ ListView.prototype = {
         if (!this.arrayController)
         {
             console.assert(this.subItemsKeyPath, "No keypath provided");
-            var cocoaObject = this.cocoaObject;
-            this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
+            if (0 && this.subItemsKeyPath.search(/\.arrangedObjects$/) != -1) {
+                this._arrayControllerKeyPath = this.subItemsKeyPath.replace(/\.arrangedObjects$/, "");
+                Lunettes.connect(this, "arrayController", this.cocoaObject, this._arrayControllerKeyPath);
+            }
+            else {
+                var cocoaObject = this.cocoaObject;
+                this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
+            }
         }
-
-        if (this._shouldSyncSelectionWithArrayController) {
-            var options = new Object;
-            options["NSValueTransformerNameBindingOption"] = "VLCWebScriptObjectToIndexSet";
-            Lunettes.connect(this.arrayController, "backendObject.selectionIndexes", this, "selectionIndexes", options);
-        }
-
-        this.arrayController.addObserver(this, "arrangedObjects");
     }
 }
 

@@ -19,7 +19,7 @@ Lunettes.EventKey = {
     UpArrow: 38,
     LeftArrow: 37,
     Enter: 13,
-    Escape: 0
+    Escape: 27
 };
 
 window.remoteButtonHandlerIsInPlaylistMode = false;

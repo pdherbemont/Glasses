@@ -60,6 +60,7 @@
 - (void)makeDocumentWithObject:(id)object;
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position;
 - (void)makeDocumentWithMediaDiscoverer:(VLCMediaDiscoverer *)md andMediaToPlay:(VLCMedia *)media;
+- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name andMediaToPlay:(VLCMedia *)media;
 
 - (NSManagedObjectContext *)managedObjectContext;
 
@@ -84,5 +85,6 @@
 
 /* Media Library */
 - (void)addNewLabelWithName:(NSString *)name;
+- (NSManagedObject *)addSDMediaItem:(VLCMedia *)media;
 
 @end

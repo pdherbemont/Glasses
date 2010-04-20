@@ -259,11 +259,18 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [mediaDocument showWindows];
 }
 
-- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name
+- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name andMediaToPlay:(VLCMedia *)media
 {
     VLCMediaDocument *mediaDocument = [[VLCMediaDocument alloc] initWithMediaList:mediaList andName:name];
     [self bakeDocument:mediaDocument];
+    if (media)
+        [[mediaDocument mediaListPlayer] playMedia:media];
     [mediaDocument release];
+}
+
+- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name
+{
+    [self makeDocumentWithMediaList:mediaList andName:name andMediaToPlay:nil];
 }
 
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position
@@ -539,6 +546,26 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSManagedObjectContext *moc = [self managedObjectContext];
     id label = [NSEntityDescription insertNewObjectForEntityForName:@"Label" inManagedObjectContext:moc];
     [label setValue:name forKey:@"name"];
+}
+
+- (NSManagedObject *)addSDMediaItem:(VLCMedia *)media
+{
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSURL *url = [media url];
+    NSString *title = [[media metaDictionary] objectForKey:VLCMetaInformationTitle];
+
+    id movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
+    [movie setValue:[url description] forKey:@"url"];
+    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
+    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
+    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
+
+    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
+
+    [movie setValue:@"sd" forKey:@"type"];
+
+    [movie setValue:title forKey:@"title"];
+    return movie;
 }
 
 - (void)addMetadataItem:(NSMetadataItem *)result
