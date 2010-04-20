@@ -133,6 +133,10 @@
 		631AF8291095DAA900F8ED1A /* VLCWebBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */; };
 		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
+		633119D1117DDA6400C21FD6 /* volume_low.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CD117DDA6400C21FD6 /* volume_low.png */; };
+		633119D2117DDA6400C21FD6 /* volumeslider_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CE117DDA6400C21FD6 /* volumeslider_blue.png */; };
+		633119D3117DDA6400C21FD6 /* volumeslider_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CF117DDA6400C21FD6 /* volumeslider_graphite.png */; };
+		633119D4117DDA6400C21FD6 /* volumeslider_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119D0117DDA6400C21FD6 /* volumeslider_normal.png */; };
 		63374C7310EAF38A0072A0D9 /* noartwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 63374C7210EAF3890072A0D9 /* noartwork.png */; };
 		635D1124104A844000D34A87 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1123104A844000D34A87 /* AboutWindow.xib */; };
 		635D112A104A846400D34A87 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1129104A846400D34A87 /* OpenURLWindow.xib */; };
@@ -668,6 +672,10 @@
 		63161C3010CAC48B0091974E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Style/Default/Info.plist; sourceTree = "<group>"; };
 		631AF8271095DAA900F8ED1A /* VLCWebBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCWebBindingsController.h; path = Sources/VLCWebBindingsController.h; sourceTree = "<group>"; };
 		631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCWebBindingsController.m; path = Sources/VLCWebBindingsController.m; sourceTree = "<group>"; };
+		633119CD117DDA6400C21FD6 /* volume_low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volume_low.png; path = Style/Default/volume_low.png; sourceTree = "<group>"; };
+		633119CE117DDA6400C21FD6 /* volumeslider_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volumeslider_blue.png; path = Style/Default/volumeslider_blue.png; sourceTree = "<group>"; };
+		633119CF117DDA6400C21FD6 /* volumeslider_graphite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volumeslider_graphite.png; path = Style/Default/volumeslider_graphite.png; sourceTree = "<group>"; };
+		633119D0117DDA6400C21FD6 /* volumeslider_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volumeslider_normal.png; path = Style/Default/volumeslider_normal.png; sourceTree = "<group>"; };
 		63374A6E10EACFEE0072A0D9 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		63374C7210EAF3890072A0D9 /* noartwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noartwork.png; path = Style/Default/noartwork.png; sourceTree = "<group>"; };
 		635D1121104A843D00D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
@@ -1114,6 +1122,10 @@
 				63E3F01F1144E79500A62577 /* not-played.png */,
 				63374C7210EAF3890072A0D9 /* noartwork.png */,
 				6314289C10D96B3200363AB7 /* volume_high.png */,
+				633119CD117DDA6400C21FD6 /* volume_low.png */,
+				633119CE117DDA6400C21FD6 /* volumeslider_blue.png */,
+				633119CF117DDA6400C21FD6 /* volumeslider_graphite.png */,
+				633119D0117DDA6400C21FD6 /* volumeslider_normal.png */,
 				63161BFC10CAC4190091974E /* fs_exit_fullscreen_highlight.png */,
 				63161BFD10CAC4190091974E /* fs_exit_fullscreen.png */,
 				63161BFE10CAC4190091974E /* fs_pause_highlight.png */,
@@ -1527,6 +1539,10 @@
 				63F24D4F11483953001B71E2 /* tvshows.png in Resources */,
 				63DCD4191168F4BC00C194BF /* statusbarBackground.png in Resources */,
 				63DCD41A1168F4BC00C194BF /* statusbarButtons.png in Resources */,
+				633119D1117DDA6400C21FD6 /* volume_low.png in Resources */,
+				633119D2117DDA6400C21FD6 /* volumeslider_blue.png in Resources */,
+				633119D3117DDA6400C21FD6 /* volumeslider_graphite.png in Resources */,
+				633119D4117DDA6400C21FD6 /* volumeslider_normal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -73,7 +73,7 @@ input[type=search] {
 
 .key-window .controls {
     /* Window is key window */
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#5e5e5e));
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c4c4c4), to(#8e8e8e));
 }
 
 .controls {
@@ -207,6 +207,50 @@ input[type=search] {
     font-size: 10px;
 }
 
+/*
+ * Volume display
+ */
+
+.volume {
+    margin-left: 5px;
+    margin-right: 5px;
+
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-orient: horizontal;
+}
+.volume>:nth-child(n) {
+    display: -webkit-box;
+}
+.volume-slider {
+    width: 70px;
+    margin: 3px;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    background: transparent;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#666666), to(#666666), color-stop(.6,#333));
+    -webkit-border-radius: 4px;
+    border-bottom: white thin solid;
+    height: 5px;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: url(volumeslider_normal.png) no-repeat 0 0;
+    height: 12px;
+    width: 12px;
+}
+
+.volume-slider:active::-webkit-slider-thumb {
+    background: url(volumeslider_blue.png) no-repeat 0 0;
+}
+
+/*
+ * Other bottom bar element
+ */
+
 .search {
     width: 185px;
     margin: 0;
@@ -216,6 +260,8 @@ input[type=search] {
     margin: 0;
     width: 20px;
 }
+
+
 
 /****************************************************************************
  * Playlist

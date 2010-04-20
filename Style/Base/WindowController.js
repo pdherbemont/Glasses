@@ -23,6 +23,7 @@ WindowController.prototype = {
             enterFullscreen: "enter-fullscreen",
             leaveFullscreen: "leave-fullscreen",
             timeline: "timeline",
+            volume: "volume-slider",
             draggable: "draggable",
             dragPlatformWindow: "drag-platform-window",
             dontDragPlatformWindow: "dont-drag-platform-window",
@@ -105,11 +106,49 @@ WindowController.prototype = {
         bindByClassNameActionToMethod(this.Exported.ClassNames.timeline, 'change', this.timelineValueChanged.bind(this));
         Lunettes.connect(this, "position", CocoaObject.documentCocoaObject(), "mediaPlayer.position");
 
+        // Make sure we'll be able to change the volume.
+        bindByClassNameActionToMethod(this.Exported.ClassNames.volume, 'change', this.volumeValueChanged.bind(this));
+        Lunettes.connect(this, "volume", CocoaObject.documentCocoaObject(), "mediaPlayer.audio.volume");
+
         // Make sure we'll be able to drag the window.
         bindByClassNameActionToMethod(this.Exported.ClassNames.dragPlatformWindow, 'mousedown', this.mouseDownForWindowDrag.bind(this));
 
         // Make sure we'll be able to resize the window.
         bindByClassNameActionToMethod(this.Exported.ClassNames.resizePlatformWindow, 'mousedown', this.mouseDownForWindowResize.bind(this));
+    },
+
+    /**
+     * @param {Event} event
+     */
+    volumeValueChanged: function(event)
+    {
+        var target = event.currentTarget;
+
+        this.volume = target.value;
+        event.preventDefault();
+    },
+
+    _volume: 0,
+    get volume()
+    {
+        return this._volume;
+    },
+    set volume(volume)
+    {
+        if (!volume)
+            volume = 0;
+        if (this._volume == volume)
+            return;
+
+        Lunettes.willChange(this, "volume");
+        this._volume = parseInt(volume, 10);
+
+        var elements = document.getElementsByClassName(this.Exported.ClassNames.volume);
+        for (var i = 0; i < elements.length; i++) {
+            if (elements[i].value != volume)
+                elements[i].value = volume;
+        }
+        Lunettes.didChange(this, "volume");
     },
 
     /**
