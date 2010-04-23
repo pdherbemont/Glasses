@@ -724,6 +724,10 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
 {
     [self savePendingChangesToMoc];
+
+    if (![[NSUserDefaults standardUserDefaults] synchronize])
+        VLCAssertNotReached(@"Failed to synchronize the User Defaults");
+
     return NSTerminateNow;
 }
 
