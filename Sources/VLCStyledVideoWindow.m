@@ -309,4 +309,9 @@ static inline BOOL debugStyledWindow(void)
     return YES;
 }
 
+-(void)keyDown:(NSEvent *)theEvent
+{
+	
+}
+
 @end
