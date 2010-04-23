@@ -23,6 +23,7 @@
 
 #import <Sparkle/Sparkle.h>
 #import "VLCPreferencesWindowController.h"
+#import "VLCDocumentController.h"
 
 @implementation VLCPreferencesWindowController
 
@@ -137,6 +138,7 @@
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             NSArray *array = [defaults arrayForKey:kScannedFolders];
             [defaults setObject:[array arrayByAddingObjectsFromArray:[openPanel filenames]] forKey:kScannedFolders];
+            [[VLCDocumentController sharedDocumentController] refreshScanFolderList];
         }
         [openPanel autorelease];
     }];

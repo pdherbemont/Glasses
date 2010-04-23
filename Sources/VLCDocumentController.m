@@ -716,6 +716,21 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotAdditionalResults:) name:NSMetadataQueryDidUpdateNotification object:_watchedFolderQuery];
     [_watchedFolderQuery startQuery];
 }
+
+- (void)refreshScanFolderList
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:kDisableFolderScanning]) {
+        //Although currently this should not be called if kDisableFolderScanning is off, it may may have to eventually
+        //FIXME - Turn off folder scanning as apposed to simply returning
+        return;
+    }
+    if (!_watchedFolderQuery)
+        return [self startWatchingFolders];
+    NSArray *folders = [defaults arrayForKey:kScannedFolders];
+    [_watchedFolderQuery setSearchScopes:folders];
+}
+
 #endif
 
 #pragma mark -
