@@ -137,6 +137,7 @@
 		633119D2117DDA6400C21FD6 /* volumeslider_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CE117DDA6400C21FD6 /* volumeslider_blue.png */; };
 		633119D3117DDA6400C21FD6 /* volumeslider_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CF117DDA6400C21FD6 /* volumeslider_graphite.png */; };
 		633119D4117DDA6400C21FD6 /* volumeslider_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119D0117DDA6400C21FD6 /* volumeslider_normal.png */; };
+		63311C21118B3F9200C21FD6 /* shelf.png in Resources */ = {isa = PBXBuildFile; fileRef = 63311C20118B3F9200C21FD6 /* shelf.png */; };
 		63374C7310EAF38A0072A0D9 /* noartwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 63374C7210EAF3890072A0D9 /* noartwork.png */; };
 		635D1124104A844000D34A87 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1123104A844000D34A87 /* AboutWindow.xib */; };
 		635D112A104A846400D34A87 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1129104A846400D34A87 /* OpenURLWindow.xib */; };
@@ -676,6 +677,7 @@
 		633119CE117DDA6400C21FD6 /* volumeslider_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volumeslider_blue.png; path = Style/Default/volumeslider_blue.png; sourceTree = "<group>"; };
 		633119CF117DDA6400C21FD6 /* volumeslider_graphite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volumeslider_graphite.png; path = Style/Default/volumeslider_graphite.png; sourceTree = "<group>"; };
 		633119D0117DDA6400C21FD6 /* volumeslider_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volumeslider_normal.png; path = Style/Default/volumeslider_normal.png; sourceTree = "<group>"; };
+		63311C20118B3F9200C21FD6 /* shelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shelf.png; path = Style/Default/shelf.png; sourceTree = "<group>"; };
 		63374A6E10EACFEE0072A0D9 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		63374C7210EAF3890072A0D9 /* noartwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noartwork.png; path = Style/Default/noartwork.png; sourceTree = "<group>"; };
 		635D1121104A843D00D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
@@ -1112,6 +1114,7 @@
 		63161BF910CAC3FA0091974E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				63311C20118B3F9200C21FD6 /* shelf.png */,
 				63DCD4171168F4BC00C194BF /* statusbarBackground.png */,
 				63DCD4181168F4BC00C194BF /* statusbarButtons.png */,
 				63F24D4E11483953001B71E2 /* tvshows.png */,
@@ -1543,6 +1546,7 @@
 				633119D2117DDA6400C21FD6 /* volumeslider_blue.png in Resources */,
 				633119D3117DDA6400C21FD6 /* volumeslider_graphite.png in Resources */,
 				633119D4117DDA6400C21FD6 /* volumeslider_normal.png in Resources */,
+				63311C21118B3F9200C21FD6 /* shelf.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
