@@ -161,13 +161,11 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
             [target setValue:value forKeyPath:targetKeyPath];
             [dictMutable setObject:[NSNumber numberWithBool:NO] forKey:@"bindingsControllerIsSetting"];
 #endif
-        } else
-        {
-            [dictMutable setObject:arrayOfSubKeys(object, keyPath) forKey:@"arrayOfRetainedSubKeysForDomObject"];
-
+        } else {
 #ifndef USE_BIND
             if ([[dictMutable objectForKey:@"bindingsControllerIsSetting"] boolValue])
                 return;
+
             NSDictionary *options = [dictMutable objectForKey:@"options"];
 
             if (!value || [value isKindOfClass:[NSNull class]]) {
@@ -182,6 +180,31 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
                 value = [[NSValueTransformer valueTransformerForName:transformerName] transformedValue:value];
             id target = [dictMutable objectForKey:@"domObject"];
             NSString *targetKeyPath = [dictMutable objectForKey:@"property"];
+
+            if ([options objectForKey:NSPredicateFormatBindingOption]) {
+                if (value) {
+                    // In the case of a NSPredicateFormatBindingOption
+                    // We don't know how to convert back Predicate->String perfectly.
+                    if ([value isKindOfClass:[NSComparisonPredicate class]]) {
+                        // We only know how to deal with NSComparisonPredicate for now
+                        NSComparisonPredicate *comp = value;
+
+                        // FIXME - This is obviously wrong if the variable is in the leftExpression
+                        NSExpression *expression = [comp rightExpression];
+                        value = [expression constantValue];
+                    }
+                    else {
+                        value = @"";
+                    }
+
+                }
+                else {
+
+                    // Send an empty string, this will prevent us from having nil
+                    // being replaced by @"undefined"
+                    value = @"";
+                }
+            }
 
             [dictMutable setObject:[NSNumber numberWithBool:YES] forKey:@"bindingsControllerIsSetting"];
             [target setValue:value forKeyPath:targetKeyPath];
@@ -257,18 +280,15 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
         [node removeEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
     }
 
-    NSDictionary *options = [dict objectForKey:@"options"];
-    if (![options objectForKey:NSPredicateFormatBindingOption]) {
-        NSString *property = [dict objectForKey:@"property"];
-        [domObject removeObserver:self forKeyPath:property];
-        id object = [dict objectForKey:@"object"];
-        NSString *keyPath = [dict objectForKey:@"keyPath"];
-        [object removeObserver:self forKeyPath:keyPath];
+    NSString *property = [dict objectForKey:@"property"];
+    [domObject removeObserver:self forKeyPath:property];
+    id object = [dict objectForKey:@"object"];
+    NSString *keyPath = [dict objectForKey:@"keyPath"];
+    [object removeObserver:self forKeyPath:keyPath];
 
 #ifdef USE_BIND
-        [domObject unbind:property];
+    [domObject unbind:property];
 #endif
-    }
 
     NSUInteger count = [_bindings count];
     [_bindings removeObject:dict];
@@ -286,7 +306,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
         return;
     }
 
-    if ([[evt type] isEqualToString:@"input"]) {
+    if ([[evt type] isEqualToString:@"input"] || [[evt type] isEqualToString:@"search"]) {
         for (NSDictionary *dict in set) {
             id object = [dict objectForKey:@"object"];
             NSString *keyPath = [dict objectForKey:@"keyPath"];
@@ -328,6 +348,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
     if ([domObject isKindOfClass:[DOMNode class]]) {
         DOMNode *node = (DOMNode *)domObject;
         [node addEventListener:@"DOMNodeRemoved" listener:self useCapture:NO];
+        [node addEventListener:@"search" listener:self useCapture:NO]; // when a search field is cleared
         [node addEventListener:@"input" listener:self useCapture:NO];
     }
 
@@ -336,7 +357,7 @@ static NSMutableArray *arrayOfSubKeys(id object, NSString *keyPath)
         // we don't really know how to do the other way around.
         // So we stop here.
         // We'll handle the rest via "input" event.
-        return;
+        //return;
     }
 
     [dict setObject:arrayOfSubKeys(object, keyPath) forKey:@"arrayOfRetainedSubKeysForObject"];

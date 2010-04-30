@@ -516,8 +516,11 @@ SDListView.prototype = {
         ListView.prototype.select.call(this, item);
         if (!item)
             return;
-        var list = new ListView(item.cocoaObject, "discoveredMedia.media", MediaSDView);
-        window.setDetailList(item.element, list);
+        if (!item._list) {
+            item._list = new ListView(item.cocoaObject, "discoveredMedia.media", MediaSDView);
+            item._list.searchMainKeyPath = "metaDictionary.title";
+        }
+        window.setDetailList(item.element, item._list);
     }
 }
 SDListView.prototype.__proto__ = ListView.prototype;
@@ -1114,6 +1117,17 @@ function setDetailList(masterElement, list)
     unselectAll();
     masterElement.addClassName("selected");
 
+    var search = document.getElementById("search-detail");
+    var options = new Object;
+    var path = list.searchMainKeyPath
+    if (!path)
+        path = "title";
+    options["NSPredicateFormatBindingOption"] = path + " contains[cd] $value";
+    if (search._isConnected)
+        Lunettes.unconnect(search, "value");
+    Lunettes.connect(search, "value", window, "detailList.arrayController.backendObject.filterPredicate", options);
+    search._isConnected = true;
+
     var detailElement = document.getElementById("detail");
 
     Lunettes.willChange(window, "detailList");
@@ -1139,10 +1153,14 @@ function selectMasterElementNamed(name)
     switch(name)
     {
         case "movies-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), "moviesArrayController.arrangedObjects", MediaDBView);
+            if (!window._moviesCategoryDetailList)
+                window._moviesCategoryDetailList = new ListView(CocoaObject.windowCocoaObject(), "moviesArrayController.arrangedObjects", MediaDBView);
+            list = window._moviesCategoryDetailList;
             break;
         case "clips-category":
-            list = new ListView(CocoaObject.windowCocoaObject(), "clipsArrayController.arrangedObjects", MediaDBView);
+                if (!window._clipsCategoryDetailList)
+                    window._clipsCategoryDetailList = new ListView(CocoaObject.windowCocoaObject(), "clipsArrayController.arrangedObjects", MediaDBView);
+            list = window._clipsCategoryDetailList;
             break;
         default:
             console.assert(0, "Should not be reached");
@@ -1182,8 +1200,8 @@ function click(event)
 function init()
 {
     var librariesElement = document.getElementById("libraries");
-    window.rootMediaList = new SDListView(CocoaObject.windowCocoaObject(), "mediaDiscovererArrayController.arrangedObjects", librariesElement);
-    window.rootMediaList.attach();
+    window.sdMediaList = new SDListView(CocoaObject.windowCocoaObject(), "mediaDiscovererArrayController.arrangedObjects", librariesElement);
+    window.sdMediaList.attach();
 
     var labelsElement = document.getElementById("labels");
     window.labelsList = new LabelListView(CocoaObject.windowCocoaObject(), "labelsArrayController.arrangedObjects", labelsElement);
@@ -1201,11 +1219,6 @@ function init()
 
     Lunettes.connect(CocoaObject.windowCocoaObject(), "backendObject.currentArrayController", window, "detailList.arrayController.backendObject");
     Lunettes.connect(CocoaObject.windowCocoaObject(), "backendObject.documentController.currentArrayController", window, "detailList.arrayController.backendObject");
-
-    var search = document.getElementById("search-detail");
-    var options = new Object;
-    options["NSPredicateFormatBindingOption"] = "title contains[cd] $value";
-    Lunettes.connect(search, "value", window, "detailList.arrayController.backendObject.filterPredicate", options);
 
     var addLabelButton = document.getElementById("add-label-button");
     addLabelButton.addEventListener('click', addNewLabel, false);
