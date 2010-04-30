@@ -28,19 +28,23 @@
 @end
 #endif
 
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
 @interface VLCSplashScreenWindowController ()
 @property (assign, readwrite) BOOL hasSelection;
 @end
+#endif
 
 static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of media discoverers
 
 @implementation VLCSplashScreenWindowController
+#if !ENABLE_EXTENDED_SPLASH_SCREEN
 @synthesize hasSelection=_hasSelection;
+#endif
+
 @synthesize moviesArrayController=_moviesArrayController;
 @synthesize labelsArrayController=_labelsArrayController;
 @synthesize clipsArrayController=_clipsArrayController;
 @synthesize mediaDiscovererArrayController=_mediaDiscovererArrayController;
-
 
 - (void)dealloc
 {
