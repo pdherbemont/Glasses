@@ -132,6 +132,9 @@ ListView.prototype = {
         this.isAttached = true;
 
         this.updateVisibleItems();
+
+        if (this._savedScrollTop)
+            this.element.scrollTop = this._savedScrollTop;
     },
     /**
      * Event handler for scroll.
@@ -305,6 +308,10 @@ ListView.prototype = {
 
     detach: function()
     {
+        console.assert(this.isAttached, "Should be attached");
+
+        this._savedScrollTop = this.element.scrollTop;
+
         if (this.detachTimer) {
             window.clearTimeout(this.detachTimer);
             this.detachTimer = null;
@@ -695,8 +702,6 @@ ListView.prototype = {
                 options["NSValueTransformerNameBindingOption"] = "VLCWebScriptObjectToIndexSet";
                 Lunettes.connect(this._arrayController, "selectionIndexes", this, "selectionIndexes", options);
             }
-
-            this._arrayController.addObserver(this, "arrangedObjects");
         }
     },
     get arrayController()
@@ -710,15 +715,10 @@ ListView.prototype = {
         if (!this.arrayController)
         {
             console.assert(this.subItemsKeyPath, "No keypath provided");
-            if (0 && this.subItemsKeyPath.search(/\.arrangedObjects$/) != -1) {
-                this._arrayControllerKeyPath = this.subItemsKeyPath.replace(/\.arrangedObjects$/, "");
-                Lunettes.connect(this, "arrayController", this.cocoaObject, this._arrayControllerKeyPath);
-            }
-            else {
-                var cocoaObject = this.cocoaObject;
-                this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
-            }
+            var cocoaObject = this.cocoaObject;
+            this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
         }
+        this.arrayController.addObserver(this, "arrangedObjects");
     }
 }
 
