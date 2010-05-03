@@ -22,6 +22,10 @@ input[type=search] {
     -webkit-user-select: text;
     cursor: auto;
 }
+.hidden {
+    display: none;
+}
+
 li {
 	border-top: thin solid #eee;
 	-webkit-box-sizing: border-box;
@@ -538,6 +542,23 @@ SDListView.prototype = {
             item._list.searchMainKeyPath = "metaDictionary.title";
         }
         window.setDetailList(item.element, item._list);
+    },
+
+    updateVisibleItems: function()
+    {
+        ListView.prototype.updateVisibleItems.call(this);
+
+        var sourcesHeaderShouldBeMadeVisible = this.subviews.length > 0;
+        var needToUpdateVisibility = sourcesHeaderShouldBeMadeVisible ^ window._isSourcesHeaderVisible;
+        if (needToUpdateVisibility) {
+            var sourcesHeaderElement = document.getElementById("sources-header");
+            if (sourcesHeaderShouldBeMadeVisible)
+                sourcesHeaderElement.removeClassName("hidden");
+            else
+                sourcesHeaderElement.addClassName("hidden");
+            window._isSourcesHeaderVisible = sourcesHeaderShouldBeMadeVisible;
+        }
+
     }
 }
 SDListView.prototype.__proto__ = ListView.prototype;
@@ -1263,7 +1284,7 @@ function init()
         <li onclick="click(event)" id="movies-category" class="item"><img src="movies.png"><div class="name">Movies<span id="movies-count" class="count">0</span></div></li>
         <li onclick="click(event)" id="clips-category"  class="item"><img src="tvshows.png"><div class="name">Clips<span id="clips-count" class="count">0</span></div></li>
         </ul>
-        <h1>Sources</h1>
+        <h1 id="sources-header" class="hidden">Sources</h1>
         <div id="libraries">
         </div>
         <h1>Labels</h1>
