@@ -59,6 +59,7 @@
     /* register our default values... */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSNumber *yes = [NSNumber numberWithBool:YES];
+    NSNumber *no = [NSNumber numberWithBool:NO];
     [defaults registerDefaults:[NSDictionary dictionaryWithObjectsAndKeys:
                                 yes, kControlWithMediaKeys,
                                 yes, kControlWithMediaKeysInBackground,
@@ -69,7 +70,7 @@
                                 [NSArray arrayWithObjects:
                                  [@"~/Movies" stringByExpandingTildeInPath],
                                  [@"~/Downloads" stringByExpandingTildeInPath], nil], kScannedFolders,
-                                yes, kLastFMEnabled, nil]];
+                                no, kLastFMEnabled, nil]];
 
     // Always reset if the WebKitInspector was attached.
     // Because its mostly unusable else.
