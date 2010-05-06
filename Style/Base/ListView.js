@@ -309,7 +309,6 @@ ListView.prototype = {
         if (count > this.subviews.length)
             count = this.subviews.length;
 
-        console.log("firstVisibleIndex = " + firstVisibleIndex);
         for (var i = firstVisibleIndex; i < count; i++)
             this.subviews[i].visible = true;
     },
