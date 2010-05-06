@@ -49,11 +49,14 @@
 #else
 @interface VLCDocumentController ()
 #endif
+
 // See -setMainWindow:
 @property (readwrite, assign) id currentDocument;
 
 #if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
+- (void)setupFolderWatch;
 - (void)startWatchingFolders;
+- (void)scanFolderSettingDidChange;
 #endif
 
 @end
@@ -411,7 +414,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     // and we don't want this to run in the run loop.
 
     if (didCreateWindow)
-        [self performSelector:@selector(startWatchingFolders) withObject:nil afterDelay:0.];
+        [self performSelector:@selector(setupFolderWatch) withObject:nil afterDelay:0.];
 #endif
 }
 
@@ -539,7 +542,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 #endif
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(id)context
 {
     if ([keyPath isEqualToString:@"hasChanges"] && object == _managedObjectContext) {
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
@@ -550,6 +553,12 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(savePendingChangesToMoc) object:nil];
         [self performSelector:@selector(savePendingChangesToMoc) withObject:nil afterDelay:1.];
+        return;
+    }
+    if ([context isKindOfClass:[NSValue class]]) {
+        // Dispatch selector
+        // This is useful for NSUserDefaults observing.
+        [self performSelector:[context pointerValue]];
         return;
     }
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -700,9 +709,23 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     NSLog(@"Adding done");
 }
 
+- (void)setupFolderWatch
+{
+    // Watch for modification on User Defaults.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    static NSValue *value = nil;
+    if (!value)
+        value = [[NSValue valueWithPointer:@selector(scanFolderSettingDidChange)] retain];
+    [defaults addObserver:self forKeyPath:kDisableFolderScanning options:0 context:value];
+    [defaults addObserver:self forKeyPath:kScannedFolders options:0 context:value];
+
+    [self startWatchingFolders];
+}
+
 - (void)startWatchingFolders
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
     if ([defaults boolForKey:kDisableFolderScanning])
         return;
     if (_watchedFolderQuery)
@@ -717,16 +740,20 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [_watchedFolderQuery startQuery];
 }
 
-- (void)refreshScanFolderList
+- (void)scanFolderSettingDidChange
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:kDisableFolderScanning]) {
-        //Although currently this should not be called if kDisableFolderScanning is off, it may may have to eventually
-        //FIXME - Turn off folder scanning as apposed to simply returning
+        if (_watchedFolderQuery) {
+            [_watchedFolderQuery stopQuery];
+            [_watchedFolderQuery release];
+            _watchedFolderQuery = nil;
+        }
         return;
     }
     if (!_watchedFolderQuery)
         return [self startWatchingFolders];
+
     NSArray *folders = [defaults arrayForKey:kScannedFolders];
     [_watchedFolderQuery setSearchScopes:folders];
 }

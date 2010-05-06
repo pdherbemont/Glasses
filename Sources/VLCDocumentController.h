@@ -94,8 +94,4 @@
 - (void)addNewLabelWithName:(NSString *)name;
 - (NSManagedObject *)addSDMediaItem:(VLCMedia *)media;
 
-/* Preferences Folder Scanning Callbacks */
-
-- (void)refreshScanFolderList;
-
 @end
