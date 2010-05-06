@@ -271,12 +271,19 @@ ListView.prototype = {
      * The visible MediaView will bind their contents
      * from here.
      */
+    _visibleItemHeight: 0,
     updateVisibleItems: function()
     {
         if (!this.subviews[0])
             return;
+        var height = this._visibleItemHeight;
         var item = this.subviews[0].element;
-        var height = item.offsetHeight;
+        if (!item)
+            return;
+
+        if (!height) {
+            height = item.offsetHeight;
+        }
 
         var top = 0;
         if (this.navigationController && !this.navigationController.elementStyleUsesScrollBar) {
@@ -302,6 +309,7 @@ ListView.prototype = {
         if (count > this.subviews.length)
             count = this.subviews.length;
 
+        console.log("firstVisibleIndex = " + firstVisibleIndex);
         for (var i = firstVisibleIndex; i < count; i++)
             this.subviews[i].visible = true;
     },
@@ -650,11 +658,11 @@ ListView.prototype = {
                 if (oldSubviews[i].toBeTrashed)
                     oldSubviews[i].detachWithoutRemoving();
             }
-        }
 
-        console.time("setCocoaObjects - updateVisibleItems");
-        this.updateVisibleItems();
-        console.timeEnd("setCocoaObjects - updateVisibleItems");
+            console.time("setCocoaObjects - updateVisibleItems");
+            this.updateVisibleItems();
+            console.timeEnd("setCocoaObjects - updateVisibleItems");
+        }
 
         console.timeEnd("setCocoaObjects");
 
@@ -700,7 +708,7 @@ ListView.prototype = {
             if (this._shouldSyncSelectionWithArrayController) {
                 var options = new Object;
                 options["NSValueTransformerNameBindingOption"] = "VLCWebScriptObjectToIndexSet";
-                Lunettes.connect(this._arrayController, "selectionIndexes", this, "selectionIndexes", options);
+                Lunettes.connect(this._arrayController, "backendObject.selectionIndexes", this, "selectionIndexes", options);
             }
         }
     },

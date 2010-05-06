@@ -24,9 +24,13 @@
 
 @class VLCSplashScreenWindowController;
 @class VLCInfoWindowController;
+@class VLCMovieInfoGrabberWindowController;
+@class VLCTVShowInfoGrabberWindowController;
 
 @interface VLCDocumentController : NSDocumentController {
     VLCSplashScreenWindowController *_splashScreen;
+    VLCMovieInfoGrabberWindowController *_movieInfoGrabber;
+    VLCTVShowInfoGrabberWindowController *_tvShowInfoGrabber;
     VLCInfoWindowController *_infoWindow;
 
     IBOutlet NSMenuItem *_styleMenu;
@@ -47,7 +51,7 @@
     NSManagedObjectModel   *_managedObjectModel;
     NSMetadataQuery *_watchedFolderQuery;
 
-    NSArrayController *currentArrayController;
+    NSArrayController *_currentArrayController;
 }
 
 /**
@@ -79,6 +83,9 @@
 
 - (IBAction)openInfoWindow:(id)sender;
 - (void)closeInfoWindow;
+
+- (IBAction)openMovieInfoGrabberWindow:(id)sender;
+- (IBAction)openTVShowInfoGrabberWindow:(id)sender;
 
 /* Used by Nibs */
 - (NSPredicate *)predicateThatFiltersEmptyDiscoverer;

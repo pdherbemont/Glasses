@@ -147,6 +147,16 @@
 		635F0F7B10CC63DC006EC30E /* VLCValueTransformers.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F0F7A10CC63DC006EC30E /* VLCValueTransformers.m */; };
 		635F109310CC7E29006EC30E /* VLCPlayedProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */; };
 		635F15E010CDB4D8006EC30E /* GPLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635F15DF10CDB4D8006EC30E /* GPLWindow.xib */; };
+		6363595511918A3600A348A6 /* MovieInfoGrabberWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6363595411918A3600A348A6 /* MovieInfoGrabberWindow.xib */; };
+		6363598511918F4E00A348A6 /* VLCMovieInfoGrabberWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6363594F11918A0E00A348A6 /* VLCMovieInfoGrabberWindowController.m */; };
+		63635C7A11922E9F00A348A6 /* VLCMovieInfoGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635C7911922E9F00A348A6 /* VLCMovieInfoGrabber.m */; };
+		63635CBD1192365C00A348A6 /* VLCTitleDecrapifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635CBC1192365C00A348A6 /* VLCTitleDecrapifier.m */; };
+		63635CF51192B59100A348A6 /* VLCTVShowInfoGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635CF41192B59100A348A6 /* VLCTVShowInfoGrabber.m */; };
+		63635CFE1192B61D00A348A6 /* TVShowInfoGrabberWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63635CFD1192B61D00A348A6 /* TVShowInfoGrabberWindow.xib */; };
+		63635D091192B74600A348A6 /* NSXMLNode_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635D081192B74600A348A6 /* NSXMLNode_Additions.m */; };
+		63635DC31192E76000A348A6 /* tvshows.png in Resources */ = {isa = PBXBuildFile; fileRef = 63635DC21192E76000A348A6 /* tvshows.png */; };
+		63635DC81192E84E00A348A6 /* clips.png in Resources */ = {isa = PBXBuildFile; fileRef = 63635DC71192E84E00A348A6 /* clips.png */; };
+		63635E121192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635E111192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m */; };
 		636C48101121623700817611 /* ListView.js in Resources */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
 		636C481A11216E5000817611 /* ListView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
 		636C481B11216E5000817611 /* ListItemView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C48131121624C00817611 /* ListItemView.js */; };
@@ -689,6 +699,22 @@
 		635F109110CC7E29006EC30E /* VLCPlayedProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCPlayedProgressIndicator.h; path = Sources/VLCPlayedProgressIndicator.h; sourceTree = "<group>"; };
 		635F109210CC7E29006EC30E /* VLCPlayedProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCPlayedProgressIndicator.m; path = Sources/VLCPlayedProgressIndicator.m; sourceTree = "<group>"; };
 		635F15DF10CDB4D8006EC30E /* GPLWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GPLWindow.xib; path = Resources/GPLWindow.xib; sourceTree = "<group>"; };
+		6363594E11918A0E00A348A6 /* VLCMovieInfoGrabberWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieInfoGrabberWindowController.h; path = Sources/VLCMovieInfoGrabberWindowController.h; sourceTree = "<group>"; };
+		6363594F11918A0E00A348A6 /* VLCMovieInfoGrabberWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieInfoGrabberWindowController.m; path = Sources/VLCMovieInfoGrabberWindowController.m; sourceTree = "<group>"; };
+		6363595411918A3600A348A6 /* MovieInfoGrabberWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MovieInfoGrabberWindow.xib; path = Resources/MovieInfoGrabberWindow.xib; sourceTree = "<group>"; };
+		63635C7811922E9F00A348A6 /* VLCMovieInfoGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMovieInfoGrabber.h; path = Sources/VLCMovieInfoGrabber.h; sourceTree = "<group>"; };
+		63635C7911922E9F00A348A6 /* VLCMovieInfoGrabber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMovieInfoGrabber.m; path = Sources/VLCMovieInfoGrabber.m; sourceTree = "<group>"; };
+		63635CBB1192365C00A348A6 /* VLCTitleDecrapifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTitleDecrapifier.h; path = Sources/VLCTitleDecrapifier.h; sourceTree = "<group>"; };
+		63635CBC1192365C00A348A6 /* VLCTitleDecrapifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTitleDecrapifier.m; path = Sources/VLCTitleDecrapifier.m; sourceTree = "<group>"; };
+		63635CF31192B59100A348A6 /* VLCTVShowInfoGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTVShowInfoGrabber.h; path = Sources/VLCTVShowInfoGrabber.h; sourceTree = "<group>"; };
+		63635CF41192B59100A348A6 /* VLCTVShowInfoGrabber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTVShowInfoGrabber.m; path = Sources/VLCTVShowInfoGrabber.m; sourceTree = "<group>"; };
+		63635CFD1192B61D00A348A6 /* TVShowInfoGrabberWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TVShowInfoGrabberWindow.xib; path = Resources/TVShowInfoGrabberWindow.xib; sourceTree = "<group>"; };
+		63635D071192B74600A348A6 /* NSXMLNode_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSXMLNode_Additions.h; path = Sources/NSXMLNode_Additions.h; sourceTree = "<group>"; };
+		63635D081192B74600A348A6 /* NSXMLNode_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSXMLNode_Additions.m; path = Sources/NSXMLNode_Additions.m; sourceTree = "<group>"; };
+		63635DC21192E76000A348A6 /* tvshows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tvshows.png; path = Style/Default/tvshows.png; sourceTree = "<group>"; };
+		63635DC71192E84E00A348A6 /* clips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clips.png; path = Style/Default/clips.png; sourceTree = "<group>"; };
+		63635E101192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCTVShowInfoGrabberWindowController.h; path = Sources/VLCTVShowInfoGrabberWindowController.h; sourceTree = "<group>"; };
+		63635E111192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTVShowInfoGrabberWindowController.m; path = Sources/VLCTVShowInfoGrabberWindowController.m; sourceTree = "<group>"; };
 		636C480F1121623700817611 /* ListView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ListView.js; sourceTree = "<group>"; };
 		636C48131121624C00817611 /* ListItemView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ListItemView.js; sourceTree = "<group>"; };
 		6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMHTMLElement_Additions.h; path = Sources/DOMHTMLElement_Additions.h; sourceTree = "<group>"; };
@@ -865,6 +891,7 @@
 				630324FC104A82A200CC82B6 /* Debug Playlist Window */,
 				639FDAAC111782EA007EE416 /* Splash Screen */,
 				CC61B34C103DDBC000D13C72 /* Non-document windows */,
+				63635C7B11922EA900A348A6 /* Grabber */,
 				63EF25C60F90FD8B002A2E14 /* Internal */,
 				CC10A7B5103CA99000B4555A /* System Framework Addition */,
 				631393C710FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel */,
@@ -955,6 +982,8 @@
 		63032506104A836800CC82B6 /* xibs */ = {
 			isa = PBXGroup;
 			children = (
+				63635CFD1192B61D00A348A6 /* TVShowInfoGrabberWindow.xib */,
+				6363595411918A3600A348A6 /* MovieInfoGrabberWindow.xib */,
 				CC54DD5D10EE79D10031D0A2 /* CrashReporter.xib */,
 				635D1123104A844000D34A87 /* AboutWindow.xib */,
 				635F15DF10CDB4D8006EC30E /* GPLWindow.xib */,
@@ -1114,6 +1143,8 @@
 		63161BF910CAC3FA0091974E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				63635DC71192E84E00A348A6 /* clips.png */,
+				63635DC21192E76000A348A6 /* tvshows.png */,
 				63311C20118B3F9200C21FD6 /* shelf.png */,
 				63DCD4171168F4BC00C194BF /* statusbarBackground.png */,
 				63DCD4181168F4BC00C194BF /* statusbarButtons.png */,
@@ -1161,6 +1192,19 @@
 				631CA0DA0FF8645100CA511E /* VLCKit.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		63635C7B11922EA900A348A6 /* Grabber */ = {
+			isa = PBXGroup;
+			children = (
+				63635CBB1192365C00A348A6 /* VLCTitleDecrapifier.h */,
+				63635CBC1192365C00A348A6 /* VLCTitleDecrapifier.m */,
+				63635C7811922E9F00A348A6 /* VLCMovieInfoGrabber.h */,
+				63635C7911922E9F00A348A6 /* VLCMovieInfoGrabber.m */,
+				63635CF31192B59100A348A6 /* VLCTVShowInfoGrabber.h */,
+				63635CF41192B59100A348A6 /* VLCTVShowInfoGrabber.m */,
+			);
+			name = Grabber;
 			sourceTree = "<group>";
 		};
 		639F68DC1046F18700117832 /* Style */ = {
@@ -1305,6 +1349,8 @@
 				63014657104098F000534090 /* DOMElement_Additions.m */,
 				6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */,
 				6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */,
+				63635D071192B74600A348A6 /* NSXMLNode_Additions.h */,
+				63635D081192B74600A348A6 /* NSXMLNode_Additions.m */,
 				CCABEBA6107FD06B004A471E /* AppleRemote.h */,
 				CCABEBA7107FD06B004A471E /* AppleRemote.m */,
 				63161B1110CAADDF0091974E /* VLCCollectionView.h */,
@@ -1336,6 +1382,10 @@
 				CCC8385D1047F62C002519D7 /* VLCAboutWindowController.m */,
 				639163DE1115E21500480B08 /* VLCInfoWindowController.h */,
 				639163DF1115E21500480B08 /* VLCInfoWindowController.m */,
+				6363594E11918A0E00A348A6 /* VLCMovieInfoGrabberWindowController.h */,
+				6363594F11918A0E00A348A6 /* VLCMovieInfoGrabberWindowController.m */,
+				63635E101192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.h */,
+				63635E111192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m */,
 			);
 			name = "Non-document windows";
 			sourceTree = "<group>";
@@ -1547,6 +1597,8 @@
 				633119D3117DDA6400C21FD6 /* volumeslider_graphite.png in Resources */,
 				633119D4117DDA6400C21FD6 /* volumeslider_normal.png in Resources */,
 				63311C21118B3F9200C21FD6 /* shelf.png in Resources */,
+				63635DC31192E76000A348A6 /* tvshows.png in Resources */,
+				63635DC81192E84E00A348A6 /* clips.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1669,6 +1721,8 @@
 				636C48101121623700817611 /* ListView.js in Resources */,
 				63E3F34311453CDB00A62577 /* playback.png in Resources */,
 				63DCD5D8116B61B000C194BF /* folderScanning.png in Resources */,
+				6363595511918A3600A348A6 /* MovieInfoGrabberWindow.xib in Resources */,
+				63635CFE1192B61D00A348A6 /* TVShowInfoGrabberWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1866,6 +1920,12 @@
 				639271F8112B567C00DD9323 /* VLCStyledVideoView.m in Sources */,
 				326F9CF11125C3C9006117C7 /* VLCDVDDiscoverer.m in Sources */,
 				63DCD683116B7A2100C194BF /* VLCNonSelectablePathControl.m in Sources */,
+				6363598511918F4E00A348A6 /* VLCMovieInfoGrabberWindowController.m in Sources */,
+				63635C7A11922E9F00A348A6 /* VLCMovieInfoGrabber.m in Sources */,
+				63635CBD1192365C00A348A6 /* VLCTitleDecrapifier.m in Sources */,
+				63635CF51192B59100A348A6 /* VLCTVShowInfoGrabber.m in Sources */,
+				63635D091192B74600A348A6 /* NSXMLNode_Additions.m in Sources */,
+				63635E121192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

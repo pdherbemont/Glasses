@@ -44,6 +44,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 @synthesize moviesArrayController=_moviesArrayController;
 @synthesize labelsArrayController=_labelsArrayController;
 @synthesize clipsArrayController=_clipsArrayController;
+@synthesize tvShowsArrayController=_tvShowsArrayController;
 @synthesize mediaDiscovererArrayController=_mediaDiscovererArrayController;
 
 - (void)dealloc

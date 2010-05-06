@@ -55,6 +55,7 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 - (void)dealloc
 {
     VLCAssert(!_started, @"Shouldn't be started");
+    [self stop];
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
     Block_release(_block);
 #endif

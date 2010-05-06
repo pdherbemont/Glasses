@@ -23,6 +23,10 @@
 #import "VLCMediaDocument.h"
 #import "VLCSplashScreenWindowController.h"
 #import "VLCInfoWindowController.h"
+#import "VLCMovieInfoGrabber.h"
+#import "VLCTitleDecrapifier.h"
+#import "VLCMovieInfoGrabberWindowController.h"
+#import "VLCTVShowInfoGrabberWindowController.h"
 
 #import <VLCKit/VLCExtensionsManager.h>
 #import <VLCKit/VLCExtension.h>
@@ -60,7 +64,10 @@
 
 - (void)dealloc
 {
-    [currentArrayController release];
+    [_tvShowInfoGrabber release];
+    [_movieInfoGrabber release];
+    [_splashScreen release];
+    [_currentArrayController release];
     [super dealloc];
 }
 
@@ -381,11 +388,9 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     double remainingTime = [[[media length] numberValue] doubleValue] * (position - 1);
 
     [movie setValue:[NSNumber numberWithBool:YES] forKey:@"currentlyWatching"];
-    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"unread"];
+    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
     [movie setValue:[NSNumber numberWithDouble:position] forKey:@"lastPosition"];
     [movie setValue:[NSNumber numberWithDouble:remainingTime] forKey:@"remainingTime"];
-
-    [movie setValue:[media valueForKeyPath:@"metaDictionary.title"] forKey:@"title"];
 }
 
 
@@ -431,6 +436,23 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [_infoWindow release];
     _infoWindow = nil;
 }
+
+- (IBAction)openMovieInfoGrabberWindow:(id)sender
+{
+    if (!_movieInfoGrabber) {
+        _movieInfoGrabber = [[VLCMovieInfoGrabberWindowController alloc] init];
+    }
+    [_movieInfoGrabber showWindow:self];
+}
+
+- (IBAction)openTVShowInfoGrabberWindow:(id)sender
+{
+    if (!_tvShowInfoGrabber) {
+        _tvShowInfoGrabber = [[VLCTVShowInfoGrabberWindowController alloc] init];
+    }
+    [_tvShowInfoGrabber showWindow:self];
+}
+
 
 - (void)setMainWindow:(NSWindow *)window
 {
@@ -593,12 +615,27 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
     }
 
-    if ([size longLongValue] < 150000000) /* 150 MB */
+    if ([VLCTitleDecrapifier isTVShowEpisodeTitle:title])
+        [movie setValue:@"tvShowEpisode" forKey:@"type"];
+    else if ([size longLongValue] < 150000000) /* 150 MB */
         [movie setValue:@"clip" forKey:@"type"];
     else
         [movie setValue:@"movie" forKey:@"type"];
 
     [movie setValue:title forKey:@"title"];
+
+    // Now enqueue a grabber lookup
+    VLCMovieInfoGrabber *grabber = [[[VLCMovieInfoGrabber alloc] init] autorelease];
+    [grabber lookUpForTitle:[VLCTitleDecrapifier decrapify:[title stringByDeletingPathExtension]] andExecuteBlock:^{
+        NSArray *results = grabber.results;
+        if ([results count] > 0) {
+            NSDictionary *result = [results objectAtIndex:0];
+            [movie setValue:[result objectForKey:@"artworkURL"] forKey:@"artworkURL"];
+            [movie setValue:[result objectForKey:@"title"] forKey:@"title"];
+            [movie setValue:[result objectForKey:@"shortSummary"] forKey:@"shortSummary"];
+            [movie setValue:[result objectForKey:@"releaseYear"] forKey:@"releaseYear"];
+        }
+    }];
 }
 
 

@@ -52,6 +52,11 @@
     DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] moviesArrayController]);
 }
 
+- (NSArrayController *)tvShowsArrayController
+{
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] tvShowsArrayController]);
+}
+
 - (NSArrayController *)labelsArrayController
 {
     DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] labelsArrayController]);

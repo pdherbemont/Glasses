@@ -52,7 +52,6 @@ li:last-child {
 .name {
 	font-family: "Lucida Grande";
 	font-size: 13px;
-	padding-left: 10px;
     text-overflow: ellipsis;
     white-space:nowrap;
     overflow: hidden;
@@ -61,10 +60,51 @@ li:last-child {
 #detail .name
 {
     padding: 1em;
-    padding-left: 40px;
+    -webkit-transition: font-size ease-in-out 0.2s;
 }
 
-.selected .name, .selected .remaining-time {
+#detail .selected .name {
+	font-size: 16px;
+    -webkit-transition: font-size ease-in-out 0.2s;
+    padding-bottom: 5px;
+    padding-top: 0px;
+}
+
+#detail .selected .short-summary {
+    opacity: 1;
+}
+
+#detail .short-summary {
+    opacity: 0;
+}
+
+.year
+{
+    width: 40px;
+    color: grey;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.short-summary
+{
+    height: 74px;
+    font-size: 12px;
+    color: #000;
+    text-shadow:  #eee 0px 1px 0px;
+    margin: 16px;
+    margin-top: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#detail .thumbnail
+{
+    padding-left: 20px;
+}
+
+
+.selected .name, .selected .year, .selected .remaining-time {
     color: white;
     text-shadow:  #222 0px 1px 1px;
 }
@@ -77,13 +117,27 @@ li:last-child {
     -webkit-box-align: center;
 }
 
+.selected .item {
+    -webkit-box-align: center;
+}
+
 #detail .item {
     height: 44px;
+    -webkit-transition: height ease-in-out 0.2s;
+}
+
+#detail .selected.item {
+    height: 200px;
+    -webkit-transition: height ease-in-out 0.2s;
 }
 
 #sidebar .item {
     height: 34px;
     border: none;
+}
+
+#sidebar .name {
+    padding-left: 10px;
 }
 
 #sidebar .item img {
@@ -326,7 +380,7 @@ ul {
     background: #dde4eb;
 }
 
-.name {
+.detail {
     -webkit-box-flex: 1;
 }
 
@@ -385,14 +439,26 @@ ul {
 }
 
 .thumbnail {
-    position: absolute;
     margin: auto;
     top: 5px;
     bottom: 5px;
     left: 5px;
     height: 32px;
     max-width: 32px;
+
+    -webkit-transition: all ease-in-out 0.2s;
 }
+
+.selected .thumbnail {
+    margin-bottom: 35px;
+    height: 128px;
+    max-width: 128px;
+
+    -webkit-transition: all ease-in-out 0.2s;
+
+    -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.3)));
+}
+
 
 .subitems-count {
     display: absolute;
@@ -702,8 +768,24 @@ var MediaDBView = function(cocoaObject, parent, elementTag)
 MediaDBView.prototype = {
     createSubElements: function()
     {
+        this.detailElement = document.createElement("div");
+        this.detailElement.className = "detail";
+
         this.nameElement = document.createElement("div");
         this.nameElement.className = "name";
+
+        this.shortSummaryElement = document.createElement("div");
+        this.shortSummaryElement.className = "short-summary";
+
+        this.detailElement.appendChild(this.nameElement);
+        this.detailElement.appendChild(this.shortSummaryElement);
+
+        this.yearElement = document.createElement("div");
+        this.yearElement.className = "year";
+
+
+        this.thumbnailElement = document.createElement("img");
+        this.thumbnailElement.className = "thumbnail";
 
         this.statusElement = document.createElement("div");
         this.statusElement.className = "status";
@@ -731,8 +813,10 @@ MediaDBView.prototype = {
     appendSubElementsToNode: function(element)
     {
         element.appendChild(this.statusElement);
-        element.appendChild(this.nameElement);
+        element.appendChild(this.thumbnailElement);
+        element.appendChild(this.detailElement);
         element.appendChild(this.remainingElement);
+        element.appendChild(this.yearElement);
         element.appendChild(this.removeButton);
     },
 
@@ -795,15 +879,27 @@ MediaDBView.prototype = {
         ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
 
         if (visible) {
+            var options = new Object;
+            options["NSNullPlaceholderBindingOption"] = "";
+
             this.removeButton.addEventListener('click', this.removeButtonClicked.bind(this), false);
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
+            Lunettes.connect(this.yearElement, "textContent", this.cocoaObject, "releaseYear", options);
+            Lunettes.connect(this.shortSummaryElement, "textContent", this.cocoaObject, "shortSummary", options);
             Lunettes.connect(this, "unread", this.cocoaObject, "unread");
             Lunettes.connect(this, "currentlyWatching", this.cocoaObject, "currentlyWatching");
             Lunettes.connect(this, "remainingTime", this.cocoaObject, "lastPosition");
+
             var options = new Object;
             options["NSValueTransformerNameBindingOption"] = "VLCTimeAsNumberToPrettyTime";
             Lunettes.connect(this.remainingTimeElement, "textContent", this.cocoaObject, "remainingTime", options);
+            var options = new Object;
+            options["NSNullPlaceholderBindingOption"] = "noartwork.png";
+            Lunettes.connect(this.thumbnailElement, "src", this.cocoaObject, "artworkURL", options);
         } else {
+            Lunettes.unconnect(this.shortSummaryElement, "textContent");
+            Lunettes.unconnect(this.yearElement, "textContent");
+            Lunettes.unconnect(this.thumbnailElement, "src");
             Lunettes.unconnect(this.remainingTimeElement, "textContent");
             Lunettes.unconnect(this, "remainingTime");
             Lunettes.unconnect(this, "currentlyWatching");
@@ -1178,6 +1274,7 @@ function setDetailList(masterElement, list)
         window.detailList.detach();
 
     window.detailList = list;
+    list._visibleItemHeight = 44;
 
     window.detailList.attach(detailElement);
     Lunettes.didChange(window, "detailList");
@@ -1199,6 +1296,11 @@ function selectMasterElementNamed(name)
             if (!window._moviesCategoryDetailList)
                 window._moviesCategoryDetailList = new ListView(CocoaObject.windowCocoaObject(), "moviesArrayController.arrangedObjects", MediaDBView);
             list = window._moviesCategoryDetailList;
+            break;
+        case "tvshows-category":
+                if (!window.tvShowsCategoryDetailList)
+                    window._tvShowsCategoryDetailList = new ListView(CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects", MediaDBView);
+            list = window._tvShowsCategoryDetailList;
             break;
         case "clips-category":
                 if (!window._clipsCategoryDetailList)
@@ -1258,6 +1360,9 @@ function init()
     var count = document.getElementById("clips-count");
     Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "clipsArrayController.arrangedObjects.@count");
 
+    var count = document.getElementById("tvshows-count");
+    Lunettes.connect(count, "innerHTML", CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects.@count");
+
     selectMasterElementNamed("movies-category");
 
     Lunettes.connect(CocoaObject.windowCocoaObject(), "backendObject.currentArrayController", window, "detailList.arrayController.backendObject");
@@ -1269,8 +1374,12 @@ function init()
     var moviesElement = document.getElementById("movies-category");
     window.moviesCategory = new CategoryTypeView("movie", moviesElement);
 
+    var tvShowsElement = document.getElementById("tvshows-category");
+    window.tvShowsCategory = new CategoryTypeView("tvshow", tvShowsElement);
+
     var clipsElement = document.getElementById("clips-category");
-    window.clipsCategory = new CategoryTypeView("clip", clipsElement);
+    window.clipsCategory = new CategoryTypeView("tvShowEpisode", clipsElement);
+
 
 }
 
@@ -1282,7 +1391,8 @@ function init()
         <h1>Media</h1>
         <ul class="movies">
         <li onclick="click(event)" id="movies-category" class="item"><img src="movies.png"><div class="name">Movies<span id="movies-count" class="count">0</span></div></li>
-        <li onclick="click(event)" id="clips-category"  class="item"><img src="tvshows.png"><div class="name">Clips<span id="clips-count" class="count">0</span></div></li>
+        <li onclick="click(event)" id="tvshows-category" class="item"><img src="tvshows.png"><div class="name">TV Shows<span id="tvshows-count" class="count">0</span></div></li>
+        <li onclick="click(event)" id="clips-category"  class="item"><img src="clips.png"><div class="name">Clips<span id="clips-count" class="count">0</span></div></li>
         </ul>
         <h1 id="sources-header" class="hidden">Sources</h1>
         <div id="libraries">
