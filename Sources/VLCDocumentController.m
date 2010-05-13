@@ -75,15 +75,15 @@
 
 - (NSString *)typeForContentsOfURL:(NSURL *)inAbsoluteURL error:(NSError **)outError
 {
-    NSString *scheme = [inAbsoluteURL scheme];
+    NSString *scheme = [[inAbsoluteURL scheme] lowercaseString];
     NSArray *schemes = [NSArray arrayWithObjects:
-                        @"http", @"mms", @"ftp", @"rtsp", @"rtmp", @"udp",
-                        @"file", @"rtp", @"qtcapture", nil];
+                        @"file", @"ftp", @"http", @"mms", @"qtcapture", @"rtmp",
+                        @"rtp", @"rtsp", @"udp", nil];
 
-    // FIXME - Binary search
-    for (NSString *supportedScheme in schemes) {
-        if ([scheme isEqualToString:supportedScheme])
-            return @"VLCMediaDocument";
+    CFIndex index = CFArrayBSearchValues((CFArrayRef) schemes, CFRangeMake(0, CFArrayGetCount((CFArrayRef)schemes)) , 
+                                     (CFStringRef) scheme, (CFComparatorFunction)CFStringCompare, nil);
+    if ((index < [schemes count]) && [[schemes objectAtIndex:index] isEqualToString:scheme]) {
+        return @"VLCMediaDocument";
     }
     NSRunCriticalAlertPanel(@"Lunettes does not support this protocol",
                             [NSString stringWithFormat:@"%@ is no valid URL scheme.", scheme],
