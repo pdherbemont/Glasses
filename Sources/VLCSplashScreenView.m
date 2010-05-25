@@ -98,7 +98,15 @@
 - (void)playCocoaObject:(WebScriptObject *)object
 {
     FROM_JS();
+
     id representedObject = [object valueForKey:@"backendObject"];
+    if ([representedObject isKindOfClass:[NSManagedObject class]]) {
+        NSManagedObject *mo = representedObject;
+        if ([[[mo entity] name] isEqualToString:@"ShowEpisode"]) {
+            NSSet *files = [representedObject valueForKey:@"files"];
+            representedObject = [files anyObject];
+        }
+    }
     NSString *stringURL = [representedObject valueForKey:@"url"];
     NSURL *url = [NSURL URLWithString:stringURL];
     VLCAssert(url, @"Invalid string in DB!");

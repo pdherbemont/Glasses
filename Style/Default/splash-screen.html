@@ -833,6 +833,10 @@ EpisodeView.prototype = {
             Lunettes.unconnect(this.nameElement, "textContent");
         }
     },
+    action: function()
+    {
+        window.PlatformView.playCocoaObject(this.cocoaObject);
+    }
 }
 
 EpisodeView.prototype.__proto__ = ListItemView.prototype;
