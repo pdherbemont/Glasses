@@ -24,9 +24,11 @@
 #import "VLCSplashScreenWindowController.h"
 #import "VLCInfoWindowController.h"
 #import "VLCMovieInfoGrabber.h"
+#import "VLCTVShowInfoGrabber.h"
 #import "VLCTitleDecrapifier.h"
 #import "VLCMovieInfoGrabberWindowController.h"
 #import "VLCTVShowInfoGrabberWindowController.h"
+#import "VLCTVShowEpisodesInfoGrabber.h"
 
 #import <VLCKit/VLCExtensionsManager.h>
 #import <VLCKit/VLCExtension.h>
@@ -599,6 +601,59 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     return movie;
 }
 
+- (id)tvShowWithName:(NSString *)name
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSManagedObjectContext *moc = [self managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:moc];
+    [request setEntity:entity];
+
+    [request setPredicate:[NSPredicate predicateWithFormat:@"name LIKE %@", name]];
+
+    NSArray *dbResults = [moc executeFetchRequest:request error:nil];
+    [request release];
+
+    if ([dbResults count] <= 0)
+        return nil;
+
+    return [dbResults objectAtIndex:0];
+}
+
+- (id)showEpisodeWithShow:(id)show episodeNumber:(NSNumber *)episodeNumber seasonNumber:(NSNumber *)seasonNumber
+{
+    NSMutableSet *episodes = [show mutableSetValueForKey:@"episodes"];
+    id episode = nil;
+    for (id episodeIter in episodes) {
+        if ([[episodeIter valueForKey:@"seasonNumber"] intValue] == [seasonNumber intValue] &&
+            [[episodeIter valueForKey:@"episodeNumber"] intValue] == [episodeNumber intValue]) {
+            episode = episodeIter;
+            break;
+        }
+    }
+    if (!episode) {
+        NSManagedObjectContext *moc = [self managedObjectContext];
+        episode = [NSEntityDescription insertNewObjectForEntityForName:@"ShowEpisode" inManagedObjectContext:moc];
+        [episode setValue:seasonNumber forKey:@"seasonNumber"];
+        [episode setValue:episodeNumber forKey:@"episodeNumber"];
+        [episodes addObject:episode];
+    }
+    return episode;
+}
+
+- (id)showEpisodeWithShowName:(NSString *)showName episodeNumber:(NSNumber *)episodeNumber seasonNumber:(NSNumber *)seasonNumber wasInserted:(BOOL *)wasInserted show:(id *)returnedShow
+{
+    id show = [self tvShowWithName:showName];
+    *wasInserted = NO;
+    if (!show) {
+        *wasInserted = YES;
+        NSManagedObjectContext *moc = [self managedObjectContext];
+        show = [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:moc];
+        [show setValue:showName forKey:@"name"];
+    }
+    *returnedShow = show;
+    return [self showEpisodeWithShow:show episodeNumber:episodeNumber seasonNumber:seasonNumber];
+}
+
 - (void)addMetadataItem:(NSMetadataItem *)result
 {
     NSManagedObjectContext *moc = [self managedObjectContext];
@@ -624,8 +679,59 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
     }
 
-    if ([VLCTitleDecrapifier isTVShowEpisodeTitle:title])
+    NSDictionary *tvShowEpisodeInfo = [VLCTitleDecrapifier tvShowEpisodeInfoFromString:title];
+    if (tvShowEpisodeInfo) {
         [movie setValue:@"tvShowEpisode" forKey:@"type"];
+        NSNumber *seasonNumber = [tvShowEpisodeInfo objectForKey:@"season"];
+        NSNumber *episodeNumber = [tvShowEpisodeInfo objectForKey:@"episode"];
+        NSString *tvShowName = [tvShowEpisodeInfo objectForKey:@"tvShowName"];
+        BOOL hasNoTvShow = NO;
+        if (!tvShowName) {
+            tvShowName = @"Untitled TV Show";
+            hasNoTvShow = YES;
+        }
+        BOOL wasInserted = NO;
+        id show = nil;
+        id episode = [self showEpisodeWithShowName:tvShowName episodeNumber:episodeNumber seasonNumber:seasonNumber wasInserted:&wasInserted show:&show];
+
+        if (wasInserted) {
+            // Now enqueue a grabber lookup. This will fetch all data about the
+            // show, including episode.
+            VLCTVShowInfoGrabber *grabber = [[[VLCTVShowInfoGrabber alloc] init] autorelease];
+            [grabber lookUpForTitle:tvShowName andExecuteBlock:^{
+                NSArray *results = grabber.results;
+                if ([results count] > 0) {
+                    NSDictionary *result = [results objectAtIndex:0];
+                    NSString *showId = [result objectForKey:@"id"];
+                    [show setValue:[result objectForKey:@"title"] forKey:@"name"];
+                    [show setValue:showId forKey:@"theTVDBID"];
+                    [show setValue:[result objectForKey:@"shortSummary"] forKey:@"shortSummary"];
+                    [show setValue:[result objectForKey:@"releaseYear"] forKey:@"releaseYear"];
+                    [show setValue:[result objectForKey:@"artworkURL"] forKey:@"artworkURL"];
+
+                    // Fetch episode info
+                    VLCTVShowEpisodesInfoGrabber *grabber = [[[VLCTVShowEpisodesInfoGrabber alloc] init] autorelease];
+                    [grabber lookUpForShowID:showId andExecuteBlock:^{
+                        NSArray *results = grabber.results;
+                        for (id result in results) {
+                            id showEpisode = [self showEpisodeWithShow:show episodeNumber:[result objectForKey:@"episodeNumber"] seasonNumber:[result objectForKey:@"seasonNumber"]];
+                            [showEpisode setValue:[result objectForKey:@"title"] forKey:@"name"];
+                            [showEpisode setValue:[result objectForKey:@"id"] forKey:@"theTVDBID"];
+                            [showEpisode setValue:[result objectForKey:@"shortSummary"] forKey:@"shortSummary"];
+                            [showEpisode setValue:[result objectForKey:@"artworkURL"] forKey:@"artworkURL"];
+                        }
+                    }];
+                }
+            }];
+        }
+
+        [movie setValue:seasonNumber forKey:@"seasonNumber"];
+        [movie setValue:episodeNumber forKey:@"episodeNumber"];
+        [episode setValue:[NSNumber numberWithBool:YES] forKey:@"shouldBeDisplayed"];
+        NSMutableSet *files = [episode mutableSetValueForKey:@"files"];
+        [files addObject:movie];
+        //[movie setValue:episode forKey:@"showEpisode"];
+    }
     else if ([size longLongValue] < 150000000) /* 150 MB */
         [movie setValue:@"clip" forKey:@"type"];
     else
@@ -657,6 +763,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     // Prepare a fetch request for all items
     for (NSMetadataItem *metaDataItem in metaDataItems) {
         NSString *path = [metaDataItem valueForAttribute:@"kMDItemPath"];
+
         NSURL *url = [NSURL fileURLWithPath:path];
         NSString *urlDescription = [url description];
         [fetchPredicates addObject:[NSPredicate predicateWithFormat:@"url == %@", urlDescription]];
@@ -686,7 +793,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 
     // Add only the newly added items
     for (NSMetadataItem *metaDataItem in metaDataItemsToAdd) {
-        NSLog(@"Adding %@", [metaDataItem valueForAttribute:@"kMDItemPath"]);
         [self addMetadataItem:metaDataItem];
     }
 }

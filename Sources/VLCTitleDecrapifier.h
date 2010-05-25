@@ -10,6 +10,10 @@
 
 
 @interface VLCTitleDecrapifier : NSObject
+{
+}
 + (NSString *)decrapify:(NSString *)string;
 + (BOOL)isTVShowEpisodeTitle:(NSString *)string;
+
++ (NSDictionary *)tvShowEpisodeInfoFromString:(NSString *)string;
 @end

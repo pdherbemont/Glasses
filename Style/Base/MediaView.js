@@ -9,6 +9,7 @@
 var MediaView = function(cocoaObject, parent, elementTag)
 {
     ListItemView.call(this, cocoaObject, parent, elementTag);
+    this.element.addClassName("media-view");
 
     this._subitemsCount = 0;
 

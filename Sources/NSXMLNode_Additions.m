@@ -19,4 +19,16 @@
     return [[nodes objectAtIndex:0] stringValue];
 }
 
+- (NSNumber *)numberValueForXPath:(NSString *)string
+{
+    NSArray *nodes = [self nodesForXPath:string error:nil];
+    if ([nodes count] == 0)
+        return nil;
+    NSScanner *scanner = [NSScanner scannerWithString:[[nodes objectAtIndex:0] stringValue]];
+    NSInteger i;
+    if ([scanner scanInteger:&i])
+        return [NSNumber numberWithInteger:i];
+    return nil;
+}
+
 @end

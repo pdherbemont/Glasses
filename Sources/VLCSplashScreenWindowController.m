@@ -45,6 +45,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 @synthesize labelsArrayController=_labelsArrayController;
 @synthesize clipsArrayController=_clipsArrayController;
 @synthesize tvShowsArrayController=_tvShowsArrayController;
+@synthesize orphanedTVShowEpisodeArrayController=_orphanedTVShowEpisodeArrayController;
 @synthesize mediaDiscovererArrayController=_mediaDiscovererArrayController;
 
 - (void)dealloc
@@ -66,10 +67,19 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
                                  ascending:NO
                                  selector:@selector(compare:)] autorelease];
     NSSortDescriptor *lastPosition = [[[NSSortDescriptor alloc]
-                                initWithKey:@"lastPosition"
-                                ascending:NO
-                                selector:@selector(compare:)] autorelease];
+                                       initWithKey:@"lastPosition"
+                                       ascending:NO
+                                       selector:@selector(compare:)] autorelease];
     return [NSArray arrayWithObjects:lastPosition, unread, title, nil];
+}
+
+- (NSArray *)sortDescriptorsForTVShows
+{
+    NSSortDescriptor *name = [[[NSSortDescriptor alloc]
+                                initWithKey:@"name"
+                                ascending:YES
+                                selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];
+    return [NSArray arrayWithObjects:name, nil];
 }
 
 - (NSArray *)availableMediaDiscoverer

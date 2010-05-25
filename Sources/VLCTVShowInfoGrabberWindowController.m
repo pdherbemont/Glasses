@@ -50,12 +50,12 @@
     // We are now waiting for delegate methods
 }
 
-- (void)movieInfoGrabber:(VLCTVShowInfoGrabber *)grabber didFailWithError:(NSError *)error
+- (void)tvShowInfoGrabber:(VLCTVShowInfoGrabber *)grabber didFailWithError:(NSError *)error
 {
     [_progressIndicator stopAnimation:nil];
 }
 
-- (void)movieInfoGrabberDidFinishGrabbing:(VLCTVShowInfoGrabber *)grabber
+- (void)tvShowInfoGrabberDidFinishGrabbing:(VLCTVShowInfoGrabber *)grabber
 {
     [_progressIndicator stopAnimation:nil];
     self.results = grabber.results;

@@ -29,6 +29,6 @@
 
 @protocol VLCTVShowInfoGrabberDelegate <NSObject>
 @optional
-- (void)movieInfoGrabber:(VLCTVShowInfoGrabber *)grabber didFailWithError:(NSError *)error;
-- (void)movieInfoGrabberDidFinishGrabbing:(VLCTVShowInfoGrabber *)grabber;
+- (void)tvShowInfoGrabber:(VLCTVShowInfoGrabber *)grabber didFailWithError:(NSError *)error;
+- (void)tvShowInfoGrabberDidFinishGrabbing:(VLCTVShowInfoGrabber *)grabber;
 @end

@@ -11,4 +11,5 @@
 
 @interface NSXMLNode (VLCAdditions)
 - (NSString *)stringValueForXPath:(NSString *)string;
+- (NSNumber *)numberValueForXPath:(NSString *)string;
 @end

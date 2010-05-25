@@ -26,59 +26,313 @@ input[type=search] {
     display: none;
 }
 
-li {
+#preload {
+    background: url(sources.png);
+}
+
+/**************************************************
+ * General layout
+ *
+ * #sidebar                   #detail
+ *  #sidebar-list               #action-bar
+ *     .sidebar-list-group      #detail-list-view
+ *        .subitems
+ *          .item
+ *  #sidebar-bottombar
+ */
+
+#sidebar {
+    width: 230px;
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: auto;
+    background: #dde4eb;
+    border-right: thin solid #B3B3B3;
+    overflow: auto;
+    -webkit-box-sizing: border-box;
+}
+
+#sidebar-list {
+    background: #dde4eb;
+}
+
+/*****
+ * sidebar-list
+ */
+
+/* Item */
+.sidebar-list-group > .subitems>.item {
+    height: 34px;
+    padding-left: 2em;
+
+    position: relative;
+
+    text-shadow: #eee 0px 1px 0px;
+	font-family: "Lucida Grande";
+    font-size: 12px;
+
+    position: relative;
+    -webkit-box-sizing: border-box;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-align: center;
+}
+
+.sidebar-list-group > .subitems > .item.selected
+{
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
+    border-bottom: thin solid rgb(105, 123, 157) !important;
+    border-top: thin solid rgb(105, 133, 157)  !important;
+}
+
+.sidebar-list-group > .subitems > .item > .name {
+    padding-left: 10px;
+}
+
+
+
+.sidebar-list-group > .subitems > .item.selected > .name {
+    color: white;
+    text-shadow:  #222 0px 1px 1px;
+}
+
+
+.sidebar-list-group > .subitems > .item > img {
+    height: 32px;
+}
+
+/* subitems-count */
+#sidebar .subitems-count {
+    position: absolute;
+    right: 0;
+    top: 6px;
+    -webkit-border-radius: 50px;
+
+    color: white;
+    background: #96A5C9;
+
+    text-shadow: none;
+    font-weight: bold;
+
+    padding: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+    margin-right: 10px;
+}
+
+#sidebar .selected .subitems-count {
+    color: #96A5C9;
+    background: white;
+    -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
+}
+
+/* h1 */
+#sidebar-list>h1 {
+    text-transform: uppercase;
+    color: #5C6E81;
+    font-family: "Lucida Grande";
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
+    width: auto;
+    margin: 1em;
+    margin-bottom: 0.4em;
+}
+
+/*****
+ * sidebar-bottombar
+ */
+
+#sidebar-bottombar {
+    background: url(statusbarBackground.png);
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 24px;
+}
+
+.sidebar-bottombar-button {
+    background: url(statusbarButtons.png);
+    height: 24px;
+    width: 32px;
+    font-family: 'Myriad Pro';
+    font-size: 15px;
+    border: none;
+    line-height: 12px;
+    font-weight: bold;
+    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
+}
+
+.sidebar-button:active {
+    background-position: 32px 0px !important;
+}
+
+
+/* Dragging */
+#sidebar .drag-entered {
+    -webkit-border-radius: 10px;
+    border: 2px solid #5764E1 !important;
+    background: #D0DDF6 !important;
+}
+
+#sidebar .drag-entered.selected {
+    -webkit-border-radius: 10px;
+    border: 2px solid #5764E1 !important;
+    background: #D0DDF6, -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210))) !important;
+}
+
+/* Editing */
+#sidebar .editing {
+    -webkit-user-select: text;
+    -webkit-box-shadow: rgba(0, 0, 0, .5) 3px 3px 4px;
+    outline: 1px solid rgb(66%, 66%, 66%) !important;
+    background-color: white;
+    -webkit-user-modify: read-write-plaintext-only;
+    text-overflow: clip;
+    padding-left: 2px;
+    margin-left: -2px;
+    padding-right: 2px;
+    margin-right: -2px;
+    margin-bottom: -1px;
+    padding-bottom: 1px;
+    opacity: 1.0 !important;
+}
+
+#sidebar .editing, .editing * {
+    color: black !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+}
+
+/* Misc */
+#sidebar .name:focus
+{
+    outline: none;
+}
+
+
+/**************************************************
+ * Detail
+ */
+
+
+/*****
+ * Regular view
+ */
+
+#detail {
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 0; left: 230px;
+    overflow: hidden;
+}
+
+#detail-list-view {
+    overflow: auto;
+
+    position: absolute;
+    top: 24px; bottom: 0;
+    right: 0; left: 0px;
+}
+
+.media-db-view,
+.media-sd-view {
 	border-top: thin solid #eee;
 	-webkit-box-sizing: border-box;
     margin: 0;
     padding: 0;
     overflow: hidden;
+
+    -webkit-user-drag: element;
+
+    height: 44px;
+    -webkit-transition: height ease-in-out 0.2s;
+
+    position: relative;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-align: center;
 }
 
-li:last-child {
+.media-db-view:last-child,
+.media-sd-view:last-child {
 	border-bottom: thin solid #eee;
 }
 
-.icon-view li {
-    display: inline-block;
-    width: 128px;
-    height: 63px;
-    position: relative;
-    font: Helvetica;
-    font-weight: bold;
-    border: none;
+.media-db-view.selected,
+.media-sd-view.selected {
+    height: 200px;
+    -webkit-transition: height ease-in-out 0.2s;
+
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
+    border-bottom: thin solid rgb(105, 123, 157) !important;
+    border-top: thin solid rgb(105, 133, 157)  !important;
 }
 
-
-.name {
+.media-db-view > .detail > .name,
+.media-sd-view > .name {
 	font-family: "Lucida Grande";
 	font-size: 13px;
     text-overflow: ellipsis;
     white-space:nowrap;
     overflow: hidden;
-}
 
-#detail .name
-{
     padding: 1em;
-    -webkit-transition: font-size ease-in-out 0.2s;
+    -webkit-transition: all ease-in-out 0.2s;
 }
 
-#detail .selected .name {
+.media-db-view.selected > .detail > .name,
+.media-sd-view.selected > .name {
 	font-size: 16px;
-    -webkit-transition: font-size ease-in-out 0.2s;
     padding-bottom: 5px;
     padding-top: 0px;
+    -webkit-transition: all ease-in-out 0.2s;
 }
 
-#detail .selected .short-summary {
-    opacity: 1;
-}
-
-#detail .short-summary {
+.remove-button {
     opacity: 0;
+    background: url(remove.png);
+    border: none;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 13px; width: 13px;
+    -webkit-transition: opacity 0.1s ease-in;
 }
 
-.year
+.item:hover>.remove-button {
+    opacity: 1;
+    -webkit-transition: opacity 0.2s ease-in;
+}
+
+.remove-button:active {
+    background: url(remove-on.png);
+}
+
+.thumbnail {
+    margin: auto;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    height: 32px;
+    max-width: 32px;
+
+    -webkit-transition: all ease-in-out 0.2s;
+}
+
+.media-db-view.selected > .thumbnail,
+.media-sd-view.selected > .thumbnail {
+    margin-bottom: 35px;
+    height: 128px;
+    max-width: 128px;
+
+    -webkit-transition: all ease-in-out 0.2s;
+
+    -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.3)));
+}
+
+#detail .year
 {
     width: 40px;
     color: grey;
@@ -86,7 +340,7 @@ li:last-child {
     text-align: center;
 }
 
-.short-summary
+.media-db-view > .short-summary
 {
     height: 74px;
     font-size: 12px;
@@ -105,47 +359,8 @@ li:last-child {
 
 
 .selected .name, .selected .year, .selected .remaining-time {
-    color: white;
-    text-shadow:  #222 0px 1px 1px;
-}
-
-.item {
-    position: relative;
-    -webkit-box-sizing: border-box;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-align: center;
-}
-
-.selected .item {
-    -webkit-box-align: center;
-}
-
-#detail .item {
-    height: 44px;
-    -webkit-transition: height ease-in-out 0.2s;
-}
-
-#detail .selected.item {
-    height: 200px;
-    -webkit-transition: height ease-in-out 0.2s;
-}
-
-#sidebar .item {
-    height: 34px;
-    border: none;
-}
-
-#sidebar .name {
-    padding-left: 10px;
-}
-
-#sidebar .item img {
-    height: 32px;
-}
-
-#detail .item {
-    -webkit-user-drag: element;
+    color: white !important;
+    text-shadow:  #222 0px 1px 1px !important;
 }
 
 #detail .item:-webkit-drag {
@@ -159,64 +374,11 @@ li:last-child {
     text-shadow: none;
 }
 
-.item.selected {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
-    border-bottom: thin solid rgb(105, 123, 157) !important;
-    border-top: thin solid rgb(105, 133, 157)  !important;
-}
-
-.remaining {
+#detail .remaining {
 	font-family: "Lucida Grande";
 	font-size: 10px;
 }
 
-#detail {
-    position: absolute;
-    top: 0; bottom: 0;
-    right: 0; left: 230px;
-    overflow: hidden;
-}
-
-#detail .list-view {
-    overflow: auto;
-
-    position: absolute;
-    top: 24px; bottom: 0;
-    right: 0; left: 0px;
-}
-
-.header {
-	height: 44px;
-	background: #6D85A3 url(file://localhost/Users/steg/Downloads/UiUIKit-1/images/bgHeader.png) repeat-x 50% 0%;
-	border-bottom: 1px solid #2E3744;
-	margin: 0px 0px 0px 0px;
-	padding: 0px;
-	-webkit-box-sizing: border-box;
-	font: normal normal bold 20px/30px Helvetica;
-}
-.libraries
-{
-    background-color: #779d66;
-}
-.header h1
-{
-	height: 20px;
-	text-align: center;
-	white-space: nowrap;
-	text-shadow: #2D3642 0px -1px 0px;
-	color: white;
-	width: 100%;
-	margin: 0px 0px 0px 0px;
-	font-size: 20px;
-	padding: 5px 0px;
-	letter-spacing: 1px;
-    overflow: hidden;
-}
-
-.collapsed ul {
-    height: 0px;
-    -webkit-transition: height ease-out 0.2s;
-}
 
 ul {
     height: auto;
@@ -246,19 +408,6 @@ ul {
     display: inline-block;
 }
 
-.collapsed .action-bar
-{
-    height: 0;
-    -webkit-transition: height ease-out 0.2;
-}
-
-
-.view-kind
-{
-    position: absolute;
-    right: 0;
-    text-align: right;
-}
 .action-button {
     display: inline-block;
 	text-shadow: #eee 0px 1px 0px;
@@ -296,12 +445,6 @@ ul {
     margin-top: 3px;
     color: #888;
     font-size: 10px;
-}
-
-.selected .remaining-time
-{
-    color: white;
-
 }
 
 
@@ -345,8 +488,7 @@ ul {
 
 .currently-watching:hover .progress-bar-content {
     opacity: 0.9;
-    -webkit-transition: opacity ease-in-out 0.1
-    s
+    -webkit-transition: opacity ease-in-out 0.1s;
 }
 
 
@@ -364,99 +506,8 @@ ul {
     display: -webkit-box;
 }
 
-
-#sidebar {
-    width: 230px;
-    position: absolute;
-    top: 0; bottom: 0;
-    left: 0; right: auto;
-    background: #dde4eb;
-    border-right: thin solid #B3B3B3;
-    overflow: auto;
-    -webkit-box-sizing: border-box;
-}
-
-.sidebar-list {
-    background: #dde4eb;
-}
-
 .detail {
     -webkit-box-flex: 1;
-}
-
-#sidebar li {
-    position: relative;
-    text-shadow: #eee 0px 1px 0px;
-	font-family: "Lucida Grande";
-    font-size: 12px;
-}
-
-#sidebar hr {
-    height: 1px;
-    border: none;
-    background: rgba(0,0,0,0.2);
-    margin-right: 60px;
-}
-
-#sidebar ul li {
-    padding-left: 2em;
-}
-#sidebar h1 {
-    text-transform: uppercase;
-    color: #5C6E81;
-    font-family: "Lucida Grande";
-    font-weight: bold;
-    font-size: 12px;
-    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
-    width: auto;
-    margin: 1em;
-    margin-bottom: 0.4em;
-}
-
-#sidebar li .count, .subitems-count {
-    position: absolute;
-    right: 0;
-    top: 6px;
-    -webkit-border-radius: 50px;
-
-    color: white;
-    background: #96A5C9;
-
-    text-shadow: none;
-    font-weight: bold;
-
-    padding: 2px;
-    padding-left: 6px;
-    padding-right: 6px;
-
-    margin-right: 10px;
-}
-
-#sidebar .selected .count, .selected .subitems-count {
-    color: #96A5C9;
-    background: white;
-    -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
-}
-
-.thumbnail {
-    margin: auto;
-    top: 5px;
-    bottom: 5px;
-    left: 5px;
-    height: 32px;
-    max-width: 32px;
-
-    -webkit-transition: all ease-in-out 0.2s;
-}
-
-.selected .thumbnail {
-    margin-bottom: 35px;
-    height: 128px;
-    max-width: 128px;
-
-    -webkit-transition: all ease-in-out 0.2s;
-
-    -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.3)));
 }
 
 
@@ -479,95 +530,122 @@ ul {
     background: url(not-played.png);
 }
 
-.remove-button {
+/*****
+ * TVShowView
+ */
+
+.tv-show-view {
+	-webkit-box-sizing: border-box;
+
+    height: auto !important;
+
+	border-top: thin solid #eee;
+    overflow: hidden;
+}
+
+.tv-show-view:last-child {
+	border-bottom: thin solid #eee;
+}
+
+.tv-show-view .banner {
+    display: none;
+}
+
+.tv-show-view .description {
+    padding: 15px;
+    height: 44px;
+
+    font-size: 13px;
+    font-family: "Lucia Grande"
+    overflow: hidden;
+}
+
+.tv-show-view .short-summary {
+    height: 0;
+    padding: 0;
+
     opacity: 0;
-    background: url(remove.png);
-    border: none;
-    margin-right: 10px;
-    margin-left: 10px;
-    height: 13px; width: 13px;
-    -webkit-transition: opacity 0.1s ease-in;
+
+    font-size: 12px;
+    color: #999;
+
+    -webkit-transition: all 0.2s ease-in-out;
 }
 
-.item:hover .remove-button {
+.tv-show-view.disclosed .short-summary {
+    height: 4ex;
+    padding: 20px;
+
+
     opacity: 1;
-    -webkit-transition: opacity 0.2s ease-in;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    -webkit-transition: all 0.2s ease-in-out;
 }
 
-.remove-button:active {
-    background: url(remove-on.png);
+
+.tv-show-view > .episodes {
+    height: auto !important;
 }
+
+/* Animate item because animating to and from auto doesn't work */
+.tv-show-view > .episodes .episode-view {
+    height: 0px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    overflow: hidden;
+
+    border: none !important;
+
+    -webkit-transition: all 0.2s ease-in-out;
+}
+
+.tv-show-view.disclosed > .episodes .episode-view {
+    height: 44px !important;
+    -webkit-transition: all 0.2s ease-in-out;
+
+}
+.tv-show-view.disclosed > .episodes .episode-view .thumbnail {
+    margin-bottom: auto !important;
+    height: auto !important;
+    max-height: 32px  !important;
+    width: 32px  !important;
+}
+
+.tv-show-view.disclosed > .episodes .episode-view .name {
+    width: 300px !important;
+    overflow: hidden;
+    padding: 0px 10px 0px 10px !important;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px !important;
+}
+
+.episode-view .short-summary {
+    width: auto;
+    -webkit-box-flex: 1;
+    padding: 0px 10px 0px 10px !important;
+}
+
+.season-number,
+.episode-number {
+    width: 30px;
+    color: #444;
+    margin: 0px 10px 0px 10px;
+}
+
+
+
+/**************************************************
+ * Sidebar
+ */
 
 #search-detail {
     position: absolute;
     right: 0px;
-}
-#preload {
-    background: url(sources.png);
-}
-
-#statusbar {
-    background: url(statusbarBackground.png);
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    height: 24px;
-}
-
-.sidebar-button {
-    background: url(statusbarButtons.png);
-    height: 24px;
-    width: 32px;
-    font-family: 'Myriad Pro';
-    font-size: 15px;
-    border: none;
-    line-height: 12px;
-    font-weight: bold;
-    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
-}
-
-.sidebar-button:active {
-    background-position: 32px 0px !important;
-}
-
-.drag-entered {
-    -webkit-border-radius: 10px;
-    border: 2px solid #5764E1 !important;
-    background: #D0DDF6 !important;
-}
-
-.drag-entered.selected {
-    -webkit-border-radius: 10px;
-    border: 2px solid #5764E1 !important;
-    background: #D0DDF6, -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210))) !important;
-}
-
-.editing {
-    -webkit-user-select: text;
-    -webkit-box-shadow: rgba(0, 0, 0, .5) 3px 3px 4px;
-    outline: 1px solid rgb(66%, 66%, 66%) !important;
-    background-color: white;
-    -webkit-user-modify: read-write-plaintext-only;
-    text-overflow: clip;
-    padding-left: 2px;
-    margin-left: -2px;
-    padding-right: 2px;
-    margin-right: -2px;
-    margin-bottom: -1px;
-    padding-bottom: 1px;
-    opacity: 1.0 !important;
-}
-
-.editing, .editing * {
-    color: black !important;
-    text-shadow: none !important;
-    text-decoration: none !important;
-}
-
-.name:focus
-{
-    outline: none;
 }
 
 </style>
@@ -582,6 +660,8 @@ ul {
 var SDListView = function(cocoaObject, subItemsKeyPath, elementTag)
 {
     ListView.call(this, cocoaObject, subItemsKeyPath, SDView, elementTag);
+
+    this.element.addClassName("sd-list-view");
 
     this.displayName = "SDListView";
     this._shouldSyncSelectionWithArrayController = false;
@@ -641,8 +721,8 @@ SDListView.prototype.__proto__ = ListView.prototype;
 var SDView = function(cocoaObject, parent, elementTag)
 {
     ListItemView.call(this, cocoaObject, parent, elementTag);
+    this.element.addClassName("sd-view");
 }
-
 
 SDView.prototype = {
     createSubElements: function()
@@ -698,22 +778,37 @@ SDView.prototype.__proto__ = ListItemView.prototype;
  * @param {Object} parent
  * @param {string} elementTag
  */
-var TVShowView = function(cocoaObject, parent, elementTag)
+var EpisodeView = function(cocoaObject, parent, elementTag)
 {
     ListItemView.call(this, cocoaObject, parent, elementTag);
+    this.element.addClassName("episode-view");
 }
 
 
-TVShowView.prototype = {
+EpisodeView.prototype = {
     createSubElements: function()
     {
         this.nameElement = document.createElement("div");
         this.nameElement.className = "name";
+        this.episodeNumberElement = document.createElement("div");
+        this.episodeNumberElement.className = "episode-number";
+        this.seasonNumberElement = document.createElement("div");
+        this.seasonNumberElement.className = "season-number";
+        this.shortSummaryElement = document.createElement("div");
+        this.shortSummaryElement.className = "short-summary";
+        this.thumbnailElement = document.createElement("img");
+        this.thumbnailElement.className = "thumbnail";
     },
+
     appendSubElementsToNode: function(element)
     {
+        element.appendChild(this.thumbnailElement);
         element.appendChild(this.nameElement);
+        element.appendChild(this.episodeNumberElement);
+        element.appendChild(this.seasonNumberElement);
+        element.appendChild(this.shortSummaryElement);
     },
+
     set visible(visible)
     {
         if (this._visible == visible)
@@ -723,13 +818,155 @@ TVShowView.prototype = {
 
         if (visible) {
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "name");
+            Lunettes.connect(this.episodeNumberElement, "textContent", this.cocoaObject, "episodeNumber");
+            Lunettes.connect(this.seasonNumberElement, "textContent", this.cocoaObject, "seasonNumber");
+            Lunettes.connect(this.shortSummaryElement, "textContent", this.cocoaObject, "shortSummary");
+
+            var options = new Object;
+            options["NSNullPlaceholderBindingOption"] = "noartwork.png";
+            Lunettes.connect(this.thumbnailElement, "src", this.cocoaObject, "artworkURL", options);
         } else {
+            Lunettes.unconnect(this.thumbnailElement, "src");
+            Lunettes.unconnect(this.shortSummaryElement, "textContent");
+            Lunettes.unconnect(this.seasonNumberElement, "textContent");
+            Lunettes.unconnect(this.episodeNumberElement, "textContent");
+            Lunettes.unconnect(this.nameElement, "textContent");
+        }
+    },
+}
+
+EpisodeView.prototype.__proto__ = ListItemView.prototype;
+
+/**
+ * A list of MediaView
+ * @constructor
+ * @extends ListItemView
+ * @param {CocoaObject} cocoaObject
+ * @param {Object} parent
+ * @param {string} elementTag
+ */
+var TVShowView = function(cocoaObject, parent, elementTag)
+{
+    ListItemView.call(this, cocoaObject, parent, elementTag);
+    this.element.addClassName("tv-show-view");
+}
+
+
+TVShowView.prototype = {
+    createSubElements: function()
+    {
+        this.descriptionElement = document.createElement("div");
+        this.descriptionElement.className = "description";
+
+        this.nameElement = document.createElement("div");
+        this.nameElement.className = "name";
+        this.yearElement = document.createElement("div");
+        this.yearElement.className = "year";
+        this.shortSummaryElement = document.createElement("div");
+        this.shortSummaryElement.className = "short-summary";
+        this.thumbnailElement = document.createElement("img");
+        this.thumbnailElement.className = "banner";
+
+        this.episodesElement = document.createElement("div");
+        this.episodesElement.className = "episodes";
+
+    },
+
+    appendSubElementsToNode: function(element)
+    {
+        this.descriptionElement.appendChild(this.thumbnailElement);
+        this.descriptionElement.appendChild(this.nameElement);
+        this.descriptionElement.appendChild(this.yearElement);
+
+        element.appendChild(this.descriptionElement);
+        element.appendChild(this.shortSummaryElement);
+        element.appendChild(this.episodesElement);
+    },
+
+    set visible(visible)
+    {
+        if (this._visible == visible)
+            return;
+
+        ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
+
+        if (visible) {
+            this.descriptionElement.addEventListener('click', this.mouseClicked.bind(this), false);
+
+            Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "name");
+            Lunettes.connect(this.yearElement, "textContent", this.cocoaObject, "releaseYear");
+            Lunettes.connect(this.shortSummaryElement, "textContent", this.cocoaObject, "shortSummary");
+
+            var options = new Object;
+            options["NSNullPlaceholderBindingOption"] = "noartwork.png";
+            Lunettes.connect(this.thumbnailElement, "src", this.cocoaObject, "artworkURL", options);
+        } else {
+            this.descriptionElement.removeEventListener('click', this.mouseClicked.bind(this), false);
+
+            Lunettes.unconnect(this.thumbnailElement, "src");
+            Lunettes.unconnect(this.shortSummaryElement, "textContent");
+            Lunettes.unconnect(this.yearElement, "textContent");
             Lunettes.unconnect(this.nameElement, "textContent");
         }
     },
 
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    mouseClicked: function(event)
+    {
+        if (this.element.hasClassName("disclosed"))
+            this.element.removeClassName("disclosed");
+        else {
+            if (!this._episodes) {
+                this._episodes = new ListView(this.cocoaObject, "episodes", EpisodeView);
+                this._episodes._noVisibleItemOptimization = true; // We don't yet optimize which one we display or not.
+                this._episodes.attach(this.episodesElement);
+                Lunettes.connect(this._episodes, "arrayController.backendObject.sortDescriptors", CocoaObject.windowCocoaObject(), "tvShowEpisodesSortDescriptors");
+                Lunettes.connect(this._episodes, "arrayController.backendObject.filterPredicate", CocoaObject.windowCocoaObject(), "predicateThatFiltersShowEpisodeWithoutFile");
+
+            }
+
+            this.element.addClassName("disclosed");
+        }
+        event.stopPropagation();
+
+    },
+
+    /**
+     * Event Handler
+     * @param {Event} event
+     */
+    mouseDown: function(event)
+    {
+        // Probably highlight/select
+        return;
+    },
 }
+
 TVShowView.prototype.__proto__ = ListItemView.prototype;
+
+/**
+ * @constructor
+ * @param {CocoaObject} cocoaObject
+ * @param {string} subItemsKeyPath
+ * @param {Element} elementTag
+ */
+var TVShowsListView = function(cocoaObject, subItemsKeyPath, elementTag)
+{
+    ListView.call(this, cocoaObject, subItemsKeyPath, TVShowView, elementTag);
+    this.element.addClassName("tv-shows-list-view");
+    this.displayName = "TVShowsListView";
+}
+
+TVShowsListView.prototype = {
+    select: function(item)
+    {
+
+    }
+}
+TVShowsListView.prototype.__proto__ = ListView.prototype;
 
 /**
  * A list of MediaSDView
@@ -741,6 +978,7 @@ TVShowView.prototype.__proto__ = ListItemView.prototype;
 var MediaSDView = function(cocoaObject, parent, elementTag)
 {
     MediaView.call(this, cocoaObject, parent, elementTag);
+    this.element.addClassName("media-sd-view");
 }
 
 
@@ -762,6 +1000,7 @@ MediaSDView.prototype.__proto__ = MediaView.prototype;
 var MediaDBView = function(cocoaObject, parent, elementTag)
 {
     MediaView.call(this, cocoaObject, parent, elementTag);
+    this.element.addClassName("media-db-view");
 }
 
 
@@ -929,6 +1168,7 @@ MediaDBView.prototype = {
 }
 MediaDBView.prototype.__proto__ = MediaView.prototype;
 
+
 /**
  * @constructor
  * @param {string} type
@@ -974,7 +1214,6 @@ CategoryTypeView.prototype = {
         this.element.removeClassName("drag-entered");
         window.PlatformView.setTypeForFile(this.type, item);
     }
-
 }
 
 
@@ -1017,6 +1256,7 @@ LabelMediaDBView.prototype.__proto__ = MediaDBView.prototype;
 var LabelListView = function(cocoaObject, subItemsKeyPath, elementTag)
 {
     ListView.call(this, cocoaObject, subItemsKeyPath, LabelView, elementTag);
+    this.element.addClassName("label-list-view");
 
     this.displayName = "LabelListView";
     this._shouldSyncSelectionWithArrayController = false;
@@ -1054,6 +1294,7 @@ LabelListView.prototype.__proto__ = ListView.prototype;
 var LabelView = function(cocoaObject, parent, elementTag)
 {
     ListItemView.call(this, cocoaObject, parent, elementTag);
+    this.element.addClassName("label-view");
 }
 
 Lunettes.startEditing = function(element, committedCallback, cancelledCallback, context, multiline)
@@ -1225,6 +1466,7 @@ LabelView.prototype = {
 }
 LabelView.prototype.__proto__ = ListItemView.prototype;
 
+
 /**
  * Unselect everything in the master view
  * @param {DOMNode=} element only used internally
@@ -1256,6 +1498,7 @@ function setDetailList(masterElement, list)
     unselectAll();
     masterElement.addClassName("selected");
 
+    // Set the correct search predicate
     var search = document.getElementById("search-detail");
     var options = new Object;
     var path = list.searchMainKeyPath
@@ -1298,9 +1541,13 @@ function selectMasterElementNamed(name)
             list = window._moviesCategoryDetailList;
             break;
         case "tvshows-category":
-                if (!window.tvShowsCategoryDetailList)
-                    window._tvShowsCategoryDetailList = new ListView(CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects", MediaDBView);
-            list = window._tvShowsCategoryDetailList;
+                if (!window._showsArrayController) {
+                    window._showsArrayController = new TVShowsListView(CocoaObject.windowCocoaObject(), "tvShowsArrayController.arrangedObjects");
+                    window._showsArrayController.element.addClassName("tv-shows-detail");
+                    window._showsArrayController.searchMainKeyPath = "name";
+
+                }
+            list = window._showsArrayController;
             break;
         case "clips-category":
                 if (!window._clipsCategoryDetailList)
@@ -1312,6 +1559,7 @@ function selectMasterElementNamed(name)
             break;
     }
     var masterElement = document.getElementById(name);
+    list.element.id = "detail-list-view";
     setDetailList(masterElement, list);
 
     console.timeEnd("selectMasterElementNamed");
@@ -1378,9 +1626,7 @@ function init()
     window.tvShowsCategory = new CategoryTypeView("tvshow", tvShowsElement);
 
     var clipsElement = document.getElementById("clips-category");
-    window.clipsCategory = new CategoryTypeView("tvShowEpisode", clipsElement);
-
-
+    window.clipsCategory = new CategoryTypeView("clip", clipsElement);
 }
 
 </script>
@@ -1389,24 +1635,25 @@ function init()
 <div id="sidebar">
     <div class="sidebar-list" id="sidebar-list">
         <h1>Media</h1>
-        <ul class="movies">
-        <li onclick="click(event)" id="movies-category" class="item"><img src="movies.png"><div class="name">Movies<span id="movies-count" class="count">0</span></div></li>
-        <li onclick="click(event)" id="tvshows-category" class="item"><img src="tvshows.png"><div class="name">TV Shows<span id="tvshows-count" class="count">0</span></div></li>
-        <li onclick="click(event)" id="clips-category"  class="item"><img src="clips.png"><div class="name">Clips<span id="clips-count" class="count">0</span></div></li>
-        </ul>
+        <div class="sidebar-list-group">
+            <ul class="subitems">
+                <li onclick="click(event)" id="movies-category" class="item"><img src="movies.png"><div class="name">Movies<span id="movies-count" class="subitems-count">0</span></div></li>
+                <li onclick="click(event)" id="tvshows-category" class="item"><img src="tvshows.png"><div class="name">TV Shows<span id="tvshows-count" class="subitems-count">0</span></div></li>
+                <li onclick="click(event)" id="clips-category"  class="item"><img src="clips.png"><div class="name">Clips<span id="clips-count" class="subitems-count">0</span></div></li>
+            </ul>
+        </div>
         <h1 id="sources-header" class="hidden">Sources</h1>
-        <div id="libraries">
-        </div>
+        <div id="libraries" class="sidebar-list-group"></div>
         <h1>Labels</h1>
-        <div id="labels">
-        </div>
+        <div id="labels" class="sidebar-list-group"></div>
     </div>
-    <div id="statusbar">
-        <input type="button" id="add-label-button" class="sidebar-button" value="+"></input>
+    <div id="sidebar-bottombar">
+        <input type="button" id="add-label-button" class="sidebar-bottombar-button" value="+"></input>
     </div>
 </div>
 
 <div id="detail" class="container">
+
 <div class="action-bar">
     <input type="search" id="search-detail" class="search" placeholder="Search" value="" incremental="true"></input>
 </div>

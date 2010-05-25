@@ -25,13 +25,14 @@ var ListView = function(cocoaObject, subItemsKeyPath, listItemViewClass, element
 
     if (!className)
         className = "list-view";
-    this.element.className = className;
+    this.element.addClassName(className);
     this.name = "No Name";
 
     /**
      * @type {Element}
      */
     this.subviewsElement = document.createElement("ul");
+    this.subviewsElement.className  = "subitems";
 
     /**
      * The parent navigation controller if applicable
@@ -272,8 +273,18 @@ ListView.prototype = {
      * from here.
      */
     _visibleItemHeight: 0,
+    _noVisibleItemOptimization: false,
     updateVisibleItems: function()
     {
+        // We are doing a bunch of optimization below.
+        // Those unfortunately requires a specific CSS layout.
+        // Hence we have a flag to disable them all together.
+        var noVisibleItemOptimization = this._noVisibleItemOptimization;
+        if (noVisibleItemOptimization) {
+            for (var i = 0; i < this.subviews.length; i++)
+                this.subviews[i].visible = true;
+            return;
+        }
         if (!this.subviews[0])
             return;
         var height = this._visibleItemHeight;
@@ -629,7 +640,7 @@ ListView.prototype = {
         }
 
         // Create the new one and add it from here.
-        this.subviewsElement = document.createElement("ul");
+        this.subviewsElement = oldSubviewsElement.cloneNode(false);
 
         for (var i = 0; i < array.length; i++) {
             // Here look for a previous view.
@@ -676,8 +687,9 @@ ListView.prototype = {
     {
         // Instead of removing elements one by one,
         // remove the parent.
+        var node = this.subviewsElement.cloneNode(false);
         this.subviewsElement.parentNode.removeChild(this.subviewsElement);
-        this.subviewsElement = document.createElement("ul");;
+        this.subviewsElement = node;
         this.element.appendChild(this.subviewsElement);
 
         if (this.isAttached) {

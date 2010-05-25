@@ -32,6 +32,24 @@
     return [NSSet setWithObject:@"window.windowController.mediaDiscovererArrayController"];
 }
 
+- (NSArray *)tvShowEpisodesSortDescriptors
+{
+    NSSortDescriptor *season = [[[NSSortDescriptor alloc]
+                                initWithKey:@"seasonNumber"
+                                ascending:YES
+                                selector:@selector(compare:)] autorelease];
+    NSSortDescriptor *episode = [[[NSSortDescriptor alloc]
+                                 initWithKey:@"episodeNumber"
+                                 ascending:YES
+                                 selector:@selector(compare:)] autorelease];
+    return [NSArray arrayWithObjects:season, episode, nil];
+}
+
+- (NSPredicate *)predicateThatFiltersShowEpisodeWithoutFile
+{
+    return [NSPredicate predicateWithFormat:@"files.@count > 0"];
+}
+
 - (NSDocumentController *)documentController
 {
     DIRECTLY_RETURN_OBJECT_TO_JS([NSDocumentController sharedDocumentController]);
@@ -50,6 +68,11 @@
 - (NSArrayController *)moviesArrayController
 {
     DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] moviesArrayController]);
+}
+
+- (NSArrayController *)orphanedTVShowEpisodeArrayController
+{
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] orphanedTVShowEpisodeArrayController]);
 }
 
 - (NSArrayController *)tvShowsArrayController

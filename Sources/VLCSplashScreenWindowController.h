@@ -34,6 +34,7 @@
     IBOutlet NSArrayController *_clipsArrayController;
     IBOutlet NSArrayController *_moviesArrayController;
     IBOutlet NSArrayController *_tvShowsArrayController;
+    IBOutlet NSArrayController *_orphanedTVShowEpisodeArrayController;
     IBOutlet NSArrayController *_labelsArrayController;
 
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
@@ -47,6 +48,7 @@
 @property (retain, readonly) NSArrayController *clipsArrayController;
 @property (retain, readonly) NSArrayController *moviesArrayController;
 @property (retain, readonly) NSArrayController *tvShowsArrayController;
+@property (retain, readonly) NSArrayController *orphanedTVShowEpisodeArrayController;
 @property (retain, readonly) NSArrayController *labelsArrayController;
 
 #if ENABLE_EXTENDED_SPLASH_SCREEN
