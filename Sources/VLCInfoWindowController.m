@@ -8,6 +8,7 @@
 
 #import "VLCInfoWindowController.h"
 #import "VLCDocumentController.h"
+#import "VLCMediaLibrary.h"
 
 @implementation VLCInfoWindowController
 - (NSString *)windowNibName
@@ -22,14 +23,13 @@
 
 - (IBAction)tvShowNameChanged:(id)sender
 {
-    VLCDocumentController *controller = [self documentController];
-    NSArray *array = [[controller currentArrayController] selectedObjects];
+    NSArray *array = [[[VLCDocumentController sharedDocumentController] currentArrayController] selectedObjects];
 
     VLCAssert([sender isKindOfClass:[NSComboBox class]], @"Should be a combobox");
     NSComboBox *combo = sender;
     NSString *tvShowName = [combo stringValue];
 
-    NSManagedObjectContext *moc = [controller managedObjectContext];
+    NSManagedObjectContext *moc = [[VLCLMediaLibrary sharedMediaLibrary] managedObjectContext];
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:moc];
 

@@ -23,12 +23,9 @@
 #import "VLCMediaDocument.h"
 #import "VLCSplashScreenWindowController.h"
 #import "VLCInfoWindowController.h"
-#import "VLCMovieInfoGrabber.h"
-#import "VLCTVShowInfoGrabber.h"
-#import "VLCTitleDecrapifier.h"
+#import "VLCMediaLibrary.h"
 #import "VLCMovieInfoGrabberWindowController.h"
 #import "VLCTVShowInfoGrabberWindowController.h"
-#import "VLCTVShowEpisodesInfoGrabber.h"
 
 #import <VLCKit/VLCExtensionsManager.h>
 #import <VLCKit/VLCExtension.h>
@@ -46,20 +43,10 @@
 - (void)setTitleFromMenuItem:(NSMenuItem *)sender;
 @end
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-@interface VLCDocumentController () <NSMetadataQueryDelegate>
-#else
 @interface VLCDocumentController ()
-#endif
 
 // See -setMainWindow:
 @property (readwrite, assign) id currentDocument;
-
-#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
-- (void)setupFolderWatch;
-- (void)startWatchingFolders;
-- (void)scanFolderSettingDidChange;
-#endif
 
 @end
 
@@ -310,11 +297,16 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
         VLCAssertNotReached(@"No idea how to open that object");
 }
 
-
 - (void)openLibraryFromMenuItem:(id)sender
 {
     [self makeDocumentWithObject:[sender representedObject]];
 }
+
+- (NSPredicate *)predicateThatFiltersEmptyDiscoverer
+{
+    return [NSPredicate predicateWithFormat:@"discoveredMedia.media.@count != 0"];
+}
+
 
 #pragma mark -
 #pragma mark Documents Callbacks
@@ -335,70 +327,6 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [self openSplashScreen:self];
 }
 
-/**
- * Remember a movie that wasn't finished
- */
-
-- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position
-{
-    VLCAssert(![[NSUserDefaults standardUserDefaults] boolForKey:kDontRememberUnfinishedMovies], @"kDontRememberUnfinishedMovies is here");
-
-    NSManagedObject *movie = nil;
-
-    // Try to find an entry for that media
-    // FIXME - cache the result?
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
-    [request setFetchLimit:1];
-    [request setEntity:entity];
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-    if ([request respondsToSelector:@selector(setPropertiesToFetch:)])
-        [request setPropertiesToFetch:[NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"lastPosition"]]];
-#endif
-    [request setPredicate:[NSPredicate predicateWithFormat:@"url LIKE[c] %@", [media.url description]]];
-
-    NSArray *results = [moc executeFetchRequest:request error:nil];
-    [request release];
-
-    if ([results count] > 0)
-        movie = [results objectAtIndex:0];
-
-    // Remove/don't save if we are nearly done or if the length is less 2:30 secs.
-    if ([[media length] intValue] < 150000)
-        return;
-
-    if (position > 0.95) {
-        if (movie) {
-            [movie setValue:[NSNumber numberWithInt:0] forKey:@"lastPosition"];
-            [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
-            [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
-            // Increment the play count
-            NSNumber *count = [movie valueForKey:@"playCount"];
-            [movie setValue:[NSNumber numberWithUnsignedInt:[count unsignedIntValue] + 1] forKey:@"playCount"];
-        }
-        return;
-    }
-
-    NSNumber *oldposition = [movie valueForKey:@"lastPosition"];
-    if (oldposition && position < [oldposition doubleValue])
-        return;
-    if (!movie) {
-        movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
-        [movie setValue:[media.url description] forKey:@"url"];
-    }
-
-    // Yes, this is a negative number. VLCTime nicely display negative time
-    // with "XX minutes remaining". And we are using this facility.
-    double remainingTime = [[[media length] numberValue] doubleValue] * (position - 1);
-
-    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"currentlyWatching"];
-    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
-    [movie setValue:[NSNumber numberWithDouble:position] forKey:@"lastPosition"];
-    [movie setValue:[NSNumber numberWithDouble:remainingTime] forKey:@"remainingTime"];
-}
-
-
 #pragma mark -
 #pragma mark Non document-based window
 - (IBAction)openSplashScreen:(id)sender
@@ -410,14 +338,12 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     }
     [_splashScreen showWindow:self];
 
-#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
-    // Do it after showing the window.
+    // Scan folder it after showing the window.
     // The window creating might trigger a local runloop
     // and we don't want this to run in the run loop.
 
     if (didCreateWindow)
-        [self performSelector:@selector(setupFolderWatch) withObject:nil afterDelay:0.];
-#endif
+        [[VLCLMediaLibrary sharedMediaLibrary] performSelector:@selector(setupFolderWatch) withObject:nil afterDelay:0.];
 }
 
 - (void)closeSplashScreen
@@ -470,408 +396,17 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
     [self cleanAndRecreateMainMenu];
 }
 
-
-#pragma mark -
-#pragma mark Media Library
-- (NSManagedObjectModel *)managedObjectModel
+- (VLCLMediaLibrary *)mediaLibrary
 {
-    if (_managedObjectModel)
-        return _managedObjectModel;
-    _managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];
-    return _managedObjectModel;
+    return [VLCLMediaLibrary sharedMediaLibrary];
 }
-
-- (NSString *)applicationSupportFolder
-{
-    NSString *applicationSupportFolder = nil;
-    FSRef foundRef;
-    OSErr err = FSFindFolder(kUserDomain, kApplicationSupportFolderType, kDontCreateFolder, &foundRef);
-    VLCAssert(err == noErr, @"Can't find application support folder");
-
-    unsigned char path[1024];
-    FSRefMakePath(&foundRef, path, sizeof(path));
-    applicationSupportFolder = [NSString stringWithUTF8String:(char *)path];
-    applicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"org.videolan.Lunettes"];
-
-    return applicationSupportFolder;
-}
-
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext)
-        return _managedObjectContext;
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *applicationSupportFolder = [self applicationSupportFolder];
-    if (![fileManager fileExistsAtPath:applicationSupportFolder isDirectory:NULL])
-        [fileManager createDirectoryAtPath:applicationSupportFolder withIntermediateDirectories:YES attributes:nil error:nil];
-
-    NSURL *url = [NSURL fileURLWithPath: [applicationSupportFolder stringByAppendingPathComponent: @"MediaLibrary.sqlite"]];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
-
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
-
-    NSError *error;
-    if ([coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options:options error:&error]) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator: coordinator];
-    } else {
-        // FIXME: Deal with versioning
-        NSInteger ret = NSRunAlertPanel(@"Error", @"The Media Library you have on your disk is not compatible with the one Lunettes can read. Do you want to create a new one?", @"No", @"Yes", nil);
-        if (ret == NSOKButton)
-            [NSApp terminate:nil];
-        [fileManager removeItemAtURL:url error:nil];
-        NSRunInformationalAlertPanel(@"Relaunch Lunettes now", @"We need to relaunch Lunettes to proceed", @"OK", nil, nil);
-        [NSApp terminate:nil];
-    }
-    [coordinator release];
-    [_managedObjectContext setUndoManager:nil];
-    [_managedObjectContext addObserver:self forKeyPath:@"hasChanges" options:NSKeyValueObservingOptionInitial context:nil];
-    return _managedObjectContext;
-}
-
-- (void)savePendingChangesToMoc
-{
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(savePendingChangesToMoc) object:nil];
-    [[self managedObjectContext] save:nil];
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-    NSProcessInfo *process = [NSProcessInfo processInfo];
-    if ([process respondsToSelector:@selector(enableSuddenTermination)])
-        [process enableSuddenTermination];
-#endif
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(id)context
-{
-    if ([keyPath isEqualToString:@"hasChanges"] && object == _managedObjectContext) {
-#if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
-        NSProcessInfo *process = [NSProcessInfo processInfo];
-        if ([process respondsToSelector:@selector(disableSuddenTermination)])
-            [process disableSuddenTermination];
-#endif
-
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(savePendingChangesToMoc) object:nil];
-        [self performSelector:@selector(savePendingChangesToMoc) withObject:nil afterDelay:1.];
-        return;
-    }
-    if ([context isKindOfClass:[NSValue class]]) {
-        // Dispatch selector
-        // This is useful for NSUserDefaults observing.
-        [self performSelector:[context pointerValue]];
-        return;
-    }
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-}
-
-- (NSPredicate *)predicateThatFiltersEmptyDiscoverer
-{
-    return [NSPredicate predicateWithFormat:@"discoveredMedia.media.@count != 0"];
-}
-
-#pragma mark Media Library: Path Watcher
-
-#if ENABLE_MEDIA_LIBRARY_PATH_WATCHER
-- (void)addNewLabelWithName:(NSString *)name
-{
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    id label = [NSEntityDescription insertNewObjectForEntityForName:@"Label" inManagedObjectContext:moc];
-    [label setValue:name forKey:@"name"];
-}
-
-- (NSManagedObject *)addSDMediaItem:(VLCMedia *)media
-{
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    NSURL *url = [media url];
-    NSString *title = [[media metaDictionary] objectForKey:VLCMetaInformationTitle];
-
-    id movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
-    [movie setValue:[url description] forKey:@"url"];
-    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
-    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
-    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
-
-    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
-
-    [movie setValue:@"sd" forKey:@"type"];
-
-    [movie setValue:title forKey:@"title"];
-    return movie;
-}
-
-- (id)tvShowWithName:(NSString *)name
-{
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Show" inManagedObjectContext:moc];
-    [request setEntity:entity];
-
-    [request setPredicate:[NSPredicate predicateWithFormat:@"name LIKE %@", name]];
-
-    NSArray *dbResults = [moc executeFetchRequest:request error:nil];
-    [request release];
-
-    if ([dbResults count] <= 0)
-        return nil;
-
-    return [dbResults objectAtIndex:0];
-}
-
-- (id)showEpisodeWithShow:(id)show episodeNumber:(NSNumber *)episodeNumber seasonNumber:(NSNumber *)seasonNumber
-{
-    NSMutableSet *episodes = [show mutableSetValueForKey:@"episodes"];
-    id episode = nil;
-    for (id episodeIter in episodes) {
-        if ([[episodeIter valueForKey:@"seasonNumber"] intValue] == [seasonNumber intValue] &&
-            [[episodeIter valueForKey:@"episodeNumber"] intValue] == [episodeNumber intValue]) {
-            episode = episodeIter;
-            break;
-        }
-    }
-    if (!episode) {
-        NSManagedObjectContext *moc = [self managedObjectContext];
-        episode = [NSEntityDescription insertNewObjectForEntityForName:@"ShowEpisode" inManagedObjectContext:moc];
-        [episode setValue:seasonNumber forKey:@"seasonNumber"];
-        [episode setValue:episodeNumber forKey:@"episodeNumber"];
-        [episodes addObject:episode];
-    }
-    return episode;
-}
-
-- (id)showEpisodeWithShowName:(NSString *)showName episodeNumber:(NSNumber *)episodeNumber seasonNumber:(NSNumber *)seasonNumber wasInserted:(BOOL *)wasInserted show:(id *)returnedShow
-{
-    id show = [self tvShowWithName:showName];
-    *wasInserted = NO;
-    if (!show) {
-        *wasInserted = YES;
-        NSManagedObjectContext *moc = [self managedObjectContext];
-        show = [NSEntityDescription insertNewObjectForEntityForName:@"Show" inManagedObjectContext:moc];
-        [show setValue:showName forKey:@"name"];
-    }
-    *returnedShow = show;
-    return [self showEpisodeWithShow:show episodeNumber:episodeNumber seasonNumber:seasonNumber];
-}
-
-- (void)addMetadataItem:(NSMetadataItem *)result
-{
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    NSString *url = [NSURL fileURLWithPath:[result valueForAttribute:@"kMDItemPath"]];
-    NSString *title = [result valueForAttribute:@"kMDItemDisplayName"];
-    NSDate *openedDate = [result valueForAttribute:@"kMDItemLastUsedDate"];
-    NSDate *modifiedDate = [result valueForAttribute:@"kMDItemFSContentChangeDate"];
-    NSNumber *size = [result valueForAttribute:@"kMDItemFSSize"];
-
-    id movie = [NSEntityDescription insertNewObjectForEntityForName:@"File" inManagedObjectContext:moc];
-    [movie setValue:[url description] forKey:@"url"];
-
-    // Yes, this is a negative number. VLCTime nicely display negative time
-    // with "XX minutes remaining". And we are using this facility.
-
-    [movie setValue:[NSNumber numberWithBool:NO] forKey:@"currentlyWatching"];
-    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"lastPosition"];
-    [movie setValue:[NSNumber numberWithDouble:0] forKey:@"remainingTime"];
-    [movie setValue:[NSNumber numberWithBool:YES] forKey:@"unread"];
-
-    if ([openedDate isGreaterThan:modifiedDate]) {
-        [movie setValue:[NSNumber numberWithDouble:1] forKey:@"playCount"];
-        [movie setValue:[NSNumber numberWithBool:NO] forKey:@"unread"];
-    }
-
-    NSDictionary *tvShowEpisodeInfo = [VLCTitleDecrapifier tvShowEpisodeInfoFromString:title];
-    if (tvShowEpisodeInfo) {
-        [movie setValue:@"tvShowEpisode" forKey:@"type"];
-        NSNumber *seasonNumber = [tvShowEpisodeInfo objectForKey:@"season"];
-        NSNumber *episodeNumber = [tvShowEpisodeInfo objectForKey:@"episode"];
-        NSString *tvShowName = [tvShowEpisodeInfo objectForKey:@"tvShowName"];
-        BOOL hasNoTvShow = NO;
-        if (!tvShowName) {
-            tvShowName = @"Untitled TV Show";
-            hasNoTvShow = YES;
-        }
-        BOOL wasInserted = NO;
-        id show = nil;
-        id episode = [self showEpisodeWithShowName:tvShowName episodeNumber:episodeNumber seasonNumber:seasonNumber wasInserted:&wasInserted show:&show];
-
-        if (wasInserted) {
-            // Now enqueue a grabber lookup. This will fetch all data about the
-            // show, including episode.
-            VLCTVShowInfoGrabber *grabber = [[[VLCTVShowInfoGrabber alloc] init] autorelease];
-            [grabber lookUpForTitle:tvShowName andExecuteBlock:^{
-                NSArray *results = grabber.results;
-                if ([results count] > 0) {
-                    NSDictionary *result = [results objectAtIndex:0];
-                    NSString *showId = [result objectForKey:@"id"];
-                    [show setValue:[result objectForKey:@"title"] forKey:@"name"];
-                    [show setValue:showId forKey:@"theTVDBID"];
-                    [show setValue:[result objectForKey:@"shortSummary"] forKey:@"shortSummary"];
-                    [show setValue:[result objectForKey:@"releaseYear"] forKey:@"releaseYear"];
-                    [show setValue:[result objectForKey:@"artworkURL"] forKey:@"artworkURL"];
-
-                    // Fetch episode info
-                    VLCTVShowEpisodesInfoGrabber *grabber = [[[VLCTVShowEpisodesInfoGrabber alloc] init] autorelease];
-                    [grabber lookUpForShowID:showId andExecuteBlock:^{
-                        NSArray *results = grabber.results;
-                        for (id result in results) {
-                            id showEpisode = [self showEpisodeWithShow:show episodeNumber:[result objectForKey:@"episodeNumber"] seasonNumber:[result objectForKey:@"seasonNumber"]];
-                            [showEpisode setValue:[result objectForKey:@"title"] forKey:@"name"];
-                            [showEpisode setValue:[result objectForKey:@"id"] forKey:@"theTVDBID"];
-                            [showEpisode setValue:[result objectForKey:@"shortSummary"] forKey:@"shortSummary"];
-                            [showEpisode setValue:[result objectForKey:@"artworkURL"] forKey:@"artworkURL"];
-                        }
-                    }];
-                }
-            }];
-        }
-
-        [movie setValue:seasonNumber forKey:@"seasonNumber"];
-        [movie setValue:episodeNumber forKey:@"episodeNumber"];
-        [episode setValue:[NSNumber numberWithBool:YES] forKey:@"shouldBeDisplayed"];
-        NSMutableSet *files = [episode mutableSetValueForKey:@"files"];
-        [files addObject:movie];
-        //[movie setValue:episode forKey:@"showEpisode"];
-    }
-    else if ([size longLongValue] < 150000000) /* 150 MB */
-        [movie setValue:@"clip" forKey:@"type"];
-    else
-        [movie setValue:@"movie" forKey:@"type"];
-
-    [movie setValue:title forKey:@"title"];
-
-    // Now enqueue a grabber lookup
-    VLCMovieInfoGrabber *grabber = [[[VLCMovieInfoGrabber alloc] init] autorelease];
-    [grabber lookUpForTitle:[VLCTitleDecrapifier decrapify:[title stringByDeletingPathExtension]] andExecuteBlock:^{
-        NSArray *results = grabber.results;
-        if ([results count] > 0) {
-            NSDictionary *result = [results objectAtIndex:0];
-            [movie setValue:[result objectForKey:@"artworkURL"] forKey:@"artworkURL"];
-            [movie setValue:[result objectForKey:@"title"] forKey:@"title"];
-            [movie setValue:[result objectForKey:@"shortSummary"] forKey:@"shortSummary"];
-            [movie setValue:[result objectForKey:@"releaseYear"] forKey:@"releaseYear"];
-        }
-    }];
-}
-
-
-- (void)addMetadataItems:(NSArray *)metaDataItems
-{
-    NSUInteger count = [metaDataItems count];
-    NSMutableArray *fetchPredicates = [NSMutableArray arrayWithCapacity:count];
-    NSMutableDictionary *urlToObject = [NSMutableDictionary dictionaryWithCapacity:count];
-
-    // Prepare a fetch request for all items
-    for (NSMetadataItem *metaDataItem in metaDataItems) {
-        NSString *path = [metaDataItem valueForAttribute:@"kMDItemPath"];
-
-        NSURL *url = [NSURL fileURLWithPath:path];
-        NSString *urlDescription = [url description];
-        [fetchPredicates addObject:[NSPredicate predicateWithFormat:@"url == %@", urlDescription]];
-        [urlToObject setObject:metaDataItem forKey:urlDescription];
-    }
-
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSManagedObjectContext *moc = [self managedObjectContext];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"File" inManagedObjectContext:moc];
-
-    [request setEntity:entity];
-
-    [request setPredicate:[NSCompoundPredicate orPredicateWithSubpredicates:fetchPredicates]];
-
-    NSLog(@"Fetching");
-    NSArray *dbResults = [moc executeFetchRequest:request error:nil];
-    [request release];
-    NSLog(@"Done");
-
-    NSMutableArray *metaDataItemsToAdd = [NSMutableArray arrayWithArray:metaDataItems];
-
-    // Remove objects that are already in db.
-    for (NSManagedObjectContext *dbResult in dbResults) {
-        NSString *url = [dbResult valueForKey:@"url"];
-        [metaDataItemsToAdd removeObject:[urlToObject objectForKey:url]];
-    }
-
-    // Add only the newly added items
-    for (NSMetadataItem *metaDataItem in metaDataItemsToAdd) {
-        [self addMetadataItem:metaDataItem];
-    }
-}
-
-- (void)gotFirstResults:(NSNotification *)notification
-{
-    NSLog(@"Got First results");
-    NSMetadataQuery *query = [notification object];
-    NSArray *array = [query results];
-    [self addMetadataItems:array];
-    NSLog(@"Adding done");
-}
-
-- (void)gotAdditionalResults:(NSNotification *)notification
-{
-    NSLog(@"Got Additional results");
-    NSMetadataQuery *query = [notification object];
-    NSArray *array = [query results];
-    [self addMetadataItems:array];
-    NSLog(@"Adding done");
-}
-
-- (void)setupFolderWatch
-{
-    // Watch for modification on User Defaults.
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    static NSValue *value = nil;
-    if (!value)
-        value = [[NSValue valueWithPointer:@selector(scanFolderSettingDidChange)] retain];
-    [defaults addObserver:self forKeyPath:kDisableFolderScanning options:0 context:value];
-    [defaults addObserver:self forKeyPath:kScannedFolders options:0 context:value];
-
-    [self startWatchingFolders];
-}
-
-- (void)startWatchingFolders
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    if ([defaults boolForKey:kDisableFolderScanning])
-        return;
-    if (_watchedFolderQuery)
-        return;
-    _watchedFolderQuery = [[NSMetadataQuery alloc] init];
-    NSArray *folders = [defaults arrayForKey:kScannedFolders];
-    [_watchedFolderQuery setSearchScopes:folders];
-    [_watchedFolderQuery setPredicate:[NSPredicate predicateWithFormat:@"kMDItemContentTypeTree == 'public.movie'"]];
-    //[_watchedFolderQuery setDelegate:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotFirstResults:) name:NSMetadataQueryDidFinishGatheringNotification object:_watchedFolderQuery];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gotAdditionalResults:) name:NSMetadataQueryDidUpdateNotification object:_watchedFolderQuery];
-    [_watchedFolderQuery startQuery];
-}
-
-- (void)scanFolderSettingDidChange
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:kDisableFolderScanning]) {
-        if (_watchedFolderQuery) {
-            [_watchedFolderQuery stopQuery];
-            [_watchedFolderQuery release];
-            _watchedFolderQuery = nil;
-        }
-        return;
-    }
-    if (!_watchedFolderQuery)
-        return [self startWatchingFolders];
-
-    NSArray *folders = [defaults arrayForKey:kScannedFolders];
-    [_watchedFolderQuery setSearchScopes:folders];
-}
-
-#endif
 
 #pragma mark -
 #pragma mark NSApp delegate
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
 {
-    [self savePendingChangesToMoc];
+    [[VLCLMediaLibrary sharedMediaLibrary] savePendingChanges];
 
     if (![[NSUserDefaults standardUserDefaults] synchronize])
         VLCAssertNotReached(@"Failed to synchronize the User Defaults");

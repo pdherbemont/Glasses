@@ -30,6 +30,8 @@
     [_data release];
     [_connection release];
     [_results release];
+    if (_block)
+        Block_release(_block);
     [super dealloc];
 }
 
@@ -48,12 +50,11 @@
     // Keep a reference to ourself while we are alive.
     [self retain];
 
-    _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-    [request release];
+    _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES]; [request release];
 
 }
 
-- (void)lookUpForTitle:(NSString *)title andExecuteBlock:(void (^)())block
+- (void)lookUpForTitle:(NSString *)title andExecuteBlock:(void (^)(NSError *))block
 {
     Block_release(_block);
     _block = Block_copy(block);
@@ -64,8 +65,10 @@
     if ([_delegate respondsToSelector:@selector(movieInfoGrabber:didFailWithError:)])
         [_delegate movieInfoGrabber:self didFailWithError:error];
 
-    // Release the eventual block. This prevents ref cycle.
     if (_block) {
+        _block(error);
+
+        // Release the eventual block. This prevents ref cycle.
         Block_release(_block);
         _block = NULL;
     }
@@ -103,9 +106,10 @@
             NSDate *releaseDate = [inputFormatter dateFromString:release];
             NSString *releaseYear = releaseDate ? [outputFormatter stringFromDate:releaseDate] : nil;
 
+
             //NSLog(@"%@", title);
             //NSLog(TMDB_QUERY_INFO, TMDB_HOSTNAME, id, TMDB_API_KEY);
-            NSString *artworkURL = [node stringValueForXPath:@"./poster[@size='cover']"];
+            NSString *artworkURL = [node stringValueForXPath:@"./poster[size='cover']"];
             if (!artworkURL)
                 artworkURL = [node stringValueForXPath:@"./poster"];
             if (!artworkURL)
@@ -122,13 +126,13 @@
         }
         self.results = array;
     }
-    else
-        self.results = nil;
-
+    else {
+          self.results = nil;
+    }
     [xmlDoc release];
 
     if (_block) {
-        _block();
+        _block(nil);
         Block_release(_block);
         _block = NULL;
     }

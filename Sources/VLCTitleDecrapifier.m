@@ -17,11 +17,11 @@
         ignoredWords = [[NSArray alloc] initWithObjects:
                         @"xvid", @"h264", @"dvd", @"rip", @"[fr]", nil];
     }
-    NSMutableString *lowercase = [NSMutableString stringWithString:[string lowercaseString]];
+    NSMutableString *mutableString = [NSMutableString stringWithString:string];
     for (NSString *word in ignoredWords)
-        [lowercase replaceOccurrencesOfString:word withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lowercase length])];
-    [lowercase replaceOccurrencesOfString:@"." withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [lowercase length])];
-    return lowercase;
+        [mutableString replaceOccurrencesOfString:word withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [mutableString length])];
+    [mutableString replaceOccurrencesOfString:@"." withString:@" " options:NSCaseInsensitiveSearch range:NSMakeRange(0, [mutableString length])];
+    return mutableString;
 }
 
 static inline BOOL isDigit(char c)

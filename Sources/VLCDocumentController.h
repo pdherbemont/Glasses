@@ -26,6 +26,7 @@
 @class VLCInfoWindowController;
 @class VLCMovieInfoGrabberWindowController;
 @class VLCTVShowInfoGrabberWindowController;
+@class VLCLMediaLibrary;
 
 @interface VLCDocumentController : NSDocumentController {
     VLCSplashScreenWindowController *_splashScreen;
@@ -47,10 +48,6 @@
 
     id _currentDocument;
 
-    NSManagedObjectContext *_managedObjectContext;
-    NSManagedObjectModel   *_managedObjectModel;
-    NSMetadataQuery *_watchedFolderQuery;
-
     NSArrayController *_currentArrayController;
 }
 
@@ -64,16 +61,16 @@
 - (void)makeDocumentWithObject:(id)object;
 - (void)makeDocumentWithURL:(NSURL *)url andStartingPosition:(double)position;
 - (void)makeDocumentWithMediaDiscoverer:(VLCMediaDiscoverer *)md andMediaToPlay:(VLCMedia *)media;
+- (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name;
 - (void)makeDocumentWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name andMediaToPlay:(VLCMedia *)media;
 
-- (NSManagedObjectContext *)managedObjectContext;
+- (VLCLMediaLibrary *)mediaLibrary;
 
 /**
  * Documents callback.
  */
 - (void)documentSuggestsToRecreateMainMenu:(NSDocument *)document;
 - (void)documentDidClose:(NSDocument *)document;
-- (void)media:(VLCMedia *)media wasClosedAtPosition:(double)position;
 
 - (void)setMainWindow:(NSWindow *)window;
 
@@ -89,9 +86,5 @@
 
 /* Used by Nibs */
 - (NSPredicate *)predicateThatFiltersEmptyDiscoverer;
-
-/* Media Library */
-- (void)addNewLabelWithName:(NSString *)name;
-- (NSManagedObject *)addSDMediaItem:(VLCMedia *)media;
 
 @end

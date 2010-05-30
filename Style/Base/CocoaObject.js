@@ -120,6 +120,23 @@ CocoaObject.prototype.setSelectedIndexes = function (index)
     window.PlatformView.setSelectedIndexesInArrayController(index, this);
 }
 
+/**
+ * @param {Object} value
+ * @param {string} key
+ */
+CocoaObject.prototype.setValueForKey = function (value, key)
+{
+    window.PlatformView.setObjectValueForKey(this, value, key);
+}
+
+/**
+ * @param {string} key
+ */
+CocoaObject.prototype.valueForKey = function (key)
+{
+    return window.PlatformView.objectValueForKey(this, key);
+}
+
 
 
 /**

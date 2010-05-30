@@ -14,8 +14,8 @@
     NSURLConnection *_connection;
     NSMutableData *_data;
     NSArray *_results;
-    id<VLCTVShowInfoGrabberDelegate> _delegate;
     void (^_block)();
+    id<VLCTVShowInfoGrabberDelegate> _delegate;
 }
 
 @property (readwrite, assign) id<VLCTVShowInfoGrabberDelegate> delegate;
@@ -24,6 +24,8 @@
 - (void)lookUpForTitle:(NSString *)title;
 - (void)lookUpForTitle:(NSString *)title andExecuteBlock:(void (^)())block;
 
++ (void)fetchServerTimeAndExecuteBlock:(void (^)(NSNumber *))block;
++ (void)fetchUpdatesSinceServerTime:(NSNumber *)serverTime andExecuteBlock:(void (^)(NSArray *))block;
 @end
 
 

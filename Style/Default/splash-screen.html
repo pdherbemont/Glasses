@@ -30,6 +30,35 @@ input[type=search] {
     background: url(sources.png);
 }
 
+select {
+    width: 23px;
+    height: 17px;
+    color: transparent;
+    background-color: transparent;
+    border: none;
+    background-image: url(action-button.png);
+    background-repeat: no-repeat;
+    margin: 1px 0 0 0;
+    padding: 0;
+    -webkit-border-radius: 0;
+    -webkit-appearance: none;
+    outline: none;
+    font: -webkit-control;
+
+}
+
+select:hover {
+    background-position: -23px 0px;
+}
+
+select:active {
+    background-position: -46px 0px;
+}
+
+select > option, select > hr {
+    color: black;
+}
+
 /**************************************************
  * General layout
  *
@@ -88,8 +117,6 @@ input[type=search] {
 .sidebar-list-group > .subitems > .item > .name {
     padding-left: 10px;
 }
-
-
 
 .sidebar-list-group > .subitems > .item.selected > .name {
     color: white;
@@ -291,23 +318,15 @@ input[type=search] {
     -webkit-transition: all ease-in-out 0.2s;
 }
 
-.remove-button {
+.media-db-view > .action-button {
+    margin-right: 5px;
     opacity: 0;
-    background: url(remove.png);
-    border: none;
-    margin-right: 10px;
-    margin-left: 10px;
-    height: 13px; width: 13px;
     -webkit-transition: opacity 0.1s ease-in;
 }
 
-.item:hover>.remove-button {
+.media-db-view:hover > .action-button {
     opacity: 1;
     -webkit-transition: opacity 0.2s ease-in;
-}
-
-.remove-button:active {
-    background: url(remove-on.png);
 }
 
 .thumbnail {
@@ -315,18 +334,21 @@ input[type=search] {
     top: 5px;
     bottom: 5px;
     left: 5px;
-    height: 32px;
-    max-width: 32px;
+    width: 21px;
+    max-height: 32px;
 
     -webkit-transition: all ease-in-out 0.2s;
+}
+
+.media-sd-view .thumbnail {
+    padding-left: 20px;
 }
 
 .media-db-view.selected > .thumbnail,
 .media-sd-view.selected > .thumbnail {
     margin-bottom: 35px;
-    height: 128px;
-    max-width: 128px;
-
+    max-height: 128px;
+    width: 87px;
     -webkit-transition: all ease-in-out 0.2s;
 
     -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.3)));
@@ -340,7 +362,7 @@ input[type=search] {
     text-align: center;
 }
 
-.media-db-view > .short-summary
+.media-db-view .short-summary
 {
     height: 74px;
     font-size: 12px;
@@ -352,13 +374,7 @@ input[type=search] {
     text-overflow: ellipsis;
 }
 
-#detail .thumbnail
-{
-    padding-left: 20px;
-}
-
-
-.selected .name, .selected .year, .selected .remaining-time {
+.selected {
     color: white !important;
     text-shadow:  #222 0px 1px 1px !important;
 }
@@ -403,42 +419,11 @@ ul {
     height: 23px;
 }
 
-.action-bar>div
+.action-bar > div
 {
     display: inline-block;
 }
 
-.action-button {
-    display: inline-block;
-	text-shadow: #eee 0px 1px 0px;
-	font-family: "Lucida Grande";
-    font-size: 12px;
-    padding: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-	-webkit-box-sizing: border-box;
-    margin: 4px;
-    background: none;
-    border: none;
-}
-
-.action-button:hover, .action-button:active, .action-button.selected{
-	text-shadow: #000 0px 1px 0px;
-    color: white;
-	-webkit-border-radius: 10px;
-}
-
-.action-button:hover {
-    background: #aaa;
-}
-
-.action-button:active {
-    background: #444 !important;
-}
-
-.action-button.selected {
-    background: #777;
-}
 
 .remaining-time
 {
@@ -539,7 +524,6 @@ ul {
 
     height: auto !important;
 
-	border-top: thin solid #eee;
     overflow: hidden;
 }
 
@@ -552,30 +536,82 @@ ul {
 }
 
 .tv-show-view .description {
-    padding: 15px;
-    height: 44px;
+    height: 80px;
+    display: -webkit-box;
+    -webkit-box-align: center;
 
     font-size: 13px;
     font-family: "Lucia Grande"
     overflow: hidden;
+
+	border-top: thin solid #eee;
+}
+
+.tv-show-view.disclosed .description {
+
+    border-bottom: thin solid #eee;
+}
+.tv-show-view .name {
+    padding: 1em;
+    -webkit-box-flex: 1;
+}
+
+.tv-show-view .thumbnail {
+    padding-left: 20px;
+
+    width: 50px;
+    max-height: 75px;
+}
+
+.tv-show-view > .episodes > .selected-episode {
+    height: 0;
+}
+
+.tv-show-view.disclosed > .episodes >  .selected-episode {
+    height: 150px;
+    padding: 30px;
+    padding-left: 0;
+    overflow: hidden;
+}
+
+.tv-show-view > .episodes >  .selected-episode > .thumbnail {
+    display: none;
+    height: 0;
+}
+.tv-show-view.disclosed > .episodes >  .selected-episode > .thumbnail {
+    display: block;
+
+    max-height: none; max-width: none;
+    height: auto; width: 230px;
+
+    float: left;
+    padding-left: 0;
+
+    -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.3)));
+}
+
+.tv-show-view.disclosed > .episodes >  .selected-episode > .short-summary {
+    display: block;
+    height: 100%;
+    overflow: auto;
 }
 
 .tv-show-view .short-summary {
+    display: none;
     height: 0;
     padding: 0;
 
     opacity: 0;
 
-    font-size: 12px;
-    color: #999;
+    font-size: 11px;
+    color: #000;
 
     -webkit-transition: all 0.2s ease-in-out;
 }
 
 .tv-show-view.disclosed .short-summary {
-    height: 4ex;
-    padding: 20px;
-
+    height: 5ex;
+    padding: 10px 60px 10px 60px;
 
     opacity: 1;
 
@@ -588,8 +624,14 @@ ul {
 
 .tv-show-view > .episodes {
     height: auto !important;
-}
+    padding-left: 70px;
+    padding-right: 20px;
+    padding-bottom: 0;
 
+}
+.tv-show-view.disclosed > .episodes {
+    padding-bottom: 20px;
+}
 /* Animate item because animating to and from auto doesn't work */
 .tv-show-view > .episodes .episode-view {
     height: 0px;
@@ -604,6 +646,7 @@ ul {
 
 .tv-show-view.disclosed > .episodes .episode-view {
     height: 44px !important;
+
     -webkit-transition: all 0.2s ease-in-out;
 
 }
@@ -624,10 +667,23 @@ ul {
     font-size: 13px !important;
 }
 
+.tv-show-view.disclosed > .episodes .episode-view.selected .name {
+    color: black;
+}
 .episode-view .short-summary {
     width: auto;
     -webkit-box-flex: 1;
     padding: 0px 10px 0px 10px !important;
+}
+
+.episode-view > .action-button {
+    opacity: 0;
+    -webkit-transition: opacity 0.1s ease-in;
+}
+
+.episode-view:hover > .action-button {
+    opacity: 1;
+    -webkit-transition: opacity 0.2s ease-in;
 }
 
 .season-number,
@@ -788,25 +844,41 @@ var EpisodeView = function(cocoaObject, parent, elementTag)
 EpisodeView.prototype = {
     createSubElements: function()
     {
+        if (!EpisodeView.actionPopUp) {
+            var button = document.createElement("select");
+            button.className = "action-button";
+            function addOption(button, text, value) {
+                var opt = document.createElement("option");
+                opt.text = text;
+                opt.value = value;
+                button[value] = opt;
+                button.appendChild(opt);
+                return opt;
+            }
+            addOption(button, "Remove...", "remove");
+            addOption(button, "Toggle unread", "toggle-unread");
+            EpisodeView.actionPopUp = button;
+        }
+        this.actionPopUp = EpisodeView.actionPopUp.cloneNode(true);
+
         this.nameElement = document.createElement("div");
         this.nameElement.className = "name";
-        this.episodeNumberElement = document.createElement("div");
-        this.episodeNumberElement.className = "episode-number";
         this.seasonNumberElement = document.createElement("div");
         this.seasonNumberElement.className = "season-number";
-        this.shortSummaryElement = document.createElement("div");
-        this.shortSummaryElement.className = "short-summary";
-        this.thumbnailElement = document.createElement("img");
-        this.thumbnailElement.className = "thumbnail";
+        this.episodeNumberElement = document.createElement("div");
+        this.episodeNumberElement.className = "episode-number";
+
+        this.statusElement = document.createElement("div");
+        this.statusElement.className = "status";
     },
 
     appendSubElementsToNode: function(element)
     {
-        element.appendChild(this.thumbnailElement);
+        element.appendChild(this.statusElement);
         element.appendChild(this.nameElement);
-        element.appendChild(this.episodeNumberElement);
         element.appendChild(this.seasonNumberElement);
-        element.appendChild(this.shortSummaryElement);
+        element.appendChild(this.episodeNumberElement);
+        element.appendChild(this.actionPopUp);
     },
 
     set visible(visible)
@@ -817,21 +889,59 @@ EpisodeView.prototype = {
         ListItemView.prototype.__lookupSetter__("visible").call(this, visible);
 
         if (visible) {
+            this.actionPopUp.addEventListener('change', this.actionPopUpChanged.bind(this), false);
+            this.actionPopUp.selectedIndex = -1;
+
+            Lunettes.connect(this, "unread", this.cocoaObject, "unread");
+
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "name");
             Lunettes.connect(this.episodeNumberElement, "textContent", this.cocoaObject, "episodeNumber");
             Lunettes.connect(this.seasonNumberElement, "textContent", this.cocoaObject, "seasonNumber");
-            Lunettes.connect(this.shortSummaryElement, "textContent", this.cocoaObject, "shortSummary");
-
-            var options = new Object;
-            options["NSNullPlaceholderBindingOption"] = "noartwork.png";
-            Lunettes.connect(this.thumbnailElement, "src", this.cocoaObject, "artworkURL", options);
         } else {
-            Lunettes.unconnect(this.thumbnailElement, "src");
-            Lunettes.unconnect(this.shortSummaryElement, "textContent");
+            this.actionPopUp.removeEventListener('change', this.actionPopUpChanged.bind(this), false);
+
+            Lunettes.unconnect(this, "unread");
             Lunettes.unconnect(this.seasonNumberElement, "textContent");
             Lunettes.unconnect(this.episodeNumberElement, "textContent");
             Lunettes.unconnect(this.nameElement, "textContent");
         }
+    },
+
+    _unread: false,
+    get unread()
+    {
+        return this._unread;
+    },
+    set unread(unread)
+    {
+        if (!unread)
+            unread = 0;
+
+        this._unread = unread;
+        if (unread)
+            this.element.addClassName("not-played");
+        else
+            this.element.removeClassName("not-played");
+    },
+
+    actionPopUpChanged: function()
+    {
+        switch(this.actionPopUp.value) {
+            case "remove": {
+                var shouldRemove = window.PlatformView.remove(this.cocoaObject, this.parent.arrayController);
+                if (shouldRemove)
+                this.parent.removeSubview(this);
+                break;
+            }
+            case "toggle-unread": {
+                this.cocoaObject.setValueForKey(!this.cocoaObject.valueForKey("unread"), "unread");
+                break;
+            }
+        }
+
+        this.actionPopUp.selectedIndex = -1;
+
+        event.preventDefault();
     },
     action: function()
     {
@@ -868,11 +978,30 @@ TVShowView.prototype = {
         this.yearElement.className = "year";
         this.shortSummaryElement = document.createElement("div");
         this.shortSummaryElement.className = "short-summary";
+        this.unreadCountElement = document.createElement("div");
+        this.unreadCountElement.className = "unread-count";
         this.thumbnailElement = document.createElement("img");
-        this.thumbnailElement.className = "banner";
+        this.thumbnailElement.className = "thumbnail";
+
+        /* Episodes */
+        this.episodeThumbnailElement = document.createElement("img");
+        this.episodeThumbnailElement.className = "thumbnail";
+        this.episodeSummaryElement = document.createElement("div");
+        this.episodeSummaryElement.className = "short-summary";
+
+        this.selectedEpisodeElement = document.createElement("div");
+        this.selectedEpisodeElement.className = "selected-episode";
+
+        this.selectedEpisodeElement.appendChild(this.episodeThumbnailElement);
+        this.selectedEpisodeElement.appendChild(this.episodeSummaryElement);
+
+        this.episodesListElement = document.createElement("div");
 
         this.episodesElement = document.createElement("div");
         this.episodesElement.className = "episodes";
+
+        this.episodesElement.appendChild(this.selectedEpisodeElement);
+        this.episodesElement.appendChild(this.episodesListElement);
 
     },
 
@@ -881,6 +1010,7 @@ TVShowView.prototype = {
         this.descriptionElement.appendChild(this.thumbnailElement);
         this.descriptionElement.appendChild(this.nameElement);
         this.descriptionElement.appendChild(this.yearElement);
+        this.descriptionElement.appendChild(this.unreadCountElement);
 
         element.appendChild(this.descriptionElement);
         element.appendChild(this.shortSummaryElement);
@@ -897,23 +1027,45 @@ TVShowView.prototype = {
         if (visible) {
             this.descriptionElement.addEventListener('click', this.mouseClicked.bind(this), false);
 
+            var options = new Object;
+            options["NSNullPlaceholderBindingOption"] = "noartwork.png";
+
+            Lunettes.connect(this.episodeThumbnailElement, "src", this, "episodes.arrayController.backendObject.selection.artworkURL", options);
+            Lunettes.connect(this.episodeSummaryElement, "textContent", this, "episodes.arrayController.backendObject.selection.shortSummary");
+
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "name");
             Lunettes.connect(this.yearElement, "textContent", this.cocoaObject, "releaseYear");
             Lunettes.connect(this.shortSummaryElement, "textContent", this.cocoaObject, "shortSummary");
+            //Lunettes.connect(this.unreadCountElement, "textContent", this.cocoaObject, "unreadEpisodes.@count");
 
-            var options = new Object;
-            options["NSNullPlaceholderBindingOption"] = "noartwork.png";
+
             Lunettes.connect(this.thumbnailElement, "src", this.cocoaObject, "artworkURL", options);
         } else {
             this.descriptionElement.removeEventListener('click', this.mouseClicked.bind(this), false);
 
+            Lunettes.unconnect(this.episodeSummaryElement, "textContent");
+            Lunettes.unconnect(this.episodeThumbnailElement, "src");
             Lunettes.unconnect(this.thumbnailElement, "src");
+            //Lunettes.unconnect(this.unreadCountElement, "textContent");
             Lunettes.unconnect(this.shortSummaryElement, "textContent");
             Lunettes.unconnect(this.yearElement, "textContent");
             Lunettes.unconnect(this.nameElement, "textContent");
         }
     },
 
+    _episodes: null,
+    set episodes(episodes)
+    {
+        if (!episodes)
+            episodes = null;
+        Lunettes.willChange(this, "episodes");
+        this._episodes = episodes;
+        Lunettes.didChange(this, "episodes");
+    },
+    get episodes()
+    {
+        return this._episodes;
+    },
     /**
      * Event Handler
      * @param {Event} event
@@ -923,13 +1075,14 @@ TVShowView.prototype = {
         if (this.element.hasClassName("disclosed"))
             this.element.removeClassName("disclosed");
         else {
-            if (!this._episodes) {
-                this._episodes = new ListView(this.cocoaObject, "episodes", EpisodeView);
-                this._episodes._noVisibleItemOptimization = true; // We don't yet optimize which one we display or not.
-                this._episodes.attach(this.episodesElement);
-                Lunettes.connect(this._episodes, "arrayController.backendObject.sortDescriptors", CocoaObject.windowCocoaObject(), "tvShowEpisodesSortDescriptors");
-                Lunettes.connect(this._episodes, "arrayController.backendObject.filterPredicate", CocoaObject.windowCocoaObject(), "predicateThatFiltersShowEpisodeWithoutFile");
-
+            if (!this.episodes) {
+                var episodes = new ListView(this.cocoaObject, "episodes", EpisodeView);
+                episodes._noVisibleItemOptimization = true; // We don't yet optimize which one we display or not.
+                episodes.createArrayController();
+                Lunettes.connect(episodes, "arrayController.backendObject.sortDescriptors", CocoaObject.windowCocoaObject(), "tvShowEpisodesSortDescriptors");
+                Lunettes.connect(episodes, "arrayController.backendObject.filterPredicate", CocoaObject.windowCocoaObject(), "predicateThatFiltersShowEpisodeWithoutFile");
+                episodes.attach(this.episodesElement);
+                this.episodes = episodes;
             }
 
             this.element.addClassName("disclosed");
@@ -1026,15 +1179,29 @@ MediaDBView.prototype = {
         this.yearElement = document.createElement("div");
         this.yearElement.className = "year";
 
-
         this.thumbnailElement = document.createElement("img");
         this.thumbnailElement.className = "thumbnail";
 
         this.statusElement = document.createElement("div");
         this.statusElement.className = "status";
 
-        this.removeButton = document.createElement("button");
-        this.removeButton.className = "remove-button";
+
+        if (!MediaDBView.actionPopUp) {
+            var button = document.createElement("select");
+            button.className = "action-button";
+            function addOption(button, text, value) {
+                var opt = document.createElement("option");
+                opt.text = text;
+                opt.value = value;
+                button[value] = opt;
+                button.appendChild(opt);
+                return opt;
+            }
+            addOption(button, "Remove...", "remove");
+            addOption(button, "Toggle unread", "toggle-unread");
+            MediaDBView.actionPopUp = button;
+        }
+        this.actionPopUp = MediaDBView.actionPopUp.cloneNode(true);
 
         this.remainingElement = document.createElement("div");
         this.remainingElement.className = "remaining";
@@ -1060,7 +1227,7 @@ MediaDBView.prototype = {
         element.appendChild(this.detailElement);
         element.appendChild(this.remainingElement);
         element.appendChild(this.yearElement);
-        element.appendChild(this.removeButton);
+        element.appendChild(this.actionPopUp);
     },
 
     _unread: false,
@@ -1125,7 +1292,9 @@ MediaDBView.prototype = {
             var options = new Object;
             options["NSNullPlaceholderBindingOption"] = "";
 
-            this.removeButton.addEventListener('click', this.removeButtonClicked.bind(this), false);
+            this.actionPopUp.addEventListener('change', this.actionPopUpChanged.bind(this), false);
+            this.actionPopUp.selectedIndex = -1;
+
             Lunettes.connect(this.nameElement, "textContent", this.cocoaObject, "title");
             Lunettes.connect(this.yearElement, "textContent", this.cocoaObject, "releaseYear", options);
             Lunettes.connect(this.shortSummaryElement, "textContent", this.cocoaObject, "shortSummary", options);
@@ -1153,11 +1322,23 @@ MediaDBView.prototype = {
     /**
      * When double clicked
      */
-    removeButtonClicked: function(event)
+    actionPopUpChanged: function(event)
     {
-        var shouldRemove = window.PlatformView.remove(this.cocoaObject, this.parent.arrayController);
-        if (shouldRemove)
-            this.parent.removeSubview(this);
+        switch(this.actionPopUp.value) {
+            case "remove": {
+                var shouldRemove = window.PlatformView.remove(this.cocoaObject, this.parent.arrayController);
+                if (shouldRemove)
+                this.parent.removeSubview(this);
+                break;
+            }
+            case "toggle-unread": {
+                this.cocoaObject.setValueForKey(!this.cocoaObject.valueForKey("unread"), "unread");
+                break;
+            }
+        }
+
+        this.actionPopUp.selectedIndex = -1;
+
         event.preventDefault();
     },
 
@@ -1627,7 +1808,7 @@ function init()
     window.moviesCategory = new CategoryTypeView("movie", moviesElement);
 
     var tvShowsElement = document.getElementById("tvshows-category");
-    window.tvShowsCategory = new CategoryTypeView("tvshow", tvShowsElement);
+    window.tvShowsCategory = new CategoryTypeView("tvShowEpisode", tvShowsElement);
 
     var clipsElement = document.getElementById("clips-category");
     window.clipsCategory = new CategoryTypeView("clip", clipsElement);

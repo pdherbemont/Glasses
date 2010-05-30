@@ -729,14 +729,18 @@ ListView.prototype = {
             this._arrayController = null;
         return this._arrayController;
     },
+    createArrayController: function()
+    {
+        console.assert(!this.arrayController, "There should be no arrayController");
+        console.assert(this.subItemsKeyPath, "No keypath provided");
+        var cocoaObject = this.cocoaObject;
+        this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
+    },
     observe: function()
     {
         if (!this.arrayController)
-        {
-            console.assert(this.subItemsKeyPath, "No keypath provided");
-            var cocoaObject = this.cocoaObject;
-            this.arrayController = cocoaObject.createArrayControllerFromKeyPath(this.subItemsKeyPath);
-        }
+            this.createArrayController();
+
         this.arrayController.addObserver(this, "arrangedObjects");
     }
 }

@@ -21,40 +21,24 @@
 
 #import "VLCSplashScreenWindowController.h"
 #import "VLCDocumentController.h"
-#import "VLCDVDDiscoverer.h"
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_5
 @interface VLCSplashScreenWindowController () <NSWindowDelegate>
 @end
 #endif
 
-#if !ENABLE_EXTENDED_SPLASH_SCREEN
 @interface VLCSplashScreenWindowController ()
 @property (assign, readwrite) BOOL hasSelection;
 @end
-#endif
 
-static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of media discoverers
 
 @implementation VLCSplashScreenWindowController
-#if !ENABLE_EXTENDED_SPLASH_SCREEN
 @synthesize hasSelection=_hasSelection;
-#endif
-
-@synthesize moviesArrayController=_moviesArrayController;
-@synthesize labelsArrayController=_labelsArrayController;
-@synthesize clipsArrayController=_clipsArrayController;
-@synthesize tvShowsArrayController=_tvShowsArrayController;
-@synthesize orphanedTVShowEpisodeArrayController=_orphanedTVShowEpisodeArrayController;
+@synthesize seenItemsArrayController=_seenItemsArrayController;
+@synthesize unseenItemsArrayController=_unseenItemsArrayController;
+@synthesize currentlyWatchingItemsArrayController=_currentlyWatchingItemsArrayController;
 @synthesize mediaDiscovererArrayController=_mediaDiscovererArrayController;
 
-- (void)dealloc
-{
-#if ENABLE_EXTENDED_SPLASH_SCREEN
-    [_mediaDiscovererArrayController release];
-#endif
-    [super dealloc];
-}
 
 - (NSArray *)sortDescriptor
 {
@@ -62,38 +46,16 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
                                 initWithKey:@"title"
                                 ascending:YES
                                 selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];
-    NSSortDescriptor *unread = [[[NSSortDescriptor alloc]
-                                 initWithKey:@"unread"
-                                 ascending:NO
-                                 selector:@selector(compare:)] autorelease];
     NSSortDescriptor *lastPosition = [[[NSSortDescriptor alloc]
-                                       initWithKey:@"lastPosition"
-                                       ascending:NO
-                                       selector:@selector(compare:)] autorelease];
-    return [NSArray arrayWithObjects:lastPosition, unread, title, nil];
-}
-
-- (NSArray *)sortDescriptorsForTVShows
-{
-    NSSortDescriptor *name = [[[NSSortDescriptor alloc]
-                                initWithKey:@"name"
-                                ascending:YES
-                                selector:@selector(localizedCaseInsensitiveCompare:)] autorelease];
-    return [NSArray arrayWithObjects:name, nil];
+                                initWithKey:@"lastPosition"
+                                ascending:NO
+                                selector:@selector(compare:)] autorelease];
+    return [NSArray arrayWithObjects:lastPosition, title, nil];
 }
 
 - (NSArray *)availableMediaDiscoverer
 {
-    if( !availableMediaDiscoverer )
-    {
-        availableMediaDiscoverer = [[NSArray arrayWithObjects:
-                                     [[[VLCMediaDiscoverer alloc] initWithName:@"sap"] autorelease],
-                                     [[[VLCMediaDiscoverer alloc] initWithName:@"upnp_intel"] autorelease],
-                                     [[[VLCMediaDiscoverer alloc] initWithName:@"freebox"] autorelease],
-                                     [[[VLCDVDDiscoverer alloc] init] autorelease],nil] retain];
-    }
-    return availableMediaDiscoverer;
-
+    return [VLCMediaDiscoverer availableMediaDiscoverer];
 }
 
 - (NSString *)windowNibName
@@ -113,13 +75,13 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
     [window center];
     [window setDelegate:self];
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
-    VLCAssert(_mediaDiscoverCollection, @"There is no collectionView");
-    VLCAssert(_unfinishedItemsCollection, @"There is no collectionView");
+    NSAssert(_mediaDiscoverCollection, @"There is no collectionView");
+    NSAssert(_unfinishedItemsCollection, @"There is no collectionView");
     [_unfinishedItemsCollection registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
 #endif
 }
 
-- (void)windowDidClose:(NSNotification *)notification
+- (void)windowWillClose:(NSNotification *)notification
 {
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
     [_unfinishedItemsCollection setDelegate:nil];
@@ -157,7 +119,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 #endif
         NSString *stringURL = [representedObject valueForKey:@"url"];
         NSURL *url = [NSURL URLWithString:stringURL];
-        VLCAssert(url, @"Invalid string in DB!");
+        NSAssert(url, @"Invalid string in DB!");
         double position = [[representedObject valueForKey:@"lastPosition"] doubleValue];
         [controller makeDocumentWithURL:url andStartingPosition:position];
     }
@@ -184,18 +146,17 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 
 - (BOOL)collectionView:(NSCollectionView *)collectionView acceptDrop:(id < NSDraggingInfo >)draggingInfo index:(NSInteger)index dropOperation:(NSCollectionViewDropOperation)dropOperation
 {
-    VLCAssert(collectionView == _unfinishedItemsCollection, @"Not the right collectionView");
+    NSAssert(collectionView == _unfinishedItemsCollection, @"Not the right collectionView");
     NSPasteboard *pboard = [draggingInfo draggingPasteboard];
     NSArray *array = [pboard propertyListForType:NSFilenamesPboardType];
-    VLCAssert([array count] > 0, @"There should be at least one item dropped");
+    NSAssert([array count] > 0, @"There should be at least one item dropped");
 
     VLCMedia *media = [VLCMedia mediaWithPath:[array objectAtIndex:0]];
 
     // FIXME - This is blocking and we don't have any fallback
     [media lengthWaitUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]];
 
-    [[VLCLMediaLibrary sharedMediaLibrary] media:media hasReadPosition:0];
-
+    [[self documentController] media:media wasClosedAtPosition:0];
     return YES;
 }
 
@@ -203,7 +164,7 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
 - (IBAction)openSelection:(id)sender
 {
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
-    VLCAssert(_mediaDiscoverCollection, @"Should be binded");
+    NSAssert(_mediaDiscoverCollection, @"Should be binded");
     NSIndexSet *discoverers = [_mediaDiscoverCollection selectionIndexes];
     NSIndexSet *unfinished = [_unfinishedItemsCollection selectionIndexes];
     if ([discoverers count] > 0)
@@ -214,21 +175,4 @@ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of me
          VLCAssertNotReached(@"We shouldn't have received this action in the first place");
 #endif
 }
-
-#if ENABLE_EXTENDED_SPLASH_SCREEN
-
-// See comment in definition.
-- (void)loadArrayControllers
-{
-    [self willChangeValueForKey:@"mediaDiscovererArrayController"];
-
-    _mediaDiscovererArrayController = [[NSArrayController alloc] init];
-    [_mediaDiscovererArrayController setContent:[self availableMediaDiscoverer]];
-    [_mediaDiscovererArrayController setFilterPredicate:[[self documentController] predicateThatFiltersEmptyDiscoverer]];
-    [_mediaDiscovererArrayController setAutomaticallyRearrangesObjects:YES];
-
-    [self didChangeValueForKey:@"mediaDiscovererArrayController"];
-}
-#endif
-
 @end

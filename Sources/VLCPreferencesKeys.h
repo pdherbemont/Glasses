@@ -24,6 +24,8 @@ extern NSString *kDontRememberUnfinishedMovies;
 extern NSString *kScannedFolders;
 extern NSString *kDisableFolderScanning;
 
+extern NSString *kLastTVDBUpdateServerTime;
+
 extern NSString *kSuppressShareOnLANReminder;
 
 extern NSString *kDebugFullscreen;

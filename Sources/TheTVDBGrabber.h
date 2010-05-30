@@ -17,6 +17,8 @@
 /* See http://thetvdb.com/wiki/index.php?title=Programmers_API */
 #define TVDB_QUERY_SEARCH       @"http://%s/api/GetSeries.php?seriesname=%@"
 #define TVDB_QUERY_SEARCH_NEW   @"http://%s/api/GetSeriesNew.php?seriesname=%@"
+#define TVDB_QUERY_SERVER_TIME  @"http://%s/api/Updates.php?type=none"
+#define TVDB_QUERY_UPDATES      @"http://%s/api/Updates.php?type=all&time=%@"
 #define TVDB_QUERY_INFO         @"http://%s/api/%s/series/%@/%s.xml"
 #define TVDB_QUERY_EPISODE_INFO @"http://%s/api/%s/series/%@/all/%s.xml"
 #define TVDB_COVERS_URL         @"http://%s/banners/%@"

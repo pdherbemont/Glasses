@@ -8,18 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class VLCURLConnection;
+
 @protocol VLCTVShowEpisodesInfoGrabberDelegate;
 
 @interface VLCTVShowEpisodesInfoGrabber : NSObject {
-    NSURLConnection *_connection;
-    NSMutableData *_data;
-    NSArray *_results;
+    VLCURLConnection *_connection;
+    NSDictionary *_results;
+    NSArray *_episodesResults;
     id<VLCTVShowEpisodesInfoGrabberDelegate> _delegate;
     void (^_block)();
 }
 
 @property (readwrite, assign) id<VLCTVShowEpisodesInfoGrabberDelegate> delegate;
-@property (readonly, retain) NSArray *results;
+@property (readonly, retain) NSArray *episodesResults;
+@property (readonly, retain) NSDictionary *results;
 
 - (void)lookUpForShowID:(NSString *)id;
 - (void)lookUpForShowID:(NSString *)id andExecuteBlock:(void (^)())block;

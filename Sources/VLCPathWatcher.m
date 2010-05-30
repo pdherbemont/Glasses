@@ -86,9 +86,11 @@ static void callback(ConstFSEventStreamRef streamRef, void *clientCallBackInfo,
 
 - (void)stop
 {
+    if (_started) {
+        FSEventStreamStop(_stream);
+        FSEventStreamInvalidate(_stream); /* will remove from runloop */
+    }
     _started = NO;
-    FSEventStreamStop(_stream);
-    FSEventStreamInvalidate(_stream); /* will remove from runloop */
 }
 
 - (void)notifyChanges

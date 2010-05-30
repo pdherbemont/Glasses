@@ -1,0 +1,42 @@
+***************
+*** 31,43 ****
+  @property (assign, readwrite) BOOL hasSelection;
+  @end
+  
+  
+  @implementation VLCSplashScreenWindowController
+  @synthesize hasSelection=_hasSelection;
+  
+  - (NSArray *)availableMediaDiscoverer
+  {
+-     return [VLCMediaDiscoverer availableMediaDiscoverer];
+  }
+  
+  - (NSString *)windowNibName
+--- 32,57 ----
+  @property (assign, readwrite) BOOL hasSelection;
+  @end
+  
++ static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of media discoverers
+  
+  @implementation VLCSplashScreenWindowController
+  @synthesize hasSelection=_hasSelection;
+  
+  - (NSArray *)availableMediaDiscoverer
+  {
++     if( !availableMediaDiscoverer )
++     {
++         availableMediaDiscoverer = [[NSArray arrayWithObjects:
++                                      [[[VLCMediaDiscoverer alloc] initWithName:@"sap"] autorelease],
++                                      [[[VLCMediaDiscoverer alloc] initWithName:@"upnp_intel"] autorelease],
++                                      [[[VLCMediaDiscoverer alloc] initWithName:@"freebox"] autorelease],
++                                      [[[VLCMediaDiscoverer alloc] initWithName:@"video_dir"] autorelease],
++                                      [[[VLCMediaDiscoverer alloc] initWithName:@"shoutcast"] autorelease],
++                                      [[[VLCMediaDiscoverer alloc] initWithName:@"shoutcasttv"] autorelease],
++                                      [[[VLCDVDDiscoverer alloc] init] autorelease],nil] retain];
++     }
++     return availableMediaDiscoverer;
++     
+  }
+  
+  - (NSString *)windowNibName

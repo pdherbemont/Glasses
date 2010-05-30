@@ -24,6 +24,8 @@ DEFINE(DontRememberUnfinishedMovies);
 DEFINE(ScannedFolders);
 DEFINE(DisableFolderScanning);
 
+DEFINE(LastTVDBUpdateServerTime);
+
 DEFINE(SuppressShareOnLANReminder);
 DEFINE(DebugStyledWindow);
 DEFINE(DebugFullscreen);

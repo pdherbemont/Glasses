@@ -8,21 +8,26 @@
 
 #import "VLCTVShowEpisodesInfoGrabber.h"
 #import "NSXMLNode_Additions.h"
+#import "VLCURLConnection.h"
 
 #import "TheTVDBGrabber.h"
 
 @interface VLCTVShowEpisodesInfoGrabber ()
-@property (readwrite, retain) NSArray *results;
+@property (readwrite, retain) NSDictionary *results;
+@property (readwrite, retain) NSArray *episodesResults;
+
+- (void)didReceiveData:(NSData *)data;
 @end
 
 @implementation VLCTVShowEpisodesInfoGrabber
 @synthesize delegate=_delegate;
+@synthesize episodesResults=_episodesResults;
 @synthesize results=_results;
 - (void)dealloc
 {
-    [_data release];
     [_connection release];
     [_results release];
+    [_episodesResults release];
     if (_block)
         Block_release(_block);
     [super dealloc];
@@ -30,20 +35,24 @@
 
 - (void)lookUpForShowID:(NSString *)showId
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:TVDB_QUERY_EPISODE_INFO, TVDB_HOSTNAME, TVDB_API_KEY, showId, TVDB_DEFAULT_LANGUAGE]];
-    NSLog(@"Accessing %@", url);
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:15];
     [_connection cancel];
     [_connection release];
 
-    [_data release];
-    _data = [[NSMutableData alloc] init];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:TVDB_QUERY_EPISODE_INFO, TVDB_HOSTNAME, TVDB_API_KEY, showId, TVDB_DEFAULT_LANGUAGE]];
 
-    // Keep a reference to ourself while we are alive.
+    // Balanced below
     [self retain];
 
-    _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-    [request release];
+    _connection = [[VLCURLConnection runConnectionWithURL:url andBlock:^(VLCURLConnection *connection, NSError * error) {
+        if (error) {
+            [_connection release];
+            _connection = nil;
+            [self autorelease];
+            return;
+        }
+        [self didReceiveData:connection.data];
+        [self autorelease];
+    }] retain];
 }
 
 - (void)lookUpForShowID:(NSString *)id andExecuteBlock:(void (^)())block
@@ -52,40 +61,26 @@
     _block = Block_copy(block);
     [self lookUpForShowID:id];
 }
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    if ([_delegate respondsToSelector:@selector(movieInfoGrabber:didFailWithError:)])
-        [_delegate tvShowEpisodesInfoGrabber:self didFailWithError:error];
 
-    // Release the eventual block. This prevents ref cycle.
-    if (_block) {
-        Block_release(_block);
-        _block = NULL;
+- (void)didReceiveData:(NSData *)data
+{
+    NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithData:data options:0 error:nil];
+
+    NSError *error = nil;
+    NSArray *nodesSerie = [xmlDoc nodesForXPath:@"./Data/Series" error:&error];
+    NSArray *nodesEpisode = [xmlDoc nodesForXPath:@"./Data/Episode" error:&error];
+
+
+    NSString *serieArtworkURL = nil;
+    if ([nodesSerie count] == 1) {
+        NSXMLNode *node = [nodesSerie objectAtIndex:0];
+        serieArtworkURL = [node stringValueForXPath:@"./poster"];
     }
 
-    // This balances the -retain in -lookupForTitle
-    [self autorelease];
-}
+    if ([nodesEpisode count] > 0 ) {
+        NSMutableArray *array = [NSMutableArray arrayWithCapacity:[nodesEpisode count]];
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [_data appendData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithData:_data options:0 error:nil];
-
-    [_data release];
-    _data = nil;
-
-    //NSLog(@"%@", xmlDoc);
-    NSError *error = nil;
-    NSArray *nodes = [xmlDoc nodesForXPath:@"./Data/Episode" error:&error];
-
-    if ([nodes count] > 0 ) {
-        NSMutableArray *array = [NSMutableArray arrayWithCapacity:[nodes count]];
-        for (NSXMLNode *node in nodes) {
+        for (NSXMLNode *node in nodesEpisode) {
             NSString *episodeId = [node stringValueForXPath:@"./id"];
             if (!episodeId)
                 continue;
@@ -103,10 +98,15 @@
                               [NSString stringWithFormat:TVDB_COVERS_URL, TVDB_IMAGES_HOSTNAME, artworkURL], @"artworkURL",
                               nil]];
         }
-        self.results = array;
+        self.episodesResults = array;
+        self.results = [NSDictionary dictionaryWithObjectsAndKeys:
+                        [NSString stringWithFormat:TVDB_COVERS_URL, TVDB_IMAGES_HOSTNAME, serieArtworkURL], @"serieArtworkURL", nil];
     }
-    else
+    else {
+        self.episodesResults = nil;
         self.results = nil;
+
+    }
 
     [xmlDoc release];
 
@@ -118,9 +118,6 @@
 
     if ([_delegate respondsToSelector:@selector(movieInfoGrabberDidFinishGrabbing:)])
         [_delegate tvShowEpisodesInfoGrabberDidFinishGrabbing:self];
-
-    // This balances the -retain in -lookupForTitle
-    [self autorelease];
 }
 
 @end

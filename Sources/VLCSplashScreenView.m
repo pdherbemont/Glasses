@@ -9,6 +9,8 @@
 #import "VLCSplashScreenView.h"
 #import "VLCSplashScreenWindowController.h"
 #import "VLCDocumentController.h"
+#import "VLCMediaLibrary.h"
+#import "VLCTitleDecrapifier.h"
 
 @implementation VLCSplashScreenView
 @synthesize currentArrayController=_currentArrayController;
@@ -32,15 +34,19 @@
     return [NSSet setWithObject:@"window.windowController.mediaDiscovererArrayController"];
 }
 
+- (NSArray *)setTvShowEpisodesSortDescriptors:(NSArray *)ignored
+{
+}
+
 - (NSArray *)tvShowEpisodesSortDescriptors
 {
     NSSortDescriptor *season = [[[NSSortDescriptor alloc]
                                 initWithKey:@"seasonNumber"
-                                ascending:YES
+                                ascending:NO
                                 selector:@selector(compare:)] autorelease];
     NSSortDescriptor *episode = [[[NSSortDescriptor alloc]
                                  initWithKey:@"episodeNumber"
-                                 ascending:YES
+                                 ascending:NO
                                  selector:@selector(compare:)] autorelease];
     return [NSArray arrayWithObjects:season, episode, nil];
 }
@@ -104,6 +110,17 @@
         NSManagedObject *mo = representedObject;
         if ([[[mo entity] name] isEqualToString:@"ShowEpisode"]) {
             NSSet *files = [representedObject valueForKey:@"files"];
+            if ([files count] > 1) {
+                VLCMediaList *mediaList = [[[VLCMediaList alloc] init] autorelease];
+                for (id file in files) {
+                    NSURL *url = [NSURL URLWithString:[file valueForKey:@"url"]];
+                    [mediaList addMedia:[VLCMedia mediaWithURL:url]];
+
+                }
+                [[VLCDocumentController sharedDocumentController] makeDocumentWithMediaList:mediaList andName:[representedObject valueForKey:@"name"]];
+                [[[self window] windowController] close];
+                return;
+            }
             representedObject = [files anyObject];
         }
     }
@@ -150,7 +167,7 @@
 {
     FROM_JS();
     NSString *name = @"Undefined";
-    [[VLCDocumentController sharedDocumentController] addNewLabelWithName:name];
+    [[VLCLMediaLibrary sharedMediaLibrary] addNewLabelWithName:name];
     RETURN_NOTHING_TO_JS();
 }
 
@@ -161,7 +178,7 @@
     id media = [webmedia valueForKey:@"backendObject"];
     NSManagedObject *managedMedia = media;
     if ([media isKindOfClass:[VLCMedia class]])
-        managedMedia = [[VLCDocumentController sharedDocumentController] addSDMediaItem:media];
+        managedMedia = [[VLCLMediaLibrary sharedMediaLibrary] addSDMediaItem:media];
     [[label mutableSetValueForKey:@"files"] addObject:managedMedia];
     RETURN_NOTHING_TO_JS();
 }
@@ -198,8 +215,13 @@
 - (void)setType:(NSString *)type forFile:(WebScriptObject *)webfile
 {
     FROM_JS();
-    id file = [webfile valueForKey:@"backendObject"];
-    [file setValue:type forKey:@"type"];
+    File *file = [webfile valueForKey:@"backendObject"];
+    if ([type isEqualToString:@"tvShowEpisode"]) {
+        [file setValue:type forKey:@"type"];
+        NSDictionary *dictionary = [VLCTitleDecrapifier tvShowEpisodeInfoFromString:file.title];
+        [[VLCLMediaLibrary sharedMediaLibrary] addTVShowEpisodeWithInfo:dictionary andFile:file];
+
+    }
     RETURN_NOTHING_TO_JS();
 }
 

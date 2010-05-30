@@ -25,6 +25,7 @@
 #import "VLCPlaylistDebugWindowController.h"
 #import "VLCExportStatusWindowController.h"
 #import "VLCDocumentController.h"
+#import "VLCMediaLibrary.h"
 
 @interface VLCMediaDocument ()
 @property (readwrite,retain) VLCMediaListPlayer *mediaListPlayer;
@@ -108,8 +109,7 @@
     VLCMedia *media = _media ? _media : mediaPlayer.media;
 
     if (media && seekable) {
-        VLCDocumentController *documentController = [VLCDocumentController sharedDocumentController];
-        [documentController media:media wasClosedAtPosition:position];
+        [[VLCLMediaLibrary sharedMediaLibrary] media:media hasReadPosition:position];
     }
 }
 

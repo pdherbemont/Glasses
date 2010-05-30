@@ -155,12 +155,13 @@
 		63635CF51192B59100A348A6 /* VLCTVShowInfoGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635CF41192B59100A348A6 /* VLCTVShowInfoGrabber.m */; };
 		63635CFE1192B61D00A348A6 /* TVShowInfoGrabberWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63635CFD1192B61D00A348A6 /* TVShowInfoGrabberWindow.xib */; };
 		63635D091192B74600A348A6 /* NSXMLNode_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635D081192B74600A348A6 /* NSXMLNode_Additions.m */; };
-		63635DC31192E76000A348A6 /* tvshows.png in Resources */ = {isa = PBXBuildFile; fileRef = 63635DC21192E76000A348A6 /* tvshows.png */; };
 		63635DC81192E84E00A348A6 /* clips.png in Resources */ = {isa = PBXBuildFile; fileRef = 63635DC71192E84E00A348A6 /* clips.png */; };
 		63635E121192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63635E111192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m */; };
 		636C48101121623700817611 /* ListView.js in Resources */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
 		636C481A11216E5000817611 /* ListView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C480F1121623700817611 /* ListView.js */; };
 		636C481B11216E5000817611 /* ListItemView.js in Create Lunettes Style Root */ = {isa = PBXBuildFile; fileRef = 636C48131121624C00817611 /* ListItemView.js */; };
+		6370D0E711AF265600FB3965 /* action-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 6370D0E611AF265600FB3965 /* action-button.png */; };
+		6370D3D411B065AD00FB3965 /* VLCMediaLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 6370D3D311B065AD00FB3965 /* VLCMediaLibrary.m */; };
 		6380A61A107E5E98008263B9 /* DOMHTMLElement_Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */; };
 		639163E01115E21500480B08 /* VLCInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 639163DF1115E21500480B08 /* VLCInfoWindowController.m */; };
 		639163E21115E23000480B08 /* InfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 639163E11115E23000480B08 /* InfoWindow.xib */; };
@@ -184,9 +185,12 @@
 		63B1E10A10440EB00029C49C /* VLCStyledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B1E10910440EB00029C49C /* VLCStyledView.m */; };
 		63B1E11510441B790029C49C /* StyledFullscreenHUDWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */; };
 		63B1E42E10444D540029C49C /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63B1E42D10444D540029C49C /* Icon.icns */; };
-		63D333C011A7EF45004B8B71 /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D333BF11A7EF45004B8B71 /* File.m */; };
 		63D441D0100469A60086772A /* VideoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441CF100469A60086772A /* VideoWindow.xib */; };
 		63D441D2100469AD0086772A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D441D1100469AD0086772A /* MainMenu.xib */; };
+		63DA1DAD11B31DA600DDEA0B /* Label.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DA1DAC11B31DA600DDEA0B /* Label.m */; };
+		63DA1DB011B31DAF00DDEA0B /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DA1DAF11B31DAF00DDEA0B /* File.m */; };
+		63DA1DB311B31DB600DDEA0B /* ShowEpisode.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DA1DB211B31DB600DDEA0B /* ShowEpisode.m */; };
+		63DA1DBA11B31DFF00DDEA0B /* VLCURLConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DA1DB911B31DFF00DDEA0B /* VLCURLConnection.m */; };
 		63DCD4191168F4BC00C194BF /* statusbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 63DCD4171168F4BC00C194BF /* statusbarBackground.png */; };
 		63DCD41A1168F4BC00C194BF /* statusbarButtons.png in Resources */ = {isa = PBXBuildFile; fileRef = 63DCD4181168F4BC00C194BF /* statusbarButtons.png */; };
 		63DCD5D8116B61B000C194BF /* folderScanning.png in Resources */ = {isa = PBXBuildFile; fileRef = 63DCD5D7116B61B000C194BF /* folderScanning.png */; };
@@ -722,6 +726,11 @@
 		63635E111192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTVShowInfoGrabberWindowController.m; path = Sources/VLCTVShowInfoGrabberWindowController.m; sourceTree = "<group>"; };
 		636C480F1121623700817611 /* ListView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ListView.js; sourceTree = "<group>"; };
 		636C48131121624C00817611 /* ListItemView.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ListItemView.js; sourceTree = "<group>"; };
+		6370D0E611AF265600FB3965 /* action-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "action-button.png"; path = "Style/Default/action-button.png"; sourceTree = "<group>"; };
+		6370D33F11AF3D0F00FB3965 /* Show.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Show.h; path = Sources/Show.h; sourceTree = "<group>"; };
+		6370D34011AF3D0F00FB3965 /* Show.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Show.m; path = Sources/Show.m; sourceTree = "<group>"; };
+		6370D3D211B065AD00FB3965 /* VLCMediaLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCMediaLibrary.h; path = Sources/VLCMediaLibrary.h; sourceTree = "<group>"; };
+		6370D3D311B065AD00FB3965 /* VLCMediaLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCMediaLibrary.m; path = Sources/VLCMediaLibrary.m; sourceTree = "<group>"; };
 		6380A618107E5E98008263B9 /* DOMHTMLElement_Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DOMHTMLElement_Additions.h; path = Sources/DOMHTMLElement_Additions.h; sourceTree = "<group>"; };
 		6380A619107E5E98008263B9 /* DOMHTMLElement_Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DOMHTMLElement_Additions.m; path = Sources/DOMHTMLElement_Additions.m; sourceTree = "<group>"; };
 		639163DE1115E21500480B08 /* VLCInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCInfoWindowController.h; path = Sources/VLCInfoWindowController.h; sourceTree = "<group>"; };
@@ -759,10 +768,16 @@
 		63B1E10910440EB00029C49C /* VLCStyledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCStyledView.m; path = Sources/VLCStyledView.m; sourceTree = "<group>"; };
 		63B1E11410441B790029C49C /* StyledFullscreenHUDWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StyledFullscreenHUDWindow.xib; path = Resources/StyledFullscreenHUDWindow.xib; sourceTree = "<group>"; };
 		63B1E42D10444D540029C49C /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Icon.icns; path = Resources/Icon.icns; sourceTree = "<group>"; };
-		63D333BE11A7EF45004B8B71 /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = File.h; sourceTree = "<group>"; };
-		63D333BF11A7EF45004B8B71 /* File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = File.m; sourceTree = "<group>"; };
 		63D441CB100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/VideoWindow.xib; sourceTree = "<group>"; };
 		63D441CC100469A10086772A /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		63DA1DAB11B31DA600DDEA0B /* Label.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Label.h; path = Sources/Label.h; sourceTree = "<group>"; };
+		63DA1DAC11B31DA600DDEA0B /* Label.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Label.m; path = Sources/Label.m; sourceTree = "<group>"; };
+		63DA1DAE11B31DAF00DDEA0B /* File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = File.h; path = Sources/File.h; sourceTree = "<group>"; };
+		63DA1DAF11B31DAF00DDEA0B /* File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = File.m; path = Sources/File.m; sourceTree = "<group>"; };
+		63DA1DB111B31DB600DDEA0B /* ShowEpisode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShowEpisode.h; path = Sources/ShowEpisode.h; sourceTree = "<group>"; };
+		63DA1DB211B31DB600DDEA0B /* ShowEpisode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShowEpisode.m; path = Sources/ShowEpisode.m; sourceTree = "<group>"; };
+		63DA1DB811B31DFF00DDEA0B /* VLCURLConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VLCURLConnection.h; path = Sources/VLCURLConnection.h; sourceTree = "<group>"; };
+		63DA1DB911B31DFF00DDEA0B /* VLCURLConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCURLConnection.m; path = Sources/VLCURLConnection.m; sourceTree = "<group>"; };
 		63DCD4171168F4BC00C194BF /* statusbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbarBackground.png; path = Style/Default/statusbarBackground.png; sourceTree = "<group>"; };
 		63DCD4181168F4BC00C194BF /* statusbarButtons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = statusbarButtons.png; path = Style/Default/statusbarButtons.png; sourceTree = "<group>"; };
 		63DCD5D7116B61B000C194BF /* folderScanning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folderScanning.png; sourceTree = "<group>"; };
@@ -898,12 +913,10 @@
 				630324FC104A82A200CC82B6 /* Debug Playlist Window */,
 				639FDAAC111782EA007EE416 /* Splash Screen */,
 				CC61B34C103DDBC000D13C72 /* Non-document windows */,
-				63635C7B11922EA900A348A6 /* Grabber */,
+				6370D3CE11B0657000FB3965 /* Media Library */,
+				63635C7B11922EA900A348A6 /* Movie and TV Grabbers */,
 				63EF25C60F90FD8B002A2E14 /* Internal */,
 				CC10A7B5103CA99000B4555A /* System Framework Addition */,
-				631393C710FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel */,
-				63D333BE11A7EF45004B8B71 /* File.h */,
-				63D333BF11A7EF45004B8B71 /* File.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1152,6 +1165,7 @@
 		63161BF910CAC3FA0091974E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6370D0E611AF265600FB3965 /* action-button.png */,
 				63635DC71192E84E00A348A6 /* clips.png */,
 				63635DC21192E76000A348A6 /* tvshows.png */,
 				63311C20118B3F9200C21FD6 /* shelf.png */,
@@ -1203,7 +1217,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		63635C7B11922EA900A348A6 /* Grabber */ = {
+		63635C7B11922EA900A348A6 /* Movie and TV Grabbers */ = {
 			isa = PBXGroup;
 			children = (
 				63635CBB1192365C00A348A6 /* VLCTitleDecrapifier.h */,
@@ -1216,7 +1230,25 @@
 				6336ACD211AC7F9300433523 /* VLCTVShowEpisodesInfoGrabber.h */,
 				6336ACD311AC7F9300433523 /* VLCTVShowEpisodesInfoGrabber.m */,
 			);
-			name = Grabber;
+			name = "Movie and TV Grabbers";
+			sourceTree = "<group>";
+		};
+		6370D3CE11B0657000FB3965 /* Media Library */ = {
+			isa = PBXGroup;
+			children = (
+				6370D33F11AF3D0F00FB3965 /* Show.h */,
+				6370D34011AF3D0F00FB3965 /* Show.m */,
+				63DA1DB111B31DB600DDEA0B /* ShowEpisode.h */,
+				63DA1DB211B31DB600DDEA0B /* ShowEpisode.m */,
+				63DA1DAE11B31DAF00DDEA0B /* File.h */,
+				63DA1DAF11B31DAF00DDEA0B /* File.m */,
+				63DA1DAB11B31DA600DDEA0B /* Label.h */,
+				63DA1DAC11B31DA600DDEA0B /* Label.m */,
+				631393C710FE0A0D003F7BC4 /* MediaLibrary.xcdatamodel */,
+				6370D3D211B065AD00FB3965 /* VLCMediaLibrary.h */,
+				6370D3D311B065AD00FB3965 /* VLCMediaLibrary.m */,
+			);
+			name = "Media Library";
 			sourceTree = "<group>";
 		};
 		639F68DC1046F18700117832 /* Style */ = {
@@ -1379,6 +1411,8 @@
 				CC74565310EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m */,
 				63DCD681116B7A2100C194BF /* VLCNonSelectablePathControl.h */,
 				63DCD682116B7A2100C194BF /* VLCNonSelectablePathControl.m */,
+				63DA1DB811B31DFF00DDEA0B /* VLCURLConnection.h */,
+				63DA1DB911B31DFF00DDEA0B /* VLCURLConnection.m */,
 			);
 			name = "System Framework Addition";
 			sourceTree = "<group>";
@@ -1609,8 +1643,8 @@
 				633119D3117DDA6400C21FD6 /* volumeslider_graphite.png in Resources */,
 				633119D4117DDA6400C21FD6 /* volumeslider_normal.png in Resources */,
 				63311C21118B3F9200C21FD6 /* shelf.png in Resources */,
-				63635DC31192E76000A348A6 /* tvshows.png in Resources */,
 				63635DC81192E84E00A348A6 /* clips.png in Resources */,
+				6370D0E711AF265600FB3965 /* action-button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1840,7 +1874,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/usr/bin/env ruby";
-			shellScript = "#!/usr/bin/env ruby\n \n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n \n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n \n# Create new tags with \"git tag <version> -m <message>\"\n \n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n \n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n \n \ngitnum = `git describe --always`.chomp()\nversion = \"#{gitnum}\"\ninfo_file = File.join(ENV['BUILT_PRODUCTS_DIR'], ENV['INFOPLIST_PATH'])\ninfo = File.open(info_file, \"r\").read\n \nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbefore = $1\nafter = $2\nif !after || !before\n   puts \"Invalid Info.plist (no CFBundleVersion key).\"\n\tputs info\n   exit 1\nend\n\nbundle_version_string = before + version + after\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"\n";
+			shellScript = "#!/usr/bin/env ruby\n \n# Xcode auto-versioning script for git by Andre Arko\n#   This script will set your CFBundleVersion number to the name of the most recent\n#   git tag, and include the current commit's distance from that tag and sha1 hash\n \n# With tag \"v1.0\", and two commits since then, the build will be:\n#   v1.0 (b2 h12345)\n \n# Create new tags with \"git tag <version> -m <message>\"\n \n# based on the ruby script by Abizern which was\n# based on the git script by Marcus S. Zarra and Matt Long which was\n# based on the Subversion script by Axel Andersson\n \n# Uncomment to only run when doing a Release build\n# if ENV[\"BUILD_STYLE\"] != \"Release\"\n#   puts \"Not a Release build.\"\n#   exit\n# end\n \nisGitHere = `which git`\nif isGitHere == \"\"\n    puts \"WARNING: No git found. As a result no version was set in Info.plist.\"\n    exit 0;\nend\n\ngitnum = `git describe --always`.chomp()\nversion = \"#{gitnum}\"\ninfo_file = File.join(ENV['BUILT_PRODUCTS_DIR'], ENV['INFOPLIST_PATH'])\ninfo = File.open(info_file, \"r\").read\n \nversion_re = /([\\t ]+<key>CFBundleVersion<\\/key>\\n[\\t ]+<string>).*?(<\\/string>)/\ninfo =~ version_re\nbefore = $1\nafter = $2\nif !after || !before\n   puts \"Invalid Info.plist (no CFBundleVersion key).\"\n\tputs info\n   exit 1\nend\n\nbundle_version_string = before + version + after\n\ninfo.gsub!(version_re, bundle_version_string)\nFile.open(info_file, \"w\") { |file| file.write(info) }\n\nputs \"Set version string to '#{version}'\"\n";
 		};
 		CC29B3F711529E4500BD4CA1 /* Check Javascript code */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1938,8 +1972,12 @@
 				63635CF51192B59100A348A6 /* VLCTVShowInfoGrabber.m in Sources */,
 				63635D091192B74600A348A6 /* NSXMLNode_Additions.m in Sources */,
 				63635E121192F2B400A348A6 /* VLCTVShowInfoGrabberWindowController.m in Sources */,
-				63D333C011A7EF45004B8B71 /* File.m in Sources */,
 				6336ACD411AC7F9300433523 /* VLCTVShowEpisodesInfoGrabber.m in Sources */,
+				6370D3D411B065AD00FB3965 /* VLCMediaLibrary.m in Sources */,
+				63DA1DAD11B31DA600DDEA0B /* Label.m in Sources */,
+				63DA1DB011B31DAF00DDEA0B /* File.m in Sources */,
+				63DA1DB311B31DB600DDEA0B /* ShowEpisode.m in Sources */,
+				63DA1DBA11B31DFF00DDEA0B /* VLCURLConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2322,7 +2360,6 @@
 					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
-					"\"$(SRCROOT)/../../../Development/Mac/BWToolkit 1.2.2\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -2348,7 +2385,6 @@
 					"\"$(BUILD_DIR)/$(CONFIGURATION)/$(FULL_PRODUCT_NAME)/Contents/Frameworks\"",
 					"\"$(SRCROOT)\"",
 					"\"$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Versions/A/Frameworks\"",
-					"\"$(SRCROOT)/../../../Development/Mac/BWToolkit 1.2.2\"",
 				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

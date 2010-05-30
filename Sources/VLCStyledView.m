@@ -531,6 +531,21 @@ static BOOL watchForStyleModification(void)
     RETURN_NOTHING_TO_JS();
 }
 
+- (void)setObject:(WebScriptObject *)object value:(id)value forKey:(NSString *)key
+{
+    FROM_JS();
+    id backendObject = [object valueForKey:@"backendObject"];
+    [backendObject setValue:value forKey:key];
+    RETURN_NOTHING_TO_JS();
+}
+
+- (id)object:(WebScriptObject *)object valueForKey:(NSString *)key
+{
+    FROM_JS();
+    id backendObject = [object valueForKey:@"backendObject"];
+    RETURN_OBJECT_TO_JS([backendObject valueForKey:key]);
+}
+
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)sel
 {
     if (sel == @selector(removeObserver:forCocoaObject:withKeyPath:))
@@ -558,6 +573,10 @@ static BOOL watchForStyleModification(void)
     if (sel == @selector(willChangeObject:valueForKey:))
         return NO;
     if (sel == @selector(didChangeObject:valueForKey:))
+        return NO;
+    if (sel == @selector(setObject:value:forKey:))
+        return NO;
+    if (sel == @selector(object:valueForKey:))
         return NO;
     return YES;
 }
@@ -590,6 +609,10 @@ static BOOL watchForStyleModification(void)
         return @"viewBackendObject";
     if (sel == @selector(documentBackendObject:))
         return @"documentBackendObject";
+    if (sel == @selector(setObject:value:forKey:))
+        return @"setObjectValueForKey";
+    if (sel == @selector(object:valueForKey:))
+        return @"objectValueForKey";
     return nil;
 }
 

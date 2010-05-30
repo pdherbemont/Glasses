@@ -16,14 +16,14 @@
     NSMutableData *_data;
     NSArray *_results;
     id<VLCMovieInfoGrabberDelegate> _delegate;
-    void (^_block)();
+    void (^_block)(NSError *);
 }
 
 @property (readwrite, assign) id<VLCMovieInfoGrabberDelegate> delegate;
 @property (readonly, retain) NSArray *results;
 
 - (void)lookUpForTitle:(NSString *)title;
-- (void)lookUpForTitle:(NSString *)title andExecuteBlock:(void (^)())block;
+- (void)lookUpForTitle:(NSString *)title andExecuteBlock:(void (^)(NSError *))block;
 
 @end
 
