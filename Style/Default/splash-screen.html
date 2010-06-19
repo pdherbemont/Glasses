@@ -256,7 +256,7 @@ select > option, select > hr {
     overflow: hidden;
 }
 
-#detail-list-view {
+#detail > .list-view {
     overflow: auto;
 
     position: absolute;
@@ -907,6 +907,18 @@ EpisodeView.prototype = {
         }
     },
 
+    select: function(item)
+    {
+        ListView.prototype.select.call(this, item);
+        if (!item)
+            return;
+        if (!item._list) {
+            item._list = new ListView(item.cocoaObject, "discoveredMedia.media", MediaSDView);
+            item._list.searchMainKeyPath = "metaDictionary.title";
+        }
+        window.setDetailList(item.element, item._list);
+    },
+
     _unread: false,
     get unread()
     {
@@ -1037,7 +1049,6 @@ TVShowView.prototype = {
             Lunettes.connect(this.yearElement, "textContent", this.cocoaObject, "releaseYear");
             Lunettes.connect(this.shortSummaryElement, "textContent", this.cocoaObject, "shortSummary");
             //Lunettes.connect(this.unreadCountElement, "textContent", this.cocoaObject, "unreadEpisodes.@count");
-
 
             Lunettes.connect(this.thumbnailElement, "src", this.cocoaObject, "artworkURL", options);
         } else {
@@ -1833,14 +1844,14 @@ function init()
         <div id="labels" class="sidebar-list-group"></div>
     </div>
     <div id="sidebar-bottombar">
-        <input type="button" id="add-label-button" class="sidebar-bottombar-button" value="+"></input>
+        <input type="button" id="add-label-button" class="sidebar-bottombar-button" value="+">
     </div>
 </div>
 
 <div id="detail" class="container">
 
 <div class="action-bar">
-    <input type="search" id="search-detail" class="search" placeholder="Search" value="" incremental="true"></input>
+    <input type="search" id="search-detail" class="search" placeholder="Search" value="" incremental="true">
 </div>
 </div>
 
