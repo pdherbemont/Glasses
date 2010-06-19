@@ -53,7 +53,6 @@
     // FIXME: -awakeFromNib is certainly not the right place to do the following
     WebPreferences *preferences = [WebPreferences standardPreferences];
     [preferences setCacheModel:WebCacheModelDocumentViewer];
-    [preferences setPrivateBrowsingEnabled:YES];
     [preferences setUsesPageCache:NO];
 
     /* register our default values... */
@@ -71,6 +70,16 @@
                                  [@"~/Movies" stringByExpandingTildeInPath],
                                  [@"~/Downloads" stringByExpandingTildeInPath], nil], kScannedFolders,
                                 no, kLastFMEnabled, nil]];
+
+    // Setup the URL cache.
+    NSURLCache *cache = [NSURLCache sharedURLCache];
+    [cache setDiskCapacity:500 * (1ULL << 20) /* 500MB */];
+    [cache setMemoryCapacity:5 * (1ULL << 20)   /* 5MB */];
+    NSLog(@"\nCache\n\tdisk size: %dkB / %dkB\n\tmemory size: %dkB / %dkB",
+          [cache currentDiskUsage] / 1 << 10,
+          [cache diskCapacity] / 1 << 10,
+          [cache currentMemoryUsage]/ 1 << 10,
+          [cache memoryCapacity]/ 1 << 10);
 
     // Always reset if the WebKitInspector was attached.
     // Because its mostly unusable else.

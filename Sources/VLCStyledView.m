@@ -80,7 +80,7 @@ static BOOL watchForStyleModification(void)
     //[self setEditingDelegate:self];
     [self setResourceLoadDelegate:self];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[self url]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[self url] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:10];
     [[self mainFrame] loadRequest:request];
 }
 
@@ -162,19 +162,54 @@ static BOOL watchForStyleModification(void)
     }
 }
 
+- (id)webView:(WebView *)sender identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource *)dataSource
+{
+    return request;
+}
+
+- (NSCachedURLResponse *)webView:(WebView *)sender resource:(id)identifier willCacheResponse:(NSCachedURLResponse *)response fromDataSource:(WebDataSource *)dataSource
+{
+    // For some unknown reason, cache doesn't seem to properly work (ie, we're
+    // probably getting some too soon expire http header.
+    // We don't really care about those, so let's do our own caching.
+    NSCachedURLResponse *cachedResponse;
+    cachedResponse = [[[NSCachedURLResponse alloc] initWithResponse:[response response]
+                                                               data:[response data]
+                                                           userInfo:[response userInfo]
+                                                      storagePolicy:NSURLCacheStorageAllowed] autorelease];
+
+    [[NSURLCache sharedURLCache] storeCachedResponse:cachedResponse forRequest:identifier];
+    return nil;
+}
+
+
 - (NSURLRequest *)webView:(WebView *)sender resource:(id)identifier willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse fromDataSource:(WebDataSource *)dataSource
 {
     // Search for %lunettes_style_root%, and replace it by the root.
 
     NSString *filePathURL = [[[request URL] absoluteString] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSRange range = [filePathURL rangeOfString:@"%lunettes_style_root%"];
+    BOOL isFileURL = [[request URL] isFileURL];
     if (range.location == NSNotFound) {
-        if (watchForStyleModification()) {
+        if (watchForStyleModification() && isFileURL) {
             // FIXME - do we have any better?
             filePathURL = [filePathURL stringByReplacingOccurrencesOfString:@"file://" withString:@""];
             [_resourcesFilePathArray addObject:filePathURL];
         }
-        return request;
+        if (!isFileURL) {
+            // Check if we have it in cache.
+            NSCachedURLResponse *cached = [[NSURLCache sharedURLCache] cachedResponseForRequest:request];
+            if (cached && [[cached data] length] > 1000) {
+                // Now, add the cached response to the WebResources. That will save
+                // us from network access.
+                if (![dataSource subresourceForURL:[request URL]]) {
+                    WebResource *resource = [[WebResource alloc] initWithData:[cached data] URL:[request URL] MIMEType:[[cached response] MIMEType] textEncodingName:[[cached response] textEncodingName] frameName:[[dataSource webFrame] name]];
+                    [dataSource addSubresource:resource];
+                    [resource release];
+                }
+            }
+        }
+        return [NSURLRequest requestWithURL:[request URL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60];
 
     }
 

@@ -40,7 +40,7 @@
     NSString *escapedString = [title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:TMDB_QUERY_SEARCH, TMDB_HOSTNAME, escapedString, TMDB_API_KEY]];
     NSLog(@"Accessing %@", url);
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:15];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
     [_connection cancel];
     [_connection release];
 

@@ -42,7 +42,7 @@
     [_data release];
     _data = [[NSMutableData alloc] init];
 
-    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:15] autorelease];
+    NSURLRequest *request = [[[NSURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15] autorelease];
     [_connection cancel];
     [_connection release];
     _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
