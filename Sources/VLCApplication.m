@@ -50,6 +50,8 @@
 
 - (void)awakeFromNib
 {
+    [[VLCExceptionHandler sharedHandler] setup];
+
     // FIXME: -awakeFromNib is certainly not the right place to do the following
     WebPreferences *preferences = [WebPreferences standardPreferences];
     [preferences setCacheModel:WebCacheModelDocumentViewer];
@@ -113,12 +115,12 @@
     [super dealloc];
 }
 
-- (void)reportException:(NSException *)anException
-{
-	// Make sure our VLCExceptionHandler get this exception
-	[[VLCExceptionHandler sharedHandler] handleUncaughtException:anException];
-}
-
+//- (void)reportException:(NSException *)anException
+//{
+//	// Make sure our VLCExceptionHandler get this exception
+//	[[VLCExceptionHandler sharedHandler] handleUncaughtException:anException];
+//}
+//
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     /* handle existing crash reports and send if needed */

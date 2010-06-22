@@ -145,9 +145,12 @@ CocoaObject.prototype.valueForKey = function (key)
  * It is bound to the keyPath property of the called CocoaObject.
  *
  * @param {string} keyPath to observe
+ * @param {string=} filterPredicate
  * @return {CocoaObject} a CocoaObject that points to an arrayController
  */
-CocoaObject.prototype.createArrayControllerFromKeyPath = function (keyPath)
+CocoaObject.prototype.createArrayControllerFromKeyPath = function (keyPath, filterPredicate)
 {
-    return window.PlatformView.createArrayControllerFromBackendObjectWithKeyPath(this, keyPath);
+    if (!filterPredicate)
+        filterPredicate = null;
+    return window.PlatformView.createArrayControllerFromBackendObjectWithKeyPathAndFilterPredicate(this, keyPath, filterPredicate);
 }

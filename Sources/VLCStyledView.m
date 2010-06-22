@@ -514,7 +514,7 @@ static BOOL watchForStyleModification(void)
 }
 
 
-- (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath
+- (WebScriptObject *)createArrayControllerFromBackendObject:(WebScriptObject *)object withKeyPath:(NSString *)keyPath filterPredicateString:(NSString *)filterPredicateString
 {
     FROM_JS();
     id backendObject = [object valueForKey:@"backendObject"];
@@ -524,13 +524,22 @@ static BOOL watchForStyleModification(void)
     NSArrayController *controller = nil;
     if ([keyPath hasSuffix:@".arrangedObjects"]) {
         id obj = [backendObject valueForKeyPath:[keyPath stringByDeletingPathExtension]];
-        if ([obj isKindOfClass:[NSArrayController class]])
-            controller = [obj retain];
+        if ([obj isKindOfClass:[NSArrayController class]]) {
+            if (filterPredicateString) {
+                controller = [[NSArrayController alloc] init];
+                [controller setContent:[obj content]];
+            }
+            else
+                controller = [obj retain];
+        }
     }
     if (!controller) {
         controller = [[NSArrayController alloc] init];
         [controller bind:@"content" toObject:backendObject withKeyPath:keyPath options:nil];
     }
+    NSLog(@"predicate %@", filterPredicateString);
+    if (filterPredicateString)
+        [controller setFilterPredicate:[NSPredicate predicateWithFormat:filterPredicateString]];
     [controller setAutomaticallyRearrangesObjects:YES];
     [controller setEditable:YES];
     [controller setAutomaticallyPreparesContent:YES];
@@ -599,7 +608,7 @@ static BOOL watchForStyleModification(void)
         return NO;
     if (sel == @selector(unbindDOMObject:property:))
         return NO;
-    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
+    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:filterPredicateString:))
         return NO;
     if (sel == @selector(documentBackendObject:))
         return NO;
@@ -638,8 +647,8 @@ static BOOL watchForStyleModification(void)
         return @"bindDOMObjectToObject";
     if (sel == @selector(unbindDOMObject:property:))
         return @"unbindDOMObject";
-    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:))
-        return @"createArrayControllerFromBackendObjectWithKeyPath";
+    if (sel == @selector(createArrayControllerFromBackendObject:withKeyPath:filterPredicateString:))
+        return @"createArrayControllerFromBackendObjectWithKeyPathAndFilterPredicate";
     if (sel == @selector(viewBackendObject:))
         return @"viewBackendObject";
     if (sel == @selector(documentBackendObject:))

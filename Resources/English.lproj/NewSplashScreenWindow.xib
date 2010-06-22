@@ -275,31 +275,7 @@
 				<bool key="NSEditable">YES</bool>
 				<bool key="NSAutomaticallyPreparesContent">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy">
-					<string key="NSEntityName">File</string>
-					<object class="NSComparisonPredicate" key="NSFetchPredicate">
-						<object class="NSKeyPathExpression" key="NSLeftExpression">
-							<int key="NSExpressionType">3</int>
-							<string key="NSSelectorName">valueForKey:</string>
-							<reference key="NSOperand" ref="1072345023"/>
-							<object class="NSMutableArray" key="NSArguments">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSKeyPathSpecifierExpression">
-									<int key="NSExpressionType">10</int>
-									<string key="NSKeyPath">type</string>
-								</object>
-							</object>
-						</object>
-						<object class="NSConstantValueExpression" key="NSRightExpression">
-							<int key="NSExpressionType">0</int>
-							<string key="NSConstantValue">tvShowEpisode</string>
-						</object>
-						<object class="NSEqualityPredicateOperator" key="NSPredicateOperator">
-							<int key="NSOperatorType">4</int>
-							<int key="NSModifier">0</int>
-							<bool key="NSNegate">NO</bool>
-							<int key="NSOptions">0</int>
-						</object>
-					</object>
+					<string key="NSEntityName">ShowEpisode</string>
 				</object>
 				<bool key="_NSIsUsingManagedProxy">YES</bool>
 				<bool key="NSAvoidsEmptySelection">YES</bool>
@@ -430,14 +406,6 @@
 					<int key="connectionID">587</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">_orphanedTVShowEpisodeArrayController</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="234345303"/>
-					</object>
-					<int key="connectionID">588</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">sortDescriptors: sortDescriptor</string>
 						<reference key="source" ref="733161874"/>
@@ -452,22 +420,6 @@
 						</object>
 					</object>
 					<int key="connectionID">590</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">sortDescriptors: sortDescriptor</string>
-						<reference key="source" ref="234345303"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="234345303"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">sortDescriptors: sortDescriptor</string>
-							<string key="NSBinding">sortDescriptors</string>
-							<string key="NSKeyPath">sortDescriptor</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">592</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -564,6 +516,14 @@
 						</object>
 					</object>
 					<int key="connectionID">600</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">_tvShowEpisodesArrayController</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="234345303"/>
+					</object>
+					<int key="connectionID">601</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -679,7 +639,7 @@
 						<int key="objectID">582</int>
 						<reference key="object" ref="234345303"/>
 						<reference key="parent" ref="0"/>
-						<string key="objectName">Orphaned TV Show Episode Array Controller</string>
+						<string key="objectName">TV Show Episodes Array Controller</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">585</int>
@@ -764,7 +724,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">600</int>
+			<int key="maxID">601</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -828,7 +788,7 @@
 							<string>_mediaDiscoverCollection</string>
 							<string>_mediaDiscovererArrayController</string>
 							<string>_moviesArrayController</string>
-							<string>_orphanedTVShowEpisodeArrayController</string>
+							<string>_tvShowEpisodesArrayController</string>
 							<string>_tvShowsArrayController</string>
 							<string>_unfinishedItemsCollection</string>
 						</object>

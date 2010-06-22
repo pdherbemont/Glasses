@@ -13,6 +13,7 @@
 #import "Label.h"
 #import "ShowEpisode.h"
 
+@class VLCMedia;
 @interface VLCLMediaLibrary : NSObject {
     NSManagedObjectContext *_managedObjectContext;
     NSManagedObjectModel   *_managedObjectModel;

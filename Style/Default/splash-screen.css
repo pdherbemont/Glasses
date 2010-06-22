@@ -1,0 +1,714 @@
+body {
+	background: white;
+    margin: 0px;
+    padding: 0px;
+}
+* {
+	-webkit-user-select: none;
+	cursor: default;
+    border-collapse: none;
+}
+input[type=search] {
+    -webkit-user-select: text;
+    cursor: auto;
+}
+.hidden {
+    display: none;
+}
+
+#preload {
+    background: url(sources.png);
+}
+
+select {
+    width: 23px;
+    height: 17px;
+    color: transparent;
+    background-color: transparent;
+    border: none;
+    background-image: url(action-button.png);
+    background-repeat: no-repeat;
+    margin: 1px 0 0 0;
+    padding: 0;
+    -webkit-border-radius: 0;
+    -webkit-appearance: none;
+    outline: none;
+    font: -webkit-control;
+
+}
+
+select:hover {
+    background-position: -23px 0px;
+}
+
+select:active {
+    background-position: -46px 0px;
+}
+
+select > option, select > hr {
+    color: black;
+}
+
+/* subitems-count */
+.subitems-count, .unread-count {
+    -webkit-border-radius: 50px;
+
+    color: white;
+    background: #96A5C9;
+
+    text-shadow: none;
+    font-weight: bold;
+
+    padding: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+
+    margin-right: 10px;
+
+}
+
+.selected .subitems-count,
+.selected .unread-count {
+    color: #96A5C9;
+    background: white;
+    -webkit-box-shadow: 0px 1px 4px rgba(0,0,0,0.5);
+}
+
+.subitems-count.zero-unread,
+.unread-count.zero-unread {
+    display: none;
+}
+
+
+/**************************************************
+ * General layout
+ *
+ * #sidebar                   #detail
+ *  #sidebar-list               #action-bar
+ *     .sidebar-list-group      #detail-list-view
+ *        .subitems
+ *          .item
+ *  #sidebar-bottombar
+ */
+
+#sidebar {
+    width: 230px;
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: auto;
+    background: #dde4eb;
+    border-right: thin solid #B3B3B3;
+    overflow: auto;
+    -webkit-box-sizing: border-box;
+}
+
+#sidebar-list {
+    background: #dde4eb;
+}
+
+/*****
+ * sidebar-list
+ */
+
+/* Item */
+.sidebar-list-group > .subitems>.item {
+    height: 34px;
+    padding-left: 2em;
+
+    position: relative;
+
+    text-shadow: #eee 0px 1px 0px;
+	font-family: "Lucida Grande";
+    font-size: 12px;
+
+    position: relative;
+    -webkit-box-sizing: border-box;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-align: center;
+}
+
+.sidebar-list-group > .subitems > .item.selected
+{
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
+    border-bottom: thin solid rgb(105, 123, 157) !important;
+    border-top: thin solid rgb(105, 133, 157)  !important;
+}
+
+.sidebar-list-group > .subitems > .item > .name {
+    padding-left: 10px;
+}
+
+.sidebar-list-group > .subitems > .item.selected > .name {
+    color: white;
+    text-shadow:  #222 0px 1px 1px;
+}
+
+
+.sidebar-list-group > .subitems > .item > img {
+    height: 32px;
+}
+
+
+#sidebar .subitems-count,
+#sidebar .unread-count {
+    position: absolute;
+    right: 0;
+    top: 6px;
+}
+
+/* h1 */
+#sidebar-list>h1 {
+    text-transform: uppercase;
+    color: #5C6E81;
+    font-family: "Lucida Grande";
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
+    width: auto;
+    margin: 1em;
+    margin-bottom: 0.4em;
+}
+
+/*****
+ * sidebar-bottombar
+ */
+
+#sidebar-bottombar {
+    background: url(statusbarBackground.png);
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 24px;
+}
+
+.sidebar-bottombar-button {
+    background: url(statusbarButtons.png);
+    height: 24px;
+    width: 32px;
+    font-family: 'Myriad Pro';
+    font-size: 15px;
+    border: none;
+    line-height: 12px;
+    font-weight: bold;
+    text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 0px;
+}
+
+.sidebar-button:active {
+    background-position: 32px 0px !important;
+}
+
+
+/* Dragging */
+#sidebar .drag-entered {
+    -webkit-border-radius: 10px;
+    border: 2px solid #5764E1 !important;
+    background: #D0DDF6 !important;
+}
+
+#sidebar .drag-entered.selected {
+    -webkit-border-radius: 10px;
+    border: 2px solid #5764E1 !important;
+    background: #D0DDF6, -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210))) !important;
+}
+
+/* Editing */
+#sidebar .editing {
+    -webkit-user-select: text;
+    -webkit-box-shadow: rgba(0, 0, 0, .5) 3px 3px 4px;
+    outline: 1px solid rgb(66%, 66%, 66%) !important;
+    background-color: white;
+    -webkit-user-modify: read-write-plaintext-only;
+    text-overflow: clip;
+    padding-left: 2px;
+    margin-left: -2px;
+    padding-right: 2px;
+    margin-right: -2px;
+    margin-bottom: -1px;
+    padding-bottom: 1px;
+    opacity: 1.0 !important;
+}
+
+#sidebar .editing, .editing * {
+    color: black !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+}
+
+/* Misc */
+#sidebar .name:focus
+{
+    outline: none;
+}
+
+
+/**************************************************
+ * Detail
+ */
+
+
+/*****
+ * Regular view
+ */
+
+#detail {
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 0; left: 230px;
+    overflow: hidden;
+}
+
+#detail > .list-view {
+    overflow: auto;
+
+    position: absolute;
+    top: 24px; bottom: 0;
+    right: 0; left: 0px;
+}
+
+.media-db-view,
+.media-sd-view {
+	border-top: thin solid #eee;
+	-webkit-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    -webkit-user-drag: element;
+
+    height: 44px;
+    -webkit-transition: height ease-in-out 0.2s;
+
+    position: relative;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-align: center;
+}
+
+.media-db-view:last-child,
+.media-sd-view:last-child {
+	border-bottom: thin solid #eee;
+}
+
+.media-db-view.selected,
+.media-sd-view.selected {
+    height: 200px;
+    -webkit-transition: height ease-in-out 0.2s;
+
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
+    border-bottom: thin solid rgb(105, 123, 157) !important;
+    border-top: thin solid rgb(105, 133, 157)  !important;
+}
+
+.media-db-view > .detail > .name,
+.media-sd-view > .name {
+	font-family: "Lucida Grande";
+	font-size: 13px;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+
+    padding: 1em;
+    -webkit-transition: all ease-in-out 0.2s;
+}
+
+.media-db-view.selected > .detail > .name,
+.media-sd-view.selected > .name {
+	font-size: 16px;
+    padding-bottom: 5px;
+    padding-top: 0px;
+    -webkit-transition: all ease-in-out 0.2s;
+}
+
+.media-db-view > .action-button {
+    margin-right: 5px;
+    opacity: 0;
+    -webkit-transition: opacity 0.1s ease-in;
+}
+
+.media-db-view:hover > .action-button {
+    opacity: 1;
+    -webkit-transition: opacity 0.2s ease-in;
+}
+
+.thumbnail {
+    margin: auto;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    width: 21px;
+    max-height: 32px;
+
+    -webkit-transition: all ease-in-out 0.2s;
+}
+
+.media-sd-view .thumbnail {
+    padding-left: 20px;
+}
+
+.media-db-view.selected > .thumbnail,
+.media-sd-view.selected > .thumbnail {
+    margin-bottom: 35px;
+    max-height: 128px;
+    width: 87px;
+    -webkit-transition: all ease-in-out 0.2s;
+
+    -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.3)));
+}
+
+#detail .year
+{
+    width: 40px;
+    color: grey;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.media-db-view .short-summary
+{
+    height: 74px;
+    font-size: 12px;
+    color: #000;
+    text-shadow:  #eee 0px 1px 0px;
+    margin: 16px;
+    margin-top: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selected {
+    color: white !important;
+    text-shadow:  #222 0px 1px 1px !important;
+}
+
+#detail .item:-webkit-drag {
+    background: white !important;
+    opacity: 0.5 !important;
+    border: thin solid grey !important;
+}
+
+#detail .item:-webkit-drag .name {
+    color: black;
+    text-shadow: none;
+}
+
+#detail .remaining {
+	font-family: "Lucida Grande";
+	font-size: 10px;
+}
+
+
+ul {
+    height: auto;
+
+    overflow: auto;
+    left: 0px;
+    right: 0px;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    -webkit-padding-start: 0;
+    -webkit-transition: height ease-out 0.2s;
+}
+
+.action-bar {
+    position: relative;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EBEBEB), to(#D8D8D8));
+    border-bottom: thin solid #aaa;
+    height: auto;
+    -webkit-transition: height ease-out 0.2;
+    overflow: hidden;
+    height: 23px;
+}
+
+.action-bar > div
+{
+    display: inline-block;
+}
+
+
+.remaining-time
+{
+    margin-top: 3px;
+    color: #888;
+    font-size: 10px;
+}
+
+
+.progress-bar-content {
+    position: relative;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#CCC), to(#444), color-stop(.2,#999), color-stop(.8,#555));
+    margin-top: 10px;
+    height: 6px;
+    border-top: 1px solid #777;
+    border-right: 1px solid #bbb;
+    border-bottom: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    width: 165px;
+    -webkit-box-sizing: border-box;
+}
+
+.progress-bar {
+    background: #ddd;
+    position: absolute;
+    top: 0; left: 0;
+    width: 0%;
+    min-width: 10px;
+    height: 100%;
+
+    border: 1px solid #aaa;
+    -webkit-box-sizing: border-box;
+}
+
+.selected .progress-bar-content {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#666), color-stop(.2,#CCC), color-stop(.8,#889)) !important;
+}
+
+.progress-bar-content {
+    opacity: 0;
+}
+
+.currently-watching .progress-bar-content {
+    opacity: 0.6;
+    -webkit-transition: opacity ease-in-out 0.3s
+}
+
+.currently-watching:hover .progress-bar-content {
+    opacity: 0.9;
+    -webkit-transition: opacity ease-in-out 0.1s;
+}
+
+
+.remaining {
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: end;
+    -webkit-box-align: end;
+}
+
+.remaining {
+    display: none;
+}
+
+.currently-watching .remaining {
+    display: -webkit-box;
+}
+
+.detail {
+    -webkit-box-flex: 1;
+}
+
+
+.subitems-count {
+    display: absolute;
+}
+
+.reveal-subitems {
+    display: none;
+}
+
+.item-length {
+    display: none;
+}
+
+.status {
+    height: 15px; width: 19px;
+}
+.not-played .status {
+    background: url(not-played.png);
+}
+
+/*****
+ * TVShowView
+ */
+
+.tv-show-view {
+	-webkit-box-sizing: border-box;
+
+    height: auto !important;
+
+    overflow: hidden;
+}
+
+.tv-show-view:last-child {
+	border-bottom: thin solid #eee;
+}
+
+.tv-show-view .banner {
+    display: none;
+}
+
+.tv-show-view .description {
+    height: 80px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+
+    font-size: 13px;
+    font-family: "Lucia Grande"
+    overflow: hidden;
+
+	border-top: thin solid #eee;
+}
+
+.tv-show-view.disclosed .description {
+
+    border-bottom: thin solid #eee;
+}
+.tv-show-view .name {
+    padding: 1em;
+    -webkit-box-flex: 1;
+}
+
+.tv-show-view .thumbnail {
+    padding-left: 20px;
+
+    width: 50px;
+    max-height: 75px;
+}
+
+.tv-show-view > .episodes > .selected-episode {
+    height: 0;
+}
+
+.tv-show-view.disclosed > .episodes >  .selected-episode {
+    height: 150px;
+    padding: 30px;
+    padding-left: 0;
+    overflow: hidden;
+}
+
+.tv-show-view > .episodes >  .selected-episode > .thumbnail {
+    display: none;
+    height: 0;
+}
+.tv-show-view.disclosed > .episodes >  .selected-episode > .thumbnail {
+    display: block;
+
+    max-height: none; max-width: none;
+    height: auto; width: 230px;
+
+    float: left;
+    padding-left: 0;
+
+    -webkit-box-reflect:below 1px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.5, transparent), to(rgba(255,255,255,0.3)));
+}
+
+.tv-show-view.disclosed > .episodes >  .selected-episode > .short-summary {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+}
+
+.tv-show-view .short-summary {
+    display: none;
+    height: 0;
+    padding: 0;
+
+    opacity: 0;
+
+    font-size: 11px;
+    color: #000;
+
+    -webkit-transition: all 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.tv-show-view.disclosed .short-summary {
+    height: 5ex;
+    padding: 10px 60px 10px 60px;
+
+    opacity: 1;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    -webkit-transition: all 0.2s ease-in-out;
+}
+
+/* unread-count */
+.tv-show-view .unread-count {
+    -webkit-box-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+}
+
+
+.tv-show-view > .episodes {
+    height: auto !important;
+    padding-left: 70px;
+    padding-right: 20px;
+    padding-bottom: 0;
+
+}
+.tv-show-view.disclosed > .episodes {
+    padding-bottom: 20px;
+}
+/* Animate item because animating to and from auto doesn't work */
+.tv-show-view > .episodes .episode-view {
+    height: 0px;
+    display: -webkit-box;
+    -webkit-box-align: center;
+    overflow: hidden;
+
+    border: none !important;
+
+    -webkit-transition: all 0.2s ease-in-out;
+}
+
+.tv-show-view.disclosed > .episodes .episode-view {
+    height: 44px !important;
+
+    -webkit-transition: all 0.2s ease-in-out;
+
+}
+.tv-show-view.disclosed > .episodes .episode-view .thumbnail {
+    margin-bottom: auto !important;
+    height: auto !important;
+    max-height: 32px  !important;
+    width: 32px  !important;
+}
+
+.tv-show-view.disclosed > .episodes .episode-view .name {
+    width: 300px !important;
+    overflow: hidden;
+    padding: 0px 10px 0px 10px !important;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 13px !important;
+}
+
+.tv-show-view.disclosed > .episodes .episode-view.selected .name {
+    color: black;
+}
+.episode-view .short-summary {
+    width: auto;
+    -webkit-box-flex: 1;
+    padding: 0px 10px 0px 10px !important;
+}
+
+.episode-view > .action-button {
+    opacity: 0;
+    -webkit-transition: opacity 0.1s ease-in;
+}
+
+.episode-view:hover > .action-button {
+    opacity: 1;
+    -webkit-transition: opacity 0.2s ease-in;
+}
+
+.season-number,
+.episode-number {
+    width: 30px;
+    color: #444;
+    margin: 0px 10px 0px 10px;
+}
+
+
+
+/**************************************************
+ * Sidebar
+ */
+
+#search-detail {
+    position: absolute;
+    right: 0px;
+}

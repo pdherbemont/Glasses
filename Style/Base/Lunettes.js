@@ -84,3 +84,10 @@ window.remoteButtonHandler = function (name)
     }
     return false;
 }
+
+Lunettes.NullPlaceHolder = function (a)
+{
+    var options = new Object;
+    options["NSNullPlaceholderBindingOption"] = a;
+    return options;
+}

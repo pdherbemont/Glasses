@@ -612,6 +612,8 @@ ListView.prototype = {
         if (this.isAttached)
             this.subviews[index].detach();
 
+        console.time("setCocoaObjects");
+
         this.subviews.splice(index, 1); // Remove the element
 
         this.updateVisibleItems();
@@ -635,27 +637,32 @@ ListView.prototype = {
         // Mark it has toBeTrashed by default.
         var dict = { };
         for (var i = 0; i < oldSubviews.length; i++) {
-            dict[oldSubviews[i].uid] = oldSubviews[i];
+            dict[oldSubviews[i].cocoaObject.uid] = oldSubviews[i];
             oldSubviews[i].toBeTrashed = true;
         }
 
         // Create the new one and add it from here.
         this.subviewsElement = oldSubviewsElement.cloneNode(false);
 
+        var conserved = 0;
         for (var i = 0; i < array.length; i++) {
             // Here look for a previous view.
             var oldView = dict[array[i].uid];
             if (oldView)
             {
+                //oldView.visible = false;
+                oldView.cocoaObject = array[i];
                 this.subviews.push(oldView);
-                this.subviewsElement.appendChild(oldView);
+                this.subviewsElement.appendChild(oldView.element);
                 oldView.toBeTrashed = false;
+                conserved++;
             }
             else
             {
                 this.appendCocoaObject(array[i]);
             }
         }
+        console.log("From " + oldSubviews.length + " items, conserved " + conserved + ", created " + (array.length - conserved));
 
         // We are done, add back the child.
         if (oldSubviewsElement.parentNode)

@@ -140,6 +140,10 @@
 		63311C21118B3F9200C21FD6 /* shelf.png in Resources */ = {isa = PBXBuildFile; fileRef = 63311C20118B3F9200C21FD6 /* shelf.png */; };
 		6336ACD411AC7F9300433523 /* VLCTVShowEpisodesInfoGrabber.m in Sources */ = {isa = PBXBuildFile; fileRef = 6336ACD311AC7F9300433523 /* VLCTVShowEpisodesInfoGrabber.m */; };
 		63374C7310EAF38A0072A0D9 /* noartwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 63374C7210EAF3890072A0D9 /* noartwork.png */; };
+		635972AD11CCF5340008BCE2 /* splash-label.js in Resources */ = {isa = PBXBuildFile; fileRef = 635972AA11CCF5240008BCE2 /* splash-label.js */; };
+		635972AE11CCF5340008BCE2 /* splash-media-db.js in Resources */ = {isa = PBXBuildFile; fileRef = 635972AB11CCF5240008BCE2 /* splash-media-db.js */; };
+		635972AF11CCF5340008BCE2 /* splash-tvshow.js in Resources */ = {isa = PBXBuildFile; fileRef = 635972AC11CCF5240008BCE2 /* splash-tvshow.js */; };
+		635972B111CCF6450008BCE2 /* splash-screen.css in Resources */ = {isa = PBXBuildFile; fileRef = 635972B011CCF6450008BCE2 /* splash-screen.css */; };
 		635D1124104A844000D34A87 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1123104A844000D34A87 /* AboutWindow.xib */; };
 		635D112A104A846400D34A87 /* OpenURLWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D1129104A846400D34A87 /* OpenURLWindow.xib */; };
 		635D112C104A846400D34A87 /* PreferencesWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635D112B104A846400D34A87 /* PreferencesWindow.xib */; };
@@ -699,6 +703,10 @@
 		6336ACD311AC7F9300433523 /* VLCTVShowEpisodesInfoGrabber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VLCTVShowEpisodesInfoGrabber.m; path = Sources/VLCTVShowEpisodesInfoGrabber.m; sourceTree = "<group>"; };
 		63374A6E10EACFEE0072A0D9 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		63374C7210EAF3890072A0D9 /* noartwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = noartwork.png; path = Style/Default/noartwork.png; sourceTree = "<group>"; };
+		635972AA11CCF5240008BCE2 /* splash-label.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "splash-label.js"; path = "Style/Default/splash-label.js"; sourceTree = "<group>"; };
+		635972AB11CCF5240008BCE2 /* splash-media-db.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "splash-media-db.js"; path = "Style/Default/splash-media-db.js"; sourceTree = "<group>"; };
+		635972AC11CCF5240008BCE2 /* splash-tvshow.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "splash-tvshow.js"; path = "Style/Default/splash-tvshow.js"; sourceTree = "<group>"; };
+		635972B011CCF6450008BCE2 /* splash-screen.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = "splash-screen.css"; path = "Style/Default/splash-screen.css"; sourceTree = "<group>"; };
 		635D1121104A843D00D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/AboutWindow.xib; sourceTree = "<group>"; };
 		635D1125104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/OpenURLWindow.xib; sourceTree = "<group>"; };
 		635D1126104A846000D34A87 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/PreferencesWindow.xib; sourceTree = "<group>"; };
@@ -980,6 +988,10 @@
 			isa = PBXGroup;
 			children = (
 				63161BEF10CAC3EF0091974E /* default.css */,
+				635972AA11CCF5240008BCE2 /* splash-label.js */,
+				635972AB11CCF5240008BCE2 /* splash-media-db.js */,
+				635972AC11CCF5240008BCE2 /* splash-tvshow.js */,
+				635972B011CCF6450008BCE2 /* splash-screen.css */,
 				639FDAF8111787B1007EE416 /* splash-screen.html */,
 				63161BF010CAC3EF0091974E /* hud.css */,
 				63161BF210CAC3EF0091974E /* hud.js */,
@@ -1598,11 +1610,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				635972AD11CCF5340008BCE2 /* splash-label.js in Resources */,
+				635972AE11CCF5340008BCE2 /* splash-media-db.js in Resources */,
+				635972AF11CCF5340008BCE2 /* splash-tvshow.js in Resources */,
 				63161CB910CAC68A0091974E /* hud.js in Resources */,
 				63161CBA10CAC68A0091974E /* PlaylistController.js in Resources */,
 				63161BF510CAC3EF0091974E /* default.css in Resources */,
 				63161BF610CAC3EF0091974E /* hud.css in Resources */,
 				63161BF710CAC3EF0091974E /* hud.html in Resources */,
+				639FDAF9111787B1007EE416 /* splash-screen.html in Resources */,
 				63161BF810CAC3EF0091974E /* video-window.html in Resources */,
 				63161C1210CAC4190091974E /* fs_exit_fullscreen_highlight.png in Resources */,
 				63161C1310CAC4190091974E /* fs_exit_fullscreen.png in Resources */,
@@ -1629,7 +1645,6 @@
 				63161C3110CAC48B0091974E /* Info.plist in Resources */,
 				6314289D10D96B3200363AB7 /* volume_high.png in Resources */,
 				63374C7310EAF38A0072A0D9 /* noartwork.png in Resources */,
-				639FDAF9111787B1007EE416 /* splash-screen.html in Resources */,
 				63E3F0201144E79500A62577 /* not-played.png in Resources */,
 				63E3F0291144EAAE00A62577 /* remove-on.png in Resources */,
 				63E3F02A1144EAAE00A62577 /* remove.png in Resources */,
@@ -1645,6 +1660,7 @@
 				63311C21118B3F9200C21FD6 /* shelf.png in Resources */,
 				63635DC81192E84E00A348A6 /* clips.png in Resources */,
 				6370D0E711AF265600FB3965 /* action-button.png in Resources */,
+				635972B111CCF6450008BCE2 /* splash-screen.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1888,7 +1904,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\nprettyfiles=\"\"\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
+			shellScript = "#Disabled\nexit 0;\n\ncd $SRCROOT/Style\nIFS=$'\\n'\nfiles=`find . -name \"*.js\"`;\ncmd=\"\";\n\n\nprettyfiles=\"\"\nfor i in $files; do\n\t# Only process changed files\n\tchangeFile=\"$BUILT_PRODUCTS_DIR/Style/$i.change\"\n\tdir=`dirname \"$changeFile\"`;\n\tmkdir -p \"$dir\"\n\n\tif test -e \"$i\" && ((! test -e \"${changeFile}\") || test \"$i\" -nt \"${changeFile}\" ); then\n     \thasChangedFiles=true;\n\t\ttouch \"$changeFile\";\n\tfi\n\tcmd=\"$cmd --js $i\";\n     prettyfiles=\"$i $prettyfiles\"\ndone;\n\nunset IFS\n\nif [ $hasChangedFiles ]; then\n\techo \"Analyzing $prettyfiles\";\n\tjava -jar $SRCROOT/compiler.jar --compilation_level ADVANCED_OPTIMIZATIONS --warning_level VERBOSE $cmd --js_output_file /tmp/js.js;\n\terror=$?;\n\tif [ $error -ne 0 ]; then\n\t\t# Remove one touch file so that we will re-run this\n\t\trm \"$changeFile\";\n\t\techo \"Error - aborting\";\n\t\texit 1;\n\tfi\nfi\n\n";
 		};
 		CC29B3F811529E4500BD4CA1 /* Set Git Version */ = {
 			isa = PBXShellScriptBuildPhase;

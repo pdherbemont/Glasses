@@ -36,7 +36,8 @@ Element.prototype.removeClassName = function(className)
 {
     if(!this.hasClassName(className))
         return;
-    this.className = this.className.replace(className, "");
+    var classes = this.className.replace(className, "");
+    this.className = classes.replace("  ", " ");
 }
 
 /**

@@ -38,10 +38,9 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
     NSExceptionHandler *handler = [NSExceptionHandler defaultExceptionHandler];
     [handler setDelegate:expectionHandlerDelegate];
 
-    NSUInteger mask = NSLogUncaughtExceptionMask | NSLogTopLevelExceptionMask;
+    NSUInteger mask = NSLogAndHandleEveryExceptionMask;
 
     [handler setExceptionHandlingMask:mask];
-    NSSetUncaughtExceptionHandler(VLCUncaughtExceptionHandler);
 }
 
 + (VLCExceptionHandler *)sharedHandler
@@ -49,11 +48,16 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
     return expectionHandlerDelegate;
 }
 
+- (void)setup
+{
+    NSSetUncaughtExceptionHandler(VLCUncaughtExceptionHandler);
+}
+
 - (void)handleUncaughtException:(NSException *)exception
 {
     @try {
         // From now on, just log followin exception
-        [[NSExceptionHandler defaultExceptionHandler] setExceptionHandlingMask:NSLogUncaughtExceptionMask];
+        [[NSExceptionHandler defaultExceptionHandler] setExceptionHandlingMask:0];
 
         NSLog(@"*** Exception Handled! %@: %@", [exception name], [exception reason]);
         [self printStackTrace:exception];
@@ -79,8 +83,15 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
 /* From Apple's guide on exception */
 - (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldLogException:(NSException *)exception mask:(NSUInteger)aMask
 {
+    return NO;
+}
+
+- (BOOL)exceptionHandler:(NSExceptionHandler *)sender shouldHandleException:(NSException *)exception mask:(NSUInteger)mask
+{
+#ifdef DEBUG
     [self handleUncaughtException:exception];
-    return YES;
+#endif
+    return NO;
 }
 
 - (void)printStackTrace:(NSException *)e
@@ -106,6 +117,7 @@ static VLCExceptionHandler *expectionHandlerDelegate = nil;
     [ls setLaunchPath:@"/usr/bin/atos"];
     [ls setArguments:args];
     [ls launch];
+
     [ls release];
 }
 

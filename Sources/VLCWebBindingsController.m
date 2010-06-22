@@ -21,7 +21,13 @@
     [webScriptObject setValue:object forKey:@"backendObject"];
 
     // This is weak but will do for now.
-    [webScriptObject setValue:[NSNumber numberWithInt:[object hash]] forKey:@"uid"];
+    id uid;
+    if ([object isKindOfClass:[NSManagedObject class]])
+        uid = [[object objectID] URIRepresentation];
+    else
+        uid = [NSNumber numberWithInteger:[object hash]];
+
+    [webScriptObject setValue:uid forKey:@"uid"];
 
     return webScriptObject;
 }

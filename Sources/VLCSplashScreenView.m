@@ -34,7 +34,7 @@
     return [NSSet setWithObject:@"window.windowController.mediaDiscovererArrayController"];
 }
 
-- (NSArray *)setTvShowEpisodesSortDescriptors:(NSArray *)ignored
+- (void)setTvShowEpisodesSortDescriptors:(NSArray *)ignored
 {
 }
 
@@ -76,14 +76,14 @@
     DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] moviesArrayController]);
 }
 
-- (NSArrayController *)orphanedTVShowEpisodeArrayController
-{
-    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] orphanedTVShowEpisodeArrayController]);
-}
-
 - (NSArrayController *)tvShowsArrayController
 {
     DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] tvShowsArrayController]);
+}
+
+- (NSArrayController *)tvShowEpisodesArrayController
+{
+    DIRECTLY_RETURN_OBJECT_TO_JS([[[self window] windowController] tvShowEpisodesArrayController]);
 }
 
 - (NSArrayController *)labelsArrayController
@@ -216,12 +216,12 @@
 {
     FROM_JS();
     File *file = [webfile valueForKey:@"backendObject"];
+    [file setValue:type forKey:@"type"];
     if ([type isEqualToString:@"tvShowEpisode"]) {
-        [file setValue:type forKey:@"type"];
         NSDictionary *dictionary = [VLCTitleDecrapifier tvShowEpisodeInfoFromString:file.title];
         [[VLCLMediaLibrary sharedMediaLibrary] addTVShowEpisodeWithInfo:dictionary andFile:file];
-
     }
+
     RETURN_NOTHING_TO_JS();
 }
 

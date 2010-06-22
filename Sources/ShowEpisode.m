@@ -6,13 +6,30 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
+#import "VLCMediaLibrary.h"
 #import "ShowEpisode.h"
 
 #import "Show.h"
 
+@interface ShowEpisode ()
+@property (nonatomic, retain) NSNumber *primitiveUnread;
+@end
+
 @implementation ShowEpisode
+@dynamic primitiveUnread;
 
 @dynamic unread;
+
+
+- (void)setUnread:(NSNumber *)unread
+{
+    NSLog(@"Setting unread %@", unread);
+    [self willChangeValueForKey:@"unread"];
+    [self setPrimitiveUnread:unread];
+    [self didChangeValueForKey:@"unread"];
+    [[[VLCLMediaLibrary sharedMediaLibrary] managedObjectContext] refreshObject:[self show] mergeChanges:YES];
+}
+
 @dynamic theTVDBID;
 @dynamic shortSummary;
 @dynamic shouldBeDisplayed;
