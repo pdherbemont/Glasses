@@ -71,7 +71,6 @@ static NSNumber *gServerTime = nil;
         }
         [gServerTime release];
         [gLastFetch release];
-        NSData *data = connection.data;
         NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithData:connection.data options:0 error:nil];
         NSNumber *serverTime = [[xmlDoc rootElement] numberValueForXPath:@"./Time"];
 

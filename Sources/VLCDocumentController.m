@@ -404,7 +404,7 @@ static void addTrackMenuItems(NSMenuItem *parentMenuItem, SEL sel, NSArray *item
 #pragma mark -
 #pragma mark NSApp delegate
 
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender;
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
     [[VLCLMediaLibrary sharedMediaLibrary] savePendingChanges];
 
