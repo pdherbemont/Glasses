@@ -46,6 +46,7 @@ static NSNumber *gServerTime = nil;
             [array addObject:id];
         }
         block(array);
+        [xmlDoc release];
     }];
 }
 
@@ -78,6 +79,7 @@ static NSNumber *gServerTime = nil;
         gLastFetch = [[NSDate dateWithTimeIntervalSinceNow:0] retain];
 
         block(gServerTime);
+        [xmlDoc release];
     }];
 }
 
