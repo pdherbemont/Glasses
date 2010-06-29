@@ -18,7 +18,7 @@
     IBOutlet NSProgressIndicator *_progressIndicator;
 }
 
-@property (readwrite, copy) NSString *searchString;
+@property (nonatomic, copy) NSString *searchString;
 @property (readonly, retain) NSArray *results;
 
 @end

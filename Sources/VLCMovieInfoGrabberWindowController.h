@@ -19,7 +19,7 @@
     IBOutlet NSArrayController *_resultsArrayController;
 }
 
-@property (readwrite, copy) NSString *searchString;
+@property (nonatomic, copy) NSString *searchString;
 @property (readonly, retain) NSArray *results;
 
 - (IBAction)applyToSelectedMedia:(id)sender;
