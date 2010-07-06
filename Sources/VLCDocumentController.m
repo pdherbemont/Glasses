@@ -82,7 +82,7 @@
 
     CFIndex index = CFArrayBSearchValues((CFArrayRef) schemes, CFRangeMake(0, CFArrayGetCount((CFArrayRef)schemes)) , 
                                      (CFStringRef) scheme, (CFComparatorFunction)CFStringCompare, nil);
-    if (((unsigned long)index < [schemes count]) && [[schemes objectAtIndex:index] isEqualToString:scheme]) {
+    if (((NSUInteger)index < [schemes count]) && [[schemes objectAtIndex:index] isEqualToString:scheme]) {
         return @"VLCMediaDocument";
     }
     NSRunCriticalAlertPanel(@"Lunettes does not support this protocol",
