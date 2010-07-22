@@ -215,9 +215,10 @@ LabelView.prototype = {
     },
     dropped: function(evt) {
         this.drag--;
-        var item = evt.dataTransfer.getData("application/lunettes-item");
+        var items = window.dragData;
         this.element.removeClassName("drag-entered");
-        window.PlatformView.setLabelForMedia(this.cocoaObject, window.dragData);
+        for (var i = 0; i < items.length; i++)
+            window.PlatformView.setLabelForMedia(this.cocoaObject, items[i]);
     },
 
     set nameValue(newVal)

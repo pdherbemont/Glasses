@@ -13,6 +13,7 @@ var SDListView = function(cocoaObject, subItemsKeyPath, elementTag)
     this.element.addClassName("sd-list-view");
 
     this.displayName = "SDListView";
+    this._selectionHeight = 200;
     this._shouldSyncSelectionWithArrayController = false;
     this._shouldAutoSelectInsertedItem = false;
 }

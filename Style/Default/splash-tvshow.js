@@ -63,6 +63,9 @@ EpisodeView.prototype = {
         if (visible) {
             this.actionPopUp.addEventListener('change', this.actionPopUpChanged.bind(this), false);
             this.actionPopUp.selectedIndex = -1;
+            var opts = this.actionPopUp.children;
+            for (var opt in opts)
+                opt.selected = false;
 
             Lunettes.connect(this, "unread", this.cocoaObject, "unread");
 
@@ -119,7 +122,7 @@ EpisodeView.prototype = {
             case "remove": {
                 var shouldRemove = window.PlatformView.remove(this.cocoaObject, this.parent.arrayController);
                 if (shouldRemove)
-                this.parent.removeSubview(this);
+                    this.parent.removeSubview(this);
                 break;
             }
             case "toggle-unread": {
@@ -129,6 +132,9 @@ EpisodeView.prototype = {
         }
 
         this.actionPopUp.selectedIndex = -1;
+        var opts = this.actionPopUp.children;
+        for (var opt in opts)
+            opt.selected = false;
 
         event.preventDefault();
     },

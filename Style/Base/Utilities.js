@@ -112,7 +112,14 @@ Function.prototype.bind = function(thisObject)
 {
     var func = this;
     var args = Array.prototype.slice.call(arguments, 1);
-    return function() { return func.apply(thisObject, args.concat(Array.prototype.slice.call(arguments, 0))) };
+
+    if (!thisObject.Binded)
+        thisObject.Binded = new Object;
+    if (thisObject.Binded[this])
+        return thisObject.Binded[this];
+    var f = function() { return func.apply(thisObject, args.concat(Array.prototype.slice.call(arguments, 0))) };
+    thisObject.Binded[this] = f;
+    return f;
 }
 
 /******************************************************************************

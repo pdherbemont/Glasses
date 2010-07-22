@@ -66,7 +66,7 @@ CocoaObject.windowCocoaObject = function()
 {
     if (!windowCocoaObject && window.PlatformView.viewBackendObject)
         windowCocoaObject = window.PlatformView.viewBackendObject(new CocoaObject)
-        return windowCocoaObject;
+    return windowCocoaObject;
 }
 
 CocoaObject.createMediaFromURL = function(url)

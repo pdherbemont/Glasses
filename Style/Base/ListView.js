@@ -276,6 +276,7 @@ ListView.prototype = {
     _noVisibleItemOptimization: false,
     updateVisibleItems: function()
     {
+
         // We are doing a bunch of optimization below.
         // Those unfortunately requires a specific CSS layout.
         // Hence we have a flag to disable them all together.
@@ -314,7 +315,23 @@ ListView.prototype = {
         else
             top = this.element.scrollTop;
 
+        var numberOfRowInSelection = 0;
+        var selectionIndex = -1;
+        // Specify a custom size for the selection
+        var selectionHeight = this._selectionHeight;
+        if (selectionHeight > 0) {
+            // When the selection height is changing we need to account this.
+            if (this.selection.length == 1)
+                selectionIndex = this.subviews.indexOf(this.selection[0])
+            if (selectionIndex > 0) {
+                numberOfRowInSelection = selectionHeight / height;
+            }
+        }
+
         var firstVisibleIndex = Math.max(Math.floor(top / height), 0);
+        if (firstVisibleIndex > selectionIndex)
+            firstVisibleIndex -= Math.round(numberOfRowInSelection);
+
         var nVisibleIndexes = Math.floor(this.element.clientHeight / height);
         var count = firstVisibleIndex + nVisibleIndexes + 2;
         if (count > this.subviews.length)
@@ -471,6 +488,10 @@ ListView.prototype = {
         for (var i = 0; i < this.selection.length; i++)
             ret.push(this.subviews.indexOf(this.selection[i]));
         this.selectionIndexes = ret;
+        if (this.selection.length == 1)
+            this.element.addClassName("one-selection");
+        else
+            this.element.removeClassName("one-selection");
     },
     _selectionIndexes: [],
     set selectionIndexes(indexes)
@@ -500,6 +521,8 @@ ListView.prototype = {
     },
     addToSelection: function(subitem)
     {
+        if (this.doesSelectionContain(subitem))
+            return;
         // Insert our item at the right place.
         var selection = this.selection;
         var subviews = this.subviews;
@@ -517,6 +540,10 @@ ListView.prototype = {
         }
         this.selection.splice(min, 0, subitem);
         this.updateSelectionIndexes();
+    },
+    doesSelectionContain: function(subitem)
+    {
+        return this.selection.indexOf(subitem) >= 0;
     },
     removeFromSelection: function(subitem)
     {
@@ -557,6 +584,7 @@ ListView.prototype = {
             startIndex = maxIndex;
             endIndex = thisIndex;
         }
+
         for (var i = startIndex; i <= endIndex; i++)
             this.addToSelection(this.subviews[i]);
     },

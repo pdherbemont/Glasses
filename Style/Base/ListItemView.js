@@ -80,6 +80,7 @@ ListItemView.prototype = {
         if (visible) {
             this.attachSubElementsIfNeeded();
             this.element.addEventListener('mousedown', this.mouseDown.bind(this), false);
+            this.element.addEventListener('click', this.mouseClicked.bind(this), false);
             this.element.addEventListener('dblclick', this.mouseDoubleClicked.bind(this), false);
             this.element.addEventListener('dragstart', this.dragStarted.bind(this), false);
             this.element.addEventListener('dragend', this.dragStarted.bind(this), false);
@@ -93,8 +94,10 @@ ListItemView.prototype = {
     dragStarted: function(event)
     {
         event.dataTransfer.effectAllowed = "all";
-        event.dataTransfer.setData("application/lunettes-item", this.cocoaObject);
-        window.dragData = this.cocoaObject;
+        var items = [];
+        for (var i = 0; i < this.parent.selection.length; i++)
+            items.push(this.parent.selection[i].cocoaObject);
+        window.dragData = items;
     },
 
     /**
@@ -119,6 +122,19 @@ ListItemView.prototype = {
             this.parent.selectTo(this);
         else if (event.metaKey)
             this.parent.toggleItemSelection(this);
+        else if (!this.parent.doesSelectionContain(this))
+            this.parent.select(this);
+        event.stopPropagation();
+    },
+    mouseClicked: function(event)
+    {
+        if (!this.parent)
+            return;
+
+        if (event.shiftKey == 1)
+            ;
+        else if (event.metaKey)
+            ;
         else
             this.parent.select(this);
         event.stopPropagation();

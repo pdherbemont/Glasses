@@ -291,11 +291,14 @@ select > option, select > hr {
 	border-bottom: thin solid #eee;
 }
 
-.media-db-view.selected,
-.media-sd-view.selected {
+.one-selection .media-db-view.selected,
+.one-selection .media-sd-view.selected {
     height: 200px;
     -webkit-transition: height ease-in-out 0.2s;
+}
 
+.media-db-view.selected,
+.media-sd-view.selected {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(145, 163, 197)), to(rgb(159, 180, 210)));
     border-bottom: thin solid rgb(105, 123, 157) !important;
     border-top: thin solid rgb(105, 133, 157)  !important;
@@ -313,8 +316,8 @@ select > option, select > hr {
     -webkit-transition: all ease-in-out 0.2s;
 }
 
-.media-db-view.selected > .detail > .name,
-.media-sd-view.selected > .name {
+.one-selection .media-db-view.selected > .detail > .name,
+.one-selection .media-sd-view.selected > .name {
 	font-size: 16px;
     padding-bottom: 5px;
     padding-top: 0px;
@@ -347,8 +350,8 @@ select > option, select > hr {
     padding-left: 20px;
 }
 
-.media-db-view.selected > .thumbnail,
-.media-sd-view.selected > .thumbnail {
+.one-selection .media-db-view.selected > .thumbnail,
+.one-selection .media-sd-view.selected > .thumbnail {
     margin-bottom: 35px;
     max-height: 128px;
     width: 87px;
@@ -387,6 +390,7 @@ select > option, select > hr {
     opacity: 0.5 !important;
     border: thin solid grey !important;
 }
+
 
 #detail .item:-webkit-drag .name {
     color: black;

@@ -60,9 +60,11 @@ CategoryTypeView.prototype = {
     },
     dropped: function(evt) {
         this.drag--;
-        var item = window.dragData;
+        var items = window.dragData;
         this.element.removeClassName("drag-entered");
-        window.PlatformView.setTypeForFile(this.type, item);
+        console.log("Setting for " + items.length);
+        for (var i = 0; i < items.length; i++)
+            window.PlatformView.setTypeForFile(this.type, items[i]);
     },
 
     _unreadCount: 0,
@@ -162,6 +164,7 @@ function selectMasterElementNamed(name)
             if (!window._moviesCategoryDetailList)
                 window._moviesCategoryDetailList = new ListView(CocoaObject.windowCocoaObject(), "moviesArrayController.arrangedObjects", MediaDBView);
             list = window._moviesCategoryDetailList;
+            list._selectionHeight = 200;
             break;
         case "tvshows-category":
                 if (!window._showsArrayController) {
@@ -176,6 +179,7 @@ function selectMasterElementNamed(name)
                 if (!window._clipsCategoryDetailList)
                     window._clipsCategoryDetailList = new ListView(CocoaObject.windowCocoaObject(), "clipsArrayController.arrangedObjects", MediaDBView);
             list = window._clipsCategoryDetailList;
+            list._selectionHeight = 200;
             break;
         default:
             console.assert(0, "Should not be reached");
