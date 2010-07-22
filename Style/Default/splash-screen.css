@@ -372,7 +372,7 @@ select > option, select > hr {
 {
     height: 15px;
     width: 100%;
-    white-space:nowrap;
+    white-space: nowrap;
     font-size: 11px;
     color: #777;
     margin: 16px;
@@ -383,6 +383,7 @@ select > option, select > hr {
 
 .media-db-view.selected .short-summary
 {
+    white-space: normal;
     font-size: 12px;
     height: 74px;
     color: #000;
