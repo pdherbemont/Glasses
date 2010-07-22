@@ -10,6 +10,7 @@
 #import "VLCMediaDocument.h"
 
 @implementation VLCStyledVideoView
+@synthesize listCountString=_listCountString;
 - (void)dealloc
 {
     [_title release];

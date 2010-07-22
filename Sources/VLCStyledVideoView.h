@@ -24,6 +24,7 @@
 }
 
 @property (copy) NSString *windowTitle;
+@property (copy) NSString *listCountString;
 @property BOOL viewedPlaying;
 @property BOOL seekable;
 @property NSUInteger listCount;

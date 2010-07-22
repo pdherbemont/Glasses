@@ -648,7 +648,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
      */
     VLCAssert(!_allCookies, @"We would be leaking _allCookies");
     _allCookies = [[NSMutableArray alloc] init];
-    for (unsigned i = 0; i < CFArrayGetCount(elements); i++) {
+    for (CFIndex i = 0; i < CFArrayGetCount(elements); i++) {
         NSDictionary *element = (id)CFArrayGetValueAtIndex(elements, i);
 
         //Get cookie
@@ -656,7 +656,7 @@ static void QueueCallbackFunction(void* target,  IOReturn result, void* refcon, 
         if (!object || ![object isKindOfClass:[NSNumber class]])
             continue;
 
-        IOHIDElementCookie cookie = (IOHIDElementCookie) [object intValue];
+        IOHIDElementCookie cookie = (IOHIDElementCookie) [object pointerValue];
 
 #if 0
         // Left over for documentation purpose.

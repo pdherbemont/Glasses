@@ -49,7 +49,6 @@ static BOOL watchForStyleModification(void)
 @synthesize isFrameLoaded=_isFrameLoaded;
 @synthesize hasLoadedAFirstFrame=_hasLoadedAFirstFrame;
 @synthesize pluginName=_pluginName;
-@synthesize listCountString=_listCountString;
 
 - (void)dealloc
 {

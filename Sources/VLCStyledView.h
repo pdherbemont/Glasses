@@ -91,8 +91,6 @@ CATCH_EXCEPTION return a;
 
 @property (readonly) BOOL isFrameLoaded;
 
-@property (readwrite, retain) NSString *listCountString;
-
 /**
  * -setup has been called, and we have been loading
  * one first frame.

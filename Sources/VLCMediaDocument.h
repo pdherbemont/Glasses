@@ -37,6 +37,7 @@
     BOOL _isSharedOnLAN;
     BOOL _repeatCurrentItem;
     BOOL _repeatAllItems;
+    NSArrayController *_currentArrayController;
 }
 
 - (id)initWithMediaList:(VLCMediaList *)mediaList andName:(NSString *)name;
