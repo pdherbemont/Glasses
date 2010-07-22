@@ -198,7 +198,13 @@
 {
     FROM_JS();
     id object = [webobject valueForKey:@"backendObject"];
-    NSString *name = [object valueForKey:@"title"];
+    NSString *name;
+    BOOL isShowEpisode = [object isKindOfClass:[ShowEpisode class]];
+    if (isShowEpisode)
+        name = [object valueForKey:@"name"];
+    else
+        name = [object valueForKey:@"title"];
+
     NSAlert *alert = [NSAlert alertWithMessageText:@"Remove an item"
                                      defaultButton:@"Cancel"
                                    alternateButton:@"Remove"
@@ -207,8 +213,12 @@
     NSUInteger btn = [alert runModal];
     if (btn != 0)
         return NO;
-    [object setValue:@"hidden" forKey:@"type"];
-    [object setValue:[NSSet set] forKey:@"labels"];
+    if (isShowEpisode) {
+        [object setValue:[NSNumber numberWithBool:NO] forKey:@"shouldBeDisplayed"];
+    } else {
+        [object setValue:@"hidden" forKey:@"type"];
+        [object setValue:[NSSet set] forKey:@"labels"];
+    }
     RETURN_VALUE_TO_JS(YES);
 }
 
