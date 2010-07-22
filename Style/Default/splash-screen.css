@@ -277,7 +277,7 @@ select > option, select > hr {
 
     -webkit-user-drag: element;
 
-    height: 44px;
+    height: 80px;
     -webkit-transition: height ease-in-out 0.2s;
 
     position: relative;
@@ -340,8 +340,8 @@ select > option, select > hr {
     top: 5px;
     bottom: 5px;
     left: 5px;
-    width: 21px;
-    max-height: 32px;
+    max-height: 80px;
+    width: 50px;
 
     -webkit-transition: all ease-in-out 0.2s;
 }
@@ -370,14 +370,23 @@ select > option, select > hr {
 
 .media-db-view .short-summary
 {
-    height: 74px;
-    font-size: 12px;
-    color: #000;
-    text-shadow:  #eee 0px 1px 0px;
+    height: 15px;
+    width: 100%;
+    white-space:nowrap;
+    font-size: 11px;
+    color: #777;
     margin: 16px;
     margin-top: 0px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.media-db-view.selected .short-summary
+{
+    font-size: 12px;
+    height: 74px;
+    color: #000;
+    text-shadow:  #eee 0px 1px 0px;
 }
 
 .selected {
