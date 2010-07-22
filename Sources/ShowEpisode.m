@@ -23,11 +23,11 @@
 
 - (void)setUnread:(NSNumber *)unread
 {
-    NSLog(@"Setting unread %@", unread);
     [self willChangeValueForKey:@"unread"];
     [self setPrimitiveUnread:unread];
     [self didChangeValueForKey:@"unread"];
     [[[VLCLMediaLibrary sharedMediaLibrary] managedObjectContext] refreshObject:[self show] mergeChanges:YES];
+    [[[VLCLMediaLibrary sharedMediaLibrary] managedObjectContext] refreshObject:self mergeChanges:YES];
 }
 
 @dynamic theTVDBID;
