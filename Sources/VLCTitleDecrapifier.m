@@ -62,25 +62,27 @@ static inline NSNumber *numberFromTwoChars(char high, char low)
 
 + (NSDictionary *)tvShowEpisodeInfoFromString:(NSString *)string
 {
-    const char *str = [[string lowercaseString] UTF8String];
+    if (string && ![string isEqualToString:[NSString string]] && [string length] != 0)
+    {
+        const char *str = [[string lowercaseString] UTF8String];
 
-    // Search for s01e10.
-    for (unsigned i = 0; str[i]; i++) {
-        if (str[i] == 's' &&
-            isDigit(str[i+1]) &&
-            isDigit(str[i+2]) &&
-            str[i+3] == 'e' &&
-            isDigit(str[i+4]) &&
-            isDigit(str[i+5]))
-        {
-            NSNumber *season = numberFromTwoChars(str[i+1], str[i+2]);
-            NSNumber *episode = numberFromTwoChars(str[i+4], str[i+5]);
-            NSString *tvShowName = i > 0 ? [[string lowercaseString] substringToIndex:i-1] : nil;
-            tvShowName = tvShowName ? [[VLCTitleDecrapifier decrapify:tvShowName] capitalizedString] : nil;
-            return [NSDictionary dictionaryWithObjectsAndKeys:season, @"season", episode, @"episode", tvShowName, @"tvShowName", nil];
+        // Search for s01e10.
+        for (unsigned i = 0; str[i]; i++) {
+            if (str[i] == 's' &&
+                isDigit(str[i+1]) &&
+                isDigit(str[i+2]) &&
+                str[i+3] == 'e' &&
+                isDigit(str[i+4]) &&
+                isDigit(str[i+5]))
+            {
+                NSNumber *season = numberFromTwoChars(str[i+1], str[i+2]);
+                NSNumber *episode = numberFromTwoChars(str[i+4], str[i+5]);
+                NSString *tvShowName = i > 0 ? [[string lowercaseString] substringToIndex:i-1] : nil;
+                tvShowName = tvShowName ? [[VLCTitleDecrapifier decrapify:tvShowName] capitalizedString] : nil;
+                return [NSDictionary dictionaryWithObjectsAndKeys:season, @"season", episode, @"episode", tvShowName, @"tvShowName", nil];
+            }
         }
     }
     return nil;
-
 }
 @end
