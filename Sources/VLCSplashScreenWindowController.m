@@ -34,8 +34,6 @@
 @end
 #endif
 
-static NSMutableArray * availableMediaDiscoverer = nil;     // Global list of media discoverers
-
 @implementation VLCSplashScreenWindowController
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
 @synthesize hasSelection=_hasSelection;

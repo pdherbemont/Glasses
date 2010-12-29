@@ -37,6 +37,8 @@
     IBOutlet NSArrayController *_tvShowEpisodesArrayController;
     IBOutlet NSArrayController *_labelsArrayController;
 
+    NSArray *availableMediaDiscoverer;
+
 #if !ENABLE_EXTENDED_SPLASH_SCREEN
     IBOutlet NSCollectionView *_unfinishedItemsCollection;
     IBOutlet NSCollectionView *_mediaDiscoverCollection;
