@@ -131,8 +131,6 @@
 		63161CB910CAC68A0091974E /* hud.js in Resources */ = {isa = PBXBuildFile; fileRef = 63161BF210CAC3EF0091974E /* hud.js */; };
 		63161CBA10CAC68A0091974E /* PlaylistController.js in Resources */ = {isa = PBXBuildFile; fileRef = 63161BF310CAC3EF0091974E /* PlaylistController.js */; };
 		631AF8291095DAA900F8ED1A /* VLCWebBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AF8281095DAA900F8ED1A /* VLCWebBindingsController.m */; };
-		631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
-		631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		633119D1117DDA6400C21FD6 /* volume_low.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CD117DDA6400C21FD6 /* volume_low.png */; };
 		633119D2117DDA6400C21FD6 /* volumeslider_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CE117DDA6400C21FD6 /* volumeslider_blue.png */; };
 		633119D3117DDA6400C21FD6 /* volumeslider_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 633119CF117DDA6400C21FD6 /* volumeslider_graphite.png */; };
@@ -232,7 +230,6 @@
 		CC29B38911529E4500BD4CA1 /* Default.lunettesstyle in Copy lunettesstyle Plugins */ = {isa = PBXBuildFile; fileRef = 639F68401046E98400117832 /* Default.lunettesstyle */; };
 		CC29B38B11529E4500BD4CA1 /* BWToolkitFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFE8A6710E6F2DA00FD5ACD /* BWToolkitFramework.framework */; };
 		CC29B38C11529E4500BD4CA1 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
-		CC29B38D11529E4500BD4CA1 /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		CC29B38F11529E4500BD4CA1 /* pause_embedded.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAC80FF85AC0004BC7D1 /* pause_embedded.png */; };
 		CC29B39011529E4500BD4CA1 /* pause_embedded_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DAC90FF85AC0004BC7D1 /* pause_embedded_blue.png */; };
 		CC29B39111529E4500BD4CA1 /* pause_embedded_graphite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6311DACA0FF85AC0004BC7D1 /* pause_embedded_graphite.png */; };
@@ -325,7 +322,6 @@
 		CC29B3E911529E4500BD4CA1 /* VLCSplashScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = 639FDAC81117863E007EE416 /* VLCSplashScreenView.m */; };
 		CC29B3EA11529E4500BD4CA1 /* VLCStyledVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 639271F7112B567C00DD9323 /* VLCStyledVideoView.m */; };
 		CC29B3EB11529E4500BD4CA1 /* VLCDVDDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 326F9CF01125C3C9006117C7 /* VLCDVDDiscoverer.m */; };
-		CC29B3ED11529E4500BD4CA1 /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631CA0DA0FF8645100CA511E /* VLCKit.framework */; };
 		CC29B3EE11529E4500BD4CA1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
 		CC29B3EF11529E4500BD4CA1 /* ExceptionHandling.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */; };
 		CC29B3F011529E4500BD4CA1 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC56641D103C9F5900FEA1D3 /* Sparkle.framework */; };
@@ -347,6 +343,8 @@
 		CC73DEBD10F0F669001FEFE4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC73DEBC10F0F669001FEFE4 /* WebKit.framework */; };
 		CC73DED310F0F6A0001FEFE4 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC73DED210F0F6A0001FEFE4 /* JavaScriptCore.framework */; };
 		CC74565410EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CC74565310EEB8DE00AAB0F3 /* VLCCompatibilityAdditions.m */; };
+		CC947ECD12CBD8CD00FD79B0 /* VLCKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = CC947EB212CBD82E00FD79B0 /* VLCKit.framework */; };
+		CC947EEF12CBD9A700FD79B0 /* VLCKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC947EB212CBD82E00FD79B0 /* VLCKit.framework */; };
 		CCABE883107F6230004A471E /* VLCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABE882107F6230004A471E /* VLCApplication.m */; };
 		CCABE8CC107F664B004A471E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCABE8CB107F664B004A471E /* IOKit.framework */; };
 		CCABEBA8107FD06B004A471E /* AppleRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = CCABEBA7107FD06B004A471E /* AppleRemote.m */; };
@@ -356,13 +354,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		631CA0D90FF8645100CA511E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = VLCKit;
-		};
 		635D17B6104C34D400D34A87 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
@@ -419,6 +410,13 @@
 			remoteGlobalIDString = 639F725D1047548200117832;
 			remoteInfo = Black.lunettesstyle;
 		};
+		CC947EB112CBD82E00FD79B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* VLCKit.framework */;
+			remoteInfo = VLCKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -462,9 +460,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				CC947ECD12CBD8CD00FD79B0 /* VLCKit.framework in Copy Frameworks */,
 				4AFE8A7010E6F34800FD5ACD /* BWToolkitFramework.framework in Copy Frameworks */,
 				CC566421103C9F6300FEA1D3 /* Sparkle.framework in Copy Frameworks */,
-				631CA0E80FF864EE00CA511E /* VLCKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,7 +509,6 @@
 			files = (
 				CC29B38B11529E4500BD4CA1 /* BWToolkitFramework.framework in Copy Frameworks */,
 				CC29B38C11529E4500BD4CA1 /* Sparkle.framework in Copy Frameworks */,
-				CC29B38D11529E4500BD4CA1 /* VLCKit.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -795,7 +792,7 @@
 		63E3F0271144EAAE00A62577 /* remove-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "remove-on.png"; path = "Style/Default/remove-on.png"; sourceTree = "<group>"; };
 		63E3F0281144EAAE00A62577 /* remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remove.png; path = Style/Default/remove.png; sourceTree = "<group>"; };
 		63E3F34211453CDB00A62577 /* playback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playback.png; sourceTree = "<group>"; };
-		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = ../vlc/projects/macosx/framework/VLCKit.xcodeproj; sourceTree = SOURCE_ROOT; };
+		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = "../vlc-1.1/projects/macosx/framework/VLCKit.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
 		63F161F910D1BBAC003B99BE /* Authors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Authors.txt; path = Resources/Authors.txt; sourceTree = "<group>"; };
 		63F161FD10D1BBD2003B99BE /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = Resources/License.txt; sourceTree = "<group>"; };
@@ -845,7 +842,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				631CA0DF0FF8647700CA511E /* VLCKit.framework in Frameworks */,
+				CC947EEF12CBD9A700FD79B0 /* VLCKit.framework in Frameworks */,
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				63EF25D50F90FDBF002A2E14 /* ExceptionHandling.framework in Frameworks */,
 				CC56641E103C9F5900FEA1D3 /* Sparkle.framework in Frameworks */,
@@ -862,7 +859,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC29B3ED11529E4500BD4CA1 /* VLCKit.framework in Frameworks */,
 				CC29B3EE11529E4500BD4CA1 /* Cocoa.framework in Frameworks */,
 				CC29B3EF11529E4500BD4CA1 /* ExceptionHandling.framework in Frameworks */,
 				CC29B3F011529E4500BD4CA1 /* Sparkle.framework in Frameworks */,
@@ -1221,14 +1217,6 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		631CA0D20FF8645100CA511E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				631CA0DA0FF8645100CA511E /* VLCKit.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		63635C7B11922EA900A348A6 /* Movie and TV Grabbers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1448,6 +1436,14 @@
 			name = "Non-document windows";
 			sourceTree = "<group>";
 		};
+		CC947EA912CBD82E00FD79B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC947EB212CBD82E00FD79B0 /* VLCKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1574,12 +1570,19 @@
 			isa = PBXProject;
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Lunettes" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Lunettes */;
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 631CA0D20FF8645100CA511E /* Products */;
+					ProductGroup = CC947EA912CBD82E00FD79B0 /* Products */;
 					ProjectRef = 63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */;
 				},
 			);
@@ -1596,11 +1599,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		631CA0DA0FF8645100CA511E /* VLCKit.framework */ = {
+		CC947EB212CBD82E00FD79B0 /* VLCKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = VLCKit.framework;
-			remoteRef = 631CA0D90FF8645100CA511E /* PBXContainerItemProxy */;
+			remoteRef = CC947EB112CBD82E00FD79B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
