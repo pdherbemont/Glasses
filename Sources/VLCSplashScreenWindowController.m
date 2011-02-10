@@ -90,7 +90,6 @@
     {
         availableMediaDiscoverer = [[NSArray arrayWithObjects:
                                      [[[VLCMediaDiscoverer alloc] initWithName:@"sap"] autorelease],
-                                     [[[VLCMediaDiscoverer alloc] initWithName:@"upnp_intel"] autorelease],
                                      [[[VLCMediaDiscoverer alloc] initWithName:@"freebox"] autorelease],
                                      [[[VLCDVDDiscoverer alloc] init] autorelease],nil] retain];
     }
