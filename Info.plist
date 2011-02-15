@@ -46,7 +46,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>filled by Set Git Version Script Phase</string>
+	<string>9.0</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.6</string>
 	<key>NSHumanReadableCopyright</key>
@@ -58,7 +58,7 @@
 	<key>NSSupportsSuddenTermination</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>http://jones.videolan.org/~videolan/fpk/sparkle/lunettes.xml</string>
+	<string>http://update.videolan.org/vlc/sparkle/lunettes.xml</string>
 	<key>SUPublicDSAKeyFile</key>
 	<string>dsa_pub.pem</string>
 	<key>UTExportedTypeDeclarations</key>
