@@ -792,7 +792,7 @@
 		63E3F0271144EAAE00A62577 /* remove-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "remove-on.png"; path = "Style/Default/remove-on.png"; sourceTree = "<group>"; };
 		63E3F0281144EAAE00A62577 /* remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = remove.png; path = Style/Default/remove.png; sourceTree = "<group>"; };
 		63E3F34211453CDB00A62577 /* playback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playback.png; sourceTree = "<group>"; };
-		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = "../vlc-1.1/projects/macosx/framework/VLCKit.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		63EF1FBD0F904E3A002A2E14 /* VLCKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VLCKit.xcodeproj; path = ../vlc/projects/macosx/framework/VLCKit.xcodeproj; sourceTree = SOURCE_ROOT; };
 		63EF25D40F90FDBF002A2E14 /* ExceptionHandling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExceptionHandling.framework; path = /System/Library/Frameworks/ExceptionHandling.framework; sourceTree = "<absolute>"; };
 		63F161F910D1BBAC003B99BE /* Authors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Authors.txt; path = Resources/Authors.txt; sourceTree = "<group>"; };
 		63F161FD10D1BBD2003B99BE /* License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = License.txt; path = Resources/License.txt; sourceTree = "<group>"; };
